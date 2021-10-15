@@ -22,7 +22,7 @@
 	syntaxHighlighting.enable = true;
   };
 
-  networking.hostName = "lyndon-xps"; # Define your hostname.
+  networking.hostName = "neo"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
