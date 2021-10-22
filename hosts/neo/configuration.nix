@@ -94,8 +94,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-	gutenprint
-	cups-bjnp
+    gutenprint
+    cups-bjnp
   ];
 
   # Enable sound.
@@ -104,10 +104,10 @@
 
   security.rtkit.enable = true;
   services.pipewire = {
-	enable = true;
-	alsa.enable = true;
-	alsa.support32Bit = true;
-	pulse.enable = true;
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   services.fstrim.enable = true;
