@@ -17,9 +17,15 @@ in
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [
+	"i915.enable_fbc=1"
+	"i915.enable_psr=2"
+  ];
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.intel.updateMicrocode = true;
 
   boot.initrd.luks.devices = {
 	cryptkey = {
@@ -34,6 +40,17 @@ in
 		keyFile = "/dev/mapper/cryptkey";
 	};
   };
+
+  # Graphics
+  services.xserver.videoDrivers = [ "modesetting" ];
+  services.xserver.useGlamor = true;
+  hardware.opengl.extraPackages = with pkgs; [
+	intel-compute-runtime
+	vaapiIntel
+	vaapiVdpau
+	libvdpau-va-gl
+  ];
+  hardware.opengl.driSupport = true;
 
   fileSystems = {
 	  "/" = rootSubvol "root";

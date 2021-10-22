@@ -119,6 +119,8 @@
   users.users.lsanche = {
     isNormalUser = true;
     description = "Lyndon Sanche <lsanche@lyndeno.ca>";
+    home = "/home/lsanche";
+    uid = 1000;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
