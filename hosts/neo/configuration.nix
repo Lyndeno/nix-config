@@ -146,6 +146,10 @@
     zathura
     pavucontrol
     git
+    gcc
+    clang
+    gnupg
+    pinentry-curses
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
