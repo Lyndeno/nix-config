@@ -16,10 +16,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   programs.zsh = {
-	enable = true;
-	enableCompletion = true;
-	autosuggestions.enable = true;
-	syntaxHighlighting.enable = true;
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
   };
 
   networking.hostName = "neo"; # Define your hostname.
@@ -67,39 +67,39 @@
 
 
   programs.sway = {
-	enable = true;
-	wrapperFeatures.gtk = true;
-	extraPackages = with pkgs; [
-		swaylock
-		swayidle
-		wl-clipboard
-		mako
-		alacritty
-		dmenu
-    waybar
-	];
+    enable = true;
+    wrapperFeatures.gtk = true;
+    extraPackages = with pkgs; [
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      alacritty
+      dmenu
+      waybar
+    ];
   };
 
   services = {
-	syncthing = {
-		enable = true;
-		user = "lsanche";
-		dataDir = "/home/lsanche";
-		configDir= "/home/lsanche/.config/syncthing";
-	};
-	# Must create .snapshots subvolume in root of snapshotted subvolume
-	snapper = {
-		configs = {
-			home = {
-				subvolume = "/home";
-				extraConfig = ''
-					ALLOW_USERS="lsanche"
-					TIMELINE_CREATE=yes
-					TIMELINE_CLEANUP=yes
-				'';
-				};
-		};
-	};
+    syncthing = {
+      enable = true;
+      user = "lsanche";
+      dataDir = "/home/lsanche";
+      configDir= "/home/lsanche/.config/syncthing";
+    };
+    # Must create .snapshots subvolume in root of snapshotted subvolume
+    snapper = {
+      configs = {
+        home = {
+          subvolume = "/home";
+          extraConfig = ''
+            ALLOW_USERS="lsanche"
+            TIMELINE_CREATE=yes
+            TIMELINE_CLEANUP=yes
+          '';
+          };
+      };
+    };
   };
   
 
