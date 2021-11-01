@@ -34,6 +34,16 @@
   networking.useDHCP = false;
   networking.interfaces.wlp2s0.useDHCP = true;
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -43,6 +53,11 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
   };
 
   # Enable the X11 windowing system.
@@ -61,6 +76,7 @@
 		mako
 		alacritty
 		dmenu
+    waybar
 	];
   };
 
@@ -132,22 +148,13 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     firefox-wayland
-    neofetch
     libnotify
-    starship
-    exa
-    bat
     pueue
-    jq
-    texlive.combined.scheme-full
-    rustup
-    bottom
-    spotify
-    zathura
-    pavucontrol
+    #texlive.combined.scheme-full
+    #rustup
     git
-    gcc
-    clang
+    #gcc
+    #clang
     gnupg
     pinentry-curses
   ];
