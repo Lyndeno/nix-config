@@ -26,6 +26,15 @@
       openDefaultPorts = true;
     };
   };
+  programs.gnupg.agent = {
+	  enable = true;
+	  enableSSHSupport = true;
+	  pinentryFlavor = "gtk2";
+  };
+
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+  ];
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -35,5 +44,20 @@
     git
     gnupg
     pinentry-curses
+    neofetch
+    starship
+    exa
+    bat
+    jq
+    bottom
+    spotify
+    zathura
+    pavucontrol
+    signal-desktop
+    vscode
+    alacritty
+    yadm
+	brightnessctl
+	papirus-icon-theme
   ];
 }

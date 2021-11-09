@@ -39,7 +39,7 @@ in
             wl-clipboard
             mako
             alacritty
-            dmenu
+			wofi
             waybar
         ];
     };
