@@ -25,16 +25,20 @@
       configDir= "/home/lsanche/.config/syncthing";
       openDefaultPorts = true;
     };
+	# verify this is where this should be
+	gnome.gnome-keyring.enable = true;
   };
   programs.gnupg.agent = {
 	  enable = true;
 	  enableSSHSupport = true;
-	  pinentryFlavor = "gtk2";
+	  pinentryFlavor = "gnome3";
   };
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
+
+  services.gvfs.enable = true; # for nautilus
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -59,5 +63,9 @@
     yadm
 	brightnessctl
 	papirus-icon-theme
+	pulseaudio # for pactl
+	gnome.nautilus
+	gnome.seahorse
+	xdg-utils
   ];
 }

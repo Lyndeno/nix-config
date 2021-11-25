@@ -15,15 +15,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.greetd = {
-        enable = true;
-        settings = {
-        default_session = {
-            command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-            user = "greeter";
-        };
-        };
-    };
+	services.xserver.enable = true;
+	services.xserver.displayManager.gdm = {
+		enable = true;
+		wayland = true;
+	};
 
     xdg.portal = {
         enable = true;
