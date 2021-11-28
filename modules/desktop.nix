@@ -73,6 +73,7 @@ in
         papirus-icon-theme
         gnome.nautilus
         gnome.seahorse
+		libnotify
     ];
   };
 }
