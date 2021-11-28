@@ -16,6 +16,7 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     initialPassword = "lsanche";
     openssh.authorizedKeys.keyFiles = [ keys/neo.pub ];
+	shell = pkgs.zsh;
   };
 
   services.openssh.enable = true;
@@ -36,6 +37,12 @@
 	  pinentryFlavor = "gnome3";
   };
 
+  programs.zsh = {
+	enable = true;
+	autosuggestions.enable = true;
+	syntaxHighlighting.enable = true;
+  };
+
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -54,5 +61,6 @@
     brightnessctl
     pulseaudio # for pactl
     xdg-utils
+	fzf
   ];
 }

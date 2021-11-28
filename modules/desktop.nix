@@ -42,6 +42,7 @@ in
         extraSessionCommands = ''
             eval $(gnome-keyring-daemon --start --daemonize)
             export SSH_AUTH_SOCK
+			source ~/.profile
         '';
     };
 
