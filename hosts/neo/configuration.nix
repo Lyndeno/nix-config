@@ -23,6 +23,9 @@
   networking.interfaces.wlp2s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.packages = [
+    pkgs.networkmanager-openvpn
+  ];
 
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume

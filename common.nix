@@ -20,6 +20,12 @@
   };
 
   services.openssh.enable = true;
+  services.openvpn.servers = {
+    pia-vancouver = {
+      autoStart = false;
+      config = "config /etc/nixos/vpn/pia-vancouver.ovpn";
+    };
+  };
 
   services = {
     syncthing = {
