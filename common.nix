@@ -15,7 +15,10 @@
     uid = 1000;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     initialPassword = "lsanche";
+    openssh.authorizedKeys.keyFiles = [ keys/neo.pub ];
   };
+
+  services.openssh.enable = true;
 
   services = {
     syncthing = {
@@ -25,20 +28,13 @@
       configDir= "/home/lsanche/.config/syncthing";
       openDefaultPorts = true;
     };
-	# verify this is where this should be
-	gnome.gnome-keyring.enable = true;
   };
+
   programs.gnupg.agent = {
 	  enable = true;
-	  enableSSHSupport = true;
+	  #enableSSHSupport = true;
 	  pinentryFlavor = "gnome3";
   };
-
-  fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-  ];
-
-  services.gvfs.enable = true; # for nautilus
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -54,18 +50,9 @@
     bat
     jq
     bottom
-    spotify
-    zathura
-    pavucontrol
-    signal-desktop
-    vscode
-    alacritty
     yadm
-	brightnessctl
-	papirus-icon-theme
-	pulseaudio # for pactl
-	gnome.nautilus
-	gnome.seahorse
-	xdg-utils
+    brightnessctl
+    pulseaudio # for pactl
+    xdg-utils
   ];
 }
