@@ -16,16 +16,10 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     initialPassword = "lsanche";
     openssh.authorizedKeys.keyFiles = [ keys/neo.pub ];
-	shell = pkgs.zsh;
+    shell = pkgs.zsh;
   };
 
   services.openssh.enable = true;
-  services.openvpn.servers = {
-    pia-vancouver = {
-      autoStart = false;
-      config = "config /etc/nixos/vpn/pia-vancouver.ovpn";
-    };
-  };
 
   services = {
     syncthing = {
