@@ -10,7 +10,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lsanche = {
     isNormalUser = true;
-    description = "Lyndon Sanche <lsanche@lyndeno.ca>";
+    description = "Lyndon Sanche";
     home = "/home/lsanche";
     uid = 1000;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
