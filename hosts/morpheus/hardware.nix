@@ -28,6 +28,7 @@ in
     "/nix" = rootSubvol "nix";
     "/var/log" = rootSubvol "log";
     "/srv/torrents" = rootSubvol "torrents";
+    "/srv/plex" = rootSubvol "plex";
     "/boot" =
         { device = "/dev/disk/by-uuid/3F5E-1123";
           fsType = "vfat";

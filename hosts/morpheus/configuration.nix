@@ -28,6 +28,13 @@
 
   networking.networkmanager.enable = true;
 
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+    dataDir = "/srv/plex";
+    group = "media";
+  };
+
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
     snapper = {
