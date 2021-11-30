@@ -10,6 +10,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 3;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.consoleMode = "max";
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
