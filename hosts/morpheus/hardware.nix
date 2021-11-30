@@ -32,6 +32,12 @@ in
         { device = "/dev/disk/by-uuid/3F5E-1123";
           fsType = "vfat";
         };
+    "/data/mirror" = 
+      {
+        device = "/dev/disk/by-uuid/155d647d-ca6e-4b08-8c88-9cc2a49c9a5d";
+        fsType = "btrfs";
+        options = [ "noatime" "compress=zstd" "subvol=@toplevel" ];
+      };
   };
 
   swapDevices =
