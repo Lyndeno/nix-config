@@ -7,13 +7,17 @@
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
+
+  users.groups = {
+    media = {}; # for torrents and plex
+  };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lsanche = {
     isNormalUser = true;
     description = "Lyndon Sanche";
     home = "/home/lsanche";
     uid = 1000;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "media" ]; # Enable ‘sudo’ for the user.
     initialPassword = "lsanche";
     openssh.authorizedKeys.keyFiles = [ keys/neo.pub ];
     shell = pkgs.zsh;

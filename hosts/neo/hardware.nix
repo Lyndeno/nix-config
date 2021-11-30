@@ -58,6 +58,7 @@ in
 	  "/root" = rootSubvol "home/root";
 	  "/nix" = rootSubvol "nix";
 	  "/var/log" = rootSubvol "log";
+	  "/srv/torrents" = rootSubvol "torrents";
 	  "/boot" =
 	    {
 	      device = "/dev/disk/by-uuid/6BB6-C135";
