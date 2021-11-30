@@ -2,7 +2,14 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-
+let
+	rootSubvol = subvol:
+	{
+		device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
+		fsType = "btrfs";
+		options = [ "noatime" "compress=zstd" "subvol=${subvol}" ];
+	};
+in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -14,46 +21,18 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
-      fsType = "btrfs";
-      options = [ "subvol=root" "noatime" "compress=zstd" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3F5E-1123";
-      fsType = "vfat";
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
-      fsType = "btrfs";
-      options = [ "subvol=home" "noatime" "compress=zstd" ];
-    };
-
-  fileSystems."/root" =
-    { device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
-      fsType = "btrfs";
-      options = [ "subvol=home/root" "noatime" "compress=zstd" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
-      fsType = "btrfs";
-      options = [ "subvol=log" "noatime" "compress=zstd" ];
-    };
-
-  fileSystems."/srv/torrents" =
-    { device = "/dev/disk/by-uuid/545b7cd0-e18b-494c-8d26-1ee1392db5ab";
-      fsType = "btrfs";
-      options = [ "subvol=torrents" "noatime" "compress=zstd" ];
-    };
+  fileSystems = {
+    "/" = rootSubvol "root";
+    "/home" = rootSubvol "home";
+    "/root" = rootSubvol "home/root";
+    "/nix" = rootSubvol "nix";
+    "/var/log" = rootSubvol "log";
+    "/srv/torrents" = rootSubvol "torrents";
+    "/boot" =
+        { device = "/dev/disk/by-uuid/3F5E-1123";
+          fsType = "vfat";
+        };
+  };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/4171064c-a4f5-4233-baee-c9de03c2df81"; }
