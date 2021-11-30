@@ -43,9 +43,12 @@ in
             eval $(gnome-keyring-daemon --start --daemonize)
             export SSH_AUTH_SOCK
 			source ~/.profile
+            export GIO_EXTRA_MODULES="$GIO_EXTRA_MODULES:${pkgs.gnome.gvfs}/lib/gio/modules"
         '';
+            #export > /tmp/sway.txt
     };
 
+    hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
         enable = true;
@@ -62,6 +65,7 @@ in
 	services.gnome.gnome-keyring.enable = true;
 
     services.gvfs.enable = true; # for nautilus
+    programs.seahorse.enable = true;
 
     environment.systemPackages = with pkgs; [
         firefox-wayland
@@ -73,8 +77,9 @@ in
         alacritty
         papirus-icon-theme
         gnome.nautilus
-        gnome.seahorse
+        #gnome.seahorse
 		libnotify
+        glib
     ];
   };
 }
