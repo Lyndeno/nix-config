@@ -42,7 +42,7 @@ in
         extraSessionCommands = ''
             eval $(gnome-keyring-daemon --start --daemonize)
             export SSH_AUTH_SOCK
-			source ~/.profile
+			source ~/.profile || true
             export GIO_EXTRA_MODULES="$GIO_EXTRA_MODULES:${pkgs.gnome.gvfs}/lib/gio/modules"
         '';
             #export > /tmp/sway.txt
