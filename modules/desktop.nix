@@ -80,6 +80,7 @@ in
         #gnome.seahorse
 		libnotify
         glib
+        capitaine-cursors
     ];
   };
 }
