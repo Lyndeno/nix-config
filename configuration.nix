@@ -6,5 +6,6 @@
     ./modules/desktop.nix
     ./modules/pia-vpn.nix
     ./modules/torrents.nix
+    ./modules/gaming.nix
   ];
 }
