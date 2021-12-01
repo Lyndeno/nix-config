@@ -7,17 +7,23 @@
 {
   networking.hostName = "morpheus"; # Define your hostname.
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 3;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.consoleMode = "max";
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      consoleMode = "max";
+    };
+    timeout = 3;
+    consoleMode = "max";
+  };
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
-  modules.desktop.enable = true;
-  modules.pia-vpn.enable = true;
-  modules.gaming.enable = true;
+  modules = {
+    desktop.enable = true;
+    pia-vpn.enable = true;
+    gaming.enable = true;
+  };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -26,13 +32,6 @@
   #networking.interfaces.wlp2s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
-
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-    dataDir = "/srv/plex";
-    group = "media";
-  };
 
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
@@ -48,6 +47,13 @@
           };
       };
     };
+
+    plex = {
+      enable = true;
+      openFirewall = true;
+      dataDir = "/srv/plex";
+      group = "media";
+    };
   };
   
   # Enable CUPS to print documents.
@@ -57,29 +63,7 @@
     cups-bjnp
   ];
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
   services.fstrim.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  #environment.systemPackages = with pkgs; [
-  #];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
