@@ -7,5 +7,6 @@
     ./modules/pia-vpn.nix
     ./modules/torrents.nix
     ./modules/gaming.nix
+    ./services/snapper-home.nix
   ];
 }

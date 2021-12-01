@@ -31,18 +31,7 @@
 
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
-    snapper = {
-      configs = {
-        home = {
-          subvolume = "/home";
-          extraConfig = ''
-            ALLOW_USERS="lsanche"
-            TIMELINE_CREATE=yes
-            TIMELINE_CLEANUP=yes
-          '';
-          };
-      };
-    };
+    snapper-home.enable = true;
   };
   
   # Enable CUPS to print documents.
