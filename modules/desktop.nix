@@ -73,7 +73,15 @@ in
         zathura
         pavucontrol
         signal-desktop
-        vscode
+        (symlinkJoin {
+            name = "vscode";
+            paths = [ vscode ];
+            buildInputs = [ makeWrapper ];
+            postBuild = ''
+                wrapProgram $out/bin/code \
+                --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+            '';
+        })
         alacritty
         papirus-icon-theme
         gnome.nautilus
