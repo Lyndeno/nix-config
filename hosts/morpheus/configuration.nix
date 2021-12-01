@@ -13,7 +13,7 @@
       consoleMode = "max";
     };
     timeout = 3;
-    consoleMode = "max";
+    efi.canTouchEfiVariables = true;
   };
 
   # Set your time zone.
