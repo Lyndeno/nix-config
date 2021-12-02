@@ -16,6 +16,15 @@ in
               minecraft = {
                 enable = mkOption {type = types.bool; default = true; };
               };
+              emulation = {
+                enable = mkOption {type = types.bool; default = true; };
+                wii = {
+                  enable = mkOption {type = types.bool; default = true; };
+                };
+                gamecube = {
+                  enable = mkOption {type = types.bool; default = true; };
+                };
+              };
           };
       };
   };
@@ -23,8 +32,12 @@ in
   config = mkIf cfg.enable {
     programs.steam.enable = cfg.steam.enable;
 
-    environment.systemPackages = mkIf cfg.minecraft.enable [
-      pkgs.minecraft
-    ];
+    environment.systemPackages = with cfg; (mkMerge [
+      (mkIf minecraft.enable [ pkgs.minecraft ])
+      (with emulation; mkIf enable ( mkMerge [
+        (mkIf wii.enable [ pkgs.dolphin-emu-beta ])
+        (mkIf gamecube.enable [ pkgs.dolphin-emu-beta ])
+        ]))
+    ]);
   };
 }
