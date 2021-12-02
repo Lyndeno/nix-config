@@ -85,10 +85,10 @@ in
         alacritty
         papirus-icon-theme
         gnome.nautilus
-        #gnome.seahorse
 		libnotify
         glib
         capitaine-cursors
+        discord
     ];
   };
 }
