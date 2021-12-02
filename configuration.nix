@@ -8,5 +8,6 @@
     ./modules/services/torrents.nix
     ./modules/programs/gaming.nix
     ./modules/services/snapper-home.nix
+    ./modules/printers.nix
   ];
 }
