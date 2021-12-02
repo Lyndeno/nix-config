@@ -11,6 +11,7 @@
     systemd-boot = {
       enable = true;
       consoleMode = "max";
+      configurationLimit = 25;
     };
     timeout = 3;
     efi.canTouchEfiVariables = true;
