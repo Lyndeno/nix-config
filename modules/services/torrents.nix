@@ -3,14 +3,16 @@
 with lib;
 
 let
-  cfg = config.modules.torrents;
+  cfg = config.modules.services.torrents;
 in
 {
   options = {
       modules = {
+        services = {
           torrents = {
               enable = mkOption {type = types.bool; default = false; };
           };
+        };
       };
   };
 

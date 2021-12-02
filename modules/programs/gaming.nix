@@ -3,11 +3,12 @@
 with lib;
 
 let
-  cfg = config.modules.gaming;
+  cfg = config.modules.programs.gaming;
 in
 {
   options = {
       modules = {
+        programs = {
           gaming = {
               enable = mkOption {type = types.bool; default = false; };
               steam = {
@@ -26,6 +27,7 @@ in
                 };
               };
           };
+        };
       };
   };
 

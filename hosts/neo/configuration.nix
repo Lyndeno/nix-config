@@ -18,8 +18,11 @@
 
   modules = {
     desktop.enable = true;
-    pia-vpn.enable = true;
-    torrents.enable = true;
+    services = {
+      snapper-home.enable = true;
+      pia-vpn.enable = true;
+      torrents.enable = true;
+    };
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -37,7 +40,6 @@
 
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
-    snapper-home.enable = true;
   };
   
   # Enable CUPS to print documents.

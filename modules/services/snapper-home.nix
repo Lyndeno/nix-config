@@ -3,15 +3,17 @@
 with lib;
 
 let
-  cfg = config.services.snapper-home;
+  cfg = config.modules.services.snapper-home;
 in
 {
   options = {
+    modules = {
       services = {
           snapper-home = {
               enable = mkOption {type = types.bool; default = false; };
           };
       };
+    };
   };
 
   config = mkIf cfg.enable {
