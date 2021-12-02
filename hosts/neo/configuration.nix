@@ -7,27 +7,33 @@
 {
   networking.hostName = "neo"; # Define your hostname.
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 3;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    timeout = 3;
+    efi.canTouchEfiVariables = true;
+  };
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
-  modules.desktop.enable = true;
-  modules.pia-vpn.enable = true;
-  modules.torrents.enable = true;
+  modules = {
+    desktop.enable = true;
+    pia-vpn.enable = true;
+    torrents.enable = true;
+  };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.wlp2s0.useDHCP = true;
+  networking = {
+    useDHCP = false;
+    interfaces.wlp2s0.useDHCP = true;
 
-  networking.networkmanager.enable = true;
-  networking.networkmanager.packages = [
-    pkgs.networkmanager-openvpn
-  ];
+    networkmanager.enable = true;
+    networkmanager.packages = [
+      pkgs.networkmanager-openvpn
+    ];
+  };
 
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
@@ -41,30 +47,11 @@
     cups-bjnp
   ];
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
   services.fstrim.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
 	libsmbios # For fan control
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
