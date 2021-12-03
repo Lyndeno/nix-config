@@ -30,6 +30,10 @@
 
   services.openssh.enable = true;
 
+  nix.autoOptimiseStore = true;
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly";
+
   services = {
     syncthing = {
       enable = true;
