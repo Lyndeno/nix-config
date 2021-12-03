@@ -26,6 +26,8 @@
     };
     services = {
       pia-vpn.enable = true;
+
+      # Must create .snapshots subvolume in root of snapshotted subvolume
       snapper-home.enable = true;
     };
     desktop.enable = true;
@@ -40,7 +42,6 @@
   networking.networkmanager.enable = true;
 
   services = {
-    # Must create .snapshots subvolume in root of snapshotted subvolume
     plex = {
       enable = true;
       openFirewall = true;
