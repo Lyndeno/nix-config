@@ -23,6 +23,7 @@ in
   boot.kernelParams = [
 	"i915.enable_fbc=1"
 	"i915.enable_psr=2"
+    "acpi_rev_override=1"
   ];
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
