@@ -14,33 +14,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  #specialisation = {
-  #  nvidia = {
-  #    #inheritParentConfig = true;
-  #    configuration = pkgs.lib.mkForce {
-  #      system.nixos.tags = [ "Nvidia" ];
-  #      modules.desktop.enable = true;
-  #      modules.desktop.nvidia = lib.mkForce true;
-  #      services.xserver.videoDrivers = lib.mkForce [ "nvidia" ];
-  #      hardware.nvidia.modesetting.enable = true;
-  #      services.xserver.displayManager.gdm.wayland = lib.mkForce false;
-  #      services.xserver.desktopManager.gnome.enable = true;
-  #      services.xserver.displayManager.gdm.nvidiaWayland = true;
-  #      #programs.sway.extraSessionCommands = pkgs.lib.mkForce
-  #      #  ''
-  #      #    export WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0
-  #      #  '';
-  #      hardware.nvidia.prime = {
-  #          sync.enable = true;
-
-  #          offload.enable = lib.mkForce false;
-  #          intelBusId = "PCI:0:2:0";
-  #          nvidiaBusId = "PCI:1:0:0";
-  #      };
-  #    };
-  #  };
-  #};
-
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
