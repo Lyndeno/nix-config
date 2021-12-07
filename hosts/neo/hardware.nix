@@ -21,8 +21,8 @@ in
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [
-	"i915.enable_fbc=1"
-	"i915.enable_psr=2"
+    "i915.enable_fbc=1"
+    "i915.enable_psr=2"
     "acpi_rev_override=1"
   ];
   hardware.enableRedistributableFirmware = true;
@@ -48,16 +48,16 @@ in
   services.xserver.useGlamor = true;
   hardware.opengl.extraPackages = with pkgs; [
     intel-compute-runtime
-	vaapiIntel
-	vaapiVdpau
-	libvdpau-va-gl
+    vaapiIntel
+    vaapiVdpau
+    libvdpau-va-gl
   ];
   hardware.opengl.driSupport = true;
 
   hardware.nvidia.prime = {
-      offload.enable = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
+    offload.enable = true;
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
 
   fileSystems = {
