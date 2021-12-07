@@ -43,9 +43,8 @@ in
   };
 
   # Graphics
-  services.xserver.videoDrivers = [ "modesetting" ];
-  #services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.nvidia.modesetting.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.modesetting.enable = true;
   services.xserver.useGlamor = true;
   hardware.opengl.extraPackages = with pkgs; [
     intel-compute-runtime
@@ -55,12 +54,11 @@ in
   ];
   hardware.opengl.driSupport = true;
 
-  #hardware.nvidia.prime = {
-
-  #    offload.enable = true;
-  #    intelBusId = "PCI:0:2:0";
-  #    nvidiaBusId = "PCI:1:0:0";
-  #};
+  hardware.nvidia.prime = {
+      offload.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+  };
 
   fileSystems = {
 	  "/" = rootSubvol "root";

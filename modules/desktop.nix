@@ -40,6 +40,9 @@ in
             slurp
             grim
         ];
+        extraOptions = [
+            "--my-next-gpu-wont-be-nvidia"
+        ];
         extraSessionCommands = ''
             eval $(gnome-keyring-daemon --start --daemonize)
             export SSH_AUTH_SOCK
