@@ -36,6 +36,9 @@ in
 			wofi
             waybar
             gammastep
+            playerctl
+            slurp
+            grim
         ];
         extraSessionCommands = ''
             eval $(gnome-keyring-daemon --start --daemonize)
