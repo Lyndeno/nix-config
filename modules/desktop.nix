@@ -44,6 +44,7 @@ in
             playerctl
             slurp
             grim
+            acpi # for sway-idle to detect if plugged in
         ];
         extraOptions = [
             "--my-next-gpu-wont-be-nvidia"
