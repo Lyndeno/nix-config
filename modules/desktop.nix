@@ -10,6 +10,7 @@ in
       modules = {
           desktop = {
               enable = mkOption {type = types.bool; default = false; };
+              supportDDC = mkOption {type = types.bool; default = false; };
           };
       };
   };
@@ -18,6 +19,11 @@ in
 	services.xserver.enable = true;
     services.xserver.displayManager.sddm.enable = true;
     services.xserver.libinput.enable = true;
+
+    boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
+    services.udev.extraRules = lib.optionalString cfg.supportDDC ''
+        KERNEL=="i2c-[0-9]*", TAG+="uaccess"
+    '';
 
     xdg.portal = {
         enable = true;
@@ -93,6 +99,7 @@ in
         glib
         capitaine-cursors
         discord
+        (lib.mkIf cfg.supportDDC ddcutil)
     ];
   };
 }
