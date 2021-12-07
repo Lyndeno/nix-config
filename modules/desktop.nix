@@ -16,10 +16,8 @@ in
 
   config = mkIf cfg.enable {
 	services.xserver.enable = true;
-	services.xserver.displayManager.gdm = {
-		enable = true;
-		wayland = true;
-	};
+    services.xserver.displayManager.sddm.enable = true;
+    services.xserver.libinput.enable = true;
 
     xdg.portal = {
         enable = true;
@@ -63,6 +61,7 @@ in
 
 	# verify this is where this should be
 	services.gnome.gnome-keyring.enable = true;
+    security.pam.services.sddm.enableGnomeKeyring = true;
 
     services.gvfs.enable = true; # for nautilus
     programs.seahorse.enable = true;
