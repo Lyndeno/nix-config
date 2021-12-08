@@ -15,6 +15,9 @@
   #  timeout = 3;
   #  efi.canTouchEfiVariables = true;
   #};
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.device = "/dev/vda";
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
@@ -27,6 +30,7 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   #networking.interfaces.wlp2s0.useDHCP = true;
+  networking.interfaces.enp1s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
 
