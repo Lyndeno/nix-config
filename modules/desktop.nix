@@ -24,6 +24,8 @@ in
     services.udev.extraRules = lib.optionalString cfg.supportDDC ''
         KERNEL=="i2c-[0-9]*", TAG+="uaccess"
     '';
+    
+    programs.gnupg.agent.pinentryFlavor = "gnome3";
 
     xdg.portal = {
         enable = true;
@@ -101,6 +103,9 @@ in
         capitaine-cursors
         discord
         (lib.mkIf cfg.supportDDC ddcutil)
+    brightnessctl
+    pulseaudio # for pactl
+    xdg-utils
     ];
   };
 }

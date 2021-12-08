@@ -47,7 +47,7 @@
   programs.gnupg.agent = {
 	  enable = true;
 	  #enableSSHSupport = true;
-	  pinentryFlavor = "gnome3";
+	  pinentryFlavor = lib.mkDefault "curses";
   };
 
   programs.zsh = {
@@ -71,9 +71,6 @@
     jq
     bottom
     yadm
-    brightnessctl
-    pulseaudio # for pactl
-    xdg-utils
     fzf
   ];
 }
