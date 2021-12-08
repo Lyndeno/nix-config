@@ -28,13 +28,16 @@
     };
   };
 
-  services.openssh.enable = true;
-
-  nix.autoOptimiseStore = true;
-  nix.gc.automatic = true;
-  nix.gc.dates = "weekly";
+  nix = {
+    autoOptimiseStore = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
+  };
 
   services = {
+    openssh.enable = true;
     syncthing = {
       enable = true;
       user = "lsanche";
@@ -44,19 +47,18 @@
     };
   };
 
-  programs.gnupg.agent = {
-	  enable = true;
-	  #enableSSHSupport = true;
-	  pinentryFlavor = lib.mkDefault "curses";
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      pinentryFlavor = lib.mkDefault "curses";
+    };
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+    };
+    git.enable = true;
   };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
-
-  programs.git.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
