@@ -6,7 +6,7 @@
 let
 	rootSubvol = subvol:
 	{
-		device = "/dev/disk/by-uuid/497703c2-53ab-4f72-9bd2-8ec393ea5315";
+		device = "/dev/disk/by-uuid/7a780716-8ad8-4fbf-b3d1-75667dd1b9e6";
 		fsType = "btrfs";
 		options = [ "noatime" "compress=zstd" "subvol=${subvol}" ];
 	};
@@ -29,15 +29,15 @@ in
   hardware.cpu.intel.updateMicrocode = true;
 
   boot.initrd.luks.devices = {
-	cryptkey = {
-		device = "/dev/disk/by-uuid/7513bec7-f195-4e13-ba7a-c74732a2a35b"; 
+	"cryptkey" = {
+		device = "/dev/disk/by-uuid/dff20566-4abd-47c5-8d37-6fef507d0fc9";
 	};
-	cryptroot = {
-		device = "/dev/disk/by-uuid/0d0f9284-2728-442a-8fc2-e77f28cad680"; 
+	"cryptswap" = {
+		device = "/dev/disk/by-uuid/c374e43b-6656-4ba7-b615-ba60819cae59";
 		keyFile = "/dev/mapper/cryptkey";
 	};
-	cryptswap = {
-		device = "/dev/disk/by-uuid/662a5eb0-54de-4c01-bcff-9bca0b9a9d23"; 
+	"cryptroot" = {
+		device = "/dev/disk/by-uuid/dae4aaa7-27ab-4f9b-8316-3f7355b7b712";
 		keyFile = "/dev/mapper/cryptkey";
 	};
   };
@@ -61,21 +61,28 @@ in
   #};
 
   fileSystems = {
-	  "/" = rootSubvol "root";
-	  "/home" = rootSubvol "home";
-	  "/root" = rootSubvol "home/root";
-	  "/nix" = rootSubvol "nix";
-	  "/var/log" = rootSubvol "log";
-	  "/srv/torrents" = rootSubvol "torrents";
+	  "/" = {
+		device = "none";
+		fsType = "tmpfs";
+	  };
+	  "/home" = rootSubvol "persist/home";
+	  "/root" = rootSubvol "persist/home/root";
+	  "/nix" = rootSubvol "persist/nix";
+	  "/etc/nixos" = (pkgs.lib.mkMerge [
+		(rootSubvol "persist/etc/nixos")
+		({neededForBoot = true;})
+	  ]);
+	  "/etc/NetworkManager/system-connections" = rootSubvol "persist/etc/NetworkManager/system-connections";
+	  "/var/log" = rootSubvol "persist/var/log";
 	  "/boot" =
 	    {
-	      device = "/dev/disk/by-uuid/6BB6-C135";
+	      device = "/dev/disk/by-uuid/D848-76E8";
 	      fsType = "vfat";
 	    };
   };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/973ffeac-00cc-46f3-a64c-bd4416334693"; }
+    [ { device = "/dev/disk/by-uuid/f27de7bd-8ac2-49a4-9c55-51f717cea458"; }
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

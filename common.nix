@@ -5,6 +5,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
+    mutableUsers = false;
     users.lsanche = {
       isNormalUser = true;
       description = "Lyndon Sanche";
@@ -21,12 +22,14 @@
         keys/morpheus.pub
       ];
       shell = pkgs.zsh;
+      passwordFile = "/etc/nixos/passwd/lsanche";
     };
     groups = {
       lsanche = {};
       media = {}; # for torrents and plex
     };
   };
+  users.users.root.passwordFile = "/etc/nixos/passwd/root";
 
   nix = {
     autoOptimiseStore = true;
