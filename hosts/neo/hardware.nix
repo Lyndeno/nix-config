@@ -73,6 +73,8 @@ in
 		({neededForBoot = true;})
 	  ]);
 	  "/etc/NetworkManager/system-connections" = rootSubvol "persist/etc/NetworkManager/system-connections";
+      "/etc/ssh" = rootSubvol "persist/etc/ssh";
+      "/etc/machine-id-vol" = rootSubvol "persist/etc/machine-id-vol";
 	  "/var/log" = rootSubvol "persist/var/log";
 	  "/boot" =
 	    {
@@ -80,6 +82,7 @@ in
 	      fsType = "vfat";
 	    };
   };
+  environment.etc."machine-id".source = "/etc/machine-id-vol/machine-id";
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/f27de7bd-8ac2-49a4-9c55-51f717cea458"; }

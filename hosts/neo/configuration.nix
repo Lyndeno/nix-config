@@ -26,12 +26,18 @@
     };
   };
 
+  #users.users.nixos-test = {
+  #  isNormalUser = true;
+  #  password = "test";
+  #  extraGroups = [ "wheel" ];
+  #};
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking = {
     useDHCP = false;
-    interfaces.wlp2s0.useDHCP = true;
+    #interfaces.wlp2s0.useDHCP = true;
 
     networkmanager.enable = true;
     networkmanager.packages = [
@@ -41,6 +47,10 @@
 
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
+    #duplicati = {
+    #  enable = true;
+    #  dataDir = "/srv/duplicati";
+    #};
   };
   
   # Enable CUPS to print documents.

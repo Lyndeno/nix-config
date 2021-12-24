@@ -20,8 +20,9 @@ in
     services = {
         xserver = {
             enable = true;
-            displayManager.sddm.enable = true;
-            libinput.enable = true;
+            #displayManager.sddm.enable = true;
+            #libinput.enable = true;
+            displayManager.gdm.enable = true;
         };
         pipewire = {
             enable = true;
@@ -35,7 +36,7 @@ in
 
     security = {
         rtkit.enable = true; # Realtime pipewire
-        pam.services.sddm.enableGnomeKeyring = true;
+        #pam.services.sddm.enableGnomeKeyring = true;
     };
 
     programs = {
@@ -63,13 +64,17 @@ in
                 eval $(gnome-keyring-daemon --start --daemonize)
                 export SSH_AUTH_SOCK
                 source ~/.profile || true
-                export GIO_EXTRA_MODULES="$GIO_EXTRA_MODULES:${pkgs.gnome.gvfs}/lib/gio/modules"
             '';
+                #export GIO_EXTRA_MODULES="$GIO_EXTRA_MODULES:${pkgs.gnome.gvfs}/lib/gio/modules"
                 #export > /tmp/sway.txt
         };
         gnupg.agent.pinentryFlavor = "gnome3";
         seahorse.enable = true;
     };
+
+    # a fix until nautilus .desktop env vars are fixed
+    environment.sessionVariables.GIO_EXTRA_MODULES = "${pkgs.gnome.gvfs}/lib/gio/modules";
+    environment.variables.GIO_EXTRA_MODULES = mkForce config.environment.sessionVariables.GIO_EXTRA_MODULES;
 
     boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
     services.udev.extraRules = lib.optionalString cfg.supportDDC ''
