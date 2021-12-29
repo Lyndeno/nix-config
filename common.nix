@@ -22,14 +22,14 @@
         keys/morpheus.pub
       ];
       shell = pkgs.zsh;
-      passwordFile = "/etc/nixos/passwd/lsanche";
+      passwordFile = "/etc/nixos/users/lsanche/passwd";
     };
     groups = {
       lsanche = {};
       media = {}; # for torrents and plex
     };
   };
-  users.users.root.passwordFile = "/etc/nixos/passwd/root";
+  users.users.root.passwordFile = "/etc/nixos/users/root/passwd";
 
   nix = {
     autoOptimiseStore = true;
