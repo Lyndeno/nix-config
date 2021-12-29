@@ -44,7 +44,6 @@ in
 
   # Graphics
   services.xserver.videoDrivers = [ "modesetting" ];
-  #hardware.nvidia.modesetting.enable = true;
   services.xserver.useGlamor = true;
   hardware.opengl.extraPackages = with pkgs; [
     intel-compute-runtime
@@ -53,12 +52,6 @@ in
     libvdpau-va-gl
   ];
   hardware.opengl.driSupport = true;
-
-  #hardware.nvidia.prime = {
-  #  offload.enable = true;
-  #  intelBusId = "PCI:0:2:0";
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
 
   fileSystems = {
 	  "/" = {
@@ -73,8 +66,8 @@ in
 		({neededForBoot = true;})
 	  ]);
 	  "/etc/NetworkManager/system-connections" = rootSubvol "persist/etc/NetworkManager/system-connections";
-      "/etc/ssh" = rootSubvol "persist/etc/ssh";
-      "/etc/machine-id-vol" = rootSubvol "persist/etc/machine-id-vol";
+    "/etc/ssh" = rootSubvol "persist/etc/ssh";
+    "/etc/machine-id-vol" = rootSubvol "persist/etc/machine-id-vol";
 	  "/var/log" = rootSubvol "persist/var/log";
 	  "/boot" =
 	    {
