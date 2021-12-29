@@ -74,6 +74,9 @@ in
 
     # a fix until nautilus .desktop env vars are fixed
     environment.sessionVariables.GIO_EXTRA_MODULES = "${pkgs.gnome.gvfs}/lib/gio/modules";
+    #:${pkgs.glib-networking.out}/lib/gio/modules
+    #:${pkgs.dconf.lib}/lib/gio/modules
+
     environment.variables.GIO_EXTRA_MODULES = mkForce config.environment.sessionVariables.GIO_EXTRA_MODULES;
 
     boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
@@ -110,7 +113,6 @@ in
         papirus-icon-theme
         gnome.nautilus
 		libnotify
-        glib
         capitaine-cursors
         discord
         (lib.mkIf cfg.supportDDC ddcutil)
