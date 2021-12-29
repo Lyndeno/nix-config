@@ -10,20 +10,20 @@ in
       modules = {
         programs = {
           gaming = {
-              enable = mkOption {type = types.bool; default = false; };
+              enable = mkEnableOption "Gaming software and games";
               steam = {
-                enable = mkOption {type = types.bool; default = true; };
+                enable = mkEnableOption "Steam";
               };
               minecraft = {
-                enable = mkOption {type = types.bool; default = true; };
+                enable = mkEnableOption "Minecraft";
               };
               emulation = {
-                enable = mkOption {type = types.bool; default = true; };
+                enable = mkEnableOption "Emulation software";
                 wii = {
-                  enable = mkOption {type = types.bool; default = true; };
+                  enable = mkEnableOption "Wii emulation (Dolphin)";
                 };
                 gamecube = {
-                  enable = mkOption {type = types.bool; default = true; };
+                  enable = mkEnableOption "Gamecube emulation (Dolphin)";
                 };
               };
           };
