@@ -26,19 +26,11 @@
     };
   };
 
-  #users.users.nixos-test = {
-  #  isNormalUser = true;
-  #  password = "test";
-  #  extraGroups = [ "wheel" ];
-  #};
-
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking = {
     useDHCP = false;
-    #interfaces.wlp2s0.useDHCP = true;
-
     networkmanager.enable = true;
     networkmanager.packages = [
       pkgs.networkmanager-openvpn
@@ -60,14 +52,8 @@
   services.fstrim.enable = true;
 
   environment.systemPackages = with pkgs; [
-	libsmbios # For fan control
+    libsmbios # For fan control
   ];
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
