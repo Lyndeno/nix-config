@@ -14,6 +14,7 @@ in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
+      <impermanence/nixos.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -75,6 +76,7 @@ in
 	      fsType = "vfat";
 	    };
   };
+  environment.persistence = {};
   environment.etc."machine-id".source = "/etc/machine-id-vol/machine-id";
 
   swapDevices =
