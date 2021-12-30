@@ -1,5 +1,6 @@
 { config, lib, pkgs, ...}:
 {
+  imports = [ <home-manager/nixos> ];
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
@@ -30,6 +31,11 @@
     };
   };
   users.users.root.passwordFile = "/etc/nixos/users/root/passwd";
+  home-manager.users.lsanche = { pkgs, ... }: {
+    imports = [ <impermanence/home-manager.nix> ];
+    #home.packages = with pkgs; [ fish ];
+    home.persistence = {};
+  };
 
   nix = {
     autoOptimiseStore = true;
