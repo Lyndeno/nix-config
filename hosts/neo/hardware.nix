@@ -3,17 +3,9 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-let
-	rootSubvol = subvol:
-	{
-		device = "/dev/disk/by-uuid/7a780716-8ad8-4fbf-b3d1-75667dd1b9e6";
-		fsType = "btrfs";
-		options = [ "noatime" "compress=zstd" "subvol=${subvol}" ];
-	};
-in
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [ 
       <impermanence/nixos.nix>
     ];
 
@@ -30,16 +22,9 @@ in
   hardware.cpu.intel.updateMicrocode = true;
 
   boot.initrd.luks.devices = {
-	"cryptkey" = {
-		device = "/dev/disk/by-uuid/dff20566-4abd-47c5-8d37-6fef507d0fc9";
-	};
-	"cryptswap" = {
-		device = "/dev/disk/by-uuid/c374e43b-6656-4ba7-b615-ba60819cae59";
-		keyFile = "/dev/mapper/cryptkey";
-	};
-	"cryptroot" = {
-		device = "/dev/disk/by-uuid/dae4aaa7-27ab-4f9b-8316-3f7355b7b712";
-		keyFile = "/dev/mapper/cryptkey";
+	"nixcrypt" = {
+		preLVM = true;
+		device = "/dev/disk/by-label/nixcrypt";
 	};
   };
 
@@ -58,29 +43,49 @@ in
 	  "/" = {
 		device = "none";
 		fsType = "tmpfs";
+		options = [ "noatime" "mode=755" ];
 	  };
-	  "/home" = rootSubvol "persist/home";
-	  "/root" = rootSubvol "persist/home/root";
-	  "/nix" = rootSubvol "persist/nix";
-	  "/etc/nixos" = (pkgs.lib.mkMerge [
-		(rootSubvol "persist/etc/nixos")
-		({neededForBoot = true;})
-	  ]);
-	  "/etc/NetworkManager/system-connections" = rootSubvol "persist/etc/NetworkManager/system-connections";
-    "/etc/ssh" = rootSubvol "persist/etc/ssh";
-    "/etc/machine-id-vol" = rootSubvol "persist/etc/machine-id-vol";
-	  "/var/log" = rootSubvol "persist/var/log";
+	  "/nix" =
+	    { device = "/dev/nixpool/nixpersist";
+	      fsType = "ext4";
+        neededForBoot = true;
+	    };
+
+	  "/etc/nixos" =
+	    { device = "/nix/persist/etc/nixos";
+	      fsType = "none";
+	      options = [ "bind" ];
+        neededForBoot = true;
+	    };
+
+	  "/var/log" =
+	    { device = "/nix/persist/var/log";
+	      fsType = "none";
+	      options = [ "bind" ];
+        neededForBoot = true;
+	    };
+
 	  "/boot" =
 	    {
-	      device = "/dev/disk/by-uuid/D848-76E8";
+	      device = "/dev/disk/by-label/ESP";
 	      fsType = "vfat";
 	    };
   };
-  environment.persistence = {};
-  environment.etc."machine-id".source = "/etc/machine-id-vol/machine-id";
+  environment.persistence."/nix/persist" = {
+		directories = [
+			"/etc/NetworkManager/system-connections"
+		];
+		files = [
+			"/etc/machine-id"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+		];
+	};
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/f27de7bd-8ac2-49a4-9c55-51f717cea458"; }
+    [ { device = "/dev/nixpool/nixswap"; }
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
