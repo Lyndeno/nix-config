@@ -31,11 +31,20 @@
     };
   };
   users.users.root.passwordFile = "/etc/nixos/users/root/passwd";
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
   home-manager.users.lsanche = { pkgs, ... }: {
-    imports = [ <impermanence/home-manager.nix> ];
-    #home.packages = with pkgs; [ fish ];
-    home.persistence = {};
+    imports = [
+      <impermanence/home-manager.nix>
+      ./users/lsanche/home-manager/home.nix
+    ];
+    home.persistence."/nix/persist/home/lsanche" = {
+      allowOther = true;
+      directories = [ ".ssh" "Documents" "Downloads" ".mozilla" ".local/share/keyrings" ".gnupg" ];
+    };
+    home.stateVersion = "21.11";
   };
+  programs.fuse.userAllowOther = true;
 
   nix = {
     autoOptimiseStore = true;
