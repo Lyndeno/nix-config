@@ -20,11 +20,17 @@
   modules = {
     desktop.enable = true;
     services = {
-      snapper-home.enable = true;
       pia-vpn.enable = true;
-      torrents.enable = true;
     };
   };
+
+  #containers.torrents = {
+  #  autoStart = true;
+  #  config = { config, pkgs, ... }: {
+  #    services.transmission.enable = true;
+  #    services.transmission.openRPCPort = true;
+  #  };
+  #};
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
