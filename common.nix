@@ -5,46 +5,6 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users = {
-    mutableUsers = false;
-    users.lsanche = {
-      isNormalUser = true;
-      description = "Lyndon Sanche";
-      home = "/home/lsanche";
-      group = "lsanche";
-      uid = 1000;
-      extraGroups = [
-        "wheel"
-        "media"
-        (lib.mkIf config.networking.networkmanager.enable "networkmanager") # Do not add this group if networkmanager is not enabled
-      ];
-      openssh.authorizedKeys.keyFiles = [
-        keys/neo.pub
-        keys/morpheus.pub
-      ];
-      shell = pkgs.zsh;
-      passwordFile = "/etc/nixos/users/lsanche/passwd";
-    };
-    groups = {
-      lsanche = {};
-      media = {}; # for torrents and plex
-    };
-  };
-  users.users.root.passwordFile = "/etc/nixos/users/root/passwd";
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.lsanche = { pkgs, ... }: {
-    imports = [
-      <impermanence/home-manager.nix>
-      ./users/lsanche/home-manager/home.nix
-    ];
-    home.persistence."/nix/persist/home/lsanche" = {
-      allowOther = true;
-      directories = [ ".ssh" "Documents" "Downloads" ".mozilla" ".local/share/keyrings" ".gnupg" ];
-    };
-    home.stateVersion = "21.11";
-  };
-  programs.fuse.userAllowOther = true;
 
   nix = {
     autoOptimiseStore = true;
