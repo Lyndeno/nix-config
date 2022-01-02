@@ -32,8 +32,9 @@
     };
     zsh = {
       enable = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
+      #autosuggestions.enable = true;
+      #syntaxHighlighting.enable = true;
+      enableCompletion = false;
     };
     git.enable = true;
   };
