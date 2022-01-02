@@ -28,7 +28,14 @@
     ];
     home.persistence."/nix/persist/home/lsanche" = {
       allowOther = true;
-      directories = [ ".ssh" "Documents" "Downloads" ".mozilla" ".local/share/keyrings" ".gnupg" ];
+      directories = [
+        ".ssh"
+        "Documents"
+        "Downloads"
+        ".mozilla"
+        ".local/share/keyrings"
+        ".gnupg"
+      ];
     };
     home.stateVersion = "21.11";
   };
