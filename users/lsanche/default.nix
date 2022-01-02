@@ -26,7 +26,10 @@
       <impermanence/home-manager.nix>
       ./home-manager/home.nix
     ];
-    home.persistence."/nix/persist/home/lsanche" = {
+    home.persistence."/nix/persist/home/lsanche" = let
+      homecfg = config.home-manager.users.lsanche;
+    in
+    {
       allowOther = true;
       directories = [
         ".ssh"
@@ -35,6 +38,9 @@
         ".mozilla"
         ".local/share/keyrings"
         ".gnupg"
+      ];
+      files = [
+        (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
       ];
     };
     home.stateVersion = "21.11";
