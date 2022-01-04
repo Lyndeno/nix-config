@@ -34,7 +34,8 @@
       enable = true;
       #autosuggestions.enable = true;
       #syntaxHighlighting.enable = true;
-      enableCompletion = false;
+      enableCompletion = true;
+      enableGlobalCompInit = false;
     };
     git.enable = true;
   };
