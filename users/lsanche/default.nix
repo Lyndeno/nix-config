@@ -1,10 +1,13 @@
 { config, lib, pkgs, ...}:
+let
+  myUsername = "lsanche";
+in
 {
-  users.users.lsanche = {
+  users.users."${myUsername}" = {
     isNormalUser = true;
     description = "Lyndon Sanche";
-    home = "/home/lsanche";
-    group = "lsanche";
+    home = "/home/${myUsername}";
+    group = "${myUsername}";
     uid = 1000;
     extraGroups = [
       "wheel"
@@ -19,15 +22,15 @@
     passwordFile = "/etc/nixos/users/lsanche/passwd";
   };
   users.groups = {
-    lsanche = {};
+    "${myUsername}" = {};
   };
-  home-manager.users.lsanche = { pkgs, ... }: {
+  home-manager.users."${myUsername}" = { pkgs, ... }: {
     imports = [
       <impermanence/home-manager.nix>
       ./home-manager/home.nix
     ];
-    home.persistence."/nix/persist/home/lsanche" = let
-      homecfg = config.home-manager.users.lsanche;
+    home.persistence."/nix/persist${config.users.users.${myUsername}.home}" = let
+      homecfg = config.home-manager.users."${myUsername}";
     in
     {
       allowOther = true;
