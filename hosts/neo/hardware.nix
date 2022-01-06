@@ -74,6 +74,7 @@
   environment.persistence."/nix/persist" = {
 		directories = [
 			"/etc/NetworkManager/system-connections"
+      "/root"
 		];
 		files = [
 			"/etc/machine-id"
