@@ -19,7 +19,7 @@ in
       ../../keys/morpheus.pub
     ];
     shell = pkgs.zsh;
-    passwordFile = "/etc/nixos/users/lsanche/passwd";
+    hashedPassword = import ./passwd;
   };
   users.groups = {
     "${myUsername}" = {};
