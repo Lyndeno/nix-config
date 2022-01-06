@@ -38,6 +38,7 @@
         ".mozilla"
         ".local/share/keyrings"
         ".gnupg"
+        "Projects"
       ];
       files = [
         (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
