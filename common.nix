@@ -1,6 +1,5 @@
 { config, lib, pkgs, ...}:
 {
-  imports = [ <home-manager/nixos> ];
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
