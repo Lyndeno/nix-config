@@ -22,10 +22,10 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   boot.initrd.luks.devices = {
-	"nixcrypt" = {
-		preLVM = true;
-		device = "/dev/disk/by-label/nixcrypt";
-	};
+    "nixcrypt" = {
+      preLVM = true;
+      device = "/dev/disk/by-label/nixcrypt";
+    };
   };
 
   # Graphics
@@ -41,40 +41,28 @@
 
   fileSystems = {
 	  "/" = {
-		device = "none";
-		fsType = "tmpfs";
-		options = [ "noatime" "mode=755" ];
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "noatime" "mode=755" ];
 	  };
-	  "/nix" =
-	    { device = "/dev/nixpool/nixpersist";
-	      fsType = "ext4";
-        neededForBoot = true;
-	    };
 
-	  "/etc/nixos" =
-	    { device = "/nix/persist/etc/nixos";
-	      fsType = "none";
-	      options = [ "bind" ];
-        neededForBoot = true;
-	    };
+    "/nix" = {
+      device = "/dev/nixpool/nixpersist";
+      fsType = "ext4";
+      neededForBoot = true;
+    };
 
-	  "/var/log" =
-	    { device = "/nix/persist/var/log";
-	      fsType = "none";
-	      options = [ "bind" ];
-        neededForBoot = true;
-	    };
-
-	  "/boot" =
-	    {
-	      device = "/dev/disk/by-label/ESP";
-	      fsType = "vfat";
-	    };
+	  "/boot" = {
+      device = "/dev/disk/by-label/ESP";
+      fsType = "vfat";
+    };
   };
   environment.persistence."/nix/persist" = {
 		directories = [
 			"/etc/NetworkManager/system-connections"
       "/root"
+      "/etc/nixos"
+      "/var/log"
 		];
 		files = [
 			"/etc/machine-id"
