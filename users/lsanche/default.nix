@@ -47,6 +47,6 @@ in
         (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
       ];
     };
-    home.stateVersion = "21.11";
+    home.stateVersion = config.system.stateVersion;
   };
   }
