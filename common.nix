@@ -36,20 +36,13 @@
       enableCompletion = true;
       enableGlobalCompInit = false;
     };
-    git.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    pueue
-    neofetch
-    starship
-    exa
-    bat
-    jq
+    vim 
+    #pueue
     bottom
-    yadm
-    fzf
+    git
   ];
 }

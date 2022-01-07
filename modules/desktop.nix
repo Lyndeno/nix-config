@@ -96,10 +96,7 @@ in
 
     environment.systemPackages = with pkgs; [
         firefox-wayland
-        spotify
-        zathura
         pavucontrol
-        signal-desktop
         (symlinkJoin {
             name = "vscode";
             paths = [ vscode ];
@@ -110,11 +107,9 @@ in
             '';
         })
         alacritty
-        papirus-icon-theme
         gnome.nautilus
-		libnotify
+        libnotify
         capitaine-cursors
-        discord
         (lib.mkIf cfg.supportDDC ddcutil)
         brightnessctl
         pulseaudio # for pactl
