@@ -31,7 +31,7 @@ in
     ];
     home.persistence."/nix/persist${config.users.users.${myUsername}.home}" = let
       homecfg = config.home-manager.users."${myUsername}";
-    in
+    in lib.mkIf config.modules.persist.enable
     {
       allowOther = true;
       directories = [

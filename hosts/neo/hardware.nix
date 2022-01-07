@@ -57,21 +57,7 @@
       fsType = "vfat";
     };
   };
-  environment.persistence."/nix/persist" = {
-		directories = [
-			"/etc/NetworkManager/system-connections"
-      "/root"
-      "/etc/nixos"
-      "/var/log"
-		];
-		files = [
-			"/etc/machine-id"
-      "/etc/ssh/ssh_host_rsa_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-		];
-	};
+  modules.persist.enable = true;
 
   swapDevices =
     [ { device = "/dev/nixpool/nixswap"; }
