@@ -38,10 +38,12 @@ in
         ".ssh"
         "Documents"
         "Downloads"
+        "Textbooks"
         ".mozilla"
         ".local/share/keyrings"
         ".gnupg"
         "Projects"
+        ".config/syncthing"
       ];
       files = [
         (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")

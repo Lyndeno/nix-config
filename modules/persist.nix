@@ -23,6 +23,11 @@ in
         "/root"
         "/etc/nixos"
         "/var/log"
+
+        # Make sure persistent services behave
+        "/var/lib/systemd"
+        #"/var/lib/syncthing" # TODO: make this conditional
+        #"/home"
       ];
       files = [
         "/etc/machine-id"
