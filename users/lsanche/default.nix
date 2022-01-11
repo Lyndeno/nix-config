@@ -19,36 +19,36 @@ in
       ../../keys/morpheus.pub
     ];
     shell = pkgs.zsh;
-    hashedPassword = import ./passwd;
+    #hashedPassword = import ./passwd;
   };
   users.groups = {
     "${myUsername}" = {};
   };
   home-manager.users."${myUsername}" = { pkgs, ... }: {
     imports = [
-      <impermanence/home-manager.nix>
+      #<impermanence/home-manager.nix>
       ./home-manager/home.nix
     ];
-    home.persistence."/nix/persist${config.users.users.${myUsername}.home}" = let
-      homecfg = config.home-manager.users."${myUsername}";
-    in lib.mkIf config.modules.persist.enable
-    {
-      allowOther = true;
-      directories = [
-        ".ssh"
-        "Documents"
-        "Downloads"
-        "Textbooks"
-        ".mozilla"
-        ".local/share/keyrings"
-        ".gnupg"
-        "Projects"
-        ".config/syncthing"
-      ];
-      files = [
-        (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
-      ];
-    };
+    #home.persistence."/nix/persist${config.users.users.${myUsername}.home}" = let
+    #  homecfg = config.home-manager.users."${myUsername}";
+    #in lib.mkIf config.modules.persist.enable
+    #{
+    #  allowOther = true;
+    #  directories = [
+    #    ".ssh"
+    #    "Documents"
+    #    "Downloads"
+    #    "Textbooks"
+    #    ".mozilla"
+    #    ".local/share/keyrings"
+    #    ".gnupg"
+    #    "Projects"
+    #    ".config/syncthing"
+    #  ];
+    #  files = [
+    #    (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
+    #  ];
+    #};
     home.stateVersion = config.system.stateVersion;
   };
   }

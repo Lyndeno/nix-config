@@ -36,23 +36,22 @@
 
   fileSystems = {
 	  "/" = {
-      device = "none";
-      fsType = "tmpfs";
-      options = [ "noatime" "mode=755" ];
+      device = "/dev/nixpool/nixroot";
+      fsType = "ext4";
 	  };
 
-    "/nix" = {
-      device = "/dev/nixpool/nixpersist";
-      fsType = "ext4";
-      neededForBoot = true;
-    };
+#    "/nix" = {
+#      device = "/dev/nixpool/nixpersist";
+#      fsType = "ext4";
+#      neededForBoot = true;
+#    };
 
 	  "/boot" = {
       device = "/dev/disk/by-label/ESP";
       fsType = "vfat";
     };
   };
-  modules.persist.enable = true;
+  #modules.persist.enable = true;
 
   swapDevices =
     [ { device = "/dev/nixpool/nixswap"; }

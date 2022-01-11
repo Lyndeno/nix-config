@@ -1,7 +1,7 @@
 {
   imports = [
     <home-manager/nixos>
-    <impermanence/nixos.nix>
+    #<impermanence/nixos.nix>
     ./common.nix
     ./users
     ./host/configuration.nix
