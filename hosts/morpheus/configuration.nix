@@ -25,10 +25,6 @@
       gaming.enable = true;
     };
     services = {
-      pia-vpn.enable = true;
-
-      # Must create .snapshots subvolume in root of snapshotted subvolume
-      snapper-home.enable = true;
     };
     desktop = {
       enable = true;
@@ -48,7 +44,6 @@
     plex = {
       enable = true;
       openFirewall = true;
-      dataDir = "/srv/plex";
       group = "media";
     };
   };
