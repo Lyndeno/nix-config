@@ -54,6 +54,10 @@
 
   services.fstrim.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    btrfs-progs
+  ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
