@@ -4,8 +4,7 @@
     #<impermanence/nixos.nix>
     ./common.nix
     ./users
-    ./host/configuration.nix
-    ./host/hardware.nix
+    ./host
     ./modules
   ];
 }
