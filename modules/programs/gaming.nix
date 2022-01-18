@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.modules.programs.gaming;
+  mkTrueEnableOption = name: mkEnableOption "${name}" // { default = true; };
 in
 {
   options = {
@@ -12,18 +13,18 @@ in
           gaming = {
               enable = mkEnableOption "Gaming software and games";
               steam = {
-                enable = mkEnableOption "Steam";
+                enable = mkTrueEnableOption "Steam";
               };
               minecraft = {
-                enable = mkEnableOption "Minecraft";
+                enable = mkTrueEnableOption "Minecraft";
               };
               emulation = {
-                enable = mkEnableOption "Emulation software";
+                enable = mkTrueEnableOption "Emulation software";
                 wii = {
-                  enable = mkEnableOption "Wii emulation (Dolphin)";
+                  enable = mkTrueEnableOption "Wii emulation (Dolphin)";
                 };
                 gamecube = {
-                  enable = mkEnableOption "Gamecube emulation (Dolphin)";
+                  enable = mkTrueEnableOption "Gamecube emulation (Dolphin)";
                 };
               };
           };
