@@ -49,6 +49,7 @@
     #  enable = true;
     #  dataDir = "/srv/duplicati";
     #};
+    logind.lidSwitch = "suspend-then-hibernate";
   };
   
   # Enable CUPS to print documents.
