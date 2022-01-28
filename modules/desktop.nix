@@ -18,25 +18,53 @@ in
   config = mkIf cfg.enable {
 
     services = {
-        xserver = {
-            enable = true;
-            #displayManager.sddm.enable = true;
-            #libinput.enable = true;
-            displayManager.gdm.enable = true;
-        };
         pipewire = {
             enable = true;
             alsa.enable = true;
             alsa.support32Bit = true;
             pulse.enable = true;
         };
+        greetd = {
+          enable = true;
+          settings = {
+            default_session = {
+              command = "${pkgs.sway}/bin/sway --config /etc/greetd/sway-config";
+              user = "greeter";
+            };
+          };
+        };
         gnome.gnome-keyring.enable = true;
         gvfs.enable = true; # for nautilus
     };
 
+    environment.etc = {
+      "greetd/sway-config".text = ''
+        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${pkgs.gnome-themes-extra}/share/themes/Adwaita-dark/gtk-3.0/gtk.css ; swaymsg exit"
+
+        bindsym Mod4+shift+e exec swaynag \
+        -t warning \
+        -m 'What do you want to do?' \
+        -b 'Poweroff' 'systemctl poweroff' \
+        -b 'Reboot' 'systemctl reboot' \
+        -b 'Suspend' 'systemctl suspend-then-hibernate' \
+        -b 'Hibernate' 'systemctl hibernate'
+
+        input "type:touchpad" {
+          tap enabled
+        }
+
+        include /etc/sway/config.d/*
+      '';
+      "greetd/environments".text = ''
+        sway
+        zsh
+        bash
+      '';
+    };
+
     security = {
         rtkit.enable = true; # Realtime pipewire
-        #pam.services.sddm.enableGnomeKeyring = true;
+        pam.services.greetd.enableGnomeKeyring = true;
     };
 
     programs = {
@@ -63,7 +91,6 @@ in
             extraSessionCommands = ''
                 eval $(gnome-keyring-daemon --start --daemonize)
                 export SSH_AUTH_SOCK
-                source ~/.profile || true
             '';
                 #export GIO_EXTRA_MODULES="$GIO_EXTRA_MODULES:${pkgs.gnome.gvfs}/lib/gio/modules"
                 #export > /tmp/sway.txt
