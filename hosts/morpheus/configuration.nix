@@ -55,6 +55,7 @@
       exclude = [
         "/var/lib/systemd"
         "/var/lib/libvirt"
+        "/var/lib/plex"
 
         "**/target"
         "/home/*/.local/share/Steam"
@@ -65,7 +66,7 @@
         passCommand = "cat /root/borg/pass_morpheus";
       };
       environment.BORG_RSH = "ssh -i /root/borg/ssh_key";
-      compression = "auto,lzma";
+      compression = "auto,zstd,10";
       startAt = "daily";
     };
   };
