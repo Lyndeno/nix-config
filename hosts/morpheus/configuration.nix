@@ -51,6 +51,7 @@
         "/var/lib"
         "/srv"
         "/home"
+        "/data/mirror/archive"
       ];
       exclude = [
         "/var/lib/systemd"
