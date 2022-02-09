@@ -54,6 +54,7 @@ in
     #    (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
     #  ];
     #};
+    home.modules.desktop.enable = config.modules.desktop.enable;
     home.stateVersion = config.system.stateVersion;
 
   };
