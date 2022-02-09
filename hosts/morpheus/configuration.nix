@@ -46,6 +46,30 @@
       openFirewall = true;
       group = "media";
     };
+    borgbackup.jobs."borgbase" = {
+      paths = [
+        "/var/lib"
+        "/srv"
+        "/home"
+        "/data/mirror/archive"
+      ];
+      exclude = [
+        "/var/lib/systemd"
+        "/var/lib/libvirt"
+        "/var/lib/plex"
+
+        "**/target"
+        "/home/*/.local/share/Steam"
+      ];
+      repo = "n2ikk4w3@n2ikk4w3.repo.borgbase.com:repo";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat /root/borg/pass_morpheus";
+      };
+      environment.BORG_RSH = "ssh -i /root/borg/ssh_key";
+      compression = "auto,zstd,10";
+      startAt = "daily";
+    };
   };
   
   # Enable CUPS to print documents.
