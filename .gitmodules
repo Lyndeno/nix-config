@@ -1,4 +1,0 @@
-[submodule "users/lsanche/home-manager"]
-	path = users/lsanche/home-manager
-	url = git@github.com:Lyndeno/nix-home.git
-	branch = master
