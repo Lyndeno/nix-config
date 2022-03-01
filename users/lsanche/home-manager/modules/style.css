@@ -1,0 +1,168 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: CascadiaCove Nerd Font;
+    font-size: 14px;
+    /*min-height: 30px;*/
+    padding: 0px 3px;
+		color: white;
+}
+
+.modules-left {
+    padding-left: 6px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.modules-right {
+    padding-right: 6px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#waybar {
+    background: #222222;
+}
+
+#custom-separator {
+    padding: 0px 0px;
+    margin: 0px 5px;
+}
+
+
+
+#workspaces button {
+    margin: 0px 0px;
+    background: #444444;
+    color: #cccccc;
+    min-width: 20px;
+    /*border-radius: 15px;*/
+}
+
+#workspaces button.focused {
+    background: #666666;
+    color: white;
+}
+
+#workspaces button:hover {
+    background: #bbbbbb;
+    color: #333333;
+}
+
+#mode {
+    background: #64727D;
+}
+
+/* Groups and single items */
+
+#cpu, #memory {
+    color: #ff5555;
+}
+
+#disk.root, #disk.xpsroot, #disk.mirror {
+    color: #55ff55;
+}
+
+#network, #custom-pia-status {
+    color: #aaaaaa;
+}
+
+#idle_inhibitor, #pulseaudio, #tray {
+    color: #bbbbbb;
+}
+
+#workspaces {
+    color: #505050;
+}
+
+#clock {
+    color: white;
+    font-size: 16px;
+}
+
+#custom-gamemode {
+    background: #61d42c;
+    color: black;
+}
+
+#custom-checkdots {
+    color: #00c3ff;
+}
+
+#custom-checkupdate {
+    color: #ffa600;
+}
+
+/* Right Side */
+#disk.mirror, #disk.xpsroot, #custom-pia-status, 
+#tray, #clock, #custom-checkdots, #custom-checkupdate, #workspaces, #custom-media, 
+#mode, #custom-gamemode, #memory, #memory.xps, #backlight {
+	margin-right: 5px;
+}
+
+/* Left Sides */
+
+#cpu, #disk.root, #disk.xpsroot, #network, #pulseaudio, #clock, #custom-checkdots, #custom-checkupdate,
+#workspaces, #custom-media, #mode, #custom-gamemode, #battery {
+	margin-left: 5px;
+}
+
+
+
+/* Other settings */
+
+#battery.warning {
+	color: yellow;
+}
+
+#battery.critical {
+	color: red;
+}
+
+#disk.root.warning, #disk.mirror.warning {
+    color: yellow;
+}
+
+#disk.root.high, #disk.mirror.high {
+    color: orange;
+}
+
+#disk.root.critical, #disk.mirror.critical {
+    color: red;
+}
+
+#temperature.critical {
+    color: #ff0000;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+/* Secondary monitor specific options*/
+/*window.DP-2 * {
+    padding: 0;
+}
+
+window.DP-2 #window {
+    padding: 0px;
+}
+
+window.DP-2 #workspaces {
+    padding: 0px;
+}
+
+window.DP-2 #clock {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 0px;
+
+    border-style: none;
+}
+
+window.DP-2 #workspaces {
+    padding-left: 0px;
+}*/
