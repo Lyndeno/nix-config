@@ -85,9 +85,9 @@ in
                 grim
                 acpi # for sway-idle to detect if plugged in
             ];
-            extraOptions = [
-                "--my-next-gpu-wont-be-nvidia"
-            ];
+            #extraOptions = [
+            #    "--my-next-gpu-wont-be-nvidia"
+            #];
             extraSessionCommands = ''
                 eval $(gnome-keyring-daemon --start --daemonize)
                 export SSH_AUTH_SOCK
@@ -98,13 +98,14 @@ in
         gnupg.agent.pinentryFlavor = "gnome3";
         seahorse.enable = true;
     };
+    services.gnome.glib-networking.enable = true;
 
     # a fix until nautilus .desktop env vars are fixed
-    environment.sessionVariables.GIO_EXTRA_MODULES = "${pkgs.gnome.gvfs}/lib/gio/modules";
+    #environment.sessionVariables.GIO_EXTRA_MODULES = "${pkgs.gnome.gvfs}/lib/gio/modules";
     #:${pkgs.glib-networking.out}/lib/gio/modules
     #:${pkgs.dconf.lib}/lib/gio/modules
 
-    environment.variables.GIO_EXTRA_MODULES = mkForce config.environment.sessionVariables.GIO_EXTRA_MODULES;
+    #environment.variables.GIO_EXTRA_MODULES = mkForce config.environment.sessionVariables.GIO_EXTRA_MODULES;
 
     boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
     services.udev.extraRules = lib.optionalString cfg.supportDDC ''
@@ -124,15 +125,15 @@ in
     environment.systemPackages = with pkgs; [
         firefox-wayland
         pavucontrol
-        (symlinkJoin {
-            name = "vscode";
-            paths = [ vscode ];
-            buildInputs = [ makeWrapper ];
-            postBuild = ''
-                wrapProgram $out/bin/code \
-                --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-            '';
-        })
+        #(symlinkJoin {
+        #    name = "vscode";
+        #    paths = [ vscode ];
+        #    buildInputs = [ makeWrapper ];
+        #    postBuild = ''
+        #        wrapProgram $out/bin/code \
+        #        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+        #    '';
+        #})
         alacritty
         gnome.nautilus
         libnotify
