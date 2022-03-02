@@ -204,6 +204,7 @@ in
 
   home.sessionVariables = {
     EDITOR = "vim";
+    MANPAGER="sh -c '${pkgs.util-linux}/bin/col -bx | ${pkgs.bat}/bin/bat -l man -p'";
   };
 
   #fonts.fontconfig.enable = true;
