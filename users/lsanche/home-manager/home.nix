@@ -20,13 +20,15 @@ in
   home.packages = with pkgs; [
     # Fonts
     #neofetch
-    exa
-    jq
+    #jq
     neofetch
-    bottom
-    exa
-    bat
   ];
+
+  programs = {
+    bottom.enable = true;
+    bat.enable = true;
+    exa.enable = true;
+  };
 
   programs.fzf.enable = true;
 
