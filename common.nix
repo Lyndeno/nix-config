@@ -6,7 +6,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   nix = {
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
