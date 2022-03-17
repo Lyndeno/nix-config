@@ -22,6 +22,7 @@ in
       #neofetch
       #jq
       neofetch
+      imv
     ];
   };
 
@@ -239,6 +240,9 @@ in
       enable = true;
       defaultApplications = {
         "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+        "image/png" = [ "imv.desktop" ];
+        "image/jpeg" = [ "imv.desktop" ];
+        "image/jpg" = [ "imv.desktop" ];
       };
     };
   };
