@@ -22,7 +22,6 @@ in
       #neofetch
       #jq
       neofetch
-      imv
     ];
   };
 

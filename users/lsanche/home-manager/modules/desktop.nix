@@ -27,6 +27,7 @@ in
         spotify
         discord
         libreoffice-fresh
+        imv
     ];
     gtk = {
         enable = true;
