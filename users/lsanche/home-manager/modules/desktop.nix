@@ -28,9 +28,11 @@ in
         discord
         libreoffice-fresh
         imv
-        avizo
-        pamixer
+        #avizo
+        #pamixer
     ];
+    services.avizo.enable = true;
+    services.avizo.systemd.enable = true;
     xdg.configFile."avizo/config.ini".text = ''
       [default]
       block-count = 50

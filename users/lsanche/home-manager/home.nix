@@ -6,7 +6,9 @@ let
   };
 in
 {
-  imports = [ ./modules/desktop.nix ];
+  imports = [ ./modules/desktop.nix 
+    ./modules/avizo.nix
+  ];
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 
