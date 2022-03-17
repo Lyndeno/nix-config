@@ -35,6 +35,47 @@ in
       settings = {
         tabstop = 2;
       };
+      plugins = with pkgs.vimPlugins; [
+        jellybeans-vim
+        lightline-vim
+        fugitive
+      ];
+      extraConfig = ''
+        syntax on
+        set number
+        set noswapfile
+        set hlsearch
+        set ignorecase
+        set incsearch
+        set noshowmode
+        set encoding=utf-8
+        set hidden
+        set nobackup
+        set nowritebackup
+        set cmdheight=1
+        set shiftwidth=0
+        set t_Co=256
+        colorscheme jellybeans
+
+        hi Normal guibg=NONE ctermbg=NONE
+        hi NonText guibg=NONE ctermbg=NONE
+        hi CursorLineNr guibg=NONE ctermbg=NONE
+        hi LineNr guibg=NONE ctermbg=NONE
+        hi Todo cterm=none ctermfg=white ctermbg=red
+
+        let g:lightline = {
+          \ 'active': {
+          \   'left': [ [ 'mode', 'paste' ],
+          \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+          \ },
+          \ 'component_function': {
+          \   'gitbranch': 'FugitiveHead'
+          \ },
+          \ }
+
+        set signcolumn=number
+        set relativenumber
+    '';
     };
 
     nnn.enable = true;
@@ -91,16 +132,16 @@ in
     };
     vscode = {
       enable = true;
-      package = (pkgs.symlinkJoin {
-              name = "vscode";
-              pname = "vscode";
-              paths = [ pkgs.vscode ];
-              buildInputs = [ pkgs.makeWrapper ];
-              postBuild = ''
-                  wrapProgram $out/bin/code \
-                  --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-              '';
-          });
+      #package = (pkgs.symlinkJoin {
+      #        name = "vscode";
+      #        pname = "vscode";
+      #        paths = [ pkgs.vscode ];
+      #        buildInputs = [ pkgs.makeWrapper ];
+      #        postBuild = ''
+      #            wrapProgram $out/bin/code \
+      #            --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+      #        '';
+      #    });
       extensions = (with pkgs.vscode-extensions; [
         vscodevim.vim
         ms-vscode.cpptools
