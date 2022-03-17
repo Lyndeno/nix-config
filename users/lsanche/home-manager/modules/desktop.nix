@@ -28,7 +28,15 @@ in
         discord
         libreoffice-fresh
         imv
+        avizo
+        pamixer
     ];
+    xdg.configFile."avizo/config.ini".text = ''
+      [default]
+      block-count = 50
+      background = rgba(75,75,75,1)
+      bar-fg-color = rgba(200,200,200,1)
+    '';
     gtk = {
         enable = true;
         theme.name = "Adwaita-dark";
@@ -161,21 +169,21 @@ in
         startup = [
             { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
             { command = "${pkgs.discord}/bin/discord --start-minimized --disable-frame-rate-limit"; }
+            { command = "${pkgs.avizo}/bin/avizo-service"; }
         ];
         output."*" = { bg = "~/.config/wallpaper fill"; };
         keybindings = let
             modifier = config.wayland.windowManager.sway.config.modifier;
             menu = config.wayland.windowManager.sway.config.menu;
-            setMute = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@";
-            setVolume = "${pkgs.pulseaudio}/bin/pactl -- set-sink-volume @DEFAULT_SINK@";
+            setVolume = "${pkgs.avizo}/bin/volumectl -u";
         in lib.mkOptionDefault {
             "${modifier}+l" = "exec ${commands.lock}";
             "${modifier}+grave" = "exec ${menu}";
 
             #TODO: Implement --locked
-            "XF86AudioRaiseVolume" = "exec ${setMute} off && ${setVolume} +2%";
-            "XF86AudioLowerVolume" = "exec ${setMute} off && ${setVolume} -2%";
-            "XF86AudioMute" = "exec ${setMute} toggle";
+            "XF86AudioRaiseVolume" = "exec ${setVolume} up 2";
+            "XF86AudioLowerVolume" = "exec ${setVolume} down 2";
+            "XF86AudioMute" = "exec ${setVolume} toggle-mute";
 
             "print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
 
