@@ -226,16 +226,22 @@ in
       events = [
         { event = "before-sleep"; command = "${commands.lock}"; }
       ];
-      timeouts = [
+      timeouts = let
+        runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
+        screenOn = runInShell "swayidle-screen-on" ''
+          swaymsg "output * dpms on"
+        '';
+      in
+        [
         {
           timeout = 30;
-          command = "${pkgs.writeShellScript "lockscreen-timeout" ''
+          command = runInShell "swayidle-lockscreen-timeout" ''
             if pgrep swaylock
             then
               swaymsg "output * dpms off"
             fi
-          ''}";
-          resumeCommand = "swaymsg \"output * dpms on\"";
+          '';
+          resumeCommand = screenOn;
         }
         {
           timeout = 300;
@@ -243,12 +249,17 @@ in
         }
         {
           timeout = 310;
-          command = "swaymsg \"output * dpms off\"";
-          resumeCommand = "swaymsg \"output * dpms on\"";
+          command = runInShell "swayidle-screen-off" ''
+            swaymsg "output * dpms off"
+          '';
+          #resumeCommand = runInShell "swayidle-screen-on" ''
+          #  swaymsg "output * dpms on"
+          #'';
+          resumeCommand = screenOn;
         }
         {
           timeout = 900;
-          command = "${pkgs.writeShellScript "sleep-when-idle" ''
+          command = "${pkgs.writeShellScript "swayidle-sleep-when-idle" ''
             if [ $(${pkgs.acpi}/bin/acpi -a | cut -d" " -f3 | cut -d- -f1) = "off" ]
             then
               systemctl suspend-then-hibernate
