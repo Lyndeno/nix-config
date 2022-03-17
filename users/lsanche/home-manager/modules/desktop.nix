@@ -219,14 +219,43 @@ in
         workspaceAutoBackAndForth = true;
         bars = [];
         };
-        extraConfig = ''
-        exec swayidle -w \
-            timeout 300 ${commands.lock} \
-            timeout 310 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-            timeout 900 'if [ $(${pkgs.acpi}/bin/acpi -a | cut -d" " -f3 | cut -d- -f1) = "off" ]; then systemctl suspend-then-hibernate; fi' \
-            timeout 30 'if pgrep swaylock; then swaymsg "output * dpms off"; fi' resume 'swaymsg "output * dpms on"'\
-            before-sleep '${commands.lock}'
-        '';
+    };
+
+    services.swayidle = {
+      enable = true;
+      events = [
+        { event = "before-sleep"; command = "${commands.lock}"; }
+      ];
+      timeouts = [
+        {
+          timeout = 30;
+          command = "${pkgs.writeShellScript "lockscreen-timeout" ''
+            if pgrep swaylock
+            then
+              swaymsg "output * dpms off"
+            fi
+          ''}";
+          resumeCommand = "swaymsg \"output * dpms on\"";
+        }
+        {
+          timeout = 300;
+          command = "${commands.lock}";
+        }
+        {
+          timeout = 310;
+          command = "swaymsg \"output * dpms off\"";
+          resumeCommand = "swaymsg \"output * dpms on\"";
+        }
+        {
+          timeout = 900;
+          command = "${pkgs.writeShellScript "sleep-when-idle" ''
+            if [ $(${pkgs.acpi}/bin/acpi -a | cut -d" " -f3 | cut -d- -f1) = "off" ]
+            then
+              systemctl suspend-then-hibernate
+            fi
+          ''}";
+        }
+      ];
     };
 
     programs.mako = {
