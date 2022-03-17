@@ -78,7 +78,11 @@ in
     '';
     };
 
-    nnn.enable = true;
+    nnn = {
+      enable = true;
+      package = pkgs.nnn.override ({withNerdIcons = true; });
+      plugins.src = (config.programs.nnn.package.src) + "/plugins";
+    };
 
     zsh = {
       enable = true;
