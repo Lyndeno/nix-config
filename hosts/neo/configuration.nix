@@ -24,11 +24,38 @@
     };
   };
 
+  #networking.nat.enable = true;
+  #networking.nat.internalInterfaces = [ "ve-torrents" ];
+  #networking.nat.externalInterface = "wlp2s0";
+
   #containers.torrents = {
+  #  enableTun = true;
   #  autoStart = true;
+  #  privateNetwork = true;
+  #  hostAddress = "192.168.100.2";
+  #  localAddress = "192.168.100.11";
+  #  forwardPorts = [
+  #    {
+  #      containerPort = 9091;
+  #      hostPort = 9091;
+  #      protocol = "tcp";
+  #    }
+  #    {
+  #      containerPort = 9091;
+  #      hostPort = 9091;
+  #      protocol = "udp";
+  #    }
+  #  ];
   #  config = { config, pkgs, ... }: {
   #    services.transmission.enable = true;
   #    services.transmission.openRPCPort = true;
+  #                 
+  #    services.openvpn.servers = {
+  #      pia-vancouver = {
+  #        autoStart = false;
+  #        config = "config /etc/nixos/vpn/pia-vancouver.ovpn";
+  #      };
+  #    };
   #  };
   #};
 
