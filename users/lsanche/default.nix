@@ -19,7 +19,6 @@ in
       ../../keys/morpheus.pub
     ];
     shell = pkgs.zsh;
-    #hashedPassword = import ./passwd;
   };
   users.groups = {
     "${myUsername}" = {};
@@ -30,30 +29,9 @@ in
   in
   {
     imports = [
-      #<impermanence/home-manager.nix>
       ./home-manager/home.nix
       hostConfig
     ];
-    #home.persistence."/nix/persist${config.users.users.${myUsername}.home}" = let
-    #  homecfg = config.home-manager.users."${myUsername}";
-    #in lib.mkIf config.modules.persist.enable
-    #{
-    #  allowOther = true;
-    #  directories = [
-    #    ".ssh"
-    #    "Documents"
-    #    "Downloads"
-    #    "Textbooks"
-    #    ".mozilla"
-    #    ".local/share/keyrings"
-    #    ".gnupg"
-    #    "Projects"
-    #    ".config/syncthing"
-    #  ];
-    #  files = [
-    #    (lib.removePrefix "$HOME" "${homecfg.programs.zsh.history.path}")
-    #  ];
-    #};
     home.modules.desktop.enable = config.modules.desktop.enable;
     home.stateVersion = config.system.stateVersion;
 
