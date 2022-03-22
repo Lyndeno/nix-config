@@ -3,8 +3,6 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-
   nix = {
     settings.auto-optimise-store = true;
     gc = {
@@ -31,8 +29,6 @@
     };
     zsh = {
       enable = true;
-      #autosuggestions.enable = true;
-      #syntaxHighlighting.enable = true;
       enableCompletion = true;
       enableGlobalCompInit = false;
     };
