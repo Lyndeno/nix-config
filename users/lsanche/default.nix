@@ -14,9 +14,8 @@ in
       "media"
       (lib.mkIf config.networking.networkmanager.enable "networkmanager") # Do not add this group if networkmanager is not enabled
     ];
-    openssh.authorizedKeys.keyFiles = [
-      ../../keys/neo.pub
-      ../../keys/morpheus.pub
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG8hU9yYrAg76q1zp6rfhOBxSjwSwzQFpJTdBynWSCKA"
     ];
     shell = pkgs.zsh;
   };
