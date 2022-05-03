@@ -24,88 +24,26 @@ in
             alsa.support32Bit = true;
             pulse.enable = true;
         };
-        greetd = {
-          enable = true;
-          settings = {
-            default_session = {
-              command = "${pkgs.sway}/bin/sway --config /etc/greetd/sway-config";
-              user = "greeter";
-            };
-          };
-        };
-        gnome.gnome-keyring.enable = true;
-        gvfs.enable = true; # for nautilus
+        #gnome.gnome-keyring.enable = true;
+        #gvfs.enable = true; # for nautilus
     };
+  services.xserver.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
 
-    environment.etc = {
-      "greetd/sway-config".text = ''
-        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${pkgs.gnome-themes-extra}/share/themes/Adwaita-dark/gtk-3.0/gtk.css ; swaymsg exit"
-
-        bindsym Mod4+shift+e exec swaynag \
-        -t warning \
-        -m 'What do you want to do?' \
-        -b 'Poweroff' 'systemctl poweroff' \
-        -b 'Reboot' 'systemctl reboot' \
-        -b 'Suspend' 'systemctl suspend-then-hibernate' \
-        -b 'Hibernate' 'systemctl hibernate'
-
-        input "type:touchpad" {
-          tap enabled
-        }
-
-        include /etc/sway/config.d/*
-      '';
-      "greetd/environments".text = ''
-        sway
-        zsh
-        bash
-      '';
-    };
 
     security = {
         rtkit.enable = true; # Realtime pipewire
-        pam.services.greetd.enableGnomeKeyring = true;
     };
 
     programs = {
-        sway = {
-            enable = true;
-            wrapperFeatures.gtk = true;
-            extraPackages = with pkgs; [
-                swaylock
-                swayidle
-                wl-clipboard
-                mako
-                alacritty
-                wofi
-                waybar
-                gammastep
-                playerctl
-                slurp
-                grim
-                acpi # for sway-idle to detect if plugged in
-            ];
-            #extraOptions = [
-            #    "--my-next-gpu-wont-be-nvidia"
-            #];
-            extraSessionCommands = ''
-                eval $(gnome-keyring-daemon --start --daemonize)
-                export SSH_AUTH_SOCK
-            '';
-                #export GIO_EXTRA_MODULES="$GIO_EXTRA_MODULES:${pkgs.gnome.gvfs}/lib/gio/modules"
-                #export > /tmp/sway.txt
-        };
-        gnupg.agent.pinentryFlavor = "gnome3";
-        seahorse.enable = true;
     };
-    services.gnome.glib-networking.enable = true;
+  programs._1password-gui = {
+	enable = true;
+	polkitPolicyOwners = [ "lsanche" ];
+	gid = 5000;
+};
 
-    # a fix until nautilus .desktop env vars are fixed
-    #environment.sessionVariables.GIO_EXTRA_MODULES = "${pkgs.gnome.gvfs}/lib/gio/modules";
-    #:${pkgs.glib-networking.out}/lib/gio/modules
-    #:${pkgs.dconf.lib}/lib/gio/modules
-
-    #environment.variables.GIO_EXTRA_MODULES = mkForce config.environment.sessionVariables.GIO_EXTRA_MODULES;
 
     boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
     services.udev.extraRules = lib.optionalString cfg.supportDDC ''
@@ -122,9 +60,17 @@ in
 
     hardware.pulseaudio.enable = false; # use pipewire instead
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; with plasma5Packages; [
         firefox-wayland
         pavucontrol
+        kmail
+        kalendar
+        kaddressbook
+        kontact
+        kmail-account-wizard
+        kmailtransport
+        accounts-qt
+        kdiskmark
         #(symlinkJoin {
         #    name = "vscode";
         #    paths = [ vscode ];
