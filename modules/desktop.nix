@@ -60,17 +60,9 @@ in
 
     hardware.pulseaudio.enable = false; # use pipewire instead
 
-    environment.systemPackages = with pkgs; with plasma5Packages; [
+    environment.systemPackages = with pkgs; [
         firefox-wayland
         pavucontrol
-        kmail
-        kalendar
-        kaddressbook
-        kontact
-        kmail-account-wizard
-        kmailtransport
-        accounts-qt
-        kdiskmark
         #(symlinkJoin {
         #    name = "vscode";
         #    paths = [ vscode ];
@@ -88,6 +80,19 @@ in
         brightnessctl
         pulseaudio # for pactl
         xdg-utils
-    ];
+      ] ++ (with plasma5Packages; [
+        kmail
+        kmail-account-wizard
+        kmailtransport
+        kalendar
+        kaddressbook
+        accounts-qt
+        kdepim-runtime
+        kdepim-addons
+        ark
+        okular
+        filelight
+        partition-manager
+      ]);
   };
 }
