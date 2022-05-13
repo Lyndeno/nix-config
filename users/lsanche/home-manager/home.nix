@@ -136,6 +136,16 @@ in
         pull.rebase = false;
       };
     };
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            "IdentityAgent" = "~/.1password/agent.sock";
+          };
+        };
+      };
+    };
     #vscode = {
     #  enable = true;
     #  #package = (pkgs.symlinkJoin {

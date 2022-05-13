@@ -29,11 +29,13 @@ in
     };
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.defaultSession = "plasmawayland";
   services.xserver.desktopManager.plasma5.enable = true;
 
 
     security = {
         rtkit.enable = true; # Realtime pipewire
+        pam.services.sddm.u2fAuth = false;
     };
 
     programs = {
@@ -52,6 +54,7 @@ in
 
     xdg.portal = {
         enable = true;
+        gtkUsePortal = true;
     };
 
     fonts.fonts = with pkgs; [

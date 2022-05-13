@@ -22,6 +22,11 @@
     };
   };
 
+  security.pam = {
+    u2f.enable = true;
+    u2f.cue = true;
+  };
+
   programs = {
     gnupg.agent = {
       enable = true;
@@ -40,5 +45,6 @@
     #pueue
     bottom
     git
+    #kdiskmark
   ];
 }

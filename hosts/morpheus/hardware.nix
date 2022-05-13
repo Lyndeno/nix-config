@@ -21,7 +21,7 @@
 
   fileSystems = {
 	  "/" = {
-      device = "/dev/nixpool/nixroot";
+      device = "/dev/disk/by-label/nixroot";
       fsType = "ext4";
 	  };
 
@@ -38,6 +38,6 @@
   };
 
   swapDevices =
-    [ { device = "/dev/nixpool/nixswap"; }
+    [ { device = "/dev/disk/by-label/nixswap"; }
     ];
 }
