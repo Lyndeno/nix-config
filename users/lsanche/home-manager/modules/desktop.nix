@@ -26,7 +26,7 @@ in
         signal-desktop
         spotify
         discord
-        libreoffice-fresh
+        libreoffice-qt
         imv
         #avizo
         #pamixer

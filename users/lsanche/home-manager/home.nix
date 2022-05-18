@@ -251,15 +251,6 @@ in
     enable = true;
     userDirs.enable = true;
     userDirs.createDirectories = false;
-    mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-        "image/png" = [ "imv.desktop" ];
-        "image/jpeg" = [ "imv.desktop" ];
-        "image/jpg" = [ "imv.desktop" ];
-      };
-    };
   };
 
   home.sessionVariables = {

@@ -96,6 +96,10 @@ in
         okular
         filelight
         partition-manager
+        brave
+        chromium
+        google-chrome
+        plasma-browser-integration
       ]);
   };
 }

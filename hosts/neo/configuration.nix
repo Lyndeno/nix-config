@@ -55,17 +55,23 @@
   #  };
   #};
 
-  specialisation = {
-    plexMode = {
-      configuration = {
-        services.plex = {
-          enable = true;
-          openFirewall = true;
-          group = "media";
-        };
-      };
-    };
-  };
+  #specialisation = {
+  #  plexMode = {
+  #    configuration = {
+  #      services.plex = {
+  #        enable = true;
+  #        openFirewall = true;
+  #        group = "media";
+  #      };
+  #    };
+  #  };
+  #};
+
+  #virtualisation = {
+  #  libvirtd = {
+  #    enable = true;
+  #  };
+  #};
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -80,7 +86,8 @@
 
   services = {
     logind.lidSwitch = "suspend-then-hibernate";
-    tlp.enable = true;
+    #tlp.enable = true;
+    power-profiles-daemon.enable = true;
   };
   
   # Enable CUPS to print documents.
@@ -91,6 +98,7 @@
 
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
+    #virt-manager
   ];
 
   system.stateVersion = "21.11"; # Did you read the comment?
