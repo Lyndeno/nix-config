@@ -40,7 +40,7 @@ in
             alsa.support32Bit = true;
             pulse.enable = true;
         };
-        #gnome.gnome-keyring.enable = true;
+        gnome.gnome-keyring.enable = true;
         #gvfs.enable = true; # for nautilus
     };
   services.xserver.enable = true;
@@ -52,6 +52,7 @@ in
     security = {
         rtkit.enable = true; # Realtime pipewire
         pam.services.sddm.u2fAuth = false;
+        pam.services.sddm.enableGnomeKeyring = true;
     };
 
     programs = {
@@ -114,6 +115,7 @@ in
         partition-manager
         brave
         plasma-browser-integration
+        vscode
       ]);
   };
 }
