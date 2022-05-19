@@ -32,6 +32,8 @@ in
     #})
     #];
 
+    programs.gnupg.agent.pinentryFlavor = "qt";
+
 
     services = {
         pipewire = {
