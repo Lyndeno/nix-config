@@ -115,7 +115,16 @@ in
         partition-manager
         brave
         plasma-browser-integration
-        vscode
+        ( pkgs. symlinkJoin {
+            name = "vscode";
+            pname = "vscode";
+            paths = [ pkgs.vscode ];
+            buildInputs = [ pkgs.makeWrapper ];
+            postBuild = ''
+              wrapProgram $out/bin/code \
+                --add-flags "--ozone-platform=wayland --enable-features=WaylandWindowDecorations"
+            '';
+        })
       ]);
   };
 }
