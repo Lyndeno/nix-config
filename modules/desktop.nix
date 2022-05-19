@@ -16,6 +16,22 @@ in
   };
 
   config = mkIf cfg.enable {
+    #nixpkgs.overlays = [
+    #  (self: super: {
+    #    plasma5Packages = super.plasma5Packages.overrideScope' ( pself: psuper: {
+
+    #    kwallet = psuper.kwallet.overrideAttrs ( oldAttrs: {
+    #      patches = [ (super.fetchpatch {
+    #          url = "https://invent.kde.org/frameworks/kwallet/-/merge_requests/11.patch";
+    #          sha256 = "sha256-kGWuhOPH+QddsiRaDCfzKgEf++gOYbQHUFBHEzDZXHE=";
+    #        }
+    #        )
+    #      ];
+    #    });
+    #  });
+    #})
+    #];
+
 
     services = {
         pipewire = {
@@ -97,8 +113,6 @@ in
         filelight
         partition-manager
         brave
-        chromium
-        google-chrome
         plasma-browser-integration
       ]);
   };
