@@ -70,7 +70,7 @@ in
 
     xdg.portal = {
         enable = true;
-        gtkUsePortal = true;
+        #gtkUsePortal = true;
     };
 
     fonts.fonts = with pkgs; [
@@ -105,6 +105,11 @@ in
         brave
         gnomeExtensions.appindicator
         gnome.gnome-tweaks
+        pika-backup
+        gnomeExtensions.dash-to-panel
+        gnomeExtensions.dash-to-dock
+        fractal
+        spot
       ] ++ (with plasma5Packages; [
         #kmail
         #kmail-account-wizard
