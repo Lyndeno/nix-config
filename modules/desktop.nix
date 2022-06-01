@@ -11,6 +11,9 @@ in
           desktop = {
               enable = mkOption {type = types.bool; default = false; };
               supportDDC = mkOption {type = types.bool; default = false; };
+              software = {
+                backup = mkOption {type = types.bool; default = true; };
+              };
           };
       };
   };
@@ -103,27 +106,14 @@ in
             '';
         })
         brave
-        gnomeExtensions.appindicator
         gnome.gnome-tweaks
-        pika-backup
-        gnomeExtensions.dash-to-panel
-        gnomeExtensions.dash-to-dock
+        ( mkIf cfg.software.backup pika-backup )
         fractal
         spot
-      ] ++ (with plasma5Packages; [
-        #kmail
-        #kmail-account-wizard
-        #kmailtransport
-        #kalendar
-        #kaddressbook
-        #accounts-qt
-        #kdepim-runtime
-        #kdepim-addons
-        #ark
-        #okular
-        #filelight
-        #partition-manager
-        #plasma-browser-integration
+      ] ++ (with gnomeExtensions; [
+        appindicator
+        dash-to-panel
+        dash-to-dock
       ]);
       services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   };
