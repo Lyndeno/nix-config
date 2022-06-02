@@ -43,6 +43,7 @@
       openFirewall = true;
       group = "media";
     };
+    xserver.displayManager.gdm.autoSuspend = false;
     #borgbackup.jobs."borgbase" = {
     #  paths = [
     #    "/var/lib"
