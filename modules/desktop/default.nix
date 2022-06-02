@@ -9,6 +9,7 @@ in
 {
   imports = [
     ./gnome.nix
+    ./plasma.nix
   ];
   options = {
     modules = {
@@ -18,6 +19,7 @@ in
         software = {
           backup = mkOption {type = types.bool; default = true; };
         };
+        environment = mkOption { type = types.nullOr (types.enum ["gnome" "plasma"]); default = "gnome"; };
       };
     };
   };
@@ -33,14 +35,12 @@ in
       };
       xserver = {
         enable = true;
-        displayManager.gdm.enable = true;
       };
     };
 
     security = {
       rtkit.enable = true; # Realtime pipewire
       pam.services = {
-        gdm.u2fAuth = false;
         login.u2fAuth = false;
       };
     };

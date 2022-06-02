@@ -3,23 +3,17 @@
 with lib;
 
 let
-  cfg = config.modules.desktop.gnome;
-  deskCfg = config.modules.desktop;
+  cfg = config.modules.desktop;
 in
 {
-  options = {
-    modules = {
-      desktop = {
-        gnome = {
-          enable = mkOption { type = types.bool; default = true; };
-        };
-      };
-    };
-  };
-
-  config = mkIf (cfg.enable && deskCfg.enable) {
+  config = mkIf ((cfg.environment == "gnome") && cfg.enable) {
     programs.gnupg.agent.pinentryFlavor = "gnome3";
-    services.xserver.desktopManager.gnome.enable = true;
+    services.xserver = {
+      desktopManager.gnome.enable = true;
+      displayManager.gdm.enable = true;
+    };
+    security.pam.services.gdm.u2fAuth = false;
+
     environment.gnome.excludePackages = (with pkgs; [
       gnome-tour
     ]) ++ (with pkgs.gnome; [
@@ -36,7 +30,7 @@ in
 
     environment.systemPackages = with pkgs; [
       gnome.gnome-tweaks
-      ( mkIf deskCfg.software.backup pika-backup )
+      ( mkIf cfg.software.backup pika-backup )
       fractal
       spot
     ] ++ (with gnomeExtensions; [
