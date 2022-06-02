@@ -23,8 +23,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.gnupg.agent.pinentryFlavor = "gnome3";
-
     hardware.pulseaudio.enable = false; # use pipewire instead
     services = {
       pipewire = {
@@ -36,18 +34,8 @@ in
       xserver = {
         enable = true;
         displayManager.gdm.enable = true;
-        desktopManager.gnome.enable = true;
       };
     };
-
-    environment.gnome.excludePackages = (with pkgs; [
-      gnome-tour
-    ]) ++ (with pkgs.gnome; [
-      gnome-music
-      gedit
-      epiphany
-      gnome-characters
-    ]);
 
     security = {
       rtkit.enable = true; # Realtime pipewire
@@ -78,39 +66,21 @@ in
       (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     ];
 
-    programs.kdeconnect = {
-      enable = true;
-      package = pkgs.gnomeExtensions.gsconnect;
-    };
-
     environment.systemPackages = with pkgs; [
       firefox-wayland
-      pavucontrol
       alacritty
-      libnotify
       #(lib.mkIf cfg.supportDDC ddcutil)
       brightnessctl
-      xdg-utils
-      ( pkgs. symlinkJoin {
-          name = "vscode";
-          pname = "vscode";
-          paths = [ pkgs.vscode ];
-          buildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/code \
-              --add-flags "--ozone-platform=wayland --enable-features=WaylandWindowDecorations"
-          '';
+      ( symlinkJoin {
+        name = "vscode";
+        pname = "vscode";
+        paths = [ pkgs.vscode ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/code \
+            --add-flags "--ozone-platform=wayland --enable-features=WaylandWindowDecorations"
+        '';
       })
-      brave
-      gnome.gnome-tweaks
-      ( mkIf software.backup pika-backup )
-      fractal
-      spot
-    ] ++ (with gnomeExtensions; [
-      appindicator
-      dash-to-panel
-      dash-to-dock
-    ]);
-    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+    ];
   };
 }
