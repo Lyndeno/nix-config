@@ -19,7 +19,7 @@ in
         software = {
           backup = mkOption {type = types.bool; default = true; };
         };
-        environment = mkOption { type = types.nullOr (types.enum ["gnome" "plasma"]); default = "gnome"; };
+        environment = mkOption { type = types.enum ["gnome" "plasma"]; };
       };
     };
   };
