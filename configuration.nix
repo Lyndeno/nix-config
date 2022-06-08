@@ -1,10 +1,10 @@
 {
   imports = [
-    <home-manager/nixos>
+    #<home-manager/nixos>
     #<impermanence/nixos.nix>
     ./common.nix
     ./users
-    ./host
+    #./host
     ./modules
   ];
 }
