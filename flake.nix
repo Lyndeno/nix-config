@@ -7,25 +7,30 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
 
     pkgs = import nixpkgs {
       inherit system;
-      config = { allowUnfree = true; };
+      config = {
+        allowUnfree = true;
+      };
     };
 
     lib = nixpkgs.lib;
 
+    commonModules = [
+      home-manager.nixosModules.home-manager
+      ./configuration.nix
+    ];
+
   in {
     nixosConfigurations = {
       neo = lib.nixosSystem { 
-        inherit system;
+        inherit system pkgs;
 
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
+        modules = commonModules ++ [
           ./hosts/neo
         ];
       };
