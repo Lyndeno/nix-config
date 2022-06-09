@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  networking.hostName = "neo"; # Define your hostname.
+  networking.hostName = "vm"; # Define your hostname.
 
   boot.loader = {
     systemd-boot.enable = true;

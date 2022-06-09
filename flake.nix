@@ -36,6 +36,30 @@
           ./hosts/neo
         ];
       };
+
+      morpheus = lib.nixosSystem {
+        inherit system pkgs;
+
+        modules = commonModules ++ [
+          ./hosts/morpheus
+        ]
+      };
+
+      oracle = lib.nixosSystem {
+        inherit system pkgs;
+
+        modules = commonModules ++ [
+          ./hosts/oracle
+        ]
+      };
+
+      vm = lib.nixosSystem {
+        inherit system pkgs;
+
+        modules = commonModules ++ [
+          ./hosts/vm
+        ]
+      };
     };
   };
 }
