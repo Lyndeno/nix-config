@@ -22,7 +22,9 @@
 
     commonModules = [
       home-manager.nixosModules.home-manager
-      ./configuration.nix
+      ./common.nix
+      ./users
+      ./modules
     ];
 
   in {
