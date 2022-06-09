@@ -5,9 +5,10 @@
     nixpkgs.url = "nixpkgs/nixos-22.05";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "nixos-hardware/master";
   };
   
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, ... }:
   let
     system = "x86_64-linux";
 
@@ -34,6 +35,8 @@
 
         modules = commonModules ++ [
           ./hosts/neo
+          nixos-hardware.nixosModules.dell-xps-15-9560-intel
+          nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
         ];
       };
 
