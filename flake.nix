@@ -42,7 +42,7 @@
 
         modules = commonModules ++ [
           ./hosts/morpheus
-        ]
+        ];
       };
 
       oracle = lib.nixosSystem {
@@ -50,7 +50,7 @@
 
         modules = commonModules ++ [
           ./hosts/oracle
-        ]
+        ];
       };
 
       vm = lib.nixosSystem {
@@ -58,7 +58,7 @@
 
         modules = commonModules ++ [
           ./hosts/vm
-        ]
+        ];
       };
     };
   };
