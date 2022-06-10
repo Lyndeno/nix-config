@@ -138,13 +138,6 @@ in
     };
     ssh = {
       enable = true;
-      matchBlocks = {
-        "* !*.repo.borgbase.com" = {
-          extraOptions = {
-            "IdentityAgent" = "~/.1password/agent.sock";
-          };
-        };
-      };
     };
     #vscode = {
     #  enable = true;

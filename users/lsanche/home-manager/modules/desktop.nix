@@ -32,6 +32,14 @@ in
         #pamixer
     ];
 
+    programs.ssh.matchBlocks = {
+      "* !*.repo.borgbase.com" = {
+        extraOptions = {
+          "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
+        };
+      };
+    };
+
     programs.alacritty = {
         enable = true;
         settings = {
