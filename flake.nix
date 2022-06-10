@@ -35,9 +35,10 @@
 
         modules = commonModules ++ [
           ./hosts/neo
-          nixos-hardware.nixosModules.dell-xps-15-9560-intel
-          nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-        ];
+        ] ++ (with nixos-hardware.nixosModules; [
+          dell-xps-15-9560-intel
+          common-cpu-intel-kaby-lake
+        ]);
       };
 
       morpheus = lib.nixosSystem {
