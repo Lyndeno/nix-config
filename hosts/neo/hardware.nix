@@ -1,17 +1,26 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  boot.kernelParams = [
-    "acpi_rev_override=1"
-  ];
-  hardware.enableRedistributableFirmware = true;
-  hardware.bluetooth.enable = true;
+
+  boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+      kernelModules = [
+        "kvm-intel"
+        "dm-snapshot" # booting off lvm-thin
+      ];
+    };
+    kernelParams = [
+      "acpi_rev_override=1" # nvidia card crashes things without this
+    ];
+  };
 
   services.lvm.boot.thin.enable = true;
+
+  hardware = {
+    enableRedistributableFirmware = true;
+    bluetooth.enable = true;
+  };
 
   boot.initrd.luks.devices = {
     "nixcrypt" = {
@@ -24,7 +33,7 @@
 	  "/" = {
       device = "/dev/disk/by-label/nixroot";
       fsType = "ext4";
-      options = [ "discard" ];
+      options = [ "discard" ]; # discard to make sure thin volume only uses needed space
 	  };
 	  "/boot" = {
       device = "/dev/disk/by-label/ESP";
