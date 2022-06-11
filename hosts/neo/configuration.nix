@@ -2,6 +2,32 @@
 
 {
   networking.hostName = "neo"; # Define your hostname.
+  networking.firewall = {
+    allowedUDPPorts = [ 51820 ];
+  };
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.2/24" ];
+      listenPort = 51820;
+
+      privateKeyFile = "/root/wg_priv";
+
+      peers = [
+        {
+          publicKey = "OWi6eJW3Lic8fmWsYavw68nC5HRiB5TNbhnudwYCJ3I=";
+
+          allowedIPs = [ "10.100.0.0/24" ];
+
+          endpoint = "cloud.lyndeno.ca:51820";
+
+          persistentKeepalive = 25;
+
+          dynamicEndpointRefreshSeconds = 5;
+        }
+      ];
+    };
+  };
 
   boot.loader = {
     systemd-boot.enable = true;
