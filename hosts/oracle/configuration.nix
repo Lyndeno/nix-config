@@ -34,6 +34,29 @@
 
   networking.networkmanager.enable = true;
 
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "enp1s0";
+  networking.nat.internalInterfaces = [ "wg0" ];
+
+  networking.firewall.allowedUDPPorts = [ 51820 ];
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.1/24" ];
+
+      listenPort = 51820;
+
+      privateKeyFile = "/root/wg_priv";
+
+      peers = [
+        {
+          publicKey = "fxgaGrFwtmzW1H4IC3ekfWOzSRUthIq0CSe3DzuReA0=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+      ];
+    };
+  };
+
   services = {
     # Must create .snapshots subvolume in root of snapshotted subvolume
   };
