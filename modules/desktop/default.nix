@@ -59,7 +59,7 @@ in
     #'';
 
     xdg.portal = {
-      enable = true;
+      enable = (cfg.environment != null);
     };
 
     fonts.fonts = with pkgs; [
