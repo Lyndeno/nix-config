@@ -28,42 +28,24 @@
       ./modules
     ];
 
+    mkSystem = extraModules: lib.nixosSystem {
+      inherit system pkgs;
+      modules = commonModules ++ extraModules;
+    };
+
   in {
     nixosConfigurations = {
-      neo = lib.nixosSystem { 
-        inherit system pkgs;
-
-        modules = commonModules ++ [
+      neo = with nixos-hardware.nixosModules; mkSystem [
           ./hosts/neo
-        ] ++ (with nixos-hardware.nixosModules; [
           dell-xps-15-9560-intel
           common-cpu-intel-kaby-lake
-        ]);
-      };
-
-      morpheus = lib.nixosSystem {
-        inherit system pkgs;
-
-        modules = commonModules ++ [
-          ./hosts/morpheus
         ];
-      };
 
-      oracle = lib.nixosSystem {
-        inherit system pkgs;
+      morpheus = mkSystem [ ./hosts/morpheus ];
 
-        modules = commonModules ++ [
-          ./hosts/oracle
-        ];
-      };
+      oracle = mkSystem [ ./hosts/oracle ];
 
-      vm = lib.nixosSystem {
-        inherit system pkgs;
-
-        modules = commonModules ++ [
-          ./hosts/vm
-        ];
-      };
+      vm = mkSystem [ ./hosts/vm ];
     };
   };
 }
