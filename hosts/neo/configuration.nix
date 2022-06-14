@@ -42,6 +42,7 @@
 
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
+    transmission-qt
   ];
 
   system.stateVersion = "21.11"; # Did you read the comment?
