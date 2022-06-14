@@ -2,6 +2,7 @@ name: Check Flake
 
 on:
   push:
+    branches: [ master ];
 
   pull_request:
     branches: [ master ];
