@@ -39,7 +39,7 @@
           ./hosts/neo
           dell-xps-15-9560-intel
           common-cpu-intel-kaby-lake
-        ];
+      ];
 
       morpheus = mkSystem [ ./hosts/morpheus ];
 
