@@ -6,9 +6,13 @@
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
+    cfetch = {
+      url = github:Lyndeno/cfetch/master;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, ... }:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, cfetch, ... }:
   let
     system = "x86_64-linux";
 
@@ -26,6 +30,9 @@
       ./common.nix
       ./users
       ./modules
+      ({config, ...}: {
+        environment.systemPackages = [ cfetch.packages.${system}.default ];
+      })
     ];
 
     mkSystem = extraModules: lib.nixosSystem {

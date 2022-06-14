@@ -1,5 +1,42 @@
 {
   "nodes": {
+    "cfetch": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1655184090,
+        "narHash": "sha256-VLsmdP/DgPExy7jKI22rhK2+yZIo9nbLz2aLu59F7zs=",
+        "owner": "Lyndeno",
+        "repo": "cfetch",
+        "rev": "724032dc993c24066bf8787a68703a02524ceb14",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lyndeno",
+        "ref": "master",
+        "repo": "cfetch",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1653893745,
+        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -53,6 +90,7 @@
     },
     "root": {
       "inputs": {
+        "cfetch": "cfetch",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
