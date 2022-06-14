@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Check:
+  check-flake:
     runs-on: ubuntu-latest
 
     steps:
