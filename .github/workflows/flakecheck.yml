@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
       - name: Check Nix Flake
-      - uses: actions/checkout@v2
-      - uses: cachix/install-nix-action@v17
-      - run: nix flake check
+        uses: cachix/install-nix-action@v17
+        run: nix flake check
