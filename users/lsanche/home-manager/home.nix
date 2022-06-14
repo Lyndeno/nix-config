@@ -139,6 +139,10 @@ in
       extraConfig = {
         pull.rebase = false;
       };
+      ignores = [
+        "result"
+        ".direnv/"
+      ];
     };
     ssh = {
       enable = true;
