@@ -24,7 +24,7 @@
   networking = {
     useDHCP = false;
     networkmanager.enable = true;
-    networkmanager.packages = [
+    networkmanager.plugins = [
       pkgs.networkmanager-openvpn
     ];
   };
