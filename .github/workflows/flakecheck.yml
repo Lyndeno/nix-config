@@ -14,5 +14,6 @@ jobs:
 
     steps:
       - name: Check Nix Flake
-        uses: [ actions/checkout@v2 cachix/install-nix-action@v17 ]
-        run: nix flake check
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v17
+      - run: nix flake check
