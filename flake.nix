@@ -10,9 +10,14 @@
       url = github:Lyndeno/cfetch/master;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    site = {
+      url = github:Lyndeno/website-hugo;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, cfetch, ... }:
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, cfetch, site, ... }:
   let
     system = "x86_64-linux";
 
@@ -43,14 +48,26 @@
   in {
     nixosConfigurations = {
       neo = with nixos-hardware.nixosModules; mkSystem [
-          ./hosts/neo
-          dell-xps-15-9560-intel
-          common-cpu-intel-kaby-lake
+        ./hosts/neo
+        dell-xps-15-9560-intel
+        common-cpu-intel-kaby-lake
       ];
 
       morpheus = mkSystem [ ./hosts/morpheus ];
 
-      oracle = mkSystem [ ./hosts/oracle ];
+      oracle = mkSystem [
+        ./hosts/oracle
+        ({config, ...}: {
+          networking.firewall.allowedTCPPorts = [
+            80
+            443
+          ];
+          services.nginx.enable = true;
+          services.nginx.virtualHosts."cloud.lyndeno.ca" = {
+            root = "${site.packages.${system}.default}/";
+          };
+        })
+      ];
 
       vm = mkSystem [ ./hosts/vm ];
     };
