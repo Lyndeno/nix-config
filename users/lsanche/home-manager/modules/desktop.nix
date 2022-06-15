@@ -8,6 +8,9 @@ let
   };
 in
 {
+  imports = [
+    ./sway.nix
+  ];
   options = {
       home = {
         modules = {

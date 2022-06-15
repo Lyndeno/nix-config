@@ -10,6 +10,7 @@ in
   imports = [
     ./gnome.nix
     ./plasma.nix
+    ./sway.nix
   ];
   options = {
     modules = {
@@ -19,7 +20,7 @@ in
         software = {
           backup = mkOption {type = types.bool; default = true; };
         };
-        environment = mkOption { type = types.nullOr (types.enum ["gnome" "plasma"]); default = null; };
+        environment = mkOption { type = types.nullOr (types.enum ["gnome" "plasma" "sway"]); default = null; };
       };
     };
   };

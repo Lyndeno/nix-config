@@ -34,6 +34,7 @@ in
       hostConfig
     ];
     home.modules.desktop.enable = config.modules.desktop.enable;
+    home.modules.desktop.sway.enable = (config.modules.desktop.environment == "sway");
     home.stateVersion = config.system.stateVersion;
 
   };

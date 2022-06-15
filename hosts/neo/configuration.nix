@@ -15,7 +15,7 @@
 
   modules = {
     desktop.enable = true;
-    desktop.environment = "plasma";
+    desktop.environment = "sway";
     services = {
       pia-vpn.enable = true;
     };
