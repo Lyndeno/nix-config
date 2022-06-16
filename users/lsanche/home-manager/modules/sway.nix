@@ -159,8 +159,9 @@ in {
         config = {
         startup = [
             { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
-            { command = "${pkgs.discord}/bin/discord --start-minimized --disable-frame-rate-limit"; }
+            { command = "${pkgs.discord}/bin/discord --start-minimized"; }
             { command = "${pkgs.avizo}/bin/avizo-service"; }
+            { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
         ];
         output."*" = { bg = "~/.config/wallpaper fill"; };
         keybindings = let

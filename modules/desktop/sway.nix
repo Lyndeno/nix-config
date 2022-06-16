@@ -12,9 +12,13 @@ in
       displayManager.gdm.enable = true;
     };
     security.pam.services.login.u2fAuth = false;
+    security.polkit.enable = true;
     services.gnome.gnome-keyring.enable = true;
 
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    xdg.portal = {
+      wlr.enable = true;
+      gtkUsePortal = true;
+    };
 
     programs = {
       sway = {
@@ -39,6 +43,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      gnome.nautilus
     ];
   };
 }
