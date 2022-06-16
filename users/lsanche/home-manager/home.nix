@@ -42,10 +42,11 @@ in
         tabstop = 2;
       };
       plugins = with pkgs.vimPlugins; [
-        jellybeans-vim
+        #jellybeans-vim
         lightline-vim
         fugitive
       ];
+        #colorscheme jellybeans
       extraConfig = ''
         syntax on
         set number
@@ -61,7 +62,6 @@ in
         set cmdheight=1
         set shiftwidth=0
         set t_Co=256
-        colorscheme jellybeans
 
         hi Normal guibg=NONE ctermbg=NONE
         hi NonText guibg=NONE ctermbg=NONE
@@ -77,6 +77,7 @@ in
           \ 'component_function': {
           \   'gitbranch': 'FugitiveHead'
           \ },
+          \ 'colorscheme': 'base16_',
           \ }
 
         set signcolumn=number

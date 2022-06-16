@@ -62,32 +62,32 @@ in
             opacity = 0.95;
         };
         mouse.hide_when_typing = true;
-        colors = {
-            primary = {
-            foreground = "#ffffff";
-            background = "#191919";
-            };
-            normal = {
-            black = "#171421";
-            red =   "#c01c28";
-            green = "#26a269";
-            yellow = "#e3d44b";
-            blue =  "#12488b";
-            magenta = "#a347ba";
-            cyan =  "#2aa1b3";
-            white = "#d0cfcc";
-            };
-            bright = {
-            black = "#5e5c64";
-            red =   "#f66151";
-            green = "#33d17a";
-            yellow = "#e9ad0c";
-            blue =  "#2a7bde";
-            magenta = "#c061cb";
-            cyan =  "#33c7de";
-            white = "#ffffff";
-            };
-        };
+        #colors = {
+        #    primary = {
+        #    foreground = "#ffffff";
+        #    background = "#191919";
+        #    };
+        #    normal = {
+        #    black = "#171421";
+        #    red =   "#c01c28";
+        #    green = "#26a269";
+        #    yellow = "#e3d44b";
+        #    blue =  "#12488b";
+        #    magenta = "#a347ba";
+        #    cyan =  "#2aa1b3";
+        #    white = "#d0cfcc";
+        #    };
+        #    bright = {
+        #    black = "#5e5c64";
+        #    red =   "#f66151";
+        #    green = "#33d17a";
+        #    yellow = "#e9ad0c";
+        #    blue =  "#2a7bde";
+        #    magenta = "#c061cb";
+        #    cyan =  "#33c7de";
+        #    white = "#ffffff";
+        #    };
+        #};
         };
     };
   };
