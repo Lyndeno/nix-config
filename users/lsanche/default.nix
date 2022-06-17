@@ -41,20 +41,14 @@ in
       };
       plugins = with pkgs.vimPlugins; [
         #jellybeans-vim
-        lightline-vim
         fugitive
         (base16-vim.overrideAttrs (old:
           let schemeFile = config.scheme inputs.base16-vim;
           in { patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim''; }
         ))
-        ((pkgs.vimUtils.buildVimPlugin {
-          name = "vim-base16-lightline";
-          src = inputs.base16-vim-lightline;
-        }).overrideAttrs (old:
+        (lightline-vim.overrideAttrs (old:
         let schemeFile = config.scheme inputs.base16-vim-lightline; 
-        in { patchPhase = ''
-          cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim
-        ''; }
+        in { patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim''; }
         ))
       ];
         #colorscheme jellybeans
