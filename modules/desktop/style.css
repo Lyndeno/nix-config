@@ -5,7 +5,7 @@
     font-size: 14px;
     /*min-height: 30px;*/
     padding: 0px 3px;
-		color: white;
+		color: @base07;
 }
 
 .modules-left {
@@ -21,7 +21,7 @@
 }
 
 #waybar {
-    background: #222222;
+    background: @base01;
 }
 
 #custom-separator {
@@ -33,14 +33,14 @@
 
 #workspaces button {
     margin: 0px 0px;
-    background: #444444;
+    background: @base01;
     color: #cccccc;
     min-width: 20px;
     /*border-radius: 15px;*/
 }
 
 #workspaces button.focused {
-    background: #666666;
+    background: @base02;
     color: white;
 }
 
