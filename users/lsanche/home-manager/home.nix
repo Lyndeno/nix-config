@@ -1,12 +1,7 @@
 { config, pkgs, lib, ... }:
 
-let
-  commands = {
-    lock = "${pkgs.swaylock-effects}/bin/swaylock";
-  };
-in
 {
-  imports = [ ./modules/desktop.nix 
+  imports = [  
     ./modules/avizo.nix
   ];
   # Let Home Manager install and manage itself.

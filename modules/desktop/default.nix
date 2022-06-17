@@ -83,5 +83,50 @@ in
         '';
       })
     ];
+
+    home-manager.users.lsanche = {
+      home.packages = with pkgs; [
+          (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+          spotify
+          zathura
+          signal-desktop
+          spotify
+          discord
+          libreoffice-qt
+          imv
+          #avizo
+          #pamixer
+      ];
+
+      programs.ssh.matchBlocks = {
+        "* !*.repo.borgbase.com" = {
+          extraOptions = {
+            "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
+          };
+        };
+      };
+
+      programs.alacritty = {
+          enable = true;
+          settings = {
+          font = {
+              size = 11;
+              normal = {
+              family = "CaskaydiaCove Nerd Font Mono";
+              style = "Regular";
+              };
+          };
+          window = {
+              padding = {
+              x = 12;
+              y = 12;
+              };
+              dynamic_padding = true;
+              opacity = 0.95;
+          };
+          mouse.hide_when_typing = true;
+          };
+      };
+    };
   };
 }

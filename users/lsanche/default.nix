@@ -33,7 +33,6 @@ in
       ./home-manager/home.nix
       hostConfig
     ];
-    home.modules.desktop.enable = config.modules.desktop.enable;
     home.stateVersion = config.system.stateVersion;
 
   };
