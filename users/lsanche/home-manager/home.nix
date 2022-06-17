@@ -80,6 +80,7 @@
     };
     git = {
       enable = true;
+      lfs.enable = true;
       userName = "Lyndon Sanche";
       userEmail = "lsanche@lyndeno.ca";
       signing.key = "6F8E82F60C799B18";

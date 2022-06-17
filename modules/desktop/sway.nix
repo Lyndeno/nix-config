@@ -18,6 +18,7 @@ in
     xdg.portal = {
       wlr.enable = true;
       gtkUsePortal = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 
     programs = {
@@ -199,7 +200,7 @@ in
               { command = "${pkgs.avizo}/bin/avizo-service"; }
               { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
           ];
-          output."*" = { bg = "~/.config/wallpaper fill"; };
+          output."*" = { bg = "${inputs.wallpapers}/lake_louise.jpg fill"; };
           keybindings = let
               modifier = swayCfg.modifier;
               menu = swayCfg.menu;

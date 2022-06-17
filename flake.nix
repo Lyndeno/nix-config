@@ -48,6 +48,11 @@
       url = github:mnussbaum/base16-waybar;
       flake = false;
     };
+
+    wallpapers = {
+      url = github:Lyndeno/wallpapers;
+      flake = false;
+    };
   };
   
   outputs = inputs@{ self, ... }:

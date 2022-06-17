@@ -232,7 +232,8 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "site": "site"
+        "site": "site",
+        "wallpapers": "wallpapers"
       }
     },
     "site": {
@@ -253,6 +254,22 @@
       "original": {
         "owner": "Lyndeno",
         "repo": "website-hugo",
+        "type": "github"
+      }
+    },
+    "wallpapers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1655499379,
+        "narHash": "sha256-UCACObY2k2KDubfEdvVbwHF886JolylWUMExsestEIQ=",
+        "owner": "Lyndeno",
+        "repo": "wallpapers",
+        "rev": "2e87db22e6792646ae9eac359b1b14aebb90cc0d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lyndeno",
+        "repo": "wallpapers",
         "type": "github"
       }
     }
