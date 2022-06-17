@@ -43,10 +43,13 @@ in
         #jellybeans-vim
         lightline-vim
         fugitive
+        (base16-vim.overrideAttrs (old:
+          let schemeFile = config.scheme inputs.base16-vim;
+          in { patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim''; }
+        ))
       ];
         #colorscheme jellybeans
       extraConfig =  ''
-        syntax on
         set number
         set noswapfile
         set hlsearch
@@ -70,17 +73,23 @@ in
           \ 'component_function': {
           \   'gitbranch': 'FugitiveHead'
           \ },
-          \ 'colorscheme': 'base16_',
           \ }
 
         set signcolumn=number
         set relativenumber
-    '' + builtins.readFile ( config.scheme { templateRepo = inputs.base16-vim; target = "default"; }) + builtins.readFile ( config.scheme { templateRepo = inputs.base16-vim-lightline; target = "default"; }) + ''
-        hi Normal guibg=NONE ctermbg=NONE
-        hi NonText guibg=NONE ctermbg=NONE
-        hi CursorLineNr guibg=NONE ctermbg=NONE
-        hi LineNr guibg=NONE ctermbg=NONE
-        hi Todo cterm=none ctermfg=white ctermbg=red
+        colorscheme base16-scheme
+        function! s:base16_customize() abort
+          hi Normal guibg=NONE ctermbg=NONE
+          hi NonText guibg=NONE ctermbg=NONE
+          hi CursorLineNr guibg=NONE ctermbg=NONE
+          hi LineNr guibg=NONE ctermbg=NONE
+          hi Todo cterm=none ctermfg=white ctermbg=red
+        endfunction
+
+        augroup on_change_colorschema
+          autocmd!
+          autocmd ColorScheme * call s:base16_customize()
+        augroup END
       '';
     };
 
