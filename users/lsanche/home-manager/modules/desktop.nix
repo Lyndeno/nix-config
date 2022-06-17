@@ -3,14 +3,8 @@ with lib;
 
 let
   cfg = config.home.modules.desktop;
-  commands = {
-    lock = "${pkgs.swaylock-effects}/bin/swaylock";
-  };
 in
 {
-  imports = [
-    ./sway.nix
-  ];
   options = {
       home = {
         modules = {
