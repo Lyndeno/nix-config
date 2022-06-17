@@ -31,54 +31,6 @@
       enable = true;
       nix-direnv.enable = true;
     };
-    vim = {
-      enable = true;
-      settings = {
-        tabstop = 2;
-      };
-      plugins = with pkgs.vimPlugins; [
-        #jellybeans-vim
-        lightline-vim
-        fugitive
-      ];
-        #colorscheme jellybeans
-      extraConfig = ''
-        syntax on
-        set number
-        set noswapfile
-        set hlsearch
-        set ignorecase
-        set incsearch
-        set noshowmode
-        set encoding=utf-8
-        set hidden
-        set nobackup
-        set nowritebackup
-        set cmdheight=1
-        set shiftwidth=0
-        set t_Co=256
-
-        hi Normal guibg=NONE ctermbg=NONE
-        hi NonText guibg=NONE ctermbg=NONE
-        hi CursorLineNr guibg=NONE ctermbg=NONE
-        hi LineNr guibg=NONE ctermbg=NONE
-        hi Todo cterm=none ctermfg=white ctermbg=red
-
-        let g:lightline = {
-          \ 'active': {
-          \   'left': [ [ 'mode', 'paste' ],
-          \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-          \ },
-          \ 'component_function': {
-          \   'gitbranch': 'FugitiveHead'
-          \ },
-          \ 'colorscheme': 'base16_',
-          \ }
-
-        set signcolumn=number
-        set relativenumber
-    '';
-    };
 
     nnn = {
       enable = true;

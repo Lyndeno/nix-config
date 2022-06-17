@@ -86,9 +86,6 @@
              (config.scheme { templateRepo = inputs.base16-alacritty; target = "default-256"; })
            ];
          };
-         programs.vim.extraConfig =
-           builtins.readFile ( config.scheme { templateRepo = inputs.base16-vim; target = "default"; }) + builtins.readFile ( config.scheme {
-           templateRepo = inputs.base16-vim-lightline; target = "default"; });
          #wayland.windowManager.sway.extraConfig =
          #  builtins.readFile (config.scheme { templateRepo = base16-sway; target = "colors"; });
          wayland.windowManager.sway.config.colors = with config.scheme.withHashtag; {
@@ -136,6 +133,7 @@
     mkSystem = extraModules: lib.nixosSystem {
       inherit system pkgs;
       modules = commonModules ++ extraModules;
+      specialArgs = { inherit inputs; };
     };
 
   in {
