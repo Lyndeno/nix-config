@@ -45,29 +45,29 @@
     };
   };
   
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, cfetch, site, base16, base16-gruvbox-scheme, base16-alacritty, base16-sway, base16-vim, base16-vim-lightline, ... }:
+  outputs = inputs@{ self, ... }:
   let
     system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
+    pkgs = import inputs.nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
       };
     };
 
-    lib = nixpkgs.lib;
+    lib = inputs.nixpkgs.lib;
 
     commonModules = [
-      home-manager.nixosModules.home-manager
+      inputs.home-manager.nixosModules.home-manager
       ./common.nix
       ./users
       ./modules
       ({config, ...}: {
-        environment.systemPackages = [ cfetch.packages.${system}.default ];
+        environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
-      base16.nixosModule {
-        scheme = "${base16-gruvbox-scheme}/gruvbox-dark-hard.yaml";
+      inputs.base16.nixosModule {
+        scheme = "${inputs.base16-gruvbox-scheme}/gruvbox-dark-hard.yaml";
       }
       ({config, ...}: {
        # home-manager.users.lsanche.programs.alacritty.settings.colors = 
@@ -83,12 +83,12 @@
        home-manager.users.lsanche = {
          programs.alacritty.settings = {
            import = [
-             (config.scheme { templateRepo = base16-alacritty; target = "default-256"; })
+             (config.scheme { templateRepo = inputs.base16-alacritty; target = "default-256"; })
            ];
          };
          programs.vim.extraConfig =
-           builtins.readFile ( config.scheme { templateRepo = base16-vim; target = "default"; }) + builtins.readFile ( config.scheme {
-           templateRepo = base16-vim-lightline; target = "default"; });
+           builtins.readFile ( config.scheme { templateRepo = inputs.base16-vim; target = "default"; }) + builtins.readFile ( config.scheme {
+           templateRepo = inputs.base16-vim-lightline; target = "default"; });
          #wayland.windowManager.sway.extraConfig =
          #  builtins.readFile (config.scheme { templateRepo = base16-sway; target = "colors"; });
          wayland.windowManager.sway.config.colors = with config.scheme.withHashtag; {
@@ -140,7 +140,7 @@
 
   in {
     nixosConfigurations = {
-      neo = with nixos-hardware.nixosModules; mkSystem [
+      neo = with inputs.nixos-hardware.nixosModules; mkSystem [
         ./hosts/neo
         dell-xps-15-9560-intel
         common-cpu-intel-kaby-lake
@@ -157,7 +157,7 @@
           ];
           services.nginx.enable = true;
           services.nginx.virtualHosts."cloud.lyndeno.ca" = {
-            root = "${site.packages.${system}.default}/";
+            root = "${inputs.site.packages.${system}.default}/";
           };
         })
       ];
