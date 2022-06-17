@@ -36,19 +36,19 @@
         "type": "github"
       }
     },
-    "base16-gruvbox-scheme": {
+    "base16-schemes": {
       "flake": false,
       "locked": {
-        "lastModified": 1547401068,
-        "narHash": "sha256-txrHQzlwtx2GIaPum+Z+cncAyOI/5YdHB3OGUziI7wY=",
-        "owner": "dawikur",
-        "repo": "base16-gruvbox-scheme",
-        "rev": "2def6ef77c1f562ff298d61da6845289bfd9f569",
+        "lastModified": 1655238460,
+        "narHash": "sha256-K8Qx8xNn2blm3qGZFNzXGX9DzXQalTTllJpILNPcuVM=",
+        "owner": "base16-project",
+        "repo": "base16-schemes",
+        "rev": "0a6b24b22f48c8a786feebc973f233238eaaaecb",
         "type": "github"
       },
       "original": {
-        "owner": "dawikur",
-        "repo": "base16-gruvbox-scheme",
+        "owner": "base16-project",
+        "repo": "base16-schemes",
         "type": "github"
       }
     },
@@ -223,7 +223,7 @@
       "inputs": {
         "base16": "base16",
         "base16-alacritty": "base16-alacritty",
-        "base16-gruvbox-scheme": "base16-gruvbox-scheme",
+        "base16-schemes": "base16-schemes",
         "base16-sway": "base16-sway",
         "base16-vim": "base16-vim",
         "base16-vim-lightline": "base16-vim-lightline",

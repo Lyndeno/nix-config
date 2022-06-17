@@ -26,8 +26,8 @@
       flake = false;
     };
 
-    base16-gruvbox-scheme = {
-      url = github:dawikur/base16-gruvbox-scheme;
+    base16-schemes = {
+      url = github:base16-project/base16-schemes;
       flake = false;
     };
 
@@ -72,7 +72,7 @@
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
       inputs.base16.nixosModule {
-        scheme = "${inputs.base16-gruvbox-scheme}/gruvbox-dark-hard.yaml";
+        scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
       }
       ({config, ...}: {
        # home-manager.users.lsanche.programs.alacritty.settings.colors = 
