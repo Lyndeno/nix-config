@@ -30,7 +30,7 @@ in
           wl-clipboard
           mako
           alacritty
-          wofi
+          bemenu
           waybar
           gammastep
           playerctl
@@ -218,7 +218,7 @@ in
               "${modifier}+Shift+minus" = "gaps inner all set ${toString swayCfg.gaps.inner}";
               "${modifier}+z" = "exec ${homeCfg.programs.alacritty.package}/bin/alacritty -e ${homeCfg.programs.nnn.package}/bin/nnn";
           };
-          menu = "${pkgs.wofi}/bin/wofi --show drun --allow-images --no-actions";
+          menu = "${pkgs.bemenu}/bin/bemenu-run";
           window.titlebar = false;
           window.commands = [
               {
