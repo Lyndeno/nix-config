@@ -47,6 +47,10 @@ in
           let schemeFile = config.scheme inputs.base16-vim;
           in { patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim''; }
         ))
+        #(vim-base16-lightline.overrideAttrs (old:
+        #let schemeFile = config.scheme inputs.base16-vim-lightline; 
+        #in { patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16.vim''; }
+        #))
       ];
         #colorscheme jellybeans
       extraConfig =  ''
@@ -73,6 +77,7 @@ in
           \ 'component_function': {
           \   'gitbranch': 'FugitiveHead'
           \ },
+          \ 'colorscheme': 'base16'
           \ }
 
         set signcolumn=number
