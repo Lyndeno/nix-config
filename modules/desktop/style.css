@@ -41,12 +41,10 @@
 
 #workspaces button.focused {
     background: @base02;
-    color: white;
 }
 
 #workspaces button:hover {
-    background: #bbbbbb;
-    color: #333333;
+    background: @base05;
 }
 
 #mode {
@@ -56,27 +54,27 @@
 /* Groups and single items */
 
 #cpu, #memory {
-    color: #ff5555;
+    color: @base08;
 }
 
 #disk.root, #disk.xpsroot, #disk.mirror {
-    color: #55ff55;
+    color: @base0B;
 }
 
 #network, #custom-pia-status {
-    color: #aaaaaa;
+    color: @base05;
 }
 
 #idle_inhibitor, #pulseaudio, #tray {
-    color: #bbbbbb;
+    color: @base05;
 }
 
 #workspaces {
-    color: #505050;
+    color: @base02;
 }
 
 #clock {
-    color: white;
+    color: @base07;
     font-size: 16px;
 }
 
@@ -112,33 +110,33 @@
 /* Other settings */
 
 #battery.warning {
-	color: yellow;
+	color: @base0A;
 }
 
 #battery.critical {
-	color: red;
+	color: @base08;
 }
 
 #disk.root.warning, #disk.mirror.warning {
-    color: yellow;
+    color: @base0A;
 }
 
 #disk.root.high, #disk.mirror.high {
-    color: orange;
+    color: @base09;
 }
 
 #disk.root.critical, #disk.mirror.critical {
-    color: red;
+    color: @base08;
 }
 
 #temperature.critical {
-    color: #ff0000;
+    color: @base08;
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: black;
+        background-color: @base07;
+        color: @base00;
     }
 }
 
