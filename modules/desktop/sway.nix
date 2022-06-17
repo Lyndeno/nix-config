@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, inputs, ...}:
 
 with lib;
 
@@ -77,7 +77,9 @@ in
           tray = true;
       };
 
-      programs.waybar = {
+      programs.waybar = let
+        cssScheme = builtins.readFile (config.scheme inputs.base16-waybar); 
+      in {
           enable = true;
           systemd = {
           enable = true;
@@ -85,7 +87,7 @@ in
           #target = "sway-session.target";
           };
           # in next release will allow specifying the path to a css file
-          style = lib.readFile ./style.css;
+          style = cssScheme + (lib.readFile ./style.css);
           settings = [{
           position = "bottom";
           height = 10;

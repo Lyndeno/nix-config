@@ -43,6 +43,11 @@
       url = github:mike-hearn/base16-vim-lightline;
       flake = false;
     };
+
+    base16-waybar = {
+      url = github:mnussbaum/base16-waybar;
+      flake = false;
+    };
   };
   
   outputs = inputs@{ self, ... }:
