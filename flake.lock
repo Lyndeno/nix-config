@@ -124,11 +124,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1655184090,
-        "narHash": "sha256-VLsmdP/DgPExy7jKI22rhK2+yZIo9nbLz2aLu59F7zs=",
+        "lastModified": 1655516680,
+        "narHash": "sha256-OpzVchQgYrvDkerDN0K8vhU+5U0PtAdMjgbXWr4lOY8=",
         "owner": "Lyndeno",
         "repo": "cfetch",
-        "rev": "724032dc993c24066bf8787a68703a02524ceb14",
+        "rev": "1dcde4db5cb22364044d4a1397313ce335b91ca8",
         "type": "github"
       },
       "original": {
