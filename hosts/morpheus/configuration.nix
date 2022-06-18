@@ -27,7 +27,7 @@
     desktop = {
       enable = true;
       supportDDC = true;
-      environment = "plasma";
+      environment = "sway";
     };
   };
 
