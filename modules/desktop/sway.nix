@@ -307,11 +307,13 @@ in
         ];
       };
 
-      programs.mako = {
+      # Referenced https://github.com/stacyharper/base16-mako/blob/master/templates/default.mustache
+      programs.mako = with config.scheme.withHashtag; {
           enable = true;
           anchor = "bottom-right";
-          backgroundColor = "#191919F3";
-          borderColor = "#aa1111ff";
+          backgroundColor = base00;
+          borderColor = base0D;
+          textColor = base05;
           borderRadius = 5;
           borderSize = 2;
           defaultTimeout = 10000;
