@@ -179,7 +179,7 @@ in
           };
           }];
       };
-      wayland.windowManager.sway = let
+      wayland.windowManager.sway = with config.scheme.withHashtag; let
         swayCfg = homeCfg.wayland.windowManager.sway.config;
         wobsock = "$XDG_RUNTIME_DIR/wob.sock";
       in {
@@ -193,7 +193,7 @@ in
               { command = "${pkgs.avizo}/bin/avizo-service"; }
               { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
               { command = "1password --silent"; }
-              { command = "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob"; }
+              { command = "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff"; }
           ];
           output."*" = { bg = "${inputs.wallpapers}/lake_louise.jpg fill"; };
           keybindings = let
