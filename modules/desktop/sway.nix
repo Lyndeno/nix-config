@@ -199,7 +199,6 @@ in
           keybindings = let
               modifier = swayCfg.modifier;
               menu = swayCfg.menu;
-              setVolume = "${pkgs.avizo}/bin/volumectl -u";
           in lib.mkOptionDefault {
               "${modifier}+l" = "exec ${commands.lock}";
               "${modifier}+grave" = "exec ${menu}";
