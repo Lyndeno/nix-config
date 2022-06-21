@@ -1,10 +1,12 @@
 { config, lib, pkgs, ...}:
 {
-    wayland.windowManager.sway.config = {
+  wayland.windowManager.sway.config = let
+      brightness = value: "${pkgs.brightnessctl}/bin/brightnessctl set ${value} | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock";
+  in{
       keybindings = lib.mkOptionDefault {
         # TODO: Figure out how to make this conditional on host
-        "XF86MonBrightnessUp" = "exec ${pkgs.avizo}/bin/lightctl up 2";
-        "XF86MonBrightnessDown" = "exec ${pkgs.avizo}/bin/lightctl down 2";
+        "XF86MonBrightnessUp" = "exec ${brightness "+5%"}";
+        "XF86MonBrightnessDown" = "exec ${brightness "5%-"}";
       };
     };
 

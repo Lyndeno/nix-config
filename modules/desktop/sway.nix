@@ -189,6 +189,7 @@ in
       };
       wayland.windowManager.sway = let
         swayCfg = homeCfg.wayland.windowManager.sway.config;
+        wobsock = "$XDG_RUNTIME_DIR/wob.sock";
       in {
           enable = true;
           wrapperFeatures.gtk = true;
@@ -200,6 +201,7 @@ in
               { command = "${pkgs.avizo}/bin/avizo-service"; }
               { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
               { command = "1password --silent"; }
+              { command = "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob"; }
           ];
           output."*" = { bg = "${inputs.wallpapers}/lake_louise.jpg fill"; };
           keybindings = let
@@ -211,8 +213,8 @@ in
               "${modifier}+grave" = "exec ${menu}";
 
               #TODO: Implement --locked
-              "XF86AudioRaiseVolume" = "exec ${setVolume} up 2";
-              "XF86AudioLowerVolume" = "exec ${setVolume} down 2";
+              "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
+              "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ud 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
               "XF86AudioMute" = "exec ${setVolume} toggle-mute";
 
               "print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
