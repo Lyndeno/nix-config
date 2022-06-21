@@ -1,9 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [  
-    ./modules/avizo.nix
-  ];
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 

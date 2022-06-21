@@ -53,14 +53,6 @@ in
         lock = "${pkgs.swaylock-effects}/bin/swaylock";
       };
     in {
-      services.avizo.enable = true;
-      services.avizo.systemd.enable = true;
-      xdg.configFile."avizo/config.ini".text = ''
-        [default]
-        block-count = 50
-        background = rgba(75,75,75,1)
-        bar-fg-color = rgba(200,200,200,1)
-      '';
       gtk = {
           enable = true;
           theme.name = "Adwaita-dark";
