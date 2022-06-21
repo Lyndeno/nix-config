@@ -22,6 +22,7 @@
   programs = {
     bottom.enable = true;
     bat.enable = true;
+    bat.config = { theme = "base16-256"; };
     exa.enable = true;
     direnv = {
       enable = true;
