@@ -193,7 +193,7 @@ in
               { command = "${pkgs.avizo}/bin/avizo-service"; }
               { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
               { command = "1password --silent"; }
-              { command = "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff"; }
+              { command = "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff -a bottom --margin 30"; }
           ];
           output."*" = { bg = "${inputs.wallpapers}/lake_louise.jpg fill"; };
           keybindings = let
