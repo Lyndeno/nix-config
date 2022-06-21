@@ -35,6 +35,14 @@ in
     ];
     home.stateVersion = config.system.stateVersion;
 
+    # Referenced https://github.com/base16-project/base16-fzf/blob/main/templates/default.mustache
+    programs.fzf.enable = true;
+    programs.fzf.defaultOptions = with config.scheme.withHashtag; [
+      "--color=bg+:${base01},bg:${base00},spinner:${base0C},hl:${base0D}"
+      "--color=fg:${base04},header:${base0D},info:${base0A},pointer:${base0C}"
+      "--color=marker:${base0C},fg+:${base06},prompt:${base0A},hl+:${base0D}"
+    ];
+
     programs.neovim = {
       enable = true;
 

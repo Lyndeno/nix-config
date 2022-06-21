@@ -26,7 +26,6 @@
     bottom.enable = true;
     bat.enable = true;
     exa.enable = true;
-    fzf.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;
