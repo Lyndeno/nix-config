@@ -199,6 +199,7 @@ in
               { command = "${pkgs.discord}/bin/discord --start-minimized"; }
               { command = "${pkgs.avizo}/bin/avizo-service"; }
               { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
+              { command = "1password --silent"; }
           ];
           output."*" = { bg = "${inputs.wallpapers}/lake_louise.jpg fill"; };
           keybindings = let
