@@ -73,6 +73,7 @@
       ./common.nix
       ./users
       ./modules
+      ./programs
       ({config, ...}: {
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
