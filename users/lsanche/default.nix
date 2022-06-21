@@ -34,13 +34,16 @@ in
       hostConfig
     ];
     home.stateVersion = config.system.stateVersion;
-    programs.vim = {
+
+    programs.neovim = {
       enable = true;
-      settings = {
-        tabstop = 2;
-      };
+
+      vimAlias = true;
+      vimdiffAlias = true;
+
       plugins = with pkgs.vimPlugins; [
         #jellybeans-vim
+	vim-nix
         fugitive
         (base16-vim.overrideAttrs (old:
           let schemeFile = config.scheme inputs.base16-vim;
@@ -51,23 +54,15 @@ in
         in { patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim''; }
         ))
       ];
-        #colorscheme jellybeans
-      extraConfig =  ''
-        set number
-        set noswapfile
+      extraConfig = ''
+        set tabstop=2
+        set noshowmode
         set hlsearch
         set ignorecase
         set incsearch
-        set noshowmode
-        set encoding=utf-8
-        set hidden
-        set nobackup
-        set nowritebackup
         set cmdheight=1
         set shiftwidth=0
-        set t_Co=256
-
-
+        set noshowcmd " hide the keys pressed in normal mode
         let g:lightline = {
           \ 'active': {
           \   'left': [ [ 'mode', 'paste' ],
@@ -81,19 +76,20 @@ in
 
         set signcolumn=number
         set relativenumber
-        colorscheme base16-scheme
-        function! s:base16_customize() abort
-          hi Normal guibg=NONE ctermbg=NONE
-          hi NonText guibg=NONE ctermbg=NONE
-          hi CursorLineNr guibg=NONE ctermbg=NONE
-          hi LineNr guibg=NONE ctermbg=NONE
-          hi Todo cterm=none ctermfg=white ctermbg=red
-        endfunction
 
-        augroup on_change_colorschema
-          autocmd!
-          autocmd ColorScheme * call s:base16_customize()
-        augroup END
+	" To make base16 look nice
+	set termguicolors
+        colorscheme base16-scheme
+	set background=dark
+	let base16colorspace=256
+
+	" To remove some of the highlights base16 introduces
+	hi Normal guibg=NONE ctermbg=NONE
+	hi NonText guibg=NONE ctermbg=NONE
+	hi CursorLineNr guibg=NONE ctermbg=NONE
+	hi LineNr guibg=NONE ctermbg=NONE
+	hi Todo cterm=none ctermfg=white ctermbg=red
+
       '';
     };
 
