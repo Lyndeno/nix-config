@@ -5,5 +5,11 @@
     version = "0.6.1";
     sha256 = "1d60hqww1innch277yd3va2snpsp19c7w4v0rxz2jvzvgykfmx77";
   }
+  {
+    name = "vscode-todo-highlight";
+    publisher = "wayou";
+    version = "1.0.5";
+    sha256 = "1sg4zbr1jgj9adsj3rik5flcn6cbr4k2pzxi446rfzbzvcqns189";
+  }
 ];
 }

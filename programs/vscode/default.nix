@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, ... }:
 let
-    extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace (import "${inputs.vscode-extensions}/extensions.lock").extensions;
+    extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace (import ./extensions/extensions.lock).extensions;
 in
 {
     home-manager.users.lsanche.programs.vscode = {
@@ -27,7 +27,6 @@ in
         ibm.output-colorizer
         christian-kohler.path-intellisense
         mechatroner.rainbow-csv
-        #wayou.vscode-todo-highlight
         jnoortheen.nix-ide
         eamodio.gitlens
       ] ++ extensions;

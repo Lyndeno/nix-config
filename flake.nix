@@ -53,16 +53,6 @@
       url = github:Lyndeno/wallpapers;
       flake = false;
     };
-
-    direnv-vscode = {
-      url = github:direnv/direnv-vscode;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    vscode-extensions = {
-      url = github:Lyndeno/vscode-extensions.nix;
-      flake = false;
-    };
   };
   
   outputs = inputs@{ self, ... }:

@@ -138,44 +138,6 @@
         "type": "github"
       }
     },
-    "direnv-vscode": {
-      "inputs": {
-        "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1655818851,
-        "narHash": "sha256-dgp1BCSOlqiFCnVkBYZyn7PaB06pO3s06QBzNidOfeM=",
-        "owner": "direnv",
-        "repo": "direnv-vscode",
-        "rev": "baf979f0b3745240e469755383465f7ee8e2af56",
-        "type": "github"
-      },
-      "original": {
-        "owner": "direnv",
-        "repo": "direnv-vscode",
-        "type": "github"
-      }
-    },
-    "flake-compat": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1650374568,
-        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1653893745,
@@ -192,21 +154,6 @@
       }
     },
     "flake-utils_2": {
-      "locked": {
-        "lastModified": 1653893745,
-        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_3": {
       "locked": {
         "lastModified": 1653893745,
         "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
@@ -282,18 +229,16 @@
         "base16-vim-lightline": "base16-vim-lightline",
         "base16-waybar": "base16-waybar",
         "cfetch": "cfetch",
-        "direnv-vscode": "direnv-vscode",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "site": "site",
-        "vscode-extensions": "vscode-extensions",
         "wallpapers": "wallpapers"
       }
     },
     "site": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -309,22 +254,6 @@
       "original": {
         "owner": "Lyndeno",
         "repo": "website-hugo",
-        "type": "github"
-      }
-    },
-    "vscode-extensions": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1656000314,
-        "narHash": "sha256-cL7ZL0yqjRGZJyHGyfxxcqAm+V3iwtae8v4eJ9iGG/k=",
-        "owner": "Lyndeno",
-        "repo": "vscode-extensions.nix",
-        "rev": "0a38edb1419d3a705066d62edc76059e43c64902",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Lyndeno",
-        "repo": "vscode-extensions.nix",
         "type": "github"
       }
     },
