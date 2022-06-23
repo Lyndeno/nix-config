@@ -3,5 +3,6 @@
     ./nvim.nix
     ./fzf.nix
     ./emacs.nix
+    ./vscode.nix
   ];
 }
