@@ -1,0 +1,9 @@
+{ extensions = [
+  {
+    name = "direnv";
+    publisher = "mkhl";
+    version = "0.6.1";
+    sha256 = "1d60hqww1innch277yd3va2snpsp19c7w4v0rxz2jvzvgykfmx77";
+  }
+];
+}
