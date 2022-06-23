@@ -1,0 +1,31 @@
+name: Update VSCode Extensions
+
+on:
+  push:
+
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  check-flake:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Check Nix Flake
+        run: ./programs/vscode/extensions/update.sh ./programs/vscode/extensions/extensions > ./programs/vscode/extensions/extensions.lock
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: master
+          commit_message: Update extensions.lock
+          commit_options: '--no-verify --signoff'
+          file_pattern: ./programs/vscode/extensions/extensions.lock
+          skip_dirty_check: false
+          skip_fetch: true
