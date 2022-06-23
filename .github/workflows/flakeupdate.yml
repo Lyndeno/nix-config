@@ -1,0 +1,27 @@
+name: Update Flake Inputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+      - name: Update Nix Flake Inputs
+        run: nix flake update
+      - name: Check Nix Flake
+        run: nix flake check
+      - name: Commit flake.lock
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: master
+          commit_message: Update flake.lock
+          commit_options: '--no-verify --signoff'
+          file_pattern: flake.lock
+          skip_dirty_check: false
+          skip_fetch: true
