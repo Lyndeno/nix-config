@@ -25,13 +25,9 @@ in
     "${myUsername}" = {};
   };
   home-manager.users."${myUsername}" = { pkgs, ... }:
-  let
-    hostConfig = ./home-manager/hosts + "/${config.networking.hostName}";
-  in
   {
     imports = [
       ./home-manager/home.nix
-      hostConfig
     ];
     home.stateVersion = config.system.stateVersion;
 

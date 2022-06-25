@@ -8,10 +8,42 @@ in
 {
   config = mkIf ((cfg.environment == "sway") && cfg.enable) {
     programs.gnupg.agent.pinentryFlavor = "gnome3";
-    services.xserver = {
-      displayManager.gdm.enable = true;
+
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.sway}/bin/sway --config /etc/greetd/sway-config";
+          user = "greeter";
+        };
+      };
     };
+
+    environment.etc = {
+      "greetd/sway-config".text = ''
+        exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${pkgs.gnome-themes-extra}/share/themes/Adwaita-dark/gtk-3.0/gtk.css ; swaymsg exit"
+        bindsym Mod4+shift+e exec swaynag \
+        -t warning \
+        -m 'What do you want to do?' \
+        -b 'Poweroff' 'systemctl poweroff' \
+        -b 'Reboot' 'systemctl reboot' \
+        -b 'Suspend' 'systemctl suspend-then-hibernate' \
+        -b 'Hibernate' 'systemctl hibernate'
+        input "type:touchpad" {
+          tap enabled
+        }
+        include /etc/sway/config.d/*
+      '';
+      "greetd/environments".text = ''
+        sway
+        zsh
+        bash
+      '';
+    };
+    
     security.pam.services.login.u2fAuth = false;
+    security.pam.services.greetd.u2fAuth = false;
+    security.pam.services.greetd.enableGnomeKeyring = true;
     security.polkit.enable = true;
     services.gnome.gnome-keyring.enable = true;
 
