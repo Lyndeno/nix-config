@@ -12,6 +12,7 @@ in
     services.gnome.gnome-keyring.enable = true;
 
     services.xserver = {
+      enable = true;
       displayManager.sddm.enable = true;
       displayManager.defaultSession = "plasmawayland";
       desktopManager.plasma5 = {

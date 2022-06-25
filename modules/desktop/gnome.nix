@@ -11,6 +11,7 @@ in
     services.xserver = {
       desktopManager.gnome.enable = true;
       displayManager.gdm.enable = true;
+      enable = true;
     };
     security.pam.services.gdm.u2fAuth = false;
 

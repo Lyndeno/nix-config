@@ -34,9 +34,6 @@ in
         alsa.support32Bit = true;
         pulse.enable = true;
       };
-      xserver = {
-        enable = true;
-      };
     };
 
     security = {
