@@ -153,6 +153,27 @@
         ./hosts/neo
         dell-xps-15-9560-intel
         common-cpu-intel-kaby-lake
+        ({config, ...}: {
+          specialisation.nvidia = {
+            inheritParentConfig = false;
+            configuration = {
+              imports = [
+                ./hosts/neo
+                inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
+                common-cpu-intel-kaby-lake
+              ] ++ commonModules;
+
+              modules.desktop.environment = lib.mkForce "plasma";
+              hardware.nvidia = {
+                prime = {
+                  offload.enable = false;
+                  sync.enable = true;
+                };
+                modesetting.enable = true;
+              };
+            };
+          };
+        })
       ];
 
       morpheus = mkSystem [ ./hosts/morpheus ];

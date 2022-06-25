@@ -85,13 +85,6 @@ in
         lock = "${pkgs.swaylock-effects}/bin/swaylock";
       };
     in {
-      gtk = {
-          enable = true;
-          theme.name = "Adwaita-dark";
-          theme.package = pkgs.gnome.gnome-themes-extra;
-          iconTheme.name = "Papirus-Dark";
-          iconTheme.package = pkgs.papirus-icon-theme;
-      };
 
       xdg.configFile."swaylock/config".source = ./swaylock.conf;
 

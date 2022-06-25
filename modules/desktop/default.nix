@@ -95,6 +95,14 @@ in
           #pamixer
       ];
 
+      gtk = {
+          enable = true;
+          theme.name = "Adwaita-dark";
+          theme.package = pkgs.gnome.gnome-themes-extra;
+          iconTheme.name = "Papirus-Dark";
+          iconTheme.package = pkgs.papirus-icon-theme;
+      };
+
       programs.ssh.matchBlocks = {
         "* !*.repo.borgbase.com" = {
           extraOptions = {
