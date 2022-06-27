@@ -95,10 +95,8 @@ in
           tray = true;
       };
 
-      programs.waybar = import ./sway/waybar {thm = config.scheme};
-      wayland.windowManager.sway = with config.scheme.withHashtag; let
-        swayCfg = homeCfg.wayland.windowManager.sway.config;
-      in {
+      programs.waybar = { enable = true; } // import ./sway/waybar { inherit lib; cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);};
+      wayland.windowManager.sway = with config.scheme.withHashtag; {
           enable = true;
           wrapperFeatures.gtk = true;
           package = null;

@@ -1,8 +1,5 @@
-{thm}:
-let
-  cssScheme = builtins.readFile (config.scheme inputs.base16-waybar); 
-in {
-  enable = true;
+{lib, cssScheme}:
+{
   systemd = {
   enable = true;
   # TODO: Will be in the next release of home-manager
