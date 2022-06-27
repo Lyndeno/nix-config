@@ -81,7 +81,6 @@ in
     ];
 
     home-manager.users.lsanche = let
-      homeCfg = config.home-manager.users.lsanche;
       swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
         lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
@@ -101,9 +100,11 @@ in
           wrapperFeatures.gtk = true;
           package = null;
           config = import ./common.nix {
-            inherit commands homeCfg pkgs lib;
+            inherit commands pkgs lib;
             wallpaper = "${inputs.wallpapers}/lake_louise.jpg";
             thm = config.scheme;
+            # TODO: We use this to access our set terminal packages. Pass through that instead
+            homeCfg = config.home-manager.users.lsanche;
           };
       };
 
