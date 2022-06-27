@@ -47,6 +47,7 @@ in
         "workbench.editor.decorations.colors" = true;
         "workbench.editor.wrapTabs" = true;
         "diffEditor.renderSideBySide" = true;
+        "editor.guides.bracketPairs" = true;
       };
     };
 }
