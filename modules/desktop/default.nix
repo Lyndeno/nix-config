@@ -10,7 +10,7 @@ in
   imports = [
     ./gnome.nix
     ./plasma.nix
-    ./sway.nix
+    ./i3-sway
   ];
   options = {
     modules = {
