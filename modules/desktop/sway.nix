@@ -240,7 +240,23 @@ in
               "${modifier}+Shift+minus" = "gaps inner all set ${toString swayCfg.gaps.inner}";
               "${modifier}+z" = "exec ${homeCfg.programs.alacritty.package}/bin/alacritty -e ${homeCfg.programs.nnn.package}/bin/nnn";
           };
-          menu = "${pkgs.bemenu}/bin/bemenu-run -b -H 25";
+          menu = let
+            themeArgs = with config.scheme.withHashtag; builtins.concatStringsSep " " [
+              # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
+              "--tb '${base01}'"
+              "--nb '${base01}'"
+              "--fb '${base01}'"
+              "--hb '${base03}'"
+              "--sb '${base03}'"
+              "--hf '${base0A}'"
+              "--sf '${base0B}'"
+              "--tf '${base05}'"
+              "--ff '${base05}'"
+              "--nf '${base05}'"
+              "--scb '${base01}'"
+              "--scf '${base03}'"
+            ];
+          in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs}";
           window.titlebar = false;
           window.commands = [
               {
