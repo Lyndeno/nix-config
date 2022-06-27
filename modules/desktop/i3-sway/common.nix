@@ -47,7 +47,7 @@ in rec {
       "--scb '${base01}'"
       "--scf '${base03}'"
     ];
-  in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'Caskaydia Cove Mono 12'";
+  in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'CaskaydiaCove 12'";
   window.titlebar = false;
   window.commands = [
       {
