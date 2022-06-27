@@ -240,7 +240,7 @@ in
               "${modifier}+Shift+minus" = "gaps inner all set ${toString swayCfg.gaps.inner}";
               "${modifier}+z" = "exec ${homeCfg.programs.alacritty.package}/bin/alacritty -e ${homeCfg.programs.nnn.package}/bin/nnn";
           };
-          menu = "${pkgs.bemenu}/bin/bemenu-run";
+          menu = "${pkgs.bemenu}/bin/bemenu-run -b -H 25";
           window.titlebar = false;
           window.commands = [
               {
