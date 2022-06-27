@@ -255,7 +255,7 @@ in
               "--scb '${base01}'"
               "--scf '${base03}'"
             ];
-          in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs}";
+          in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'Caskaydia Cove Mono 12'";
           window.titlebar = false;
           window.commands = [
               {
