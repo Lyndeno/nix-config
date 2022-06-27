@@ -81,12 +81,11 @@ in
 
     home-manager.users.lsanche = let
       homeCfg = config.home-manager.users.lsanche;
+      swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
-        lock = "${pkgs.swaylock-effects}/bin/swaylock";
+        lock = "${pkgs.swaylock-effects}/bin/swaylock -C ${swaylock-config}";
       };
     in {
-
-      xdg.configFile."swaylock/config".source = ./swaylock.conf;
 
       services.gammastep = {
           enable = true;
