@@ -1,12 +1,7 @@
 {pkgs, thm, ...}:
 # Inspired from https://github.com/SenchoPens/senixos/blob/master/profiles/sway/default.nix
 pkgs.writeText "swaylock-config" ''
-  timestr=%I:%M %p
-  clock
-  indicator
-  indicator-idle-visible
   indicator-thickness=8
-  line-uses-ring
   daemonize
   color=${thm.base00}
   key-hl-color=${thm.green}

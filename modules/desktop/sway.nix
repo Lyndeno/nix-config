@@ -83,7 +83,7 @@ in
       homeCfg = config.home-manager.users.lsanche;
       swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
-        lock = "${pkgs.swaylock-effects}/bin/swaylock -C ${swaylock-config}";
+        lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
       };
     in {
 
