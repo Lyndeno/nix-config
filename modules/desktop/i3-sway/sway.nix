@@ -101,7 +101,7 @@ in
           package = null;
           config = import ./common.nix {
             inherit commands pkgs lib;
-            wallpaper = "${inputs.wallpapers}/lake_louise.jpg";
+            wallpaper = "${import ./wallpaper.nix { inherit config pkgs; } { height = 1080; width = 1920; }}";
             thm = config.scheme;
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
