@@ -16,6 +16,10 @@
   modules = {
     desktop.enable = true;
     desktop.environment = "sway";
+    desktop.mainResolution = {
+      height = 1080;
+      width = 1920;
+    };
     services = {
       pia-vpn.enable = true;
     };

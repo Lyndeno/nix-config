@@ -28,6 +28,10 @@
       enable = true;
       supportDDC = true;
       environment = "sway";
+      mainResolution = {
+        width = 2560;
+        height = 1080;
+      };
     };
   };
   

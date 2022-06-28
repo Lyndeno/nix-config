@@ -101,7 +101,7 @@ in
           package = null;
           config = import ./common.nix {
             inherit commands pkgs lib;
-            wallpaper = "${import ./wallpaper.nix { inherit config pkgs; } { height = 1080; width = 1920; }}";
+            wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
             thm = config.scheme;
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;

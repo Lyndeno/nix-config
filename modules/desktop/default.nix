@@ -21,6 +21,10 @@ in
           backup = mkOption {type = types.bool; default = true; };
         };
         environment = mkOption { type = types.nullOr (types.enum ["gnome" "plasma" "sway"]); default = null; };
+        mainResolution = {
+          width = mkOption { type = types.int; default = 1920; };
+          height = mkOption { type = types.int; default = 1080; };
+        };
       };
     };
   };
