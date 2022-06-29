@@ -20,9 +20,13 @@ in rec {
       "${modifier}+grave" = "exec ${menu}";
 
       #TODO: Implement --locked
-      "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
-      "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ud 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
-      "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer --toggle-mute && ( ${pkgs.pamixer}/bin/pamixer --get-mute && echo 0 > ${wobsock} ) || ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
+      "--locked XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
+      "--locked XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ud 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
+      "--locked XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer --toggle-mute && ( ${pkgs.pamixer}/bin/pamixer --get-mute && echo 0 > ${wobsock} ) || ${pkgs.pamixer}/bin/pamixer --get-volume > ${wobsock}";
+
+      "--locked XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+      "--locked XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+      "--locked XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
       "print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
 
