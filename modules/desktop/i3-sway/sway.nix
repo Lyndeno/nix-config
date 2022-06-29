@@ -85,7 +85,7 @@ in
       commands = {
         lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
       };
-    in {
+    in rec {
 
       services.wlsunset = {
         enable = true;
@@ -93,7 +93,14 @@ in
         longitude = "-113.3";
       };
 
-      programs.waybar = { enable = true; } // import ./sway/waybar { inherit lib; cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);};
+      programs.waybar = {
+        enable = true;
+        package = pkgs.waybar.override { withMediaPlayer = true; };
+      } // import ./sway/waybar {
+        inherit pkgs lib;
+        cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);
+        mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
+      };
       wayland.windowManager.sway = with config.scheme.withHashtag; {
           enable = true;
           wrapperFeatures.gtk = true;

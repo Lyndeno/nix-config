@@ -1,4 +1,4 @@
-{lib, cssScheme}:
+{pkgs, lib, cssScheme, mediaplayerCmd}:
 {
   systemd = {
     enable = true;
@@ -10,7 +10,7 @@
   settings = [{
     position = "bottom";
     height = 20;
-    modules-left = ["sway/workspaces" "sway/window"];
+    modules-left = ["sway/workspaces" "custom/media" "sway/window"];
     modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray" ];
     gtk-layer-shell = true;
     modules = {
@@ -101,6 +101,20 @@
             "default" = ["奄" "奔" "墳"];
         };
         on-click = "pavucontrol";
+      };
+
+      "custom/media" = {
+        format = "{icon} {}";
+        return-type = "json";
+        max-length = 60;
+        format-icons = {
+          "spotify" = "";
+          "default" = "";
+          "firefox" = "";
+        };
+        escape = true;
+        on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
+        exec = "${mediaplayerCmd} 2> /dev/null";
       };
     };
   }];
