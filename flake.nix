@@ -80,65 +80,6 @@
       inputs.base16.nixosModule {
         scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
       }
-      ({config, ...}: {
-       # home-manager.users.lsanche.programs.alacritty.settings.colors = 
-       # with config.scheme.withHashtag; let default = {
-       #   black = base00; white = base07;
-       #   inherit red green yellow blue cyan magenta;
-       # };
-       # in {
-       #   primary = { background = "#000000"; foreground = base07; };
-       #   cursor = { text = base02; cursor = base07; };
-       #   normal = default; bright = default; dim = default;
-       # };
-       home-manager.users.lsanche = {
-         programs.alacritty.settings = {
-           import = [
-             (config.scheme { templateRepo = inputs.base16-alacritty; target = "default-256"; })
-           ];
-         };
-         #wayland.windowManager.sway.extraConfig =
-         #  builtins.readFile (config.scheme { templateRepo = base16-sway; target = "colors"; });
-         wayland.windowManager.sway.config.colors = with config.scheme.withHashtag; {
-           background = base07;
-           focused = {
-             border = base05;
-             background = base0D;
-             text = base00;
-             indicator = base0D;
-             childBorder = base0D;
-           };
-           focusedInactive = {
-             border = base01;
-             background = base01;
-             text = base05;
-             indicator = base03;
-             childBorder = base01;
-           };
-           unfocused = {
-             border = base01;
-             background = base00;
-             text = base05;
-             indicator = base01;
-             childBorder = base01;
-           };
-           urgent = {
-             border = base08;
-             background = base08;
-             text = base00;
-             indicator = base08;
-             childBorder = base08;
-           };
-           placeholder = {
-             border = base00;
-             background = base00;
-             text = base05;
-             indicator = base00;
-             childBorder = base00;
-           };
-         };
-       };
-      })
     ];
 
     mkSystem = extraModules: lib.nixosSystem {

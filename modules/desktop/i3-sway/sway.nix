@@ -98,12 +98,51 @@ in
           enable = true;
           wrapperFeatures.gtk = true;
           package = null;
-          config = import ./common.nix {
+          config = (import ./common.nix {
             inherit commands pkgs lib;
             wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
             thm = config.scheme;
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
+          }) // {
+            colors = {
+              background = base07;
+              focused = {
+                border = base05;
+                background = base0D;
+                text = base00;
+                indicator = base0D;
+                childBorder = base0D;
+              };
+              focusedInactive = {
+                border = base01;
+                background = base01;
+                text = base05;
+                indicator = base03;
+                childBorder = base01;
+              };
+              unfocused = {
+                border = base01;
+                background = base00;
+                text = base05;
+                indicator = base01;
+                childBorder = base01;
+              };
+              urgent = {
+                border = base08;
+                background = base08;
+                text = base00;
+                indicator = base08;
+                childBorder = base08;
+              };
+              placeholder = {
+                border = base00;
+                background = base00;
+                text = base05;
+                indicator = base00;
+                childBorder = base00;
+              };
+            };
           };
       };
 

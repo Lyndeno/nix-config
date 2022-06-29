@@ -11,6 +11,7 @@ in
     ./gnome.nix
     ./plasma.nix
     ./i3-sway
+    ../../programs/desktop
   ];
   options = {
     modules = {
@@ -113,28 +114,6 @@ in
             "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
           };
         };
-      };
-
-      programs.alacritty = {
-          enable = true;
-          settings = {
-          font = {
-              size = 11;
-              normal = {
-              family = "CaskaydiaCove Nerd Font Mono";
-              style = "Regular";
-              };
-          };
-          window = {
-              padding = {
-              x = 12;
-              y = 12;
-              };
-              dynamic_padding = true;
-              opacity = 0.95;
-          };
-          mouse.hide_when_typing = true;
-          };
       };
     };
   };
