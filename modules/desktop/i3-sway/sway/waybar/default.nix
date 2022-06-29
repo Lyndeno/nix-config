@@ -9,7 +9,7 @@
   style = cssScheme + (lib.readFile ./style.css);
   settings = [{
   position = "bottom";
-  height = 10;
+  height = 20;
   modules-left = ["sway/workspaces" "sway/window"];
   modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray" ];
   gtk-layer-shell = true;
@@ -46,8 +46,8 @@
     "idle_inhibitor" = {
     format = "{icon}";
     format-icons = {
-        "activated" = "";
-        "deactivated" = "";
+        "activated" = " ";
+        "deactivated" = " ";
     };
     };
 
@@ -74,7 +74,7 @@
     };
 
     "network" = {
-    format-wifi = "";
+    format-wifi = " ";
     format-ethernet = "  {bandwidthDownBits}";
     format-linked = " {ifname} (No IP)";
     format-disconnected = "Disconnected ⚠";
