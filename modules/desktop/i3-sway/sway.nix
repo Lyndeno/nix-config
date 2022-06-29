@@ -149,7 +149,7 @@ in
       services.swayidle = {
         enable = true;
         events = [
-          { event = "before-sleep"; command = "if ! pgrep swaylock; then ${commands.lock}; fi"; }
+          { event = "before-sleep"; command = "${pkgs.playerctl}/bin/playerctl pause; if ! pgrep swaylock; then ${commands.lock}; fi"; }
         ];
         timeouts = let
           runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
