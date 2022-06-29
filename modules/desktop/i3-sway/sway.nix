@@ -87,11 +87,10 @@ in
       };
     in {
 
-      services.gammastep = {
-          enable = true;
-          latitude = 53.6;
-          longitude = -113.3;
-          tray = true;
+      services.wlsunset = {
+        enable = true;
+        latitude = "53.6";
+        longitude = "-113.3";
       };
 
       programs.waybar = { enable = true; } // import ./sway/waybar { inherit lib; cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);};
