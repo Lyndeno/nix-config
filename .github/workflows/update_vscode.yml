@@ -3,7 +3,7 @@ name: Update VSCode Extensions
 on:
   push:
     paths:
-      - 'programs/vscode/extensions/extensions'
+      - 'programs/desktop/vscode/extensions/extensions'
 
   pull_request:
     branches: [ master ]
