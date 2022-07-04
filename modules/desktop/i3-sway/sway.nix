@@ -32,6 +32,10 @@ in
         input "type:touchpad" {
           tap enabled
         }
+
+        exec ${pkgs.swayidle}/bin/swayidle -w \
+          timeout 30 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+
         include /etc/sway/config.d/*
       '';
       "greetd/environments".text = ''
