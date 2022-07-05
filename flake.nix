@@ -104,7 +104,7 @@
                 common-cpu-intel-kaby-lake
               ] ++ commonModules;
 
-              modules.desktop.environment = lib.mkForce "plasma";
+              modules.desktop.environment = lib.mkForce "i3";
               hardware.nvidia = {
                 prime = {
                   offload.enable = false;

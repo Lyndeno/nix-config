@@ -106,17 +106,51 @@ in
         cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);
         mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
       };
-      wayland.windowManager.sway = with config.scheme.withHashtag; {
+      wayland.windowManager.sway = with config.scheme.withHashtag; let
+        wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
+      in {
           enable = true;
           wrapperFeatures.gtk = true;
           package = null;
           config = (import ./common.nix {
-            inherit commands pkgs lib;
-            wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
+            inherit commands pkgs lib wallpaper;
             thm = config.scheme;
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
+            extraKeybindings = {
+              "${wayland.windowManager.sway.config.modifier}+Shift+minus" = "gaps inner all set ${toString wayland.windowManager.sway.config.gaps.inner}";
+            };
           }) // {
+            bars = [];
+            window.commands = [
+                {
+                criteria = {
+                    title = "^Picture-in-Picture$";
+                    app_id = "firefox";
+                };
+                command = "floating enable, move position 877 450, sticky enable";
+                }
+                {
+                criteria = {
+                    title = "Firefox — Sharing Indicator";
+                    app_id = "firefox";
+                };
+                command = "floating enable, move position 877 450";
+                }
+            ];
+            gaps = {
+                inner = 20;
+                smartGaps = true;
+                smartBorders = "on";
+            };
+            output."*" = { bg = "${wallpaper} fill"; };
+            input = {
+              "type:touchpad" = {
+                tap = "enabled";
+                natural_scroll = "enabled";
+                scroll_factor = "0.2";
+              };
+            };
             colors = {
               background = base07;
               focused = {
