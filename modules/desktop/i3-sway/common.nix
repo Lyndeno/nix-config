@@ -4,12 +4,13 @@
   commands,
   homeCfg,
   thm,
-  extraKeybindings ? {}, ...}:
+  extraKeybindings ? {},
+  extraStartup ? [], ...}:
 let
   wobsock = "$XDG_RUNTIME_DIR/wob.sock";
 in rec {
-  startup = [
-      #{ command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
+  inherit (commands) terminal menu;
+  startup = extraStartup ++ [
       { command = "${pkgs.discord}/bin/discord --start-minimized"; }
       { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
       { command = "1password --silent"; }
@@ -28,32 +29,58 @@ in rec {
       "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
       "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
-      "print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
+      #"print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')";
       "${modifier}+z" = "exec ${homeCfg.programs.alacritty.package}/bin/alacritty -e ${homeCfg.programs.nnn.package}/bin/nnn";
 
       "${modifier}+equal" = "gaps inner all plus 10";
       "${modifier}+minus" = "gaps inner all minus 10";
+      "${modifier}+Shift+minus" = "gaps inner all set ${toString gaps.inner}";
   } // extraKeybindings);
-  menu = let
-    themeArgs = with thm.withHashtag; builtins.concatStringsSep " " [
-      # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
-      "--tb '${base01}'"
-      "--nb '${base01}'"
-      "--fb '${base01}'"
-      "--hb '${base03}'"
-      "--sb '${base03}'"
-      "--hf '${base0A}'"
-      "--sf '${base0B}'"
-      "--tf '${base05}'"
-      "--ff '${base05}'"
-      "--nf '${base05}'"
-      "--scb '${base01}'"
-      "--scf '${base03}'"
-    ];
-  in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'CaskaydiaCove Nerd Font 12'";
+  gaps = {
+      inner = 20;
+      smartGaps = true;
+      smartBorders = "on";
+  };
   window.titlebar = false;
   window.border = 3;
-  terminal = "alacritty";
   modifier = "Mod4";
   workspaceAutoBackAndForth = true;
+  colors = with thm.withHashtag; {
+    background = base07;
+    focused = {
+      border = base05;
+      background = base0D;
+      text = base00;
+      indicator = base0D;
+      childBorder = base0D;
+    };
+    focusedInactive = {
+      border = base01;
+      background = base01;
+      text = base05;
+      indicator = base03;
+      childBorder = base01;
+    };
+    unfocused = {
+      border = base01;
+      background = base00;
+      text = base05;
+      indicator = base01;
+      childBorder = base01;
+    };
+    urgent = {
+      border = base08;
+      background = base08;
+      text = base00;
+      indicator = base08;
+      childBorder = base08;
+    };
+    placeholder = {
+      border = base00;
+      background = base00;
+      text = base05;
+      indicator = base00;
+      childBorder = base00;
+    };
+  };
 }

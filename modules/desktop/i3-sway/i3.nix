@@ -12,7 +12,7 @@ in
     services.xserver = {
       enable = true;
       windowManager.i3.enable = true;
-      #windowManager.i3.configFile = "$XDG_CONFIG_HOME" + i3/config;
+      windowManager.i3.package = pkgs.i3-gaps;
       displayManager.lightdm = {
         enable = true;
       };
@@ -47,6 +47,24 @@ in
       swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
         lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
+        terminal = "${pkgs.alacritty}/bin/alacritty";
+        menu = let
+          themeArgs = with config.scheme.withHashtag; builtins.concatStringsSep " " [
+            # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
+            "--tb '${base01}'"
+            "--nb '${base01}'"
+            "--fb '${base01}'"
+            "--hb '${base03}'"
+            "--sb '${base03}'"
+            "--hf '${base0A}'"
+            "--sf '${base0B}'"
+            "--tf '${base05}'"
+            "--ff '${base05}'"
+            "--nf '${base05}'"
+            "--scb '${base01}'"
+            "--scf '${base03}'"
+          ];
+        in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'CaskaydiaCove Nerd Font 12'";
       };
     in rec {
       xsession.windowManager.i3 = {

@@ -89,6 +89,24 @@ in
       swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
         lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
+        terminal = "${pkgs.alacritty}/bin/alacritty";
+        menu = let
+          themeArgs = with config.scheme.withHashtag; builtins.concatStringsSep " " [
+            # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
+            "--tb '${base01}'"
+            "--nb '${base01}'"
+            "--fb '${base01}'"
+            "--hb '${base03}'"
+            "--sb '${base03}'"
+            "--hf '${base0A}'"
+            "--sf '${base0B}'"
+            "--tf '${base05}'"
+            "--ff '${base05}'"
+            "--nf '${base05}'"
+            "--scb '${base01}'"
+            "--scf '${base03}'"
+          ];
+        in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'CaskaydiaCove Nerd Font 12'";
       };
     in rec {
 
@@ -118,8 +136,10 @@ in
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
             extraKeybindings = {
-              "${wayland.windowManager.sway.config.modifier}+Shift+minus" = "gaps inner all set ${toString wayland.windowManager.sway.config.gaps.inner}";
             };
+            extraStartup = [
+              { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
+            ];
           }) // {
             bars = [];
             window.commands = [
@@ -138,55 +158,12 @@ in
                 command = "floating enable, move position 877 450";
                 }
             ];
-            gaps = {
-                inner = 20;
-                smartGaps = true;
-                smartBorders = "on";
-            };
             output."*" = { bg = "${wallpaper} fill"; };
             input = {
               "type:touchpad" = {
                 tap = "enabled";
                 natural_scroll = "enabled";
                 scroll_factor = "0.2";
-              };
-            };
-            colors = {
-              background = base07;
-              focused = {
-                border = base05;
-                background = base0D;
-                text = base00;
-                indicator = base0D;
-                childBorder = base0D;
-              };
-              focusedInactive = {
-                border = base01;
-                background = base01;
-                text = base05;
-                indicator = base03;
-                childBorder = base01;
-              };
-              unfocused = {
-                border = base01;
-                background = base00;
-                text = base05;
-                indicator = base01;
-                childBorder = base01;
-              };
-              urgent = {
-                border = base08;
-                background = base08;
-                text = base00;
-                indicator = base08;
-                childBorder = base08;
-              };
-              placeholder = {
-                border = base00;
-                background = base00;
-                text = base05;
-                indicator = base00;
-                childBorder = base00;
               };
             };
           };
