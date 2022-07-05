@@ -1,7 +1,9 @@
+defaultFont:
+''
 * {
     border: none;
     border-radius: 0;
-    font-family: CaskaydiaCove Nerd Font;
+    font-family: ${defaultFont.name};
     font-size: 15px;
     min-height: 25px;
     padding: 0px 3px;
@@ -164,3 +166,4 @@ window.DP-2 #clock {
 window.DP-2 #workspaces {
     padding-left: 0px;
 }*/
+''

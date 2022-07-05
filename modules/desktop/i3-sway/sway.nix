@@ -1,4 +1,4 @@
-{config, lib, pkgs, inputs, ...}:
+{config, lib, pkgs, inputs, defaultFont, ...}:
 
 with lib;
 
@@ -106,7 +106,7 @@ in
             "--scb '${base01}'"
             "--scf '${base03}'"
           ];
-        in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'CaskaydiaCove Nerd Font 12'";
+        in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn '${defaultFont.name} 12'";
       };
     in rec {
 
@@ -120,7 +120,7 @@ in
         enable = true;
         package = pkgs.waybar.override { withMediaPlayer = true; };
       } // import ./sway/waybar {
-        inherit pkgs lib commands;
+        inherit pkgs lib commands defaultFont;
         cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);
         mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
       };
@@ -227,7 +227,7 @@ in
           borderRadius = 5;
           borderSize = 2;
           defaultTimeout = 10000;
-          font = "CaskcaydiaCove Nerd Font 12";
+          font = "${defaultFont.name} 12";
           groupBy = "summary";
           layer = "overlay";
       };

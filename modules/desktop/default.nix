@@ -1,16 +1,20 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, inputs, ...}:
 
 with lib;
 
 let
   cfg = config.modules.desktop;
   software = config.modules.desktop.software;
+  defaultFont = {
+    package = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
+    name = "CaskaydiaCove Nerd Font";
+  };
 in
 {
   imports = [
     ./gnome.nix
     ./plasma.nix
-    ./i3-sway
+    (import ./i3-sway { inherit config lib pkgs defaultFont inputs; })
     ../../programs/desktop
   ];
   options = {
@@ -66,7 +70,7 @@ in
     };
 
     fonts.fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+      defaultFont.package
     ];
 
     environment.systemPackages = with pkgs; [
@@ -88,7 +92,7 @@ in
 
     home-manager.users.lsanche = {
       home.packages = with pkgs; [
-          (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+          defaultFont.package
           spotify
           zathura
           signal-desktop

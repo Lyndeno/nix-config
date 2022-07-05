@@ -1,6 +1,7 @@
+{config, lib, pkgs, defaultFont, inputs, ...}:
 {
   imports = [
-    ./sway.nix
-    ./i3.nix
+    ( import ./sway.nix {inherit config lib pkgs defaultFont inputs; } )
+    ( import ./i3.nix {inherit config lib pkgs defaultFont inputs; } ) 
   ];
 }
