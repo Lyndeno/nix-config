@@ -1,9 +1,9 @@
-defaultFont:
+fontName:
 ''
 * {
     border: none;
     border-radius: 0;
-    font-family: ${defaultFont.name};
+    font-family: ${fontName};
     font-size: 15px;
     min-height: 25px;
     padding: 0px 3px;
