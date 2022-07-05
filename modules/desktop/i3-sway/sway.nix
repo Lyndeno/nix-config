@@ -120,7 +120,7 @@ in
         enable = true;
         package = pkgs.waybar.override { withMediaPlayer = true; };
       } // import ./sway/waybar {
-        inherit pkgs lib;
+        inherit pkgs lib commands;
         cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);
         mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
       };

@@ -1,4 +1,4 @@
-{pkgs, lib, cssScheme, mediaplayerCmd}:
+{pkgs, lib, cssScheme, mediaplayerCmd, commands}:
 {
   systemd = {
     enable = true;
@@ -81,6 +81,7 @@
         format-alt = "{ifname} = {ipaddr}/{cidr}   {bandwidthDownBits}  {bandwidthUpBits}";
         tooltip-format-wifi = "SSID = {essid}\nAddress = {ipaddr}\nBand {frequency} MHz\nUp = {bandwidthUpBits}\nDown = {bandwidthDownBits}\nStrength = {signalStrength}%";
         interval = 2;
+        on-click-right = "${commands.terminal} -e nmtui";
       };
 
       "pulseaudio" = {
