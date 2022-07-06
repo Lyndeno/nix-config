@@ -10,7 +10,7 @@
   settings = [{
     position = "bottom";
     height = 20;
-    modules-left = ["sway/workspaces" "custom/media" "sway/window"];
+    modules-left = ["sway/workspaces" "sway/mode" "custom/media" "sway/window"];
     modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray" ];
     gtk-layer-shell = true;
     modules = {
