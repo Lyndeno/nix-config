@@ -5,6 +5,8 @@
 
   hardware.bluetooth.enable = true;
 
+  services.ratbagd.enable = true;
+
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -112,6 +114,7 @@
 
   environment.systemPackages = with pkgs; [
     btrfs-progs
+    piper
   ];
 
   system.stateVersion = "21.05"; # Did you read the comment?
