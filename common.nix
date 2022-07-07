@@ -1,4 +1,11 @@
 { config, lib, pkgs, ...}:
+let
+  nebulaHosts = {
+    "10.10.10.1" = [ "oracle.matrix" ];
+    "10.10.10.2" = [ "morpheus.matrix" ];
+    "10.10.10.3" = [ "neo.matrix" ];
+  };
+in
 {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
@@ -16,11 +23,7 @@
     };
   };
 
-  networking.extraHosts = ''
-    10.10.10.1 oracle.matrix
-    10.10.10.2 morpheus.matrix
-    10.10.10.3 neo.matrix
-  '';
+  networking.hosts = nebulaHosts;
 
   services = {
     openssh.enable = true;
