@@ -50,6 +50,37 @@
     allowReboot = true;
   };
 
+  services.nebula = {
+    networks = {
+      matrix = {
+        #settings = {
+        #  lighthouse.serve_dns = true;
+        #};
+        key = "/root/nebula/host.key";
+        cert = "/root/nebula/host.crt";
+        ca = "/root/nebula/ca.crt";
+        isLighthouse = true;
+        firewall = {
+          inbound = [
+            {
+              host = "any";
+              port = "any";
+              proto = "any";
+            }
+          ];
+          outbound = [
+            {
+              host = "any";
+              port = "any";
+              proto = "any";
+            }
+          ];
+        };
+      };
+    };
+  };
+
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
