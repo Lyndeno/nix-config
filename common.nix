@@ -16,6 +16,12 @@
     };
   };
 
+  networking.extraHosts = ''
+    10.10.10.1 oracle.matrix
+    10.10.10.2 morpheus.matrix
+    10.10.10.3 neo.matrix
+  '';
+
   services = {
     openssh.enable = true;
     syncthing = {
