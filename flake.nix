@@ -53,6 +53,11 @@
       url = github:Lyndeno/wallpapers;
       flake = false;
     };
+
+    agenix = {
+      url = github:ryantm/agenix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = inputs@{ self, ... }:
@@ -80,6 +85,7 @@
       inputs.base16.nixosModule {
         scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
       }
+      inputs.agenix.nixosModule
     ];
 
     mkSystem = extraModules: lib.nixosSystem {

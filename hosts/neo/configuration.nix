@@ -3,6 +3,7 @@
 {
   networking.hostName = "neo"; # Define your hostname.
 
+
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 25;
@@ -25,11 +26,15 @@
     };
   };
 
-  services.nebula.networks = {
+  age.secrets.nebula-ca-crt.file = ./secrets/nebula.ca.crt.age;
+  age.secrets.nebula-crt.file = ./secrets/nebula.crt.age;
+  age.secrets.nebula-key.file = ./secrets/nebula.key.age;
+
+  services.nebula.networks = with config.age.secrets; {
     matrix = {
-      key = "/root/nebula/host.key";
-      cert = "/root/nebula/host.crt";
-      ca = "/root/nebula/ca.crt";
+      key = nebula-key.path;
+      cert = nebula-crt.path;
+      ca = nebula-ca-crt.path;
       lighthouses = [ "10.10.10.1" ];
       staticHostMap = {
         "10.10.10.1" = [
