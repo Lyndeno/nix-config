@@ -50,15 +50,21 @@
     allowReboot = true;
   };
 
-  services.nebula = {
+  age.secrets = {
+    nebula-ca-crt.file = ./secrets/nebula.ca.crt.age;
+    nebula-crt.file = ./secrets/nebula.crt.age;
+    nebula-key.file = ./secrets/nebula.key.age;
+  };
+
+  services.nebula = with config.age.secrets; {
     networks = {
       matrix = {
         #settings = {
         #  lighthouse.serve_dns = true;
         #};
-        key = "/root/nebula/host.key";
-        cert = "/root/nebula/host.crt";
-        ca = "/root/nebula/ca.crt";
+        key = nebula-key.path;
+        cert = nebula-crt.path;
+        ca = nebula-ca-crt.path;
         isLighthouse = true;
         firewall = {
           inbound = [
