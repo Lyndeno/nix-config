@@ -36,7 +36,7 @@
       flake = false;
     };
     base16-vim = {
-      url = github:chriskempson/base16-vim;
+      url = github:base16-project/base16-vim;
       flake = false;
     };
     base16-vim-lightline = {

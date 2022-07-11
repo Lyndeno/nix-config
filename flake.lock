@@ -91,15 +91,15 @@
     "base16-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1559893574,
-        "narHash": "sha256-6FsT87qcl9GBxgxrPx2bPULIMA/O8TRxHaN49qMM4uM=",
-        "owner": "chriskempson",
+        "lastModified": 1657418185,
+        "narHash": "sha256-5ldeT3Oa1BAs8n91Gh0DwFhjpCRc37Hw7UkpoJLgGTs=",
+        "owner": "base16-project",
         "repo": "base16-vim",
-        "rev": "6191622d5806d4448fa2285047936bdcee57a098",
+        "rev": "f7d5dc3b79fe5151eb650d4ed0e7fde6ce6724b3",
         "type": "github"
       },
       "original": {
-        "owner": "chriskempson",
+        "owner": "base16-project",
         "repo": "base16-vim",
         "type": "github"
       }
