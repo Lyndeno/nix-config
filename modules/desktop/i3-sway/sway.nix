@@ -158,7 +158,7 @@ in
                 command = "floating enable, move position 877 450";
                 }
             ];
-            output."*" = { bg = "${wallpaper} fill"; };
+            #output."*" = { bg = "${wallpaper} fill"; };
             input = {
               "type:touchpad" = {
                 tap = "enabled";

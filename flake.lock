@@ -136,6 +136,27 @@
         "type": "github"
       }
     },
+    "base16_2": {
+      "inputs": {
+        "nixpkgs": [
+          "stylix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1643556194,
+        "narHash": "sha256-mU/pD30cIRcodLROhbIpRuEoEsO9aV5lDrYav0ZSIUA=",
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "rev": "abc25e69d0e18ce54dbe6d95a531c4d63ed59932",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "type": "github"
+      }
+    },
     "cfetch": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -254,6 +275,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "site": "site",
+        "stylix": "stylix",
         "wallpapers": "wallpapers"
       }
     },
@@ -275,6 +297,43 @@
       "original": {
         "owner": "Lyndeno",
         "repo": "website-hugo",
+        "type": "github"
+      }
+    },
+    "stylix": {
+      "inputs": {
+        "base16": "base16_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1657927800,
+        "narHash": "sha256-V07G9NsYggaoYrHix/fs7xsJduHJHmMV+DCF1+deofg=",
+        "owner": "danth",
+        "repo": "stylix",
+        "rev": "f78eff2236bd8ae936aef4fba95b6769ff65624b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "danth",
+        "repo": "stylix",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1631561581,
+        "narHash": "sha256-3VQMV5zvxaVLvqqUrNz3iJelLw30mIVSfZmAaauM3dA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e5bf3925f6fbdfaf50a2a7ca0be2879c4261d19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },

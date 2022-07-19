@@ -58,6 +58,11 @@
       url = github:ryantm/agenix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = github:danth/stylix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = inputs@{ self, ... }:
@@ -85,6 +90,10 @@
       inputs.base16.nixosModule {
         scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
       }
+      inputs.stylix.nixosModules.stylix
+      ({config, ...}: {
+        stylix.image = "${inputs.wallpapers}/lake_louise.jpg";
+      })
       inputs.agenix.nixosModule
     ];
 

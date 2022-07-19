@@ -10,10 +10,10 @@
         #jellybeans-vim
         vim-nix
         fugitive
-        (base16-vim.overrideAttrs (old:
-          let schemeFile = config.scheme inputs.base16-vim;
-          in { patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim''; }
-        ))
+        #(base16-vim.overrideAttrs (old:
+        #  let schemeFile = config.scheme inputs.base16-vim;
+        #  in { patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim''; }
+        #))
         (lightline-vim.overrideAttrs (old:
         let schemeFile = config.scheme inputs.base16-vim-lightline; 
         in { patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim''; }
@@ -44,7 +44,6 @@
 
         " To make base16 look nice
         set termguicolors
-              colorscheme base16-scheme
         set background=dark
         let base16colorspace=256
 
