@@ -78,7 +78,9 @@
 
     lib = inputs.nixpkgs.lib;
 
-    commonModules = [
+    commonModules = let
+      base16Scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
+    in [
       inputs.home-manager.nixosModules.home-manager
       ./common.nix
       ./users
@@ -88,11 +90,12 @@
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
       inputs.base16.nixosModule {
-        scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
+        scheme = base16Scheme;
       }
       inputs.stylix.nixosModules.stylix
       ({config, ...}: {
         stylix.image = "${inputs.wallpapers}/lake_louise.jpg";
+        lib.stylix.colors = config.lib.base16.mkSchemeAttrs base16Scheme;
       })
       inputs.agenix.nixosModule
     ];
