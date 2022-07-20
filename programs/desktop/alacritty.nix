@@ -5,10 +5,10 @@
       settings = {
         font = {
           size = 11;
-          normal = {
-            family = "CaskaydiaCove Nerd Font Mono";
-            style = "Regular";
-          };
+          #normal = {
+          #  family = "CaskaydiaCove Nerd Font Mono";
+          #  style = "Regular";
+          #};
         };
         window = {
           padding = {

@@ -221,13 +221,13 @@ in
       programs.mako = with config.scheme.withHashtag; {
           enable = true;
           anchor = "bottom-right";
-          backgroundColor = base00;
-          borderColor = base0D;
-          textColor = base05;
+          #backgroundColor = base00;
+          #borderColor = base0D;
+          #textColor = base05;
           borderRadius = 5;
           borderSize = 2;
           defaultTimeout = 10000;
-          font = "${defaults.font.name} 12";
+          #font = "${defaults.font.name} 12";
           groupBy = "summary";
           layer = "overlay";
       };

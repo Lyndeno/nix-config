@@ -309,11 +309,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1658325570,
-        "narHash": "sha256-wXjINukH5k2BL/rkq86qzvqpTlMrUsoyyGB3JkZURCU=",
+        "lastModified": 1658350774,
+        "narHash": "sha256-Da8sQpSHs57Nbz2ie1UaMoz6FVe5L2/JmXRY6/9jzZA=",
         "owner": "Lyndeno",
         "repo": "nix-style",
-        "rev": "458d0d3719f2f79031426fb0e500a61b1e2688a8",
+        "rev": "c51e275e65d05c55924fcfbfac9204a7b30a7fb1",
         "type": "github"
       },
       "original": {

@@ -93,9 +93,26 @@
         scheme = base16Scheme;
       }
       inputs.stylix.nixosModules.stylix
-      ({config, ...}: {
+      ({config, pkgs, ...}: {
         stylix.image = "${inputs.wallpapers}/lake_louise.jpg";
         lib.stylix.colors = config.lib.base16.mkSchemeAttrs base16Scheme;
+        stylix.fonts = let
+          cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
+        in {
+          serif = {
+            package = cascadia;
+            name = "CaskaydiaCove Nerd Font";
+          };
+          sansSerif = {
+            package = cascadia;
+            name = "CaskaydiaCove Nerd Font";
+          };
+          monospace = {
+            package = cascadia;
+            name = "CaskaydiaCove Nerd Font Mono";
+          };
+        };
+
       })
       inputs.agenix.nixosModule
     ];
