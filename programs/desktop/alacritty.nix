@@ -19,9 +19,9 @@
           opacity = 0.95;
         };
         mouse.hide_when_typing = true;
-        import = [
-          (config.scheme { templateRepo = inputs.base16-alacritty; target = "default-256"; })
-        ];
+        #import = [
+        #  (config.scheme { templateRepo = inputs.base16-alacritty; target = "default-256"; })
+        #];
       };
   };
 }

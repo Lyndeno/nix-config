@@ -60,7 +60,7 @@
     };
 
     stylix = {
-      url = github:danth/stylix;
+      url = github:Lyndeno/nix-style/develop;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

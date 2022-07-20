@@ -309,16 +309,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1657927800,
-        "narHash": "sha256-V07G9NsYggaoYrHix/fs7xsJduHJHmMV+DCF1+deofg=",
-        "owner": "danth",
-        "repo": "stylix",
-        "rev": "f78eff2236bd8ae936aef4fba95b6769ff65624b",
+        "lastModified": 1658325570,
+        "narHash": "sha256-wXjINukH5k2BL/rkq86qzvqpTlMrUsoyyGB3JkZURCU=",
+        "owner": "Lyndeno",
+        "repo": "nix-style",
+        "rev": "458d0d3719f2f79031426fb0e500a61b1e2688a8",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
-        "repo": "stylix",
+        "owner": "Lyndeno",
+        "ref": "develop",
+        "repo": "nix-style",
         "type": "github"
       }
     },
