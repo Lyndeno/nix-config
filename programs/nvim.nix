@@ -7,13 +7,8 @@
       vimdiffAlias = true;
 
       plugins = with pkgs.vimPlugins; [
-        #jellybeans-vim
         vim-nix
         fugitive
-        #(base16-vim.overrideAttrs (old:
-        #  let schemeFile = config.scheme inputs.base16-vim;
-        #  in { patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim''; }
-        #))
         (lightline-vim.overrideAttrs (old:
         let schemeFile = config.scheme inputs.base16-vim-lightline; 
         in { patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim''; }

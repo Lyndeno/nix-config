@@ -21,24 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    base16-alacritty = {
-      url = github:aarowill/base16-alacritty;
-      flake = false;
-    };
-
     base16-schemes = {
       url = github:base16-project/base16-schemes;
       flake = false;
     };
 
-    base16-sway = {
-      url = github:rkubosz/base16-sway;
-      flake = false;
-    };
-    base16-vim = {
-      url = github:base16-project/base16-vim;
-      flake = false;
-    };
     base16-vim-lightline = {
       url = github:mike-hearn/base16-vim-lightline;
       flake = false;

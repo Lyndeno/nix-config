@@ -40,22 +40,6 @@
         "type": "github"
       }
     },
-    "base16-alacritty": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1617644576,
-        "narHash": "sha256-oDsuiKx8gt+Ov7hZ9PibIQtE81IRSLO+n5N99WeiK34=",
-        "owner": "aarowill",
-        "repo": "base16-alacritty",
-        "rev": "914727e48ebf3eab1574e23ca0db0ecd0e5fe9d0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aarowill",
-        "repo": "base16-alacritty",
-        "type": "github"
-      }
-    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -69,38 +53,6 @@
       "original": {
         "owner": "base16-project",
         "repo": "base16-schemes",
-        "type": "github"
-      }
-    },
-    "base16-sway": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1630788154,
-        "narHash": "sha256-34KRsHvwdSMXOSWul/cNrzO3iawQ8DiMltcnkNi4OoE=",
-        "owner": "rkubosz",
-        "repo": "base16-sway",
-        "rev": "f8edbb746fe2962cfe73feca7023b9c1ae1e59eb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rkubosz",
-        "repo": "base16-sway",
-        "type": "github"
-      }
-    },
-    "base16-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1657584762,
-        "narHash": "sha256-XdN/36P9a+IEhRCokMvmidTOIq7lhuLt9oQRiTGqcuw=",
-        "owner": "base16-project",
-        "repo": "base16-vim",
-        "rev": "e27e50ccb1587633cc19de0b76e571e38132987f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "base16-project",
-        "repo": "base16-vim",
         "type": "github"
       }
     },
@@ -264,10 +216,7 @@
       "inputs": {
         "agenix": "agenix",
         "base16": "base16",
-        "base16-alacritty": "base16-alacritty",
         "base16-schemes": "base16-schemes",
-        "base16-sway": "base16-sway",
-        "base16-vim": "base16-vim",
         "base16-vim-lightline": "base16-vim-lightline",
         "base16-waybar": "base16-waybar",
         "cfetch": "cfetch",

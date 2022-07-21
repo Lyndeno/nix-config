@@ -2,13 +2,10 @@
 {
   home-manager.users.lsanche.programs.alacritty = {
       enable = true;
+      # colours and font managed by stylix
       settings = {
         font = {
           size = 11;
-          #normal = {
-          #  family = "CaskaydiaCove Nerd Font Mono";
-          #  style = "Regular";
-          #};
         };
         window = {
           padding = {
@@ -19,9 +16,6 @@
           opacity = 0.95;
         };
         mouse.hide_when_typing = true;
-        #import = [
-        #  (config.scheme { templateRepo = inputs.base16-alacritty; target = "default-256"; })
-        #];
       };
   };
 }
