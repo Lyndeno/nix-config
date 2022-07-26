@@ -2,7 +2,8 @@
   description = "Lyndon's NixOS setup";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    # Until NixOS/nixpkgs#182379 shows up in normal unstable
+    nixpkgs.url = "nixpkgs/nixos-unstable-small";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
