@@ -58,7 +58,6 @@ in
       _1password-gui = {
         enable = true;
         polkitPolicyOwners = [ "lsanche" ];
-        gid = 5000;
       };
     };
 

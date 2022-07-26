@@ -44,12 +44,12 @@ in
     ];
 
     home-manager.users.lsanche = let
-      swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
+      swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.lib.stylix.colors; };
       commands = {
         lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         menu = let
-          themeArgs = with config.scheme.withHashtag; builtins.concatStringsSep " " [
+          themeArgs = with config.lib.stylix.colors.withHashtag; builtins.concatStringsSep " " [
             # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
             "--tb '${base01}'"
             "--nb '${base01}'"
@@ -72,7 +72,7 @@ in
         config = (import ./common.nix {
           inherit commands pkgs lib;
           wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
-          thm = config.scheme;
+          thm = config.lib.stylix.colors;
           homeCfg = config.home-manager.users.lsanche;
         });
       };

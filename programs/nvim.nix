@@ -10,11 +10,12 @@
         vim-nix
         fugitive
         (lightline-vim.overrideAttrs (old:
-        let schemeFile = config.scheme inputs.base16-vim-lightline; 
+        let schemeFile = config.lib.stylix.colors inputs.base16-vim-lightline;
         in { patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim''; }
         ))
       ];
-      extraConfig = ''
+      # mkAfter so we can override some stylix settings
+      extraConfig = lib.mkAfter ''
         set tabstop=2
         set noshowmode
         set hlsearch

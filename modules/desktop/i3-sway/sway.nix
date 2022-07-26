@@ -86,12 +86,13 @@ in
     ];
 
     home-manager.users.lsanche = let
-      swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
+      #swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
-        lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
+        #lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
+        lock = "${pkgs.swaylock}/bin/swaylock";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         menu = let
-          themeArgs = with config.scheme.withHashtag; builtins.concatStringsSep " " [
+          themeArgs = with config.lib.stylix.colors.withHashtag; builtins.concatStringsSep " " [
             # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
             "--tb '${base01}'"
             "--nb '${base01}'"
@@ -121,7 +122,7 @@ in
         package = pkgs.waybar.override { withMediaPlayer = true; };
       } // import ./sway/waybar {
         inherit pkgs lib commands defaults;
-        cssScheme = builtins.readFile (config.scheme inputs.base16-waybar);
+        cssScheme = builtins.readFile (config.lib.stylix.colors inputs.base16-waybar);
         mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
       };
       wayland.windowManager.sway = with config.scheme.withHashtag; let
@@ -132,7 +133,7 @@ in
           package = null;
           config = (import ./common.nix {
             inherit commands pkgs lib wallpaper;
-            thm = config.scheme;
+            thm = config.lib.stylix.colors;
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
             extraKeybindings = {

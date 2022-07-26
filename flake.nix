@@ -2,8 +2,8 @@
   description = "Lyndon's NixOS setup";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.05";
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
     cfetch = {
@@ -13,11 +13,6 @@
 
     site = {
       url = github:Lyndeno/website-hugo;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    base16 = {
-      url = github:SenchoPens/base16.nix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,7 +42,7 @@
     };
 
     stylix = {
-      url = github:Lyndeno/nix-style/develop;
+      url = github:danth/stylix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -76,13 +71,16 @@
       ({config, ...}: {
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
-      inputs.base16.nixosModule {
-        scheme = base16Scheme;
-      }
       inputs.stylix.nixosModules.stylix
       ({config, pkgs, ...}: {
+        #nixpkgs.overlays = [ (self: super: {
+        #  myTheme = self.writeText "myTheme.yaml" builtins.readFile base16Scheme;
+        #}) ];
         stylix.image = "${inputs.wallpapers}/lake_louise.jpg";
-        lib.stylix.colors = config.lib.base16.mkSchemeAttrs base16Scheme;
+        #lib.stylix.colors = config.lib.base16.mkSchemeAttrs base16Scheme;
+        stylix.base16Scheme = let
+          myTheme = pkgs.writeTextFile { name = "myTheme.yaml"; text = builtins.replaceStrings [ "Gruvbox dark, hard" ] [ "Gruvbox" ] (builtins.readFile base16Scheme); destination = "/myTheme.yaml"; };
+        in "${myTheme}/myTheme.yaml";
         stylix.fonts = let
           cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
         in {
