@@ -106,6 +106,8 @@ in
             "--nf '${base05}'"
             "--scb '${base01}'"
             "--scf '${base03}'"
+            "--ab '${base01}'"
+            "--af '${base05}'"
           ];
         in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn '${defaults.font.name} 12'";
       };
