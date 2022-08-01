@@ -89,7 +89,7 @@ in
       #swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.scheme; };
       commands = {
         #lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
-        lock = "${pkgs.swaylock}/bin/swaylock";
+        lock = "${pkgs.swaylock}/bin/swaylock -f";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         menu = let
           themeArgs = with config.lib.stylix.colors.withHashtag; builtins.concatStringsSep " " [
@@ -172,37 +172,55 @@ in
           };
       };
 
-      services.swayidle = {
+      services.swayidle = let
+        runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
+        pgrep = "${pkgs.procps}/bin/pgrep";
+        cut = "${pkgs.coreutils-full}/bin/cut";
+        systemctl = "${pkgs.systemd}/bin/systemctl";
+        screenOn = runInShell "swayidle-screen-on" ''
+          ${pkgs.sway}/bin/swaymsg "output * dpms on"
+        '';
+        lockScreenTimeout = runInShell "swayidle-lockscreen-timeout" ''
+          if ${pgrep} swaylock
+          then
+            ${pkgs.sway}/bin/swaymsg "output * dpms off"
+          fi
+        '';
+        screenTimeout = runInShell "swayidle-screen-off" ''
+          ${pkgs.sway}/bin/swaymsg "output * dpms off"
+        '';
+        idleSleep = runInShell "swayidle-sleep-when-idle" ''
+          if [ $(${pkgs.acpi}/bin/acpi -a | ${cut} -d" " -f3 | ${cut} -d- -f1) = "off" ]
+          then
+            ${systemctl} suspend-then-hibernate
+          fi
+        '';
+        beforeSleep = runInShell "swayidle-before-sleep" ''
+          ${pkgs.playerctl}/bin/playerctl pause
+          if ! ${pgrep} swaylock
+            then ${commands.lock}
+          fi
+        '';
+      in {
         enable = true;
         events = [
-          { event = "before-sleep"; command = "${pkgs.playerctl}/bin/playerctl pause; if ! pgrep swaylock; then ${commands.lock}; fi"; }
+          { event = "before-sleep"; command = beforeSleep; }
         ];
         timeouts = let
-          runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
-          screenOn = runInShell "swayidle-screen-on" ''
-            swaymsg "output * dpms on"
-          '';
         in
           [
           {
             timeout = 30;
-            command = runInShell "swayidle-lockscreen-timeout" ''
-              if pgrep swaylock
-              then
-                swaymsg "output * dpms off"
-              fi
-            '';
+            command = lockScreenTimeout;
             resumeCommand = screenOn;
           }
           {
-            timeout = 300;
+            timeout = 180;
             command = "${commands.lock}";
           }
           {
-            timeout = 310;
-            command = runInShell "swayidle-screen-off" ''
-              swaymsg "output * dpms off"
-            '';
+            timeout = 200;
+            command = screenTimeout;
             #resumeCommand = runInShell "swayidle-screen-on" ''
             #  swaymsg "output * dpms on"
             #'';
@@ -210,12 +228,7 @@ in
           }
           {
             timeout = 900;
-            command = "${pkgs.writeShellScript "swayidle-sleep-when-idle" ''
-              if [ $(${pkgs.acpi}/bin/acpi -a | cut -d" " -f3 | cut -d- -f1) = "off" ]
-              then
-                systemctl suspend-then-hibernate
-              fi
-            ''}";
+            command = idleSleep;
           }
         ];
       };
