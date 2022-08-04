@@ -120,11 +120,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1659202206,
-        "narHash": "sha256-erdsLQwjVLtZmqC1Hr6q8e/McxIngvvDIVcKC14aPO8=",
+        "lastModified": 1659274414,
+        "narHash": "sha256-gO8Q6oOwM93F0GCWQYP2R71xGJ2zsPILs7/+Cqcz9Xo=",
         "owner": "danth",
         "repo": "coricamu",
-        "rev": "041791b3143c7c740c14680abc885c2e6f5be621",
+        "rev": "edec9f994ca93ccded4c823f5cd3527eb3c4addb",
         "type": "github"
       },
       "original": {
@@ -283,11 +283,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1659202302,
-        "narHash": "sha256-ZDmFI+Oof7cNbDYJiu5zP18OqbyPlmOZRAI6SkcwEiA=",
+        "lastModified": 1659520167,
+        "narHash": "sha256-sZ3KqtW6B9UGCI6syEYHj1lpilLMGrpMb3gQKUoXKeA=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "74edb54377626a94a05ae58c9a0bd843fa09bbce",
+        "rev": "b4840cfc60144fee9829debc2b6cd1f8a2b08116",
         "type": "github"
       },
       "original": {
