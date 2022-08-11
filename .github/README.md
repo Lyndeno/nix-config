@@ -1,13 +1,9 @@
 My nixos config
 
-Stuff needed:
+To install
 
-before install, two channels need to be added for home-manager and impermanence:
-eg:
 ```bash
-# nix-channel --add https://github.com/nix-community/impermanence/archive/master.tar.gz impermanence
-# nix-channel --add https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz home-manager
-# nix-channel --update
+# nixos-rebuild --switch github:Lyndeno/nix-config#HOST
 ```
 
-Choose home-manager channel that matches that of the nixos channel.
+This is a flake and thus requires the flake related experimental features to be enabled.
