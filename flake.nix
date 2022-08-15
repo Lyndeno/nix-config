@@ -153,8 +153,6 @@
           };
         })
       ];
-
-      vm = mkSystem [ ./hosts/vm ];
     };
   };
 }
