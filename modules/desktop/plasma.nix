@@ -28,8 +28,6 @@ in
       sddm.enableGnomeKeyring = true;
     };
 
-    xdg.portal.gtkUsePortal = true;
-
     programs.kdeconnect.enable = true;
 
     environment.systemPackages = with pkgs; [

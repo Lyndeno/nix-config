@@ -31,7 +31,6 @@ in
     services.gvfs.enable = true;
 
     xdg.portal = {
-      gtkUsePortal = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 

@@ -58,7 +58,6 @@ in
 
     xdg.portal = {
       wlr.enable = true;
-      gtkUsePortal = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 
