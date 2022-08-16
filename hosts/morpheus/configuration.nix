@@ -20,41 +20,14 @@
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
-  services.nebula.networks = {
-    matrix = {
-      key = "/root/nebula/host.key";
-      cert = "/root/nebula/host.crt";
-      ca = "/root/nebula/ca.crt";
-      lighthouses = [ "10.10.10.1" ];
-      staticHostMap = {
-        "10.10.10.1" = [
-          "cloud.lyndeno.ca:4242"
-        ];
-      };
-      firewall = {
-        inbound = [
-          {
-            host = "any";
-            port = "any";
-            proto = "any";
-          }
-        ];
-        outbound = [
-          {
-            host = "any";
-            port = "any";
-            proto = "any";
-          }
-        ];
-      };
-    };
+  modules.services.nebula = {
+    enable = true;
+    nodeName = "morpheus";
   };
 
   modules = {
     programs = {
       gaming.enable = true;
-    };
-    services = {
     };
     desktop = {
       enable = true;

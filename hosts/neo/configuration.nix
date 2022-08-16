@@ -26,38 +26,9 @@
     };
   };
 
-  age.secrets.nebula-ca-crt.file = ./secrets/nebula.ca.crt.age;
-  age.secrets.nebula-crt.file = ./secrets/nebula.crt.age;
-  age.secrets.nebula-key.file = ./secrets/nebula.key.age;
-
-  services.nebula.networks = with config.age.secrets; {
-    matrix = {
-      key = nebula-key.path;
-      cert = nebula-crt.path;
-      ca = nebula-ca-crt.path;
-      lighthouses = [ "10.10.10.1" ];
-      staticHostMap = {
-        "10.10.10.1" = [
-          "cloud.lyndeno.ca:4242"
-        ];
-      };
-      firewall = {
-        inbound = [
-          {
-            host = "any";
-            port = "any";
-            proto = "any";
-          }
-        ];
-        outbound = [
-          {
-            host = "any";
-            port = "any";
-            proto = "any";
-          }
-        ];
-      };
-    };
+  modules.services.nebula = {
+    enable = true;
+    nodeName = "neo";
   };
 
   networking = {
