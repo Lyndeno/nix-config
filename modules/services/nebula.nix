@@ -10,6 +10,7 @@ in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
     nodeName = with types; mkOption { type = nullOr (enum [ "oracle" "morpheus" "neo"]); default = null; };
+    isLighthouse = with types; mkOption { type = bool; default = false; };
   };
 
   config = mkIf (cfg.enable && cfg.nodeName != null) {
@@ -27,6 +28,7 @@ in {
         cert = nebula-crt.path;
         ca = nebula-ca-crt.path;
         lighthouses = [ "10.10.10.1" ];
+        isLighthouse = cfg.isLighthouse;
         staticHostMap = {
           "10.10.10.1" = [
             "cloud.lyndeno.ca:4242"

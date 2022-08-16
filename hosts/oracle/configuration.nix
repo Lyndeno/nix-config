@@ -50,42 +50,11 @@
     allowReboot = true;
   };
 
-  age.secrets = {
-    nebula-ca-crt.file = ./secrets/nebula.ca.crt.age;
-    nebula-crt.file = ./secrets/nebula.crt.age;
-    nebula-key.file = ./secrets/nebula.key.age;
+  modules.services.nebula = {
+    enable = true;
+    nodeName = "oracle";
+    isLighthouse = true;
   };
-
-  services.nebula = with config.age.secrets; {
-    networks = {
-      matrix = {
-        #settings = {
-        #  lighthouse.serve_dns = true;
-        #};
-        key = nebula-key.path;
-        cert = nebula-crt.path;
-        ca = nebula-ca-crt.path;
-        isLighthouse = true;
-        firewall = {
-          inbound = [
-            {
-              host = "any";
-              port = "any";
-              proto = "any";
-            }
-          ];
-          outbound = [
-            {
-              host = "any";
-              port = "any";
-              proto = "any";
-            }
-          ];
-        };
-      };
-    };
-  };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
