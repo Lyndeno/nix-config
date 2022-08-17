@@ -94,6 +94,7 @@ in
       };
     in rec {
 
+      services.udiskie.enable = true;
       services.wlsunset = {
         enable = true;
         latitude = "53.6";

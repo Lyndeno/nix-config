@@ -31,6 +31,9 @@
     nodeName = "neo";
   };
 
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
+
   networking = {
     useDHCP = false;
     networkmanager.enable = true;
@@ -93,6 +96,7 @@
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
     transmission-qt
+    virt-manager
   ];
 
   system.stateVersion = "21.11"; # Did you read the comment?

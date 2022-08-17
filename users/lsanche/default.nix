@@ -13,6 +13,7 @@ in
       "wheel"
       "media"
       (lib.mkIf config.networking.networkmanager.enable "networkmanager") # Do not add this group if networkmanager is not enabled
+      "libvirtd"
     ];
     openssh.authorizedKeys.keys = [
       (lib.mkIf (config.networking.hostName == "morpheus") "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEjPlzlPcny6ZKwNzdlzi85lrIhPtdjLDRov29Fbef60" )

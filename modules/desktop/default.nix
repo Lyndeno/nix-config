@@ -76,6 +76,7 @@ in
 
     environment.systemPackages = with pkgs; [
       firefox-wayland
+      google-chrome
       alacritty
       #(lib.mkIf cfg.supportDDC ddcutil)
       brightnessctl
