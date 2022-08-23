@@ -16,7 +16,7 @@
 
   modules = {
     desktop.enable = true;
-    desktop.environment = "sway";
+    desktop.environment = "gnome";
     desktop.mainResolution = {
       height = 1080;
       width = 1920;
@@ -24,6 +24,11 @@
     services = {
       pia-vpn.enable = true;
     };
+  };
+
+  stylix.targets = {
+    gnome.enable = false;
+    gtk.enable = false;
   };
 
   modules.services.nebula = {
