@@ -10,7 +10,7 @@ on:
 
 jobs:
   check-flake:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout Repo
@@ -20,7 +20,7 @@ jobs:
         with:
           extra_nix_config: |
             extra-platforms = aarch64-linux arm-linux
-      - name: Setup binfmt
+      - name: Install binfmt tools
         run: |
           DEBIAN_FRONTEND=noninteractive
           sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 qemu-efi binfmt-support qemu-user-static
