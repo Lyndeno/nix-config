@@ -50,6 +50,56 @@
   services = {
     logind.lidSwitch = "suspend-then-hibernate";
     power-profiles-daemon.enable = true;
+    borgbackup.jobs."borgbase" = {
+      paths = [
+        "/var/lib"
+        "/srv"
+        "/home"
+      ];
+      exclude = [
+        "/var/lib/systemd"
+        "/var/lib/libvirt"
+        "/var/lib/plex"
+
+        "**/target"
+        "/home/*/.local/share/Steam"
+        "/home/*/Downloads"
+      ];
+      repo = "f774k1bg@f774k1bg.repo.borgbase.com:repo";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat /root/borg/pass";
+      };
+      environment.BORG_RSH = "ssh -i /root/borg/ssh_key";
+      compression = "auto,zstd,10";
+      startAt = "hourly";
+    };
+    borgbackup.jobs."omicron-local" = {
+      paths = [
+        "/var/lib"
+        "/srv"
+        "/home"
+      ];
+      exclude = [
+        "/var/lib/systemd"
+        "/var/lib/libvirt"
+        "/var/lib/plex"
+
+        "**/target"
+        "/home/*/.local/share/Steam"
+        "/home/*/Downloads"
+      ];
+      repo = "/data/omicron/borg/neo";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat /root/borg/pass_omicron";
+      };
+      #environment.BORG_RSH = "ssh -i /root/borg/ssh_key";
+      removableDevice = true;
+      doInit = false;
+      compression = "auto,zstd,10";
+      startAt = [ ];
+    };
   };
   
   # Enable CUPS to print documents.
