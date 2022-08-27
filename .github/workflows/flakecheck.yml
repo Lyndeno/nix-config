@@ -18,4 +18,4 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v17
       - name: Check Nix Flake
-        run: nix flake check
+        run: nix flake check --no-build
