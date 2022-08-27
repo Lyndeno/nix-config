@@ -16,7 +16,7 @@
 
   modules = {
     desktop.enable = true;
-    desktop.environment = "gnome";
+    desktop.environment = "sway";
     desktop.mainResolution = {
       height = 1080;
       width = 1920;
