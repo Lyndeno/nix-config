@@ -17,5 +17,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Nix
         uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            extra-platforms = aarch64-linux arm-linux
+      - name: Setup binfmt
+        run: |
+          DEBIAN_FRONTEND=noninteractive
+          sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 qemu-efi binfmt-support qemu-user-static
       - name: Check Nix Flake
-        run: nix flake check --no-build
+        run: nix flake check
