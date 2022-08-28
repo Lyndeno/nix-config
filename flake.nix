@@ -73,9 +73,9 @@
       ./users
       ./modules
       ./programs
-      ({config, ...}: {
-        environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
-      })
+      #({config, ...}: {
+      #  environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
+      #})
       inputs.stylix.nixosModules.stylix
       ({config, pkgs, ...}: {
         #nixpkgs.overlays = [ (self: super: {
