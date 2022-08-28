@@ -177,11 +177,11 @@
               ];
             };
 
-            boot.loader.raspberryPi = {
-              enable = true;
-              version = 4;
-              uboot.enable = true;
-            };
+            #boot.loader.raspberryPi = {
+            #  enable = true;
+            #  version = 4;
+            #};
+            boot.loader.generic-extlinux-compatible.enable = true;
             boot.loader.grub.enable = false;
 
             fileSystems = {
