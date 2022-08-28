@@ -39,6 +39,11 @@
       device = "/dev/disk/by-label/ESP";
       fsType = "vfat";
     };
+    "/data/omicron" = {
+      device = "/dev/disk/by-label/omicron";
+      fsType = "ext4";
+      options = [ "noauto" "x-gvfs-show" ];
+    };
   };
 
   swapDevices =

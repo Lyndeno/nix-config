@@ -180,6 +180,7 @@
             boot.loader.raspberryPi = {
               enable = true;
               version = 4;
+              uboot.enable = true;
             };
             boot.loader.grub.enable = false;
 
