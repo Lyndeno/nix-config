@@ -90,8 +90,34 @@
         ".direnv/"
       ];
     };
-    ssh = {
+    ssh = let 
+      keys = import ../pubkeys.nix { inherit pkgs; };
+    in {
       enable = true;
+
+      matchBlocks = {
+        morpheus = {
+          hostname = "morpheus.matrix";
+          identityFile = "${keys.files.morpheus}";
+          identitiesOnly = true;
+        };
+        neo = {
+          hostname = "neo.matrix";
+          identityFile = "${keys.files.neo}";
+          identitiesOnly = true;
+        };
+        oracle = {
+          hostname = "oracle.matrix";
+          identityFile = "${keys.files.oracle}";
+          identitiesOnly = true;
+        };
+        trinity = {
+          hostname = "trinity.matrix";
+          identityFile = "${keys.files.trinity}";
+          identitiesOnly = true;
+        };
+      };
+
     };
 
     fish = {

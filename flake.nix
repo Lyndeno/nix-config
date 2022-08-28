@@ -121,7 +121,7 @@
                 ./hosts/neo
                 inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
                 common-cpu-intel-kaby-lake
-              ] ++ commonModules;
+              ] ++ commonModules "x86_64-linux";
 
               modules.desktop.environment = lib.mkForce "i3";
               hardware.nvidia = {

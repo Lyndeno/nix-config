@@ -4,6 +4,7 @@ let
     "10.10.10.1" = [ "oracle.matrix" ];
     "10.10.10.2" = [ "morpheus.matrix" ];
     "10.10.10.3" = [ "neo.matrix" ];
+    "10.10.10.4" = [ "trinity.matrix" ];
   };
 in
 {

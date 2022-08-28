@@ -16,11 +16,12 @@ in
       "libvirtd"
     ];
     openssh.authorizedKeys.keys = let
-      keys = import ./pubkeys.nix;
+      keys = import ./pubkeys.nix { inherit pkgs; };
     in [
       (lib.mkIf (config.networking.hostName == "morpheus") keys.morpheus )
       (lib.mkIf (config.networking.hostName == "neo") keys.neo )
       (lib.mkIf (config.networking.hostName == "oracle") keys.oracle )
+      (lib.mkIf (config.networking.hostName == "trinity") keys.trinity )
     ];
     shell = pkgs.zsh;
   };

@@ -9,7 +9,7 @@ let cfg = config.modules.services.nebula;
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
-    nodeName = with types; mkOption { type = nullOr (enum [ "oracle" "morpheus" "neo"]); default = null; };
+    nodeName = with types; mkOption { type = nullOr (enum [ "oracle" "morpheus" "neo" "trinity"]); default = null; };
     isLighthouse = with types; mkOption { type = bool; default = false; };
   };
 
