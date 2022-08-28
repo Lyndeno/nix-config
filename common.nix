@@ -26,6 +26,8 @@ in
 
   networking.hosts = nebulaHosts;
 
+  programs.dconf.enable = true;
+
   services = {
     openssh.enable = true;
     syncthing = {
