@@ -50,32 +50,25 @@
   
   outputs = inputs@{ self, ... }:
   let
-    system = "x86_64-linux";
-
-    pkgs = import inputs.nixpkgs {
+    pkgs = system: import inputs.nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
       };
     };
-    pkgsPi = import inputs.nixpkgs {
-      system = "aarch64-linux";
-      config.allowUnfree = true;
-    };
-
     lib = inputs.nixpkgs.lib;
 
     commonModules = let
       base16Scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
-    in [
+    in system: [
       inputs.home-manager.nixosModules.home-manager
       ./common.nix
       ./users
       ./modules
       ./programs
-      #({config, ...}: {
-      #  environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
-      #})
+      ({config, ...}: {
+        environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
+      })
       inputs.stylix.nixosModules.stylix
       ({config, pkgs, ...}: {
         #nixpkgs.overlays = [ (self: super: {
@@ -107,15 +100,16 @@
       inputs.agenix.nixosModule
     ];
 
-    mkSystem = extraModules: lib.nixosSystem {
-      inherit system pkgs;
-      modules = commonModules ++ extraModules;
+    mkSystem = system: extraModules: lib.nixosSystem {
+      pkgs = pkgs system;
+      inherit system;
+      modules = (commonModules system) ++ extraModules;
       specialArgs = { inherit inputs; };
     };
 
   in {
     nixosConfigurations = {
-      neo = with inputs.nixos-hardware.nixosModules; mkSystem [
+      neo = with inputs.nixos-hardware.nixosModules; mkSystem "x86_64-linux" [
         ./hosts/neo
         dell-xps-15-9560-intel
         common-cpu-intel-kaby-lake
@@ -142,9 +136,11 @@
         })
       ];
 
-      morpheus = mkSystem [ ./hosts/morpheus ];
+      morpheus = mkSystem "x86_64-linux" [ ./hosts/morpheus ];
 
-      oracle = mkSystem [
+      oracle = let
+        system = "x86_64-linux";
+      in mkSystem system [
         ./hosts/oracle
         ({config, ...}: {
           networking.firewall.allowedTCPPorts = [
@@ -158,56 +154,51 @@
         })
       ];
 
-      trinity = lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        pkgs = pkgsPi;
-        system = "aarch64-linux";
-        modules = commonModules ++ [
-          ({config, ...}: {
-            #nixpkgs.crossSystem.system = "aarch64-linux";
-            boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # Raspberry pies have a hard time booting on the LTS kernel.
-            boot = {
-              tmpOnTmpfs = true;
-              initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-              kernelParams = [
-                "8250.nr_uarts=1"
-                "console=ttyAMA0,115200"
-                "console=tty1"
-                "cma=128M"
-              ];
+      trinity = mkSystem "aarch64-linux" [
+        ({config, ...}: {
+          #nixpkgs.crossSystem.system = "aarch64-linux";
+          boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # Raspberry pies have a hard time booting on the LTS kernel.
+          boot = {
+            tmpOnTmpfs = true;
+            initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
+            kernelParams = [
+              "8250.nr_uarts=1"
+              "console=ttyAMA0,115200"
+              "console=tty1"
+              "cma=128M"
+            ];
+          };
+
+          #boot.loader.raspberryPi = {
+          #  enable = true;
+          #  version = 4;
+          #};
+          boot.loader.generic-extlinux-compatible.enable = true;
+          boot.loader.grub.enable = false;
+
+          fileSystems = {
+            "/" = {
+              device = "/dev/disk/by-label/NIXOS_SD";
+              fsType = "ext4";
             };
+          };
 
-            #boot.loader.raspberryPi = {
-            #  enable = true;
-            #  version = 4;
-            #};
-            boot.loader.generic-extlinux-compatible.enable = true;
-            boot.loader.grub.enable = false;
+          hardware.enableRedistributableFirmware = true;
 
-            fileSystems = {
-              "/" = {
-                device = "/dev/disk/by-label/NIXOS_SD";
-                fsType = "ext4";
-              };
-            };
-
-            hardware.enableRedistributableFirmware = true;
-
-            networking = {
-              hostName = "trinity";
-              networkmanager = {
-                enable = true;
-              };
-            };
-            services.openssh = {
+          networking = {
+            hostName = "trinity";
+            networkmanager = {
               enable = true;
-              permitRootLogin = "yes";
             };
-            system.stateVersion = "22.05";
-            users.users."root".initialPassword = "root";
-          })
-        ];
-      };
+          };
+          services.openssh = {
+            enable = true;
+            permitRootLogin = "yes";
+          };
+          system.stateVersion = "22.05";
+          users.users."root".initialPassword = "root";
+        })
+      ];
     };
   };
 }
