@@ -15,9 +15,9 @@ in {
 
   config = mkIf (cfg.enable && cfg.nodeName != null) {
     age.secrets = let
-      getNebulaSecret = name: ../../hosts + "/${cfg.nodeName}" + /secrets/${name};
+      getNebulaSecret = name: ../../secrets + "/${cfg.nodeName}" + /${name};
     in {
-      nebula-ca-crt.file = getNebulaSecret "nebula.ca.crt.age";
+      nebula-ca-crt.file = ../../secrets/nebula.ca.crt.age;
       nebula-crt.file = getNebulaSecret "nebula.crt.age";
       nebula-key.file = getNebulaSecret "nebula.key.age";
     };
