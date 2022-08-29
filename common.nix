@@ -63,5 +63,6 @@ in
     bottom
     git
     #kdiskmark
+    btrfs-progs
   ];
 }

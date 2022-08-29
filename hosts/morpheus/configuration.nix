@@ -116,7 +116,6 @@
   services.fstrim.enable = true;
 
   environment.systemPackages = with pkgs; [
-    btrfs-progs
     piper
   ];
 
