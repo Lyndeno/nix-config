@@ -24,4 +24,8 @@ in
 
   "trinity/nebula.key.age".publicKeys = [ lsanche trinity ];
   "trinity/nebula.crt.age".publicKeys = [ lsanche trinity ];
+
+  "id_borgbase.age".publicKeys = allUsers ++ allSystems;
+
+  "neo/pass_borgbase.age".publicKeys = allUsers ++ allSystems;
 }
