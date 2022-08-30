@@ -79,6 +79,14 @@
       environment.BORG_RSH = "ssh -i ${id_borgbase.path}";
       compression = "auto,zstd,10";
       startAt = "hourly";
+      prune = {
+        keep = {
+          within = "3d";
+          daily = 14;
+          weekly = 4;
+          monthly = -1;
+        };
+      };
     };
     #borgbackup.jobs."omicron-local" = {
     #  paths = [
