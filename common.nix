@@ -64,5 +64,7 @@ in
     git
     #kdiskmark
     btrfs-progs
+    busybox
+    screen
   ];
 }
