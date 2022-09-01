@@ -1,8 +1,13 @@
 { config, lib, pkgs, inputs, ...}:
 let
   myUsername = "lsanche";
+  keys = import ./pubkeys.nix { inherit pkgs; };
+  checkKey = keys.strings ? ${config.networking.hostName};
 in
 {
+  warnings = lib.mkIf (!checkKey) [
+    "User 'lsanche' does not have valid login ssh key for hostname '${config.networking.hostName}'"
+  ];
   users.users."${myUsername}" = {
     isNormalUser = true;
     description = "Lyndon Sanche";
@@ -15,14 +20,8 @@ in
       (lib.mkIf config.networking.networkmanager.enable "networkmanager") # Do not add this group if networkmanager is not enabled
       "libvirtd"
     ];
-    openssh.authorizedKeys.keys = let
-      keys = import ./pubkeys.nix { inherit pkgs; };
-    in [
-      #(lib.mkIf (config.networking.hostName == "morpheus") keys.strings.morpheus )
-      #(lib.mkIf (config.networking.hostName == "neo") keys.strings.neo )
-      #(lib.mkIf (config.networking.hostName == "oracle") keys.strings.oracle )
-      #(lib.mkIf (config.networking.hostName == "trinity") keys.strings.trinity )
-      keys.strings.${config.networking.hostName}
+    openssh.authorizedKeys.keys = [
+      (lib.mkIf checkKey keys.strings.${config.networking.hostName})
     ];
     shell = pkgs.zsh;
   };
