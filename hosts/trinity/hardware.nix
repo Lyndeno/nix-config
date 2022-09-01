@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # Raspberry pies have a hard time booting on the LTS kernel.
+  boot.kernelPackages = pkgs.linuxPackages_rpi4; # Raspberry pies have a hard time booting on the LTS kernel.
   boot = {
     tmpOnTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
     kernelParams = [
       "8250.nr_uarts=1"
-      "console=ttyAMA0,115200"
+      "console=ttyS0,115200"
       "console=tty1"
       "cma=128M"
     ];
