@@ -15,6 +15,8 @@ in
 
   "neo/nebula.key.age".publicKeys = [ lsanche neo ];
   "neo/nebula.crt.age".publicKeys = [ lsanche neo ];
+  "neo/id_trinity_borg.age".publicKeys = [ lsanche neo ];
+  "neo/pass_trinity_borg.age".publicKeys = [ lsanche neo ];
 
   "morpheus/nebula.key.age".publicKeys = [ lsanche morpheus ];
   "morpheus/nebula.crt.age".publicKeys = [ lsanche morpheus ];

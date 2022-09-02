@@ -52,6 +52,9 @@
   age.secrets = {
     id_borgbase.file = ../../secrets/id_borgbase.age;
     pass_borgbase.file = ../../secrets/neo/pass_borgbase.age;
+
+    id_trinity_borg.file = ../../secrets/neo/id_trinity_borg.age;
+    pass_trinity_borg.file = ../../secrets/neo/pass_trinity_borg.age;
   };
   services = {
     logind.lidSwitch = "suspend-then-hibernate";
@@ -77,6 +80,38 @@
         passCommand = "cat ${pass_borgbase.path}";
       };
       environment.BORG_RSH = "ssh -i ${id_borgbase.path}";
+      compression = "auto,zstd,10";
+      startAt = "hourly";
+      prune = {
+        keep = {
+          within = "3d";
+          daily = 14;
+          weekly = 4;
+          monthly = -1;
+        };
+      };
+    };
+    borgbackup.jobs."trinity" = with config.age.secrets; {
+      paths = [
+        "/var/lib"
+        "/srv"
+        "/home"
+      ];
+      exclude = [
+        "/var/lib/systemd"
+        "/var/lib/libvirt"
+        "/var/lib/plex"
+
+        "**/target"
+        "/home/*/.local/share/Steam"
+        "/home/*/Downloads"
+      ];
+      repo = "borg@trinity.matrix:.";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat ${pass_trinity_borg.path}";
+      };
+      environment.BORG_RSH = "ssh -i ${id_trinity_borg.path}";
       compression = "auto,zstd,10";
       startAt = "hourly";
       prune = {
