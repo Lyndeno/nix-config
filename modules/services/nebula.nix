@@ -34,6 +34,14 @@ in {
             "cloud.lyndeno.ca:4242"
           ];
         };
+        settings = {
+          relay = if cfg.isLighthouse then {
+            am_relay = true;
+          } else {
+            relays = [ "10.10.10.1" ];
+            use_relays = true;
+          };
+        };
         firewall = {
           inbound = [
             {
