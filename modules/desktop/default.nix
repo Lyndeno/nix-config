@@ -74,12 +74,16 @@ in
       defaults.font.package
     ];
 
+    # Enable support for flashing Moonlander Mk I
+    hardware.keyboard.zsa.enable = true;
+
     environment.systemPackages = with pkgs; [
       firefox-wayland
       google-chrome
       alacritty
       #(lib.mkIf cfg.supportDDC ddcutil)
       brightnessctl
+      wally-cli # for flashing Moonlander
       ( symlinkJoin {
         name = "vscode";
         pname = "vscode";
