@@ -61,7 +61,7 @@
       base16Scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
     in system: [
       inputs.home-manager.nixosModules.home-manager
-      ./common.nix
+      ./common
       ./users
       ./modules
       ./programs
