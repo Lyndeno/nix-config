@@ -102,9 +102,15 @@ in
           discord
           libreoffice-qt
           imv
-          #avizo
-          #pamixer
       ];
+
+      programs.chromium = {
+        enable = true;
+        package = pkgs.brave;
+        extensions = [
+          { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
+        ];
+      };
 
       gtk = {
           enable = true;
