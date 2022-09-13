@@ -40,7 +40,7 @@ in {
         lighthouses = [ "10.10.10.1" ];
         isLighthouse = cfg.isLighthouse;
         staticHostMap = {
-          "10.10.10.1" = [
+          "${hosts.oracle}" = [
             "cloud.lyndeno.ca:4242"
           ];
         };
@@ -48,7 +48,7 @@ in {
           relay = if cfg.isLighthouse then {
             am_relay = true;
           } else {
-            relays = [ "10.10.10.1" ];
+            relays = [ hosts.oracle ];
             use_relays = true;
           };
         };
