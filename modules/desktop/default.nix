@@ -16,6 +16,7 @@ in
   imports = [
     ./gnome.nix
     ./plasma.nix
+    ./hardware.nix
     (import ./i3-sway { inherit config lib pkgs defaults inputs; })
     ../../programs/desktop
   ];
@@ -73,9 +74,6 @@ in
     fonts.fonts = with pkgs; [
       defaults.font.package
     ];
-
-    # Enable support for flashing Moonlander Mk I
-    hardware.keyboard.zsa.enable = true;
 
     environment.systemPackages = with pkgs; [
       firefox-wayland

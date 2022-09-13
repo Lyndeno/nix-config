@@ -18,7 +18,9 @@ in
       "wheel"
       "media"
       (lib.mkIf config.networking.networkmanager.enable "networkmanager") # Do not add this group if networkmanager is not enabled
+      (lib.mkIf config.programs.adb.enable "adbusers")
       "libvirtd"
+      "dialout"
     ];
     openssh.authorizedKeys.keys = [
       (lib.mkIf checkKey keys.strings.${config.networking.hostName})
