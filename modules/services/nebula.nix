@@ -5,11 +5,18 @@ with lib;
 # This file defines the nebula mesh that all my Nix machines will use
 # This it to cleanup the config and remove duplicate information whenever possible
 
-let cfg = config.modules.services.nebula;
+let
+  cfg = config.modules.services.nebula;
+  hosts = {
+    oracle = "10.10.10.1";
+    morpheus = "10.10.10.2";
+    neo = "10.10.10.3";
+    trinity = "10.10.10.4";
+  };
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
-    nodeName = with types; mkOption { type = nullOr (enum [ "oracle" "morpheus" "neo" "trinity"]); default = null; };
+    nodeName = with types; mkOption { type = nullOr (enum (lib.mapAttrsToList (name: value: name) hosts)); default = null; };
     isLighthouse = with types; mkOption { type = bool; default = false; };
   };
 
@@ -22,6 +29,9 @@ in {
       nebula-key.file = getNebulaSecret "nebula.key.age";
     };
 
+    networking.hosts = lib.mapAttrs' (name: value:
+      lib.nameValuePair (value) ([ "${name}.matrix" ]) ) hosts;
+  
     services.nebula.networks = with config.age.secrets; {
       matrix = {
         key = nebula-key.path;

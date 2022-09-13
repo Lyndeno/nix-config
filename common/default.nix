@@ -1,12 +1,4 @@
 { config, lib, pkgs, ...}:
-let
-  nebulaHosts = {
-    "10.10.10.1" = [ "oracle.matrix" ];
-    "10.10.10.2" = [ "morpheus.matrix" ];
-    "10.10.10.3" = [ "neo.matrix" ];
-    "10.10.10.4" = [ "trinity.matrix" ];
-  };
-in
 {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
@@ -24,8 +16,6 @@ in
       options = "--delete-older-than 14d";
     };
   };
-
-  networking.hosts = nebulaHosts;
 
   programs.dconf.enable = true;
 
