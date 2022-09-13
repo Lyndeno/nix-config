@@ -80,8 +80,6 @@ in
       google-chrome
       alacritty
       #(lib.mkIf cfg.supportDDC ddcutil)
-      brightnessctl
-      wally-cli # for flashing Moonlander
       ( symlinkJoin {
         name = "vscode";
         pname = "vscode";
