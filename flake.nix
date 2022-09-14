@@ -109,14 +109,13 @@
     };
 
   in {
-    nixosConfigurations = {
-      neo = mkSystem "neo";
-
-      morpheus = mkSystem "morpheus";
-
-      oracle = mkSystem "oracle";
-
-      trinity = mkSystem "trinity";
-    };
+    nixosConfigurations = builtins.listToAttrs
+    (map
+      (x: {
+        name = x;
+        value = mkSystem x;
+      })
+      (builtins.attrNames (builtins.readDir ./hosts))
+    );
   };
 }
