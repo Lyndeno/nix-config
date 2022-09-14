@@ -108,52 +108,15 @@
 
   in {
     nixosConfigurations = {
-      neo = with inputs.nixos-hardware.nixosModules; mkSystem "x86_64-linux" [
-        ./hosts/neo
-        dell-xps-15-9560-intel
-        common-cpu-intel-kaby-lake
-        ({config, ...}: {
-          specialisation.nvidia = {
-            inheritParentConfig = false;
-            configuration = {
-              imports = [
-                ./hosts/neo
-                inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
-                common-cpu-intel-kaby-lake
-              ] ++ commonModules "x86_64-linux";
+      neo = mkSystem "x86_64-linux" (import ./hosts/neo inputs);
 
-              modules.desktop.environment = lib.mkForce "i3";
-              hardware.nvidia = {
-                prime = {
-                  offload.enable = false;
-                  sync.enable = true;
-                };
-                modesetting.enable = true;
-              };
-            };
-          };
-        })
-      ];
-
-      morpheus = mkSystem "x86_64-linux" [ ./hosts/morpheus ];
+      morpheus = mkSystem "x86_64-linux" (import ./hosts/morpheus inputs);
 
       oracle = let
         system = "x86_64-linux";
-      in mkSystem system [
-        ./hosts/oracle
-        ({config, ...}: {
-          networking.firewall.allowedTCPPorts = [
-            80
-            443
-          ];
-          services.nginx.enable = true;
-          services.nginx.virtualHosts."cloud.lyndeno.ca" = {
-            root = "${inputs.site.packages.${system}.default}/";
-          };
-        })
-      ];
+      in mkSystem system (import ./hosts/oracle inputs);
 
-      trinity = mkSystem "aarch64-linux" [ ./hosts/trinity ];
+      trinity = mkSystem "aarch64-linux" (import ./hosts/trinity inputs);
     };
   };
 }
