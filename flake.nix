@@ -70,11 +70,7 @@
       })
       inputs.stylix.nixosModules.stylix
       ({config, pkgs, ...}: {
-        #nixpkgs.overlays = [ (self: super: {
-        #  myTheme = self.writeText "myTheme.yaml" builtins.readFile base16Scheme;
-        #}) ];
         stylix.image = "${inputs.wallpapers}/starry.jpg";
-        #lib.stylix.colors = config.lib.base16.mkSchemeAttrs base16Scheme;
         stylix.base16Scheme = let
           myTheme = pkgs.writeTextFile { name = "myTheme.yaml"; text = builtins.replaceStrings [ "Gruvbox dark, hard" ] [ "Gruvbox" ] (builtins.readFile base16Scheme); destination = "/myTheme.yaml"; };
         in "${myTheme}/myTheme.yaml";
