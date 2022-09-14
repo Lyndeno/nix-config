@@ -1,5 +1,8 @@
 { config, lib, pkgs, ...}:
 {
+  imports = [
+    ./theme.nix
+  ];
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 

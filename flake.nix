@@ -58,7 +58,6 @@
     lib = inputs.nixpkgs.lib;
 
     commonModules = let
-      base16Scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
     in system: [
       inputs.home-manager.nixosModules.home-manager
       ./common
@@ -69,27 +68,6 @@
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
       inputs.stylix.nixosModules.stylix
-      ({config, pkgs, ...}: {
-        stylix.image = "${inputs.wallpapers}/starry.jpg";
-        stylix.base16Scheme = base16Scheme;
-        stylix.fonts = let
-          cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
-        in {
-          serif = {
-            package = cascadia;
-            name = "CaskaydiaCove Nerd Font";
-          };
-          sansSerif = {
-            package = cascadia;
-            name = "CaskaydiaCove Nerd Font";
-          };
-          monospace = {
-            package = cascadia;
-            name = "CaskaydiaCove Nerd Font Mono";
-          };
-        };
-
-      })
       inputs.agenix.nixosModule
     ];
 
