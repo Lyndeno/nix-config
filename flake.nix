@@ -71,9 +71,7 @@
       inputs.stylix.nixosModules.stylix
       ({config, pkgs, ...}: {
         stylix.image = "${inputs.wallpapers}/starry.jpg";
-        stylix.base16Scheme = let
-          myTheme = pkgs.writeTextFile { name = "myTheme.yaml"; text = builtins.replaceStrings [ "Gruvbox dark, hard" ] [ "Gruvbox" ] (builtins.readFile base16Scheme); destination = "/myTheme.yaml"; };
-        in "${myTheme}/myTheme.yaml";
+        stylix.base16Scheme = base16Scheme;
         stylix.fonts = let
           cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
         in {
