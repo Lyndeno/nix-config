@@ -92,6 +92,11 @@ in
       })
     ];
 
+    stylix.targets = {
+      gnome.enable = false;
+      gtk.enable = false;
+    };
+
     home-manager.users.lsanche = {
       home.packages = with pkgs; [
           defaults.font.package

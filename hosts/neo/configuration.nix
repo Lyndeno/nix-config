@@ -28,11 +28,6 @@
     };
   };
 
-  stylix.targets = {
-    gnome.enable = false;
-    gtk.enable = false;
-  };
-
   modules.services.nebula = {
     enable = true;
     nodeName = "neo";
