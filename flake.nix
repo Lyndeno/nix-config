@@ -49,7 +49,7 @@
   
   outputs = inputs@{ self, ... }:
   let
-    pkgs = system: import inputs.nixpkgs {
+    makePkgs = system: import inputs.nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
@@ -101,10 +101,10 @@
 
     mkSystem = name: let
       hostInfo = import ./hosts/${name}/info.nix;
-    in lib.nixosSystem {
-      pkgs = pkgs hostInfo.system;
+    in lib.nixosSystem rec {
       system = hostInfo.system;
-      modules = (commonModules hostInfo.system) ++ (import ./hosts/${name} inputs);
+      pkgs = makePkgs system;
+      modules = (commonModules system) ++ (import ./hosts/${name} inputs);
       specialArgs = { inherit inputs; };
     };
 
