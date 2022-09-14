@@ -80,17 +80,10 @@ in
       google-chrome
       alacritty
       #(lib.mkIf cfg.supportDDC ddcutil)
-      ( symlinkJoin {
-        name = "vscode";
-        pname = "vscode";
-        paths = [ pkgs.vscode ];
-        buildInputs = [ pkgs.makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/code \
-            --add-flags "--ozone-platform=wayland --enable-features=WaylandWindowDecorations"
-        '';
-      })
+      vscode
     ];
+
+    environment.sessionVariables.NIXOS_OZONE_WL = if cfg.environment != "i3" then "1" else "";
 
     stylix.targets = {
       gnome.enable = false;
