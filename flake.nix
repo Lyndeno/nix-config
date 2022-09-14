@@ -99,24 +99,22 @@
       inputs.agenix.nixosModule
     ];
 
-    mkSystem = system: extraModules: lib.nixosSystem {
+    mkSystem = system: name: lib.nixosSystem {
       pkgs = pkgs system;
       inherit system;
-      modules = (commonModules system) ++ extraModules;
+      modules = (commonModules system) ++ (import ./hosts/${name} inputs);
       specialArgs = { inherit inputs; };
     };
 
   in {
     nixosConfigurations = {
-      neo = mkSystem "x86_64-linux" (import ./hosts/neo inputs);
+      neo = mkSystem "x86_64-linux" "neo";
 
-      morpheus = mkSystem "x86_64-linux" (import ./hosts/morpheus inputs);
+      morpheus = mkSystem "x86_64-linux" "morpheus";
 
-      oracle = let
-        system = "x86_64-linux";
-      in mkSystem system (import ./hosts/oracle inputs);
+      oracle = mkSystem "x86_64-linux" "oracle";
 
-      trinity = mkSystem "aarch64-linux" (import ./hosts/trinity inputs);
+      trinity = mkSystem "aarch64-linux" "trinity";
     };
   };
 }
