@@ -344,11 +344,11 @@
     "wallpapers": {
       "flake": false,
       "locked": {
-        "lastModified": 1655499379,
-        "narHash": "sha256-UCACObY2k2KDubfEdvVbwHF886JolylWUMExsestEIQ=",
+        "lastModified": 1663126605,
+        "narHash": "sha256-BpbP+kVc17IlxwoXtDpfxcjOxNPsXW5GYWUz9Zd1vEs=",
         "owner": "Lyndeno",
         "repo": "wallpapers",
-        "rev": "2e87db22e6792646ae9eac359b1b14aebb90cc0d",
+        "rev": "e4367955f5030f6b5d3d053a21b1eec27e469bd1",
         "type": "github"
       },
       "original": {
