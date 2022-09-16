@@ -1,8 +1,4 @@
 {config, pkgs, lib, username,...}:
-let
-  keys = (import ./info.nix ).hostAuthorizedKeys;
-  checkKey = keys ? ${config.networking.hostName};
-in
 {
   isNormalUser = true;
   description = "Lyndon Sanche";
@@ -16,9 +12,6 @@ in
     (lib.mkIf config.programs.adb.enable "adbusers")
     "libvirtd"
     "dialout"
-  ];
-  openssh.authorizedKeys.keys = [
-    (lib.mkIf checkKey keys.${config.networking.hostName})
   ];
   shell = pkgs.zsh;
 }
