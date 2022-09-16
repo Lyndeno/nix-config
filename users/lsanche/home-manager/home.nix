@@ -91,15 +91,17 @@
       ];
     };
     ssh = let 
-      keys = import ../pubkeys.nix { inherit pkgs; };
+      keys = (import ../info.nix ).hostAuthorizedKeys;
     in {
       enable = true;
 
       matchBlocks = builtins.mapAttrs (name: value: {
         hostname = "${name}.matrix";
-        identityFile = "${value}";
+        identityFile = "(pkgs.writeText \"lsanche-${name}.pub\" ''
+          ${value}
+        '')";
         identitiesOnly = true;
-      }) keys.files;
+      }) keys;
     };
 
     fish = {

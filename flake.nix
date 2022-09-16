@@ -61,7 +61,6 @@
     in system: [
       inputs.home-manager.nixosModules.home-manager
       ./common
-      ./users
       ./modules
       ./programs
       ({config, ...}: {
