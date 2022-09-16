@@ -1,7 +1,9 @@
 { config, lib, pkgs, ... }:
 
-{
-  networking.hostName = "neo"; # Define your hostname.
+let
+  info = import ./info.nix;
+in {
+  networking.hostName = info.hostname; # Define your hostname.
 
 
   boot.loader = {
@@ -198,7 +200,7 @@
     virt-manager
   ];
 
-  system.stateVersion = "21.11"; # Did you read the comment?
+  system.stateVersion = info.stateVersion; # Did you read the comment?
 
 }
 
