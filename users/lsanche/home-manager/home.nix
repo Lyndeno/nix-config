@@ -97,9 +97,9 @@
 
       matchBlocks = builtins.mapAttrs (name: value: {
         hostname = "${name}.matrix";
-        identityFile = "(pkgs.writeText \"lsanche-${name}.pub\" ''
+        identityFile = "${(pkgs.writeText "lsanche-${name}.pub" ''
           ${value}
-        '')";
+        '')}";
         identitiesOnly = true;
       }) keys;
     };
