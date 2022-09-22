@@ -8,9 +8,13 @@ let
     })
     allUsers
   );
+  checkKey = user: host: userKeys.${user} ? ${host};
 
   userConfigs = (map
     (x: {
+      warnings = lib.mkIf (!(checkKey x config.networking.hostName)) [
+        "User '${x}' does not have valid login ssh key for host '${config.networking.hostName}'"
+      ];
       users.users.${x} = (import ../users/${x}/user.nix { inherit config pkgs lib; username = x; })
         //
         {
@@ -30,9 +34,6 @@ let
   );
 in
 lib.mkMerge ( [{
-  #warnings = lib.mkIf (!checkKey) [
-  #  "User 'lsanche' does not have valid login ssh key for hostname '${config.networking.hostName}'"
-  #];
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
