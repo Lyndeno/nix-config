@@ -4,6 +4,7 @@ let
 in {
   stylix.image = "${inputs.wallpapers}/starry.jpg";
   stylix.base16Scheme = base16Scheme;
+  stylix.targets.swaylock.useImage = false;
   stylix.fonts = let
     cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
   in {
