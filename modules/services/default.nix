@@ -1,6 +1,6 @@
 {
   imports = [
-    ./pia-vpn.nix
+    #./pia-vpn.nix
     ./torrents.nix
     ./nebula.nix
   ];

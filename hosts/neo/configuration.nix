@@ -25,9 +25,6 @@ in {
       height = 1080;
       width = 1920;
     };
-    services = {
-      pia-vpn.enable = true;
-    };
   };
 
   modules.services.nebula = {
