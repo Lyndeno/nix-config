@@ -26,9 +26,11 @@ in {
     enable = mkEnableOption "Nebula";
   };
 
-  config = mkIf (cfg.enable && config.networking.hostName != null) {
+  config = let
+    hostName = config.networking.hostName;
+  in mkIf (cfg.enable && config.networking.hostName != null) {
     age.secrets = let
-      getNebulaSecret = name: ../../secrets + "/${config.networking.hostName}" + /${name};
+      getNebulaSecret = name: ../../secrets + "/${hostName}" + /${name};
     in {
       nebula-ca-crt.file = ../../secrets/nebula.ca.crt.age;
       nebula-crt.file = getNebulaSecret "nebula.crt.age";
@@ -43,9 +45,8 @@ in {
         key = nebula-key.path;
         cert = nebula-crt.path;
         ca = nebula-ca-crt.path;
-        #lighthouses = [ "10.10.10.1" ];
         lighthouses = map (x: hostMap.${x}.ip) lighthouses;
-        isLighthouse = hostMap.${config.networking.hostName}.isLighthouse;
+        isLighthouse = hostMap.${hostName}.isLighthouse;
         staticHostMap = builtins.listToAttrs (map
           (x: {
             name = "${hostMap.${x}.ip}";
@@ -54,7 +55,7 @@ in {
           externalHosts
         );
         settings = {
-          relay = if hostMap.${config.networking.hostName}.isLighthouse then {
+          relay = if hostMap.${hostName}.isLighthouse then {
             am_relay = true;
           } else {
             relays = map (x: hostMap.${x}.ip ) relays;
