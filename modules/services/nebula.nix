@@ -15,6 +15,8 @@ let
     })
     allHosts
   );
+  lighthouses = remove null (lib.mapAttrsToList (name: value:
+    if (value.isLighthouse) then name else null) hostMap);
   externalHosts = remove null (lib.mapAttrsToList (name: value: 
     if (value ? externalAddress) then name else null) hostMap);
   relays = remove null (lib.mapAttrsToList (name: value:
@@ -42,8 +44,7 @@ in {
         cert = nebula-crt.path;
         ca = nebula-ca-crt.path;
         #lighthouses = [ "10.10.10.1" ];
-        lighthouses = remove null (lib.mapAttrsToList (name: value:
-          if (value.isLighthouse) then value.ip else null) hostMap);
+        lighthouses = map (x: hostMap.${x}.ip) lighthouses;
         isLighthouse = hostMap.${config.networking.hostName}.isLighthouse;
         staticHostMap = builtins.listToAttrs (map
           (x: {
