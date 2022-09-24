@@ -11,16 +11,16 @@ let
   hostMap = builtins.listToAttrs (map
     (x: {
       name = x;
-      value = (import ../../hosts/${x}/info.nix).nebula.matrix;
+      value = (import ../../hosts/${x}/info.nix).nebula;
     })
     allHosts
   );
-  lighthouses = remove null (lib.mapAttrsToList (name: value:
-    if (value.isLighthouse) then name else null) hostMap);
-  externalHosts = remove null (lib.mapAttrsToList (name: value: 
-    if (value ? externalAddress) then name else null) hostMap);
-  relays = remove null (lib.mapAttrsToList (name: value:
-    if (value.isRelay) then name else null) hostMap);
+  lighthouses = nebula: remove null (lib.mapAttrsToList (name: value:
+    if (value.${nebula}.isLighthouse) then name else null) hostMap);
+  externalHosts = nebula: remove null (lib.mapAttrsToList (name: value: 
+    if (value.${nebula} ? externalAddress) then name else null) hostMap);
+  relays = nebula: remove null (lib.mapAttrsToList (name: value:
+    if (value.${nebula}.isRelay) then name else null) hostMap);
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
@@ -38,27 +38,29 @@ in {
     };
 
     networking.hosts = lib.mapAttrs' (name: value:
-      lib.nameValuePair (value.ip) ([ "${name}.matrix" ]) ) hostMap;
+      lib.nameValuePair (value.matrix.ip) ([ "${name}.matrix" ]) ) hostMap;
   
-    services.nebula.networks = with config.age.secrets; {
+    services.nebula.networks = with config.age.secrets; let
+      currentNebula = "matrix";
+    in {
       matrix = {
         key = nebula-key.path;
         cert = nebula-crt.path;
         ca = nebula-ca-crt.path;
-        lighthouses = map (x: hostMap.${x}.ip) lighthouses;
-        isLighthouse = hostMap.${hostName}.isLighthouse;
+        lighthouses = map (x: hostMap.${x}.${currentNebula}.ip) (lighthouses currentNebula);
+        isLighthouse = hostMap.${hostName}.${currentNebula}.isLighthouse;
         staticHostMap = builtins.listToAttrs (map
           (x: {
-            name = "${hostMap.${x}.ip}";
-            value = [ hostMap.${x}.externalAddress ];
+            name = "${hostMap.${x}.${currentNebula}.ip}";
+            value = [ hostMap.${x}.${currentNebula}.externalAddress ];
           })
-          externalHosts
+          (externalHosts currentNebula)
         );
         settings = {
-          relay = if hostMap.${hostName}.isLighthouse then {
+          relay = if hostMap.${hostName}.${currentNebula}.isLighthouse then {
             am_relay = true;
           } else {
-            relays = map (x: hostMap.${x}.ip ) relays;
+            relays = map (x: hostMap.${x}.${currentNebula}.ip ) (relays currentNebula);
             use_relays = true;
           };
         };
