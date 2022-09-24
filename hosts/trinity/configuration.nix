@@ -17,7 +17,7 @@
 
   modules.services.nebula = {
     enable = true;
-    nodeName = "trinity";
+    #nodeName = "trinity";
   };
 
   services.openssh = {

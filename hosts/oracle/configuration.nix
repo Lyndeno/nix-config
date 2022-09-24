@@ -52,8 +52,8 @@
 
   modules.services.nebula = {
     enable = true;
-    nodeName = "oracle";
-    isLighthouse = true;
+    #nodeName = "oracle";
+    #isLighthouse = true;
   };
 
   # This value determines the NixOS release from which the default
