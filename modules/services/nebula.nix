@@ -17,6 +17,8 @@ let
   );
   externalHosts = remove null (lib.mapAttrsToList (name: value: 
     if (value ? externalAddress) then name else null) hostMap);
+  relays = remove null (lib.mapAttrsToList (name: value:
+    if (value.isRelay) then name else null) hostMap);
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
@@ -54,7 +56,7 @@ in {
           relay = if hostMap.${config.networking.hostName}.isLighthouse then {
             am_relay = true;
           } else {
-            relays = [ hostMap.oracle.ip ];
+            relays = map (x: hostMap.${x}.ip ) relays;
             use_relays = true;
           };
         };
