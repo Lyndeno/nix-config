@@ -29,7 +29,7 @@ in {
 
   modules.services.nebula = {
     enable = true;
-    nodeName = "neo";
+    #nodeName = "neo";
   };
 
   virtualisation.libvirtd.enable = true;

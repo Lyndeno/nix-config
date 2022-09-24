@@ -6,23 +6,23 @@ with lib;
 # This it to cleanup the config and remove duplicate information whenever possible
 
 let
+  allHosts = builtins.attrNames (builtins.readDir ../../hosts);
   cfg = config.modules.services.nebula;
-  hosts = {
-    oracle = "10.10.10.1";
-    morpheus = "10.10.10.2";
-    neo = "10.10.10.3";
-    trinity = "10.10.10.4";
-  };
+  hostMap = builtins.listToAttrs (map
+    (x: {
+      name = x;
+      value = (import ../../hosts/${x}/info.nix).nebula.matrix;
+    })
+    allHosts
+  );
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
-    nodeName = with types; mkOption { type = nullOr (enum (lib.mapAttrsToList (name: value: name) hosts)); default = null; };
-    isLighthouse = with types; mkOption { type = bool; default = false; };
   };
 
-  config = mkIf (cfg.enable && cfg.nodeName != null) {
+  config = mkIf (cfg.enable && config.networking.hostName != null) {
     age.secrets = let
-      getNebulaSecret = name: ../../secrets + "/${cfg.nodeName}" + /${name};
+      getNebulaSecret = name: ../../secrets + "/${config.networking.hostName}" + /${name};
     in {
       nebula-ca-crt.file = ../../secrets/nebula.ca.crt.age;
       nebula-crt.file = getNebulaSecret "nebula.crt.age";
@@ -30,25 +30,27 @@ in {
     };
 
     networking.hosts = lib.mapAttrs' (name: value:
-      lib.nameValuePair (value) ([ "${name}.matrix" ]) ) hosts;
+      lib.nameValuePair (value.ip) ([ "${name}.matrix" ]) ) hostMap;
   
     services.nebula.networks = with config.age.secrets; {
       matrix = {
         key = nebula-key.path;
         cert = nebula-crt.path;
         ca = nebula-ca-crt.path;
-        lighthouses = [ "10.10.10.1" ];
-        isLighthouse = cfg.isLighthouse;
+        #lighthouses = [ "10.10.10.1" ];
+        lighthouses = remove null (lib.mapAttrsToList (name: value:
+          if (value.isLighthouse) then value.ip else null) hostMap);
+        isLighthouse = hostMap.${config.networking.hostName}.isLighthouse;
         staticHostMap = {
-          "${hosts.oracle}" = [
+          "${hostMap.oracle.ip}" = [
             "cloud.lyndeno.ca:4242"
           ];
         };
         settings = {
-          relay = if cfg.isLighthouse then {
+          relay = if hostMap.${config.networking.hostName}.isLighthouse then {
             am_relay = true;
           } else {
-            relays = [ hosts.oracle ];
+            relays = [ hostMap.oracle.ip ];
             use_relays = true;
           };
         };

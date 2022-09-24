@@ -22,7 +22,7 @@
 
   modules.services.nebula = {
     enable = true;
-    nodeName = "morpheus";
+    #nodeName = "morpheus";
   };
 
   modules = {
