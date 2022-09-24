@@ -15,21 +15,19 @@ let
     })
     allHosts
   );
+  checkIfInNebula = (nebula: host: function: if (host ? ${nebula}) then function else null);
+  
   lighthouses = nebula: remove null (lib.mapAttrsToList (name: value:
     checkIfInNebula nebula value (if (value.${nebula}.isLighthouse) then name else null)) hostMap);
+
   externalHosts = nebula: remove null (lib.mapAttrsToList (name: value: 
     checkIfInNebula nebula value (if (value.${nebula} ? externalAddress) then name else null)) hostMap);
+
   relays = nebula: remove null (lib.mapAttrsToList (name: value:
     checkIfInNebula nebula value (if (value.${nebula}.isRelay) then name else null)) hostMap);
-  checkIfInNebula = (nebula: host: function: if (host ? ${nebula}) then function else null);
-  nebulae = {
-    matrix = {
-      hosts = [ "oracle" "morpheus" "neo" "trinity" ];
-      #lighthouses = lighthouses "matrix";
-      #externalHosts = externalHosts "matrix";
-      #relays = relays "matrix";
-    };
-  };
+
+  neighbours = nebula: remove null (lib.mapAttrsToList (name: value:
+    checkIfInNebula nebula value name) hostMap);
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
@@ -46,8 +44,19 @@ in {
       nebula-key.file = getNebulaSecret "nebula.key.age";
     };
 
-    networking.hosts = lib.mapAttrs' (name: value:
-      lib.nameValuePair (value.matrix.ip) ([ "${name}.matrix" ]) ) hostMap;
+    #networking.hosts = lib.mapAttrs' (name: value:
+    #  lib.nameValuePair (value.matrix.ip) ([ "${name}.matrix" ]) ) hostMap;
+
+    networking.hosts = lib.mkMerge (map 
+      (n: lib.mkMerge (map
+          (h: {
+            ${hostMap.${h}.${n}.ip} = [ "${h}.${n}" ];
+          })
+          (neighbours n)
+        )
+      )
+      (lib.mapAttrsToList (name: value: name) hostMap.${hostName})
+    );
   
     services.nebula.networks = with config.age.secrets; builtins.mapAttrs (currentNebula: value: {
         key = nebula-key.path;
