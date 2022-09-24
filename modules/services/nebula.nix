@@ -15,6 +15,8 @@ let
     })
     allHosts
   );
+  externalHosts = remove null (lib.mapAttrsToList (name: value: 
+    if (value ? externalAddress) then name else null) hostMap);
 in {
   options.modules.services.nebula = {
     enable = mkEnableOption "Nebula";
@@ -41,11 +43,13 @@ in {
         lighthouses = remove null (lib.mapAttrsToList (name: value:
           if (value.isLighthouse) then value.ip else null) hostMap);
         isLighthouse = hostMap.${config.networking.hostName}.isLighthouse;
-        staticHostMap = {
-          "${hostMap.oracle.ip}" = [
-            "cloud.lyndeno.ca:4242"
-          ];
-        };
+        staticHostMap = builtins.listToAttrs (map
+          (x: {
+            name = "${hostMap.${x}.ip}";
+            value = [ hostMap.${x}.externalAddress ];
+          })
+          externalHosts
+        );
         settings = {
           relay = if hostMap.${config.networking.hostName}.isLighthouse then {
             am_relay = true;
