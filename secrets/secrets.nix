@@ -24,6 +24,9 @@ in
   "oracle/nebula.key.age".publicKeys = [ lsanche oracle ];
   "oracle/nebula.crt.age".publicKeys = [ lsanche oracle ];
 
+  "oracle/nc_db.age".publicKeys = [ lsanche oracle ];
+  "oracle/nc_root_pw.age".publicKeys = [ lsanche oracle ];
+
   "trinity/nebula.key.age".publicKeys = [ lsanche trinity ];
   "trinity/nebula.crt.age".publicKeys = [ lsanche trinity ];
 
