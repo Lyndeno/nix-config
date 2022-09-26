@@ -119,6 +119,7 @@ in
         package = pkgs.brave;
         extensions = [
           { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
+          { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # Sponsorblock
         ];
       };
 
