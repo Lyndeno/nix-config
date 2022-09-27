@@ -102,7 +102,58 @@ in
       gtk.enable = false;
     };
 
+    age.secrets.fastmail = {
+      file = ../../secrets/fastmail.age;
+      mode = "770";
+      owner = "lsanche";
+      group = "lsanche";
+    };
+
     home-manager.users.lsanche = {
+
+      ### EMAIL ###
+      #services.imapnotify.enable = true;
+      programs.mbsync.enable = true;
+      programs.msmtp.enable = true;
+      programs.neomutt = {
+        enable = true;
+        sort = "reverse-date";
+        sidebar.enable = true;
+        vimKeys = true;
+      };
+
+      accounts.email = {
+        maildirBasePath = ".Maildir";
+        accounts.fastmail = {
+          primary = true;
+          userName = "lsanche@fastmail.com";
+          address = "lsanche@fastmail.com";
+          realName = "Lyndon Sanche";
+          imap = {
+            host = "imap.fastmail.com";
+            #port = 993;
+          };
+          smtp = {
+            host = "smtp.fastmail.com";
+          };
+          passwordCommand = ''cat ${config.age.secrets.fastmail.path}'';
+          mbsync = {
+            enable = true;
+            create = "maildir";
+          };
+          neomutt.enable = true;
+          maildir.path = "fastmail";
+          #imapnotify = {
+          #  enable = true;
+          #  boxes = [ "Inbox" ];
+          #  onNotify = "${pkgs.isync}/bin/mbsync -Va";
+          #  onNotifyPost = {
+          #    mail = ''${pkgs.libnotify}/bin/notify-send "Fastmail" "New mail arrived"'';
+          #  };
+          #};
+        };
+      };
+
       home.packages = with pkgs; [
           defaults.font.package
           spotify

@@ -12,6 +12,7 @@ let
 in
 {
   "nebula.ca.crt.age".publicKeys = allUsers ++ allSystems;
+  "fastmail.age".publicKeys = allUsers ++ [ neo morpheus ];
 
   "neo/nebula.key.age".publicKeys = [ lsanche neo ];
   "neo/nebula.crt.age".publicKeys = [ lsanche neo ];
