@@ -84,6 +84,11 @@
 
   networking.networkmanager.enable = true;
 
+  age.secrets = {
+    id_borgbase.file = ../../secrets/id_borgbase.age;
+    pass_borgbase.file = ../../secrets/morpheus/id_borgbase.age;
+  };
+
   services = {
     plex = {
       enable = true;
@@ -91,30 +96,31 @@
       group = "media";
     };
     xserver.displayManager.gdm.autoSuspend = false;
-    #borgbackup.jobs."borgbase" = {
-    #  paths = [
-    #    "/var/lib"
-    #    "/srv"
-    #    "/home"
-    #    "/data/mirror/archive"
-    #  ];
-    #  exclude = [
-    #    "/var/lib/systemd"
-    #    "/var/lib/libvirt"
-    #    "/var/lib/plex"
+    borgbackup.jobs."borgbase" = with config.age.secrets; {
+      paths = [
+        "/var/lib"
+        "/srv"
+        "/home"
+        "/data/mirror/archive"
+      ];
+      exclude = [
+        "/var/lib/systemd"
+        "/var/lib/libvirt"
+        "/var/lib/plex"
 
-    #    "**/target"
-    #    "/home/*/.local/share/Steam"
-    #  ];
-    #  repo = "n2ikk4w3@n2ikk4w3.repo.borgbase.com:repo";
-    #  encryption = {
-    #    mode = "repokey-blake2";
-    #    passCommand = "cat /root/borg/pass_morpheus";
-    #  };
-    #  environment.BORG_RSH = "ssh -i /root/borg/ssh_key";
-    #  compression = "auto,zstd,10";
-    #  startAt = "daily";
-    #};
+        "**/target"
+        "/home/*/.local/share/Steam"
+        "/home/*/Downloads"
+      ];
+      repo = "n2ikk4w3@n2ikk4w3.repo.borgbase.com:repo";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat ${pass_borgbase.path}";
+      };
+      environment.BORG_RSH = "ssh -i ${id_borgbase.path}";
+      compression = "auto,zstd,10";
+      startAt = "daily";
+    };
   };
   
   # Enable CUPS to print documents.
