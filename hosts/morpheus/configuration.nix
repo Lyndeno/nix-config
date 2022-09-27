@@ -86,7 +86,7 @@
 
   age.secrets = {
     id_borgbase.file = ../../secrets/id_borgbase.age;
-    pass_borgbase.file = ../../secrets/morpheus/id_borgbase.age;
+    pass_borgbase.file = ../../secrets/morpheus/pass_borgbase.age;
   };
 
   services = {
