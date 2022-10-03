@@ -25,6 +25,13 @@
     };
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:Lyndeno/nix-config/master";
+    allowReboot = true;
+    dates = "Mon, 03:00";
+  };
+
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 

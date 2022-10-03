@@ -20,6 +20,13 @@
     #nodeName = "trinity";
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:Lyndeno/nix-config/master";
+    allowReboot = true;
+    dates = "Mon, 03:30";
+  };
+
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";
