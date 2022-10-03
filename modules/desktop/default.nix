@@ -112,7 +112,7 @@ in
     home-manager.users.lsanche = {
 
       ### EMAIL ###
-      #services.imapnotify.enable = true;
+      services.imapnotify.enable = true;
       programs.mbsync.enable = true;
       programs.msmtp.enable = true;
       programs.neomutt = {
@@ -136,21 +136,18 @@ in
           smtp = {
             host = "smtp.fastmail.com";
           };
-          passwordCommand = ''cat ${config.age.secrets.fastmail.path}'';
+          passwordCommand = "${pkgs.busybox}/bin/cat ${config.age.secrets.fastmail.path}";
           mbsync = {
             enable = true;
             create = "maildir";
           };
           neomutt.enable = true;
           maildir.path = "fastmail";
-          #imapnotify = {
-          #  enable = true;
-          #  boxes = [ "Inbox" ];
-          #  onNotify = "${pkgs.isync}/bin/mbsync -Va";
-          #  onNotifyPost = {
-          #    mail = ''${pkgs.libnotify}/bin/notify-send "Fastmail" "New mail arrived"'';
-          #  };
-          #};
+          imapnotify = {
+            enable = true;
+            boxes = [ "Inbox" ];
+            onNotify = "${pkgs.isync}/bin/mbsync -Va && ${pkgs.libnotify}/bin/notify-send 'Fastmail' 'New mail arrived'";
+          };
         };
       };
 
