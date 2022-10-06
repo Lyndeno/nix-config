@@ -80,10 +80,12 @@
       lfs.enable = true;
       userName = "Lyndon Sanche";
       userEmail = "lsanche@lyndeno.ca";
-      signing.key = "6F8E82F60C799B18";
+      signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE90+2nMvJzOmkEGT3cyqHMESrrPQwVhe9/ToSlteJbB";
       signing.signByDefault = true;
       extraConfig = {
         pull.rebase = false;
+        gpg.format = "ssh";
+        "gpg \"ssh\"".program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
       };
       ignores = [
         "result"
