@@ -12,6 +12,7 @@
     (lib.mkIf config.programs.adb.enable "adbusers")
     "libvirtd"
     "dialout"
+    "plugdev"
   ];
   shell = pkgs.zsh;
 }
