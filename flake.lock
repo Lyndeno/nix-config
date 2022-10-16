@@ -283,16 +283,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1665122274,
-        "narHash": "sha256-LDMCHA0FEMApl9X8T0fWlcY1ecx20Z9P1nCtBDJ5F/0=",
-        "owner": "danth",
-        "repo": "stylix",
-        "rev": "78055b386876af4d04eac6b9bc835af479c7b477",
+        "lastModified": 1665879667,
+        "narHash": "sha256-hLomYMkCgoAPzRTDBz/RKYYIAgbomKTEN0eKbz5lReQ=",
+        "owner": "Lyndeno",
+        "repo": "nix-style",
+        "rev": "9197f333474ed6c052d5b551c0560f153adc9c12",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
-        "repo": "stylix",
+        "owner": "Lyndeno",
+        "ref": "optionalPalette",
+        "repo": "nix-style",
         "type": "github"
       }
     },
