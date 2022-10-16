@@ -22,6 +22,8 @@ in
   "morpheus/nebula.key.age".publicKeys = [ lsanche morpheus ];
   "morpheus/nebula.crt.age".publicKeys = [ lsanche morpheus ];
   "morpheus/pass_borgbase.age".publicKeys = [ lsanche morpheus ];
+  "morpheus/id_trinity_borg.age".publicKeys = [ lsanche morpheus ];
+  "morpheus/pass_trinity_borg.age".publicKeys = [ lsanche morpheus ];
 
   "oracle/nebula.key.age".publicKeys = [ lsanche oracle ];
   "oracle/nebula.crt.age".publicKeys = [ lsanche oracle ];
