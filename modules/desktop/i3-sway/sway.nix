@@ -88,7 +88,7 @@ in
       commands = {
         lock = "${pkgs.swaylock}/bin/swaylock -f";
         terminal = "${pkgs.alacritty}/bin/alacritty";
-        menu = "${pkgs.bemenu}/bin/bemenu-run ${config.home-manager.users.lsanche.home.sessionVariables.BEMENU_OPTS} -b -H 25";
+        menu = "${pkgs.bemenu}/bin/bemenu-run ${config.home-manager.users.lsanche.home.sessionVariables.BEMENU_OPTS} -b -H 25 -c -l 10 -W 0.3";
       };
     in rec {
 
