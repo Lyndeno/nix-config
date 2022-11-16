@@ -103,8 +103,7 @@ in
         enable = true;
         package = pkgs.waybar.override { withMediaPlayer = true; };
       } // import ./sway/waybar {
-        inherit pkgs lib commands defaults;
-        cssScheme = builtins.readFile (config.lib.stylix.colors inputs.base16-waybar);
+        inherit pkgs lib commands defaults config;
         mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
       };
       wayland.windowManager.sway = with config.scheme.withHashtag; let

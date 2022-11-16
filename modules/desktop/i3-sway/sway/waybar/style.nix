@@ -1,4 +1,5 @@
-fontName:
+{fontName,
+scheme}: with scheme;
 ''
 * {
     border: none;
@@ -7,7 +8,7 @@ fontName:
     font-size: 15px;
     min-height: 25px;
     padding: 0px 3px;
-		color: @base07;
+		color: ${base07};
 }
 
 .modules-left {
@@ -23,7 +24,7 @@ fontName:
 }
 
 #waybar {
-    background: @base01;
+    background: ${base01};
 }
 
 #custom-separator {
@@ -31,22 +32,28 @@ fontName:
     margin: 0px 5px;
 }
 
+/* Fix for Alexays/Waybar/issues/1741 */
+label:disabled, button:disabled {
+    color: inherit;
+    background-image: none;
+}
+
 
 
 #workspaces button {
     margin: 0px 0px;
-    background: @base01;
+    background: ${base01};
     color: #cccccc;
     min-width: 20px;
     /*border-radius: 15px;*/
 }
 
 #workspaces button.focused {
-    background: @base02;
+    background: ${base02};
 }
 
 #workspaces button:hover {
-    background: @base05;
+    background: ${base05};
 }
 
 #mode {
@@ -56,27 +63,27 @@ fontName:
 /* Groups and single items */
 
 #cpu, #memory {
-    color: @base08;
+    color: ${base08};
 }
 
 #disk.root, #disk.xpsroot, #disk.mirror {
-    color: @base0B;
+    color: ${base0B};
 }
 
 #network, #custom-pia-status {
-    color: @base05;
+    color: ${base05};
 }
 
 #idle_inhibitor, #pulseaudio, #tray {
-    color: @base05;
+    color: ${base05};
 }
 
 #workspaces {
-    color: @base02;
+    color: ${base02};
 }
 
 #clock {
-    color: @base07;
+    color: ${base07};
     font-size: 16px;
 }
 
@@ -112,33 +119,33 @@ fontName:
 /* Other settings */
 
 #battery.warning {
-	color: @base0A;
+	color: ${base0A};
 }
 
 #battery.critical {
-	color: @base08;
+	color: ${base08};
 }
 
 #disk.root.warning, #disk.mirror.warning {
-    color: @base0A;
+    color: ${base0A};
 }
 
 #disk.root.high, #disk.mirror.high {
-    color: @base09;
+    color: ${base09};
 }
 
 #disk.root.critical, #disk.mirror.critical {
-    color: @base08;
+    color: ${base08};
 }
 
 #temperature.critical {
-    color: @base08;
+    color: ${base08};
 }
 
 @keyframes blink {
     to {
-        background-color: @base07;
-        color: @base00;
+        background-color: ${base07};
+        color: ${base00};
     }
 }
 

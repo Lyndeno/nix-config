@@ -1,4 +1,4 @@
-{pkgs, lib, cssScheme, mediaplayerCmd, defaults, commands}:
+{pkgs, config, lib, mediaplayerCmd, defaults, commands}:
 {
   systemd = {
     enable = true;
@@ -6,7 +6,7 @@
     #target = "sway-session.target";
   };
   # in next release will allow specifying the path to a css file
-  style = cssScheme + (import ./style.nix defaults.font.name);
+  style = (import ./style.nix {fontName = defaults.font.name; scheme = config.lib.stylix.colors.withHashtag;});
   settings = [{
     position = "bottom";
     height = 20;
