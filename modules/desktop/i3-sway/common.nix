@@ -14,7 +14,7 @@ in rec {
       { command = "${pkgs.discord}/bin/discord --start-minimized"; }
       { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
       { command = "1password --silent"; }
-      { command = with thm.withHashtag; "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff -a bottom --margin 30"; }
+      #{ command = with thm.withHashtag; "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff -a bottom --margin 30"; }
   ];
   keybindings = lib.mkOptionDefault ({
       "${modifier}+l" = "exec ${commands.lock}";
