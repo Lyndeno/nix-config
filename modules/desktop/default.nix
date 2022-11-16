@@ -168,7 +168,6 @@ in
         extensions = [
           { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
           { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # Sponsorblock
-          { id = "dphilobhebphkdjbpfohgikllaljmgbn"; } # SimpleLogin
         ];
       };
 
