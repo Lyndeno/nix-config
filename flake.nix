@@ -37,7 +37,7 @@
     };
 
     stylix = {
-      url = "github:Lyndeno/nix-style/optionalPalette";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

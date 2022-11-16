@@ -31,7 +31,7 @@ in
         "editor.fontFamily" = "'CaskaydiaCove Nerd Font'";
         "terminal.integrated.fontFamily" = "'CaskaydiaCove Nerd Font'";
         "window.menuBarVisibility" = "toggle";
-        "window.titleBarStyle" = "custom";
+        "window.titleBarStyle" = "native";
         "workbench.editor.decorations.badges" = true;
         "workbench.editor.decorations.colors" = true;
         "workbench.editor.wrapTabs" = true;
