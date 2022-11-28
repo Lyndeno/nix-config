@@ -13,6 +13,9 @@
     kernelParams = [
       "acpi_rev_override=1" # nvidia card crashes things without this
     ];
+    kernelModules = [
+      "coretemp" # sensors-detect for Intel temperature
+    ];
   };
 
   services.lvm.boot.thin.enable = true;
