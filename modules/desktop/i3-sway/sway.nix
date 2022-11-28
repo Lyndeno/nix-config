@@ -156,6 +156,7 @@ in
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
             extraKeybindings = {
+              "print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(${pkgs.busybox}/bin/date +'screenshot_%Y-%m-%d-%H%M%S.png')";
             };
             extraStartup = [
               { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
