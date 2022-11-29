@@ -1,4 +1,4 @@
-inputs: [
+lib: inputs: commonModules: [
     ./configuration.nix
     ./hardware.nix
     ({config, pkgs, ...}: {
@@ -11,4 +11,4 @@ inputs: [
         root = "${inputs.site.packages.${pkgs.system}.default}/";
         };
     })
-]
+] ++ commonModules

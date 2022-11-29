@@ -70,7 +70,7 @@
     in lib.nixosSystem rec {
       system = hostInfo.system;
       pkgs = makePkgs system;
-      modules = (commonModules system) ++ (import ./hosts/${name} inputs);
+      modules = import ./hosts/${name} lib inputs (commonModules system);
       specialArgs = { inherit inputs; };
     };
 

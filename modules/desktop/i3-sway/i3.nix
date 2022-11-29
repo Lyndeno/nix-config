@@ -43,9 +43,10 @@ in
     ];
 
     home-manager.users.lsanche = let
-      swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.lib.stylix.colors; };
+      #swaylock-config = pkgs.callPackage ./swaylock.nix { thm = config.lib.stylix.colors; };
       commands = {
-        lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
+        #lock = "${pkgs.swaylock}/bin/swaylock -C ${swaylock-config}";
+        lock = "${pkgs.i3lock}/bin/i3lock";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         menu = let
           themeArgs = with config.lib.stylix.colors.withHashtag; builtins.concatStringsSep " " [
