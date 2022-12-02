@@ -7,10 +7,12 @@ in {
 
 
   boot.loader = {
-    systemd-boot.enable = true;
-    systemd-boot.configurationLimit = 25;
     timeout = 3;
     efi.canTouchEfiVariables = true;
+    grub = {
+      efiSupport = true;
+      device = "nodev";
+    };
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

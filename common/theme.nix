@@ -6,6 +6,7 @@ in {
       image = "${inputs.wallpapers}/starry.jpg";
       base16Scheme = base16Scheme;
       targets.swaylock.useImage = false;
+      targets.grub.enable = false;
       fonts = let
         cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
       in {
