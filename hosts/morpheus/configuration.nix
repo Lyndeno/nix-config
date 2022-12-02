@@ -61,6 +61,7 @@
         adaptive_sync = "on";
         pos = "1600 0";
         mode = "2560x1440@144.000000Hz";
+        render_bit_depth = "10";
       };
       DP-2 = {
         pos = "0 300";
