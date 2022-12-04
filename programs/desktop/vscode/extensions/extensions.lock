@@ -2,8 +2,8 @@
   {
     name = "direnv";
     publisher = "mkhl";
-    version = "0.10.0";
-    sha256 = "07cf0qwy0ppkg93vqqff3zx5g7vpwcihkbadwkdsdrll2wc6qj62";
+    version = "0.10.1";
+    sha256 = "0m89sx1qqdkwa9pfmd9b11lp8z0dqpi6jn27js5q4ymscyg41bqd";
   }
   {
     name = "vscode-todo-highlight";
