@@ -74,10 +74,10 @@
       };
 
       "network" = {
-        format-wifi = " ";
-        format-ethernet = "  {bandwidthDownBits}";
+        format-wifi = "  {essid}";
+        format-ethernet = " {ifname}";
         format-linked = " {ifname} (No IP)";
-        format-disconnected = "Disconnected ⚠";
+        format-disconnected = "Disconnected ";
         format-alt = "{ifname} = {ipaddr}/{cidr}   {bandwidthDownBits}  {bandwidthUpBits}";
         tooltip-format-wifi = "SSID = {essid}\nAddress = {ipaddr}\nBand {frequency} MHz\nUp = {bandwidthUpBits}\nDown = {bandwidthDownBits}\nStrength = {signalStrength}%";
         interval = 2;

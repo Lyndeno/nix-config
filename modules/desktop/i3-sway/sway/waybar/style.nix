@@ -6,9 +6,9 @@ scheme}: with scheme;
     border-radius: 0;
     font-family: ${fontName};
     font-size: 15px;
-    min-height: 25px;
+    min-height: 30px;
     padding: 0px 3px;
-		color: ${base07};
+	color: ${base07};
 }
 
 .modules-left {
@@ -43,7 +43,6 @@ label:disabled, button:disabled {
 #workspaces button {
     margin: 0px 0px;
     background: ${base01};
-    color: #cccccc;
     min-width: 20px;
     /*border-radius: 15px;*/
 }
@@ -54,6 +53,7 @@ label:disabled, button:disabled {
 
 #workspaces button:hover {
     background: ${base05};
+    color: ${base01};
 }
 
 #mode {
@@ -74,6 +74,10 @@ label:disabled, button:disabled {
     color: ${base05};
 }
 
+#network.disconnected {
+    color: red;
+}
+
 #idle_inhibitor, #pulseaudio, #tray {
     color: ${base05};
 }
@@ -85,19 +89,6 @@ label:disabled, button:disabled {
 #clock {
     color: ${base07};
     font-size: 16px;
-}
-
-#custom-gamemode {
-    background: #61d42c;
-    color: black;
-}
-
-#custom-checkdots {
-    color: #00c3ff;
-}
-
-#custom-checkupdate {
-    color: #ffa600;
 }
 
 /* Right Side */
@@ -140,13 +131,6 @@ label:disabled, button:disabled {
 
 #temperature.critical {
     color: ${base08};
-}
-
-@keyframes blink {
-    to {
-        background-color: ${base07};
-        color: ${base00};
-    }
 }
 
 /* Secondary monitor specific options*/
