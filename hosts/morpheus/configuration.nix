@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   networking.hostName = "morpheus"; # Define your hostname.
@@ -100,11 +100,18 @@
     pass_trinity_borg.file = ../../secrets/morpheus/pass_trinity_borg.age;
   };
 
+  systemd.services.jellyfin.serviceConfig.PrivateDevices = lib.mkForce false;
+
   services = {
     plex = {
       enable = true;
       openFirewall = true;
       group = "media";
+    };
+    jellyfin = {
+      enable = true;
+      group = "media";
+      openFirewall = true;
     };
     xserver.displayManager.gdm.autoSuspend = false;
     borgbackup.jobs."borgbase" = with config.age.secrets; {
