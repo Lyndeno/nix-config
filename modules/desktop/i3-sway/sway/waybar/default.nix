@@ -13,7 +13,6 @@
     modules-left = ["sway/workspaces" "sway/mode" "custom/media" "sway/window"];
     modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray" ];
     gtk-layer-shell = true;
-    modules = {
       "disk#root" = {
         interval = 30;
         format = " {percentage_free}%";
@@ -117,6 +116,5 @@
         on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
         exec = "${mediaplayerCmd} 2> /dev/null";
       };
-    };
   }];
 }
