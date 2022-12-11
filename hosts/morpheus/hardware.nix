@@ -43,6 +43,9 @@
     };
   };
 
+  services.zfs.trim.enable = true;
+  services.zfs.autoScrub.enable = true;
+
   services.zfs.zed.settings = {
     ZED_DEBUG_LOG = "/tmp/zed.debug.log";
     ZED_EMAIL_ADDR = [ "lsanche@lyndeno.ca" ];
