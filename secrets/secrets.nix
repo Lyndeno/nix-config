@@ -36,5 +36,7 @@ in
 
   "id_borgbase.age".publicKeys = allUsers ++ allSystems;
 
+  "email_pass.age".publicKeys = allUsers ++ allSystems;
+
   "neo/pass_borgbase.age".publicKeys = allUsers ++ allSystems;
 }
