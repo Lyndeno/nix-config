@@ -12,6 +12,7 @@ in {
     grub = {
       efiSupport = true;
       device = "nodev";
+      memtest86.enable = true;
     };
   };
 
