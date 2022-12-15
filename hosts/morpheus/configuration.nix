@@ -7,6 +7,13 @@
 
   services.ratbagd.enable = true;
 
+  services.smartd = {
+    enable = true;
+    notifications.mail.sender = "morpheus@lyndeno.ca";
+    notifications.mail.recipient = "lsanche@lyndeno.ca";
+    notifications.mail.enable = true;
+  };
+
   boot.loader = {
     systemd-boot = {
       enable = true;

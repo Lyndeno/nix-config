@@ -36,7 +36,7 @@
     accounts = {
       default = {
         host = "smtp.gmail.com";
-        passwordeval = "cat ${config.age.secrets.gmail_pass.path}";
+        passwordeval = "${pkgs.busybox}/bin/cat ${config.age.secrets.gmail_pass.path}";
         user = "lyndeno@gmail.com";
         from = "morpheus@lyndeno.ca";
       };
@@ -59,6 +59,7 @@
     ZED_SCRUB_AFTER_RESILVER = true;
   };
   services.zfs.zed.enableMail = false;
+  boot.zfs.extraPools = [ "bigpool" ];
 
   fileSystems = {
   "/" =
