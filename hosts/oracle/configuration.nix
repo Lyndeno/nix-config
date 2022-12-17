@@ -19,6 +19,20 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
 
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  networking.firewall = {
+    extraCommands = ''
+      iptables -t nat -A PREROUTING -p tcp -i enp1s0 --dport 32400 -j DNAT --to-destination 10.10.10.2:32400
+      iptables -I FORWARD -p tcp -d 10.10.10.2 --dport 32400 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+      iptables -I POSTROUTING -t nat -p tcp -d 10.10.10.2 --dport 32400 -j MASQUERADE
+    '';
+    extraStopCommands = ''
+      iptables -t nat -D PREROUTING -p tcp --dport 32400 -j DNAT --to-destination 10.10.10.2:32400 || true
+      iptables -D FORWARD -p tcp -d 10.10.10.2 --dport 32400 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+      iptables -D POSTROUTING -t nat -p tcp -d 10.10.10.2 --dport 32400 -j MASQUERADE
+    '';
+  };
+
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
