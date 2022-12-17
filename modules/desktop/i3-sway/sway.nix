@@ -102,8 +102,9 @@ in
       home.file.wobConfig = with config.lib.stylix.colors; {
         target = ".config/wob/wob.ini";
         text = ''
-          bar_color = ${base01}FF
+          bar_color = ${base07}FF
           border_color = ${base07}FF
+          background_color = ${base01}FF
           anchor = bottom
           margin = 30
         '';
@@ -120,7 +121,7 @@ in
           };
           Service = {
             StandardInput="socket";
-            ExecStart="${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff -a bottom --margin 30";
+            ExecStart="${pkgs.wob}/bin/wob";
           };
           Install = {
             WantedBy=[ "graphical-session.target" ];
@@ -130,6 +131,8 @@ in
           Socket = {
             ListenFIFO="%t/wob.sock";
             SocketMode="0600";
+            RemoveOnStop = "on";
+            FlushPending = "yes";
           };
           Install = {
             WantedBy=[ "sockets.target" ];
