@@ -24,6 +24,84 @@
     efi.canTouchEfiVariables = true;
   };
 
+  #networking.nat = {
+  #  enable = true;
+  #  internalInterfaces = ["ve-+"];
+  #  externalInterface = "br0";
+  #  #enableIPv6 = true;
+  #};
+
+  networking = {
+    bridges = {
+      br0 = {
+        interfaces = [ "enp7s0" ];
+      };
+    };
+    interfaces = {
+      br0 = {
+        useDHCP = true;
+        #ipv4.addresses = [{ address = "192.168.86.42"; prefixLength = 24; }];
+      };
+      enp7s0 = {
+        useDHCP = true;
+      };
+    };
+  };
+
+  age.secrets = {
+    ca_vancouver = {
+      file = ../../secrets/ca_vancouver.age;
+      path = "/var/lib/nixos-containers/torrents/ca_vancouver";
+      symlink = false;
+    };
+    pia_pass = {
+      file = ../../secrets/pia_pass.age;
+      path = "/var/lib/nixos-containers/torrents/pia_pass";
+      symlink = false;
+    };
+  };
+
+  containers.torrents = {
+    autoStart = true;
+    privateNetwork = true;
+    #hostAddress = "192.168.86.10";
+    localAddress = "192.168.86.99";
+    #hostAddress6 = "fc00::1";
+    #localAddress6 = "fc00::2";
+    enableTun = true;
+    config = { config, pkgs, ... }: {
+      services.transmission = {
+        enable = true;
+        openRPCPort = true;
+        openPeerPorts = true;
+        settings.rpc-bind-address = "0.0.0.0";
+        settings.rpc-whitelist-enabled = false;
+      };
+      services.resolved.enable = true;
+      networking = {
+        hostName = "morpheus-transmission";
+        interfaces."eth0".useDHCP = true;
+        useHostResolvConf = false;
+      };
+      system.stateVersion = "22.11";
+
+      #services.openvpn.servers = {
+      #  vancouver = {
+      #    config = '' config /ca_vancouver '';
+      #    autoStart = true;
+      #  };
+      #};
+
+      networking.firewall = {
+        enable = true;
+      };
+
+      services.openssh.enable = true;
+
+      #environment.etc."resolv.conf".text = "nameserver 8.8.8.8";
+    };
+  };
+
   systemd.services.hd-idle = {
     description = "Spin down disks";
     wantedBy = [ "multi-user.target" ];

@@ -39,4 +39,7 @@ in
   "email_pass.age".publicKeys = allUsers ++ allSystems;
 
   "neo/pass_borgbase.age".publicKeys = allUsers ++ allSystems;
+
+  "ca_vancouver.age".publicKeys = allUsers ++ [ morpheus ];
+  "pia_pass.age".publicKeys = allUsers ++ [ morpheus ];
 }
