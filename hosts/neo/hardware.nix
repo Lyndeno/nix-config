@@ -7,7 +7,6 @@
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
       kernelModules = [
         "kvm-intel"
-        "dm-snapshot" # booting off lvm-thin
       ];
     };
     kernelParams = [
@@ -18,34 +17,64 @@
     ];
   };
 
-  services.lvm.boot.thin.enable = true;
-
   hardware = {
     enableRedistributableFirmware = true;
     bluetooth.enable = true;
   };
 
+  boot.supportedFilesystems = [ "zfs" ];
+  networking.hostId = "54c50fe2";
+  boot.zfs.allowHibernation = true;
+
   boot.initrd.luks.devices = {
-    "nixcrypt" = {
-      preLVM = true;
-      device = "/dev/disk/by-label/nixcrypt";
+    "nixboot" = {
+      device = "/dev/disk/by-uuid/a29e226a-810e-48fa-932e-03569767185e";
+      keyFile = "/secrets/nixkey";
+    };
+    "nixswap" = {
+      device = "/dev/disk/by-label/cryptswap";
+      keyFile = "/secrets/nixkey";
+    };
+  };
+
+  boot.initrd = {
+    secrets = {
+      "/secrets/nixkey" = "/secrets/nixkey";
     };
   };
 
   fileSystems = {
-	  "/" = {
-      device = "/dev/disk/by-label/nixroot";
-      fsType = "ext4";
-      options = [ "discard" ]; # discard to make sure thin volume only uses needed space
-	  };
-	  "/boot" = {
-      device = "/dev/disk/by-label/ESP";
-      fsType = "vfat";
+  "/" =
+    { device = "nixpool/nixos/root";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
-    "/data/omicron" = {
-      device = "/dev/disk/by-label/omicron";
+
+  "/home" =
+    { device = "nixpool/nixos/home";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
+    };
+
+  "/var/lib" =
+    { device = "nixpool/nixos/var/lib";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
+    };
+
+  "/var/log" =
+    { device = "nixpool/nixos/var/log";
+      fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
+    };
+
+  "/boot" =
+    { device = "/dev/disk/by-label/nixboot";
       fsType = "ext4";
-      options = [ "noauto" "x-gvfs-show" ];
+    };
+  "/boot/efi" =
+    { device = "/dev/disk/by-label/ESP";
+      fsType = "vfat";
     };
   };
 
