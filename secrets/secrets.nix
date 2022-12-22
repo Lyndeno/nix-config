@@ -39,4 +39,7 @@ in
   "email_pass.age".publicKeys = allUsers ++ allSystems;
 
   "neo/pass_borgbase.age".publicKeys = allUsers ++ allSystems;
+
+  "zed_pushover.age".publicKeys = allUsers ++ allSystems;
+  "zed_user.age".publicKeys = allUsers ++ allSystems;
 }

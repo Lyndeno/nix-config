@@ -27,6 +27,8 @@
   boot.zfs.allowHibernation = true;
 
   age.secrets.gmail_pass.file = ../../secrets/email_pass.age;
+  age.secrets.zed_pushover.file = ../../secrets/zed_pushover.age;
+  age.secrets.zed_user.file = ../../secrets/zed_user.age;
   programs.msmtp = {
     enable = true;
     setSendmail = true;
@@ -62,6 +64,9 @@
 
     ZED_USE_ENCLOSURE_LEDS = true;
     ZED_SCRUB_AFTER_RESILVER = true;
+
+    ZED_PUSHOVER_TOKEN="$(${pkgs.busybox}/bin/cat ${config.age.secrets.zed_pushover.path})";
+    ZED_PUSHOVER_USER="$(${pkgs.busybox}/bin/cat ${config.age.secrets.zed_user.path})";
   };
 
   services.zfs.zed.enableMail = false;
