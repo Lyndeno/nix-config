@@ -126,7 +126,7 @@
         "/var/lib"
         "/srv"
         "/home"
-        "/data/mirror/archive"
+        "/data/bigpool/archive"
       ];
       exclude = [
         "/var/lib/systemd"
@@ -159,7 +159,7 @@
         "/var/lib"
         "/srv"
         "/home"
-        "/data/mirror/archive"
+        "/data/bigpool/archive"
       ];
       exclude = [
         "/var/lib/systemd"
@@ -197,6 +197,7 @@
 
   environment.systemPackages = with pkgs; [
     piper
+    gamescope
   ];
 
   system.stateVersion = "22.11"; # Did you read the comment?
