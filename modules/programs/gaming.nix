@@ -34,6 +34,7 @@ in
 
   config = mkIf cfg.enable {
     programs.steam.enable = cfg.steam.enable;
+    hardware.steam-hardware.enable = cfg.steam.enable;
 
     environment.systemPackages = with cfg; (mkMerge [
       (mkIf minecraft.enable [ pkgs.minecraft ])
