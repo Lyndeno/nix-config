@@ -18,7 +18,7 @@ in
         jnoortheen.nix-ide
         eamodio.gitlens
       ] ++ extensions;
-      mutableExtensionsDir = false;
+      mutableExtensionsDir = true;
       userSettings = {
         "editor.cursorSmoothCaretAnimation" = true;
         "editor.smoothScrolling" = true;
