@@ -24,7 +24,13 @@
 
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "54c50fe2";
-  boot.zfs.allowHibernation = true;
+  boot.zfs = {
+    allowHibernation = true;
+
+    # If we fail to boot, append zfs_force=1 to kernel parameters once
+    forceImportRoot = false;
+    forceImportAll = false;
+  };
 
   modules.services.zed.enable = true;
 
