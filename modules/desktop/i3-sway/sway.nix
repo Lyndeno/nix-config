@@ -218,7 +218,8 @@ in
           ${pkgs.sway}/bin/swaymsg "output * dpms off"
         '';
         idleSleep = runInShell "swayidle-sleep-when-idle" ''
-          if [ $(${pkgs.acpi}/bin/acpi -a | ${cut} -d" " -f3 | ${cut} -d- -f1) = "off" ]
+          BAT_STATUS=$(${pkgs.acpi}/bin/acpi -a | ${cut} -d" " -f3 | ${cut} -d- -f1)
+          if [ "$BAT_STATUS" = "off" ]
           then
             ${systemctl} suspend-then-hibernate
           fi
