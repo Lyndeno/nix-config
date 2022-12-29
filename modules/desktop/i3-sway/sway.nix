@@ -4,6 +4,11 @@ with lib;
 
 let
   cfg = config.modules.desktop;
+  fix-xwayland = pkgs.writeShellScript "fix-xwayland" ''
+    PRIM_DISPLAY=$(${pkgs.xorg.xrandr}/bin/xrandr | ${pkgs.gnugrep}/bin/grep 2560x1440+ | ${pkgs.gawk}/bin/awk '{print $1}')
+
+    ${pkgs.xorg.xrandr}/bin/xrandr --output $PRIM_DISPLAY --primary && ${pkgs.libnotify}/bin/notify-send " XWayland" "Primary X display set to $PRIM_DISPLAY"
+  '';
 in
 {
   config = mkIf ((cfg.environment == "sway") && cfg.enable) {
@@ -149,6 +154,7 @@ in
       };
       wayland.windowManager.sway = with config.scheme.withHashtag; let
         wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
+        modifier = wayland.windowManager.sway.config.modifier;
       in {
           enable = true;
           wrapperFeatures.gtk = true;
@@ -160,6 +166,7 @@ in
             homeCfg = config.home-manager.users.lsanche;
             extraKeybindings = {
               "print" = "exec --no-startup-id ${pkgs.slurp}/bin/slurp | ${pkgs.grim}/bin/grim -g - - | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.wl-clipboard}/bin/wl-paste > ~/Pictures/$(${pkgs.busybox}/bin/date +'screenshot_%Y-%m-%d-%H%M%S.png')";
+              "${modifier}+Shift+x" = "exec ${fix-xwayland}";
             };
             extraStartup = [
               { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
