@@ -197,6 +197,7 @@ in
           discord
           libreoffice-qt
           imv
+          element-desktop
       ];
 
       programs.chromium = {
