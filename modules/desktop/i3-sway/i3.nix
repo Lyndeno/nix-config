@@ -70,7 +70,7 @@ in
       xsession.windowManager.i3 = {
         enable = true;
         config = (import ./common.nix {
-          inherit commands pkgs lib;
+          inherit config commands pkgs lib;
           wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
           thm = config.lib.stylix.colors;
           homeCfg = config.home-manager.users.lsanche;

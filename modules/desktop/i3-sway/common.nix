@@ -1,4 +1,5 @@
-{ pkgs,
+{ config,
+  pkgs,
   lib,
   wallpaper,
   commands,
@@ -14,6 +15,7 @@ in rec {
       { command = "${pkgs.discord}/bin/discord --start-minimized"; }
       { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
       { command = "1password --silent"; }
+      { command = if (config.modules.programs.gaming.enable && config.modules.programs.gaming.steam.enable) then "${config.programs.steam.package}/bin/steam -silent" else "echo Steam is not enabled"; }
       #{ command = with thm.withHashtag; "rm -f ${wobsock} && mkfifo ${wobsock} && tail -f ${wobsock} | ${pkgs.wob}/bin/wob --bar-color=${base07}ff --background-color=${base01}ff --border-color=${base07}ff -a bottom --margin 30"; }
   ];
   keybindings = lib.mkOptionDefault ({

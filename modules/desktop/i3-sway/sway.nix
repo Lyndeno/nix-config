@@ -160,7 +160,7 @@ in
           wrapperFeatures.gtk = true;
           package = null;
           config = (import ./common.nix {
-            inherit commands pkgs lib wallpaper;
+            inherit config commands pkgs lib wallpaper;
             thm = config.lib.stylix.colors;
             # TODO: We use this to access our set terminal packages. Pass through that instead
             homeCfg = config.home-manager.users.lsanche;
@@ -170,7 +170,6 @@ in
             };
             extraStartup = [
               { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
-              { command = if (config.modules.programs.gaming.enable && config.modules.programs.gaming.steam.enable) then "${config.programs.steam.package}/bin/steam -silent" else "echo Steam is not enabled"; }
             ];
           }) // {
             bars = [];
