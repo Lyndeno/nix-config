@@ -170,6 +170,7 @@ in
             };
             extraStartup = [
               { command = "dbus-update-activation-environment WAYLAND_DISPLAY"; }
+              { command = if (config.modules.programs.gaming.enable && config.modules.programs.gaming.steam.enable) then "${config.programs.steam.package}/bin/steam -silent" else "echo Steam is not enabled"; }
             ];
           }) // {
             bars = [];
