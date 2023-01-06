@@ -33,7 +33,7 @@ in
     ./plasma.nix
     ./hardware.nix
     (import ./i3-sway { inherit config lib pkgs defaults inputs; })
-    ../programs/desktop
+    ./programs
   ];
   options = {
     ls = {
