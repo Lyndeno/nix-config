@@ -1,6 +1,6 @@
 {pkgs, lib, inputs, ...}:
 let
-  base16Scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
+  base16Scheme = "${inputs.base16-schemes}/atelier-dune.yaml";
 in {
     stylix = {
       image = "${inputs.wallpapers}/starry.jpg";
