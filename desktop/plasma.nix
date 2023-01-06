@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.modules.desktop;
+  cfg = config.ls.desktop;
 in
 {
   config = mkIf ((cfg.environment == "plasma") && cfg.enable) {

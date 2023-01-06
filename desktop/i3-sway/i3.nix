@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.modules.desktop;
+  cfg = config.ls.desktop;
 in
 {
   config = mkIf ((cfg.environment == "i3") && cfg.enable) {
@@ -71,7 +71,7 @@ in
         enable = true;
         config = (import ./common.nix {
           inherit config commands pkgs lib;
-          wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
+          wallpaper = with cfg.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
           thm = config.lib.stylix.colors;
           homeCfg = config.home-manager.users.lsanche;
         });

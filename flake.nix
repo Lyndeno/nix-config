@@ -58,6 +58,7 @@
       ./common
       ./modules
       ./programs
+      ./desktop
       ({config, ...}: {
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })

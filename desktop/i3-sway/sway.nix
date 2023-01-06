@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.modules.desktop;
+  cfg = config.ls.desktop;
   fix-xwayland = pkgs.writeShellScript "fix-xwayland" ''
     PRIM_DISPLAY=$(${pkgs.xorg.xrandr}/bin/xrandr | ${pkgs.gnugrep}/bin/grep 2560x1440+ | ${pkgs.gawk}/bin/awk '{print $1}')
 
@@ -65,7 +65,7 @@ in
           mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
         };
         wayland.windowManager.sway = with config.scheme.withHashtag; let
-          wallpaper = with config.modules.desktop.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
+          wallpaper = with cfg.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
           modifier = wayland.windowManager.sway.config.modifier;
         in {
             enable = true;

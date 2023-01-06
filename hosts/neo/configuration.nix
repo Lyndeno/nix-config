@@ -24,7 +24,7 @@ in {
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
-  modules = {
+  ls = {
     desktop.enable = true;
     desktop.environment = "sway";
     desktop.mainResolution = {

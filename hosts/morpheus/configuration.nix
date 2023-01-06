@@ -51,6 +51,9 @@
     programs = {
       gaming.enable = true;
     };
+  };
+
+  ls = {
     desktop = {
       enable = true;
       supportDDC = true;

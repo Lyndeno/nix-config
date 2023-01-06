@@ -14,7 +14,7 @@ lib: inputs: commonModules: with inputs.nixos-hardware.nixosModules; [
             inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
             ] ++ commonModules;
 
-            modules.desktop.environment = lib.mkForce "i3";
+            ls.desktop.environment = lib.mkForce "i3";
             hardware.nvidia = {
             prime = {
                 offload.enable = false;

@@ -3,8 +3,8 @@
 with lib;
 
 let
-  cfg = config.modules.desktop;
-  software = config.modules.desktop.software;
+  cfg = config.ls.desktop;
+  software = config.ls.desktop.software;
   defaults = {
     font = {
       package = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
@@ -33,10 +33,10 @@ in
     ./plasma.nix
     ./hardware.nix
     (import ./i3-sway { inherit config lib pkgs defaults inputs; })
-    ../../programs/desktop
+    ../programs/desktop
   ];
   options = {
-    modules = {
+    ls = {
       desktop = {
         enable = mkOption {type = types.bool; default = false; };
         supportDDC = mkOption {type = types.bool; default = false; };
@@ -103,7 +103,7 @@ in
     };
 
     age.secrets.fastmail = {
-      file = ../../secrets/fastmail.age;
+      file = ../secrets/fastmail.age;
       mode = "770";
       owner = "lsanche";
       group = "lsanche";
