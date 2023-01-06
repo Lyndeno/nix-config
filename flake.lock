@@ -46,13 +46,13 @@
       "locked": {
         "lastModified": 1671208311,
         "narHash": "sha256-U9pfie3qABp5sTr3M9ga/jX8C807FeiXlmEZnC4ZM58=",
-        "owner": "base16-project",
+        "owner": "tinted-theming",
         "repo": "base16-schemes",
         "rev": "cf6bc892a24af19e11383adedc6ce7901f133ea7",
         "type": "github"
       },
       "original": {
-        "owner": "base16-project",
+        "owner": "tinted-theming",
         "repo": "base16-schemes",
         "type": "github"
       }
