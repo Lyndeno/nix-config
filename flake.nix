@@ -65,23 +65,23 @@
       inputs.agenix.nixosModule
     ];
 
-    mkSystem = name: let
-      hostInfo = import ./hosts/${name}/info.nix;
+    mkSystem = folder: name: let
+      hostInfo = import ./${folder}/${name}/info.nix;
     in lib.nixosSystem rec {
       system = hostInfo.system;
       pkgs = makePkgs system;
-      modules = import ./hosts/${name} lib inputs (commonModules system);
+      modules = import ./${folder}/${name} lib inputs (commonModules system);
       specialArgs = { inherit inputs; };
     };
 
   in {
-    nixosConfigurations = builtins.listToAttrs
+    nixosConfigurations = ( folder: builtins.listToAttrs
     (map
       (x: {
         name = x;
-        value = mkSystem x;
+        value = mkSystem folder x;
       })
-      (builtins.attrNames (builtins.readDir ./hosts))
-    );
+      (builtins.attrNames (builtins.readDir ./${folder}))
+    )) "hosts";
   };
 }
