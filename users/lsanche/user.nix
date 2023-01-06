@@ -13,6 +13,7 @@
     "libvirtd"
     "dialout"
     "plugdev"
+    "uaccess"
   ];
   shell = pkgs.zsh;
 }
