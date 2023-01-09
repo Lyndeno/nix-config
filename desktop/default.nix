@@ -91,5 +91,16 @@ in
       gnome.enable = false;
       gtk.enable = false;
     };
+
+    home-manager.users.lsanche = {
+
+      programs.ssh.matchBlocks = {
+        "* !*.repo.borgbase.com" = {
+          extraOptions = {
+            "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
+          };
+        };
+      };
+    };
   };
 }
