@@ -1,4 +1,4 @@
-{config, lib, pkgs, inputs, defaults, ...}:
+{config, lib, pkgs, inputs, ...}:
 
 with lib;
 
@@ -61,7 +61,7 @@ in
           enable = true;
           package = pkgs.waybar.override { withMediaPlayer = true; };
         } // import ./sway/waybar {
-          inherit pkgs lib commands defaults config;
+          inherit pkgs lib commands config;
           mediaplayerCmd = "${programs.waybar.package}/bin/waybar-mediaplayer.py";
         };
         wayland.windowManager.sway = with config.scheme.withHashtag; let

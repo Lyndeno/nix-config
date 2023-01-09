@@ -5,12 +5,6 @@ with lib;
 let
   cfg = config.ls.desktop;
   software = config.ls.desktop.software;
-  defaults = {
-    font = {
-      package = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
-      name = "CaskaydiaCove Nerd Font";
-    };
-  };
 
   environments = {
     gnome = {
@@ -32,7 +26,7 @@ in
     ./gnome.nix
     ./plasma.nix
     ./hardware.nix
-    (import ./i3-sway { inherit config lib pkgs defaults inputs; })
+    (import ./i3-sway { inherit config lib pkgs inputs; })
     ./programs
   ];
   options = {
@@ -85,10 +79,6 @@ in
     xdg.portal = {
       enable = (cfg.environment != null);
     };
-
-    fonts.fonts = with pkgs; [
-      defaults.font.package
-    ];
 
     environment.systemPackages = with pkgs; [
       alacritty
@@ -189,7 +179,6 @@ in
       };
 
       home.packages = with pkgs; [
-          defaults.font.package
           spotify
           zathura
           signal-desktop
