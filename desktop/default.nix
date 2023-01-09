@@ -206,6 +206,7 @@ in
         extensions = [
           { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
           { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # Sponsorblock
+          { id = "bmnlcjabgnpnenekpadlanbbkooimhnj"; } # Paypal Honey
         ];
       };
 
