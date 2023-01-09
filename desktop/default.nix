@@ -23,7 +23,7 @@ let
       wayland = true;
     };
     i3 = {
-      wayland = true;
+      wayland = false;
     };
   };
 in
