@@ -216,14 +216,6 @@ in
           iconTheme.name = "Papirus-Dark";
           iconTheme.package = pkgs.papirus-icon-theme;
       };
-
-      programs.ssh.matchBlocks = {
-        "* !*.repo.borgbase.com" = {
-          extraOptions = {
-            "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
-          };
-        };
-      };
     };
   };
 }
