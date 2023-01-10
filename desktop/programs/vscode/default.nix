@@ -28,8 +28,8 @@ in
         "git.enableSmartCommit" = true;
         "workbench.iconTheme" = "material-icon-theme";
         "editor.fontLigatures" = true;
-        "editor.fontFamily" = "'CaskaydiaCove Nerd Font'";
-        "terminal.integrated.fontFamily" = "'CaskaydiaCove Nerd Font'";
+        "editor.fontFamily" = "'${config.stylix.fonts.monospace.name}'";
+        "terminal.integrated.fontFamily" = "'${config.stylix.fonts.monospace.name}'";
         "window.menuBarVisibility" = "toggle";
         "window.titleBarStyle" = "native";
         "workbench.editor.decorations.badges" = true;
