@@ -24,6 +24,7 @@
   programs.dconf.enable = true;
 
   services = {
+    tailscale.enable = true;
     openssh.enable = true;
     syncthing = {
       enable = true;
