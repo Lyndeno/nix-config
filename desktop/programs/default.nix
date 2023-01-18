@@ -7,5 +7,6 @@
     (import ./mangohud.nix { inherit config lib pkgs inputs; })
     (import ./email.nix { inherit config lib pkgs inputs; })
     (import ./gtk.nix { inherit config lib pkgs inputs; })
+    (import ./misc.nix { inherit config lib pkgs inputs; })
   ]);
 }
