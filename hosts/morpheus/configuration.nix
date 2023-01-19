@@ -173,7 +173,7 @@
         "/home/*/.local/share/Steam"
         "/home/*/Downloads"
       ];
-      repo = "borg@trinity.matrix:.";
+      repo = "borg@trinity:.";
       encryption = {
         mode = "repokey-blake2";
         passCommand = "cat ${pass_trinity_borg.path}";
