@@ -19,7 +19,10 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
 
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
   networking.firewall = {
     extraCommands = ''
       iptables -t nat -A PREROUTING -p tcp -i enp1s0 --dport 32400 -j DNAT --to-destination 100.127.0.11:32400
