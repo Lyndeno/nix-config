@@ -19,11 +19,6 @@
     };
   };
 
-  modules.services.nebula = {
-    enable = true;
-    #nodeName = "trinity";
-  };
-
   system.autoUpgrade = {
     enable = true;
     flake = "github:Lyndeno/nix-config/master";

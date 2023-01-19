@@ -11,28 +11,17 @@ let
   allSystems = [ neo morpheus oracle trinity ];
 in
 {
-  "nebula.ca.crt.age".publicKeys = allUsers ++ allSystems;
   "fastmail.age".publicKeys = allUsers ++ [ neo morpheus ];
 
-  "neo/nebula.key.age".publicKeys = [ lsanche neo ];
-  "neo/nebula.crt.age".publicKeys = [ lsanche neo ];
   "neo/id_trinity_borg.age".publicKeys = [ lsanche neo ];
   "neo/pass_trinity_borg.age".publicKeys = [ lsanche neo ];
 
-  "morpheus/nebula.key.age".publicKeys = [ lsanche morpheus ];
-  "morpheus/nebula.crt.age".publicKeys = [ lsanche morpheus ];
   "morpheus/pass_borgbase.age".publicKeys = [ lsanche morpheus ];
   "morpheus/id_trinity_borg.age".publicKeys = [ lsanche morpheus ];
   "morpheus/pass_trinity_borg.age".publicKeys = [ lsanche morpheus ];
 
-  "oracle/nebula.key.age".publicKeys = [ lsanche oracle ];
-  "oracle/nebula.crt.age".publicKeys = [ lsanche oracle ];
-
   "oracle/nc_db.age".publicKeys = [ lsanche oracle ];
   "oracle/nc_root_pw.age".publicKeys = [ lsanche oracle ];
-
-  "trinity/nebula.key.age".publicKeys = [ lsanche trinity ];
-  "trinity/nebula.crt.age".publicKeys = [ lsanche trinity ];
 
   "id_borgbase.age".publicKeys = allUsers ++ allSystems;
 

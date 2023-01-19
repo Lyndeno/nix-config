@@ -22,14 +22,14 @@
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.firewall = {
     extraCommands = ''
-      iptables -t nat -A PREROUTING -p tcp -i enp1s0 --dport 32400 -j DNAT --to-destination 10.10.10.2:32400
-      iptables -I FORWARD -p tcp -d 10.10.10.2 --dport 32400 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-      iptables -I POSTROUTING -t nat -p tcp -d 10.10.10.2 --dport 32400 -j MASQUERADE
+      iptables -t nat -A PREROUTING -p tcp -i enp1s0 --dport 32400 -j DNAT --to-destination 100.127.0.11:32400
+      iptables -I FORWARD -p tcp -d 100.127.0.11 --dport 32400 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+      iptables -I POSTROUTING -t nat -p tcp -d 100.127.0.11 --dport 32400 -j MASQUERADE
     '';
     extraStopCommands = ''
-      iptables -t nat -D PREROUTING -p tcp --dport 32400 -j DNAT --to-destination 10.10.10.2:32400 || true
-      iptables -D FORWARD -p tcp -d 10.10.10.2 --dport 32400 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-      iptables -D POSTROUTING -t nat -p tcp -d 10.10.10.2 --dport 32400 -j MASQUERADE
+      iptables -t nat -D PREROUTING -p tcp --dport 32400 -j DNAT --to-destination 100.127.0.11:32400 || true
+      iptables -D FORWARD -p tcp -d 100.127.0.11 --dport 32400 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+      iptables -D POSTROUTING -t nat -p tcp -d 100.127.0.11 --dport 32400 -j MASQUERADE
     '';
   };
 
@@ -57,10 +57,6 @@
   networking.interfaces.enp1s0.useDHCP = true;
 
   networking.networkmanager.enable = true;
-
-  services = {
-    # Must create .snapshots subvolume in root of snapshotted subvolume
-  };
   
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -73,12 +69,6 @@
     flake = "github:Lyndeno/nix-config/master";
     allowReboot = true;
     dates = "Mon, 03:00";
-  };
-
-  modules.services.nebula = {
-    enable = true;
-    #nodeName = "oracle";
-    #isLighthouse = true;
   };
 
   # This value determines the NixOS release from which the default

@@ -33,11 +33,6 @@ in {
     };
   };
 
-  #modules.services.nebula = {
-  #  enable = true;
-  #  #nodeName = "neo";
-  #};
-
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 

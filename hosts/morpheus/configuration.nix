@@ -42,11 +42,6 @@
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
-  modules.services.nebula = {
-    enable = true;
-    #nodeName = "morpheus";
-  };
-
   modules = {
     programs = {
       gaming.enable = true;
