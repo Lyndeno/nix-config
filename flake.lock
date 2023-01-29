@@ -26,15 +26,18 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "ny": "ny",
+        "sf-arabic": "sf-arabic",
         "sf-compact": "sf-compact",
+        "sf-mono": "sf-mono",
         "sf-pro": "sf-pro"
       },
       "locked": {
-        "lastModified": 1673390013,
-        "narHash": "sha256-hpMlnIVw054QysBp26hRnuaAAVe9nL49123ZVoGU8RI=",
+        "lastModified": 1673561369,
+        "narHash": "sha256-CU6L6Q399+Jh8kzSBVblws95BUNjl9O0R26IVa8FiZM=",
         "owner": "Lyndeno",
         "repo": "apple-fonts.nix",
-        "rev": "7af676a83e06c3d854eda23089e20f289258d0ca",
+        "rev": "4c4e2e90929df76adc09530f4a72a63876fdf979",
         "type": "github"
       },
       "original": {
@@ -193,11 +196,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1673737886,
-        "narHash": "sha256-hNTqD0uIgpbtTI2Nuj/Q1lEFOOdZqqXpxoc8rMno2F0=",
+        "lastModified": 1674928308,
+        "narHash": "sha256-elVU4NUZEl11BdT4gC+lrpLYM8Ccxqxs19Ix84HTI9o=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2827b5306462d91edec16a3d069b2d6e54c3079f",
+        "rev": "08a778d80308353f4f65c9dcd3790b5da02d6306",
         "type": "github"
       },
       "original": {
@@ -231,11 +234,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1673440569,
-        "narHash": "sha256-FQ5o0yI+MH9MgfseeGDsVIIpIqv3BCgq+0NzncuZ9Zo=",
+        "lastModified": 1674550793,
+        "narHash": "sha256-ljJlIFQZwtBbzWqWTmmw2O5BFmQf1A/DspwMOQtGXHk=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "88016c96c3c338aa801695cdd9f186820bcfe4d6",
+        "rev": "b7ac0a56029e4f9e6743b9993037a5aaafd57103",
         "type": "github"
       },
       "original": {
@@ -246,17 +249,29 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1673631141,
-        "narHash": "sha256-AprpYQ5JvLS4wQG/ghm2UriZ9QZXvAwh1HlgA/6ZEVQ=",
+        "lastModified": 1674641431,
+        "narHash": "sha256-qfo19qVZBP4qn5M5gXc/h1MDgAtPA5VxJm9s8RUAkVk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "befc83905c965adfd33e5cae49acb0351f6e0404",
+        "rev": "9b97ad7b4330aacda9b2343396eb3df8a853b4fc",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
         "ref": "nixos-unstable",
         "type": "indirect"
+      }
+    },
+    "ny": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-PHSYxH1VzGRjMD3UScSZm7rD0DakQko0Xqk0mmTjYNc=",
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
       }
     },
     "root": {
@@ -274,6 +289,18 @@
         "wallpapers": "wallpapers"
       }
     },
+    "sf-arabic": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-oN/oDnj28jRIbzM+qwPQrQ36xnzuzRuCyXKc0Kqwlu8=",
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Arabic.dmg"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Arabic.dmg"
+      }
+    },
     "sf-compact": {
       "flake": false,
       "locked": {
@@ -284,6 +311,18 @@
       "original": {
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg"
+      }
+    },
+    "sf-mono": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-XT2XFL8ew29B4vl/bqwCvOGFwQ4e+GwmOmepkDtcYZE=",
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg"
       }
     },
     "sf-pro": {
@@ -329,11 +368,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1673480849,
-        "narHash": "sha256-ZeuzcznjZBup2HLvwFMmIxeniZcqsWfrF9AcjLbbpAk=",
+        "lastModified": 1674929176,
+        "narHash": "sha256-wJyHWteEy5MvAK7jeIpmpkpTbyjceRizNg4li/z6Ew4=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "16d6d932a0f7a92ed0b3ca180d71d2a97a5cd5a9",
+        "rev": "8c22082ab103feee5c84941667fe32099e58de7c",
         "type": "github"
       },
       "original": {
