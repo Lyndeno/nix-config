@@ -24,6 +24,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "i686-linux" ];
+
   systemd.services.hd-idle = {
     description = "Spin down disks";
     wantedBy = [ "multi-user.target" ];
