@@ -68,7 +68,7 @@
         environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
       })
       inputs.stylix.nixosModules.stylix
-      inputs.agenix.nixosModule
+      inputs.agenix.nixosModules.default
     ];
 
     mkSystem = folder: name: let
