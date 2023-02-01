@@ -71,7 +71,7 @@
     enable = true;
     flake = "github:Lyndeno/nix-config/master";
     allowReboot = true;
-    dates = "Mon, 03:00";
+    dates = "03:00";
   };
 
   # This value determines the NixOS release from which the default
