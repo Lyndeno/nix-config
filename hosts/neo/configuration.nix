@@ -31,6 +31,9 @@ in {
       height = 1080;
       width = 1920;
     };
+    desktop.software = {
+      backup = false;
+    };
   };
 
   services.hardware.bolt.enable = true;

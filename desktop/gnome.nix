@@ -32,8 +32,8 @@ in
     environment.systemPackages = with pkgs; [
       gnome.gnome-tweaks
       ( mkIf cfg.software.backup pika-backup )
-      fractal
-      spot
+      #fractal
+      #spot
     ] ++ (with gnomeExtensions; [
       appindicator
       dash-to-panel

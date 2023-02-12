@@ -4,12 +4,10 @@
 
     home.packages = with pkgs; [
         spotify
-        zathura
         signal-desktop
         spotify
         discord
         libreoffice-qt
-        imv
         element-desktop
     ];
 

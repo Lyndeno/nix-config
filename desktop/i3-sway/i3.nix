@@ -40,6 +40,8 @@ in
 
     environment.systemPackages = with pkgs; [
       gnome.nautilus
+      imv
+      zathura
     ];
 
     home-manager.users.lsanche = let
