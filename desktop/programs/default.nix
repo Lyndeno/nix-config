@@ -2,7 +2,7 @@
   config = lib.mkIf config.ls.desktop.enable (lib.mkMerge [
     (import ./vscode { inherit config lib pkgs inputs; })
     (import ./alacritty.nix{ inherit config pkgs inputs; })
-    (import ./emacs.nix { inherit config pkgs inputs; })
+    #(import ./emacs.nix { inherit config pkgs inputs; })
     (import ./browser.nix { inherit config lib pkgs inputs; })
     (import ./mangohud.nix { inherit config lib pkgs inputs; })
     (import ./email.nix { inherit config lib pkgs inputs; })

@@ -17,11 +17,14 @@ in
 
     environment.gnome.excludePackages = (with pkgs; [
       gnome-tour
+      gnome-text-editor
     ]) ++ (with pkgs.gnome; [
       gnome-music
       gedit
       epiphany
       gnome-characters
+      gnome-maps
+      gnome-font-viewer
     ]);
 
     programs.kdeconnect = {
@@ -36,7 +39,7 @@ in
       #spot
     ] ++ (with gnomeExtensions; [
       appindicator
-      dash-to-panel
+      #dash-to-panel
       dash-to-dock
       tailscale-status
     ]);

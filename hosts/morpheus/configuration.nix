@@ -5,8 +5,6 @@
 
   hardware.bluetooth.enable = true;
 
-  services.ratbagd.enable = true;
-
   services.smartd = {
     enable = true;
     notifications.mail.sender = "morpheus@lyndeno.ca";
@@ -210,7 +208,6 @@
   services.fstrim.enable = true;
 
   environment.systemPackages = with pkgs; [
-    piper
     gamescope
   ];
 
