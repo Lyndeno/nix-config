@@ -113,6 +113,13 @@
 
   systemd.services.jellyfin.serviceConfig.PrivateDevices = lib.mkForce false;
 
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+  '';
+
   services = {
     plex = {
       enable = true;
