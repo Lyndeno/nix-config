@@ -26,12 +26,14 @@ in {
 
   ls = {
     desktop.enable = true;
-    desktop.environment = "sway";
+    desktop.environment = "gnome";
     desktop.mainResolution = {
       height = 1080;
       width = 1920;
     };
   };
+
+  services.hardware.bolt.enable = true;
 
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
