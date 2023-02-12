@@ -38,6 +38,7 @@ in
       appindicator
       dash-to-panel
       dash-to-dock
+      tailscale-status
     ]);
     services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   };

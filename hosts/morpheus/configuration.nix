@@ -58,7 +58,7 @@
     desktop = {
       enable = true;
       supportDDC = true;
-      environment = "sway";
+      environment = "gnome";
       mainResolution = {
         width = 2560;
         height = 1080;
