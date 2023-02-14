@@ -9,6 +9,7 @@
         discord
         libreoffice-qt
         element-desktop
+        kicad
     ];
 
   };

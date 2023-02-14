@@ -37,6 +37,9 @@ in
       ( mkIf cfg.software.backup pika-backup )
       #fractal
       #spot
+      blackbox-terminal
+      giara
+      gnome-feeds
     ] ++ (with gnomeExtensions; [
       appindicator
       #dash-to-panel
