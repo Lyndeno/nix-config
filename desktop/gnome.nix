@@ -40,6 +40,8 @@ in
       blackbox-terminal
       giara
       gnome-feeds
+      celluloid
+      newsflash
     ] ++ (with gnomeExtensions; [
       appindicator
       #dash-to-panel
