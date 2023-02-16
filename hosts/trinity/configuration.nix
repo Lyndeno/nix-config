@@ -19,6 +19,17 @@
     };
   };
 
+  users.users.brandt = {
+    isNormalUser = true;
+    description = "Brandt Sanche";
+    home = "/home/brandt";
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAG5jQz86ZdWkHAl4795TUyYavrMKue/eOIglwvaGNGD"
+    ];
+    extraGroups = [ "wheel" ];
+  };
+
   system.autoUpgrade = {
     enable = true;
     flake = "github:Lyndeno/nix-config/master";
