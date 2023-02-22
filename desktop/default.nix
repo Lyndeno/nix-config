@@ -87,6 +87,10 @@ in
 
     environment.sessionVariables.NIXOS_OZONE_WL = if environments.${cfg.environment}.wayland then "1" else "";
 
+    home-manager.users.lsanche.stylix.targets = {
+      gnome.enable = false;
+      gtk.enable = false;
+    };
     stylix.targets = {
       gnome.enable = false;
       gtk.enable = false;

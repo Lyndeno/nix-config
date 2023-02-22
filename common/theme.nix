@@ -2,11 +2,11 @@
 let
   base16Scheme = "${inputs.base16-schemes}/atelier-dune.yaml";
 in {
+    home-manager.users.lsanche.stylix.targets.swaylock.useImage = false;
     fonts.fonts = [ inputs.apple-fonts.packages.${pkgs.system}.sf-pro ];
     stylix = {
       image = "${inputs.wallpapers}/starry.jpg";
       base16Scheme = base16Scheme;
-      targets.swaylock.useImage = false;
       targets.grub.enable = false;
       fonts = let
         cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
