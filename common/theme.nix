@@ -8,6 +8,7 @@ in {
       image = "${inputs.wallpapers}/starry.jpg";
       base16Scheme = base16Scheme;
       targets.grub.enable = false;
+      targets.chromium.enable = false;
       fonts = let
         cascadia = (pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; });
       in {
