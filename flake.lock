@@ -166,6 +166,22 @@
         "type": "github"
       }
     },
+    "firefox-gnome-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676746343,
+        "narHash": "sha256-mqRF41HJkUn2zdnDuG2K2repBRt3SeleVVkHxsUu6no=",
+        "owner": "rafaelmardojai",
+        "repo": "firefox-gnome-theme",
+        "rev": "0d1349acdfe006dfd94cfa3bae58151450ebe844",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafaelmardojai",
+        "repo": "firefox-gnome-theme",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -304,6 +320,7 @@
         "base16-schemes": "base16-schemes",
         "base16-vim-lightline": "base16-vim-lightline",
         "cfetch": "cfetch",
+        "firefox-gnome-theme": "firefox-gnome-theme",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
