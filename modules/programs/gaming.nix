@@ -37,7 +37,7 @@ in
     hardware.steam-hardware.enable = cfg.steam.enable;
 
     environment.systemPackages = with cfg; (mkMerge [
-      (mkIf minecraft.enable [ pkgs.minecraft ])
+      (mkIf minecraft.enable [ pkgs.prismlauncher ])
       (with emulation; mkIf enable ( mkMerge [
         (mkIf wii.enable [ pkgs.dolphin-emu-beta ])
         (mkIf gamecube.enable [ pkgs.dolphin-emu-beta ])
