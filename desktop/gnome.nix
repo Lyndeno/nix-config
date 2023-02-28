@@ -42,6 +42,7 @@ in
       gnome-feeds
       celluloid
       newsflash
+      warp
     ] ++ (with gnomeExtensions; [
       appindicator
       #dash-to-panel
