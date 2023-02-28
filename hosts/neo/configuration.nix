@@ -212,8 +212,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
-    transmission-gtk
-    fragments
     virt-manager
   ];
 
