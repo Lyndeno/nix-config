@@ -36,7 +36,7 @@ in
       gnome.gnome-tweaks
       ( mkIf cfg.software.backup pika-backup )
       #fractal
-      #spot
+      spot
       blackbox-terminal
       giara
       gnome-feeds
