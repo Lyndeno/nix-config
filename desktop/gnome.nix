@@ -25,12 +25,15 @@ in
       gnome-characters
       gnome-maps
       gnome-font-viewer
+      totem
     ]);
 
     programs.kdeconnect = {
       enable = true;
       package = pkgs.gnomeExtensions.gsconnect;
     };
+
+    services.fwupd.enable = true;
 
     environment.systemPackages = with pkgs; [
       gnome.gnome-tweaks
@@ -40,6 +43,7 @@ in
       blackbox-terminal
       giara
       gnome-feeds
+      gnome-firmware
       celluloid
       newsflash
       warp
