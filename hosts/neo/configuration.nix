@@ -5,7 +5,6 @@ let
 in {
   networking.hostName = info.hostname; # Define your hostname.
 
-
   boot.loader = {
     timeout = 3;
     efi.canTouchEfiVariables = true;
@@ -36,8 +35,6 @@ in {
     };
   };
 
-  services.hardware.bolt.enable = true;
-
   virtualisation = {
     libvirtd = {
       enable = true;
@@ -57,9 +54,6 @@ in {
   networking = {
     useDHCP = false;
     networkmanager.enable = true;
-    networkmanager.plugins = [
-      pkgs.networkmanager-openvpn
-    ];
   };
 
   age.secrets = {
@@ -71,7 +65,6 @@ in {
   };
   services = {
     logind.lidSwitch = "suspend-then-hibernate";
-    power-profiles-daemon.enable = true;
     borgbackup.jobs."borgbase" = with config.age.secrets; {
       paths = [
         "/var/lib"
@@ -136,32 +129,6 @@ in {
         };
       };
     };
-    #borgbackup.jobs."omicron-local" = {
-    #  paths = [
-    #    "/var/lib"
-    #    "/srv"
-    #    "/home"
-    #  ];
-    #  exclude = [
-    #    "/var/lib/systemd"
-    #    "/var/lib/libvirt"
-    #    "/var/lib/plex"
-
-    #    "**/target"
-    #    "/home/*/.local/share/Steam"
-    #    "/home/*/Downloads"
-    #  ];
-    #  repo = "/data/omicron/borg/neo";
-    #  encryption = {
-    #    mode = "repokey-blake2";
-    #    passCommand = "cat /root/borg/pass_omicron";
-    #  };
-    #  #environment.BORG_RSH = "ssh -i /root/borg/ssh_key";
-    #  removableDevice = true;
-    #  doInit = false;
-    #  compression = "auto,zstd,10";
-    #  startAt = [ ];
-    #};
   };
   
   # Enable CUPS to print documents.
