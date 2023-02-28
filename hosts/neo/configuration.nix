@@ -20,6 +20,13 @@ in {
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  services.plex = {
+    enable = true;
+    openFirewall = true;
+    group = "media";
+  };
+  systemd.services.plex.wantedBy = lib.mkForce [ ];
+
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 
