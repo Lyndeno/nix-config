@@ -93,5 +93,11 @@
       })
       (builtins.attrNames (builtins.readDir ./${folder}))
     )) "hosts";
+
+    devShells.x86_64-linux.default = let
+      pkgs = makePkgs "x86_64-linux";
+    in pkgs.mkShell {
+      buildInputs = [ inputs.agenix.packages.x86_64-linux.default ];
+    };
   };
 }
