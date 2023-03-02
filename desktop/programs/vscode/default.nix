@@ -3,6 +3,7 @@ let
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace (import ./extensions/extensions.lock).extensions;
 in
 {
+    home-manager.users.lsanche.home.packages = [ pkgs.nil ];
     home-manager.users.lsanche.programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
@@ -37,6 +38,8 @@ in
         "workbench.editor.wrapTabs" = true;
         "diffEditor.renderSideBySide" = true;
         "editor.guides.bracketPairs" = true;
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nil";
       };
     };
 }
