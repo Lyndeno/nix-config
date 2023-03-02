@@ -52,6 +52,7 @@ in
           enableLanguageServer = true;
           serverPath = "nil";
         };
+        update.mode = "none";
       };
     };
 }
