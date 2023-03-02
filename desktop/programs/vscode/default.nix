@@ -52,7 +52,13 @@ in
         nix = {
           enableLanguageServer = true;
           serverPath = "nil";
-          formatterPath = [ "nix" "fmt" "--" "-" ];
+          serverSettings = {
+            nil = {
+              formatting = {
+                command = [ "nix" "fmt" "--" "--quiet" "-" ];
+              };
+            };
+          };
         };
         update.mode = "none";
       };
