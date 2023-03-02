@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 
@@ -22,7 +25,7 @@
   programs = {
     bottom.enable = true;
     bat.enable = true;
-    bat.config = { theme = "base16-256"; };
+    bat.config = {theme = "base16-256";};
     exa.enable = true;
     direnv = {
       enable = true;
@@ -31,7 +34,7 @@
 
     nnn = {
       enable = true;
-      package = pkgs.nnn.override ({withNerdIcons = true; });
+      package = pkgs.nnn.override {withNerdIcons = true;};
       plugins.src = (config.programs.nnn.package.src) + "/plugins";
     };
 
@@ -92,18 +95,20 @@
         ".direnv/"
       ];
     };
-    ssh = let 
-      keys = (import ../info.nix ).hostAuthorizedKeys;
+    ssh = let
+      keys = (import ../info.nix).hostAuthorizedKeys;
     in {
       enable = true;
 
-      matchBlocks = builtins.mapAttrs (name: value: {
-        hostname = name;
-        identityFile = "${(pkgs.writeText "lsanche-${name}.pub" ''
-          ${value}
-        '')}";
-        identitiesOnly = true;
-      }) keys;
+      matchBlocks =
+        builtins.mapAttrs (name: value: {
+          hostname = name;
+          identityFile = "${(pkgs.writeText "lsanche-${name}.pub" ''
+            ${value}
+          '')}";
+          identitiesOnly = true;
+        })
+        keys;
     };
 
     fish = {
@@ -133,7 +138,7 @@
           min_time = 10000;
           format = "[$duration]($style) ";
           show_notifications = true;
-        #cmd_duration.notification_timeout = 3000;
+          #cmd_duration.notification_timeout = 3000;
         };
 
         cmake = {
@@ -173,7 +178,7 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
-    MANPAGER="sh -c '${pkgs.util-linux}/bin/col -bx | ${pkgs.bat}/bin/bat -l man -p'";
+    MANPAGER = "sh -c '${pkgs.util-linux}/bin/col -bx | ${pkgs.bat}/bin/bat -l man -p'";
   };
 
   #fonts.fontconfig.enable = true;

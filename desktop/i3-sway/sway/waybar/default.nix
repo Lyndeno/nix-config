@@ -1,34 +1,43 @@
-{pkgs, config, lib, mediaplayerCmd, commands}:
 {
+  pkgs,
+  config,
+  lib,
+  mediaplayerCmd,
+  commands,
+}: {
   systemd = {
     enable = true;
     # TODO: Will be in the next release of home-manager
     #target = "sway-session.target";
   };
   # in next release will allow specifying the path to a css file
-  style = (import ./style.nix {fontName = config.stylix.fonts.serif.name; scheme = config.lib.stylix.colors.withHashtag;});
-  settings = [{
-    position = "bottom";
-    height = 20;
-    modules-left = ["sway/workspaces" "sway/mode" "custom/media" "sway/window"];
-    modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray" ];
-    gtk-layer-shell = true;
+  style = import ./style.nix {
+    fontName = config.stylix.fonts.serif.name;
+    scheme = config.lib.stylix.colors.withHashtag;
+  };
+  settings = [
+    {
+      position = "bottom";
+      height = 20;
+      modules-left = ["sway/workspaces" "sway/mode" "custom/media" "sway/window"];
+      modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray"];
+      gtk-layer-shell = true;
       "disk#root" = {
         interval = 30;
         format = " {percentage_free}%";
         path = "/";
         states = {
-            "warning" = 80;
-            "high" =  90;
-            "critical" = 95;
+          "warning" = 80;
+          "high" = 90;
+          "critical" = 95;
         };
       };
 
       "battery" = {
         interval = 5;
         states = {
-            "warning" = 30;
-            "critical" = 15;
+          "warning" = 30;
+          "critical" = 15;
         };
         format-discharging = "{icon} {capacity}%";
         format-charging = " {capacity}%";
@@ -69,7 +78,7 @@
       "backlight" = {
         device = "intel_backlight";
         format = "{icon} {percent}%";
-        format-icons = [ "" "" "" "" "" "" ];
+        format-icons = ["" "" "" "" "" ""];
       };
 
       "network" = {
@@ -92,13 +101,13 @@
         format-source = " {volume}%";
         format-source-muted = "";
         format-icons = {
-            "headphone" = "";
-            "hands-free" = "";
-            "headset" = "";
-            "phone" = "";
-            "portable" = "";
-            "car" = "";
-            "default" = ["奄" "奔" "墳"];
+          "headphone" = "";
+          "hands-free" = "";
+          "headset" = "";
+          "phone" = "";
+          "portable" = "";
+          "car" = "";
+          "default" = ["奄" "奔" "墳"];
         };
         on-click = "pavucontrol";
       };
@@ -116,5 +125,6 @@
         on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
         exec = "${mediaplayerCmd} 2> /dev/null";
       };
-  }];
+    }
+  ];
 }

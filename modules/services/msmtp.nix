@@ -1,9 +1,11 @@
-{config, pkgs, lib, ...}:
-
-let
-  cfg = config.modules.services.msmtp;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.modules.services.msmtp;
+in {
   options.modules.services.msmtp = {
     enable = lib.mkEnableOption "System mailer";
   };

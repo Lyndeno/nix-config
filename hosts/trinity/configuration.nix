@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   networking.hostName = "trinity"; # Define your hostname.
 
   stylix.targets = {
@@ -11,11 +14,11 @@
   services.borgbackup.repos = {
     neo = {
       path = "/data/borg/neo";
-      authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL/jyR1sMTHU3LoSweCtlAQwtaeUJGw/2LmOAKDuEXE3" ];
+      authorizedKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL/jyR1sMTHU3LoSweCtlAQwtaeUJGw/2LmOAKDuEXE3"];
     };
     morpheus = {
       path = "/data/borg/morpheus";
-      authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6nNQlJ+zzi+fmwDnXJ4eZXbp2JrS3fe2m04DlvstkO" ];
+      authorizedKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6nNQlJ+zzi+fmwDnXJ4eZXbp2JrS3fe2m04DlvstkO"];
     };
   };
 
@@ -27,7 +30,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAG5jQz86ZdWkHAl4795TUyYavrMKue/eOIglwvaGNGD"
     ];
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
   };
 
   system.autoUpgrade = {
@@ -47,8 +50,5 @@
     networkmanager.enable = true;
   };
 
-
   system.stateVersion = "22.05"; # Did you read the comment?
-
 }
-

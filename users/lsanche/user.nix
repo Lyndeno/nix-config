@@ -1,5 +1,10 @@
-{config, pkgs, lib, username,...}:
 {
+  config,
+  pkgs,
+  lib,
+  username,
+  ...
+}: {
   isNormalUser = true;
   description = "Lyndon Sanche";
   home = "/home/${username}";

@@ -1,11 +1,12 @@
-{config, lib, pkgs, ...}:
-
-with lib;
-
-let
-  cfg = config.ls.desktop;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.ls.desktop;
+in {
   config = mkIf ((cfg.environment == "plasma") && cfg.enable) {
     programs.gnupg.agent.pinentryFlavor = "qt";
 
@@ -30,22 +31,24 @@ in
 
     programs.kdeconnect.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      (mkIf cfg.software.backup vorta)
-    ] ++ (with plasma5Packages; [
-      kmail
-      kmail-account-wizard
-      kmailtransport
-      kalendar
-      kaddressbook
-      accounts-qt
-      kdepim-runtime
-      kdepim-addons
-      ark
-      okular
-      filelight
-      partition-manager
-      plasma-browser-integration
-    ]);
+    environment.systemPackages = with pkgs;
+      [
+        (mkIf cfg.software.backup vorta)
+      ]
+      ++ (with plasma5Packages; [
+        kmail
+        kmail-account-wizard
+        kmailtransport
+        kalendar
+        kaddressbook
+        accounts-qt
+        kdepim-runtime
+        kdepim-addons
+        ark
+        okular
+        filelight
+        partition-manager
+        plasma-browser-integration
+      ]);
   };
 }

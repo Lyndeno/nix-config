@@ -1,8 +1,11 @@
-{config, lib, pkgs, inputs, ...}:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
   cfg = config.ls.desktop;
   software = config.ls.desktop.software;
 
@@ -20,27 +23,44 @@ let
       wayland = false;
     };
   };
-in
-{
+in {
   imports = [
     ./gnome.nix
     ./plasma.nix
     ./hardware.nix
-    (import ./i3-sway { inherit config lib pkgs inputs; })
+    (import ./i3-sway {inherit config lib pkgs inputs;})
     ./programs
   ];
   options = {
     ls = {
       desktop = {
-        enable = mkOption {type = types.bool; default = false; };
-        supportDDC = mkOption {type = types.bool; default = false; };
-        software = {
-          backup = mkOption {type = types.bool; default = true; };
+        enable = mkOption {
+          type = types.bool;
+          default = false;
         };
-        environment = mkOption { type = types.nullOr (types.enum (lib.mapAttrsToList (name: value: name) environments)); default = null; };
+        supportDDC = mkOption {
+          type = types.bool;
+          default = false;
+        };
+        software = {
+          backup = mkOption {
+            type = types.bool;
+            default = true;
+          };
+        };
+        environment = mkOption {
+          type = types.nullOr (types.enum (lib.mapAttrsToList (name: value: name) environments));
+          default = null;
+        };
         mainResolution = {
-          width = mkOption { type = types.int; default = 1920; };
-          height = mkOption { type = types.int; default = 1080; };
+          width = mkOption {
+            type = types.int;
+            default = 1920;
+          };
+          height = mkOption {
+            type = types.int;
+            default = 1080;
+          };
         };
       };
     };
@@ -67,7 +87,7 @@ in
     programs = {
       _1password-gui = {
         enable = true;
-        polkitPolicyOwners = [ "lsanche" ];
+        polkitPolicyOwners = ["lsanche"];
       };
     };
 
@@ -77,7 +97,7 @@ in
     #'';
 
     xdg.portal = {
-      enable = (cfg.environment != null);
+      enable = cfg.environment != null;
     };
 
     environment.systemPackages = with pkgs; [
@@ -85,7 +105,10 @@ in
       #(lib.mkIf cfg.supportDDC ddcutil)
     ];
 
-    environment.sessionVariables.NIXOS_OZONE_WL = if environments.${cfg.environment}.wayland then "1" else "";
+    environment.sessionVariables.NIXOS_OZONE_WL =
+      if environments.${cfg.environment}.wayland
+      then "1"
+      else "";
 
     home-manager.users.lsanche.stylix.targets = {
       gnome.enable = false;
@@ -97,7 +120,6 @@ in
     };
 
     home-manager.users.lsanche = {
-
       programs.ssh.matchBlocks = {
         "* !*.repo.borgbase.com" = {
           extraOptions = {

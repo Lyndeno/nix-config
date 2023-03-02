@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot.kernelPackages = pkgs.linuxPackages_rpi4; # Raspberry pies have a hard time booting on the LTS kernel.
   boot = {
     tmpOnTmpfs = true;
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
+    initrd.availableKernelModules = ["usbhid" "usb_storage"];
     kernelParams = [
       "8250.nr_uarts=1"
       "console=ttyS0,115200"
@@ -28,10 +31,9 @@
     "/data/borg" = {
       device = "/dev/disk/by-label/omicron";
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:6" "subvolid=256" ];
+      options = ["noatime" "compress=zstd:6" "subvolid=256"];
     };
   };
 
   hardware.enableRedistributableFirmware = true;
 }
-

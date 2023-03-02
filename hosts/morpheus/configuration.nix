@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   networking.hostName = "morpheus"; # Define your hostname.
 
   hardware.bluetooth.enable = true;
@@ -22,11 +25,11 @@
     efi.canTouchEfiVariables = true;
   };
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "i686-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux" "i686-linux"];
 
   systemd.services.hd-idle = {
     description = "Spin down disks";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       ExecStart = "${pkgs.hd-idle}/bin/hd-idle -i 3600";
     };
@@ -66,7 +69,7 @@
       };
     };
   };
-  
+
   home-manager.users.lsanche.wayland.windowManager.sway.config = {
     output = {
       DP-1 = {
@@ -80,11 +83,12 @@
       };
     };
 
-    workspaceOutputAssign = 
-    let
-        ws = space: display: { workspace = space; output = display; };
-    in
-    [
+    workspaceOutputAssign = let
+      ws = space: display: {
+        workspace = space;
+        output = display;
+      };
+    in [
       (ws "1" "DP-1")
       (ws "2" "DP-1")
       (ws "3" "DP-1")
@@ -200,7 +204,7 @@
       };
     };
   };
-  
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   modules.printers.canon.pixma.mx860.enable = true;
@@ -215,6 +219,4 @@
   services.power-profiles-daemon.enable = false;
 
   system.stateVersion = "22.11"; # Did you read the comment?
-
 }
-

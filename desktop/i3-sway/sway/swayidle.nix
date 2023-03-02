@@ -1,8 +1,11 @@
-{config, pkgs, lib, ...}:
-let
-  commands = import ./commands.nix { inherit config pkgs lib;};
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  commands = import ./commands.nix {inherit config pkgs lib;};
+in {
   home-manager.users.lsanche = {
     services.swayidle = let
       runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
@@ -37,11 +40,13 @@ in
     in {
       enable = true;
       events = [
-        { event = "before-sleep"; command = beforeSleep; }
+        {
+          event = "before-sleep";
+          command = beforeSleep;
+        }
       ];
       timeouts = let
-      in
-        [
+      in [
         {
           timeout = 30;
           command = lockScreenTimeout;

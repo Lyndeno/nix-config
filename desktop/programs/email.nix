@@ -1,5 +1,9 @@
-{config, pkgs, lib, inputs}:
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+}: {
   #age.secrets.fastmail = {
   #  file = ../secrets/fastmail.age;
   #  mode = "770";

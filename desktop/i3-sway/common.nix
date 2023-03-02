@@ -1,4 +1,5 @@
-{ config,
+{
+  config,
   pkgs,
   lib,
   wallpaper,
@@ -6,19 +7,27 @@
   homeCfg,
   thm,
   extraKeybindings ? {},
-  extraStartup ? [], ...}:
-let
+  extraStartup ? [],
+  ...
+}: let
   wobsock = "$XDG_RUNTIME_DIR/wob.sock";
 in rec {
   inherit (commands) terminal menu;
-  startup = extraStartup ++ [
-      { command = "${pkgs.discord}/bin/discord --start-minimized"; }
-      { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
-      { command = "1password --silent"; }
-      { command = if (config.modules.programs.gaming.enable && config.modules.programs.gaming.steam.enable) then "${config.programs.steam.package}/bin/steam -silent" else "echo Steam is not enabled"; }
-      { command = "${pkgs.signal-desktop}/bin/signal-desktop --start-in-tray"; }
-      { command = "${pkgs.element-desktop}/bin/element-desktop --hidden"; }
-  ];
+  startup =
+    extraStartup
+    ++ [
+      {command = "${pkgs.discord}/bin/discord --start-minimized";}
+      {command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";}
+      {command = "1password --silent";}
+      {
+        command =
+          if (config.modules.programs.gaming.enable && config.modules.programs.gaming.steam.enable)
+          then "${config.programs.steam.package}/bin/steam -silent"
+          else "echo Steam is not enabled";
+      }
+      {command = "${pkgs.signal-desktop}/bin/signal-desktop --start-in-tray";}
+      {command = "${pkgs.element-desktop}/bin/element-desktop --hidden";}
+    ];
   keybindings = lib.mkOptionDefault ({
       "${modifier}+l" = "exec ${commands.lock}";
       "${modifier}+grave" = "exec ${menu}";
@@ -38,11 +47,12 @@ in rec {
       "${modifier}+equal" = "gaps inner all plus 10";
       "${modifier}+minus" = "gaps inner all minus 10";
       "${modifier}+Shift+minus" = "gaps inner all set ${toString gaps.inner}";
-  } // extraKeybindings);
+    }
+    // extraKeybindings);
   gaps = {
-      inner = 20;
-      smartGaps = true;
-      smartBorders = "on";
+    inner = 20;
+    smartGaps = true;
+    smartBorders = "on";
   };
   window.titlebar = false;
   window.border = 3;

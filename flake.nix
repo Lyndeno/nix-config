@@ -50,56 +50,60 @@
       flake = false;
     };
   };
-  
-  outputs = inputs@{ self, ... }:
-  let
-    makePkgs = system: import inputs.nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
+
+  outputs = inputs @ {self, ...}: let
+    makePkgs = system:
+      import inputs.nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
       };
-    };
     lib = inputs.nixpkgs.lib;
 
     commonModules = let
-    in system: [
-      inputs.home-manager.nixosModules.home-manager
-      ./common
-      ./modules
-      ./programs
-      ./desktop
-      ({config, ...}: {
-        environment.systemPackages = [ inputs.cfetch.packages.${system}.default ];
-      })
-      inputs.stylix.nixosModules.stylix
-      inputs.agenix.nixosModules.default
-    ];
+    in
+      system: [
+        inputs.home-manager.nixosModules.home-manager
+        ./common
+        ./modules
+        ./programs
+        ./desktop
+        ({config, ...}: {
+          environment.systemPackages = [inputs.cfetch.packages.${system}.default];
+        })
+        inputs.stylix.nixosModules.stylix
+        inputs.agenix.nixosModules.default
+      ];
 
     mkSystem = folder: name: let
       hostInfo = import ./${folder}/${name}/info.nix;
-    in lib.nixosSystem rec {
-      system = hostInfo.system;
-      pkgs = makePkgs system;
-      modules = import ./${folder}/${name} lib inputs (commonModules system);
-      specialArgs = { inherit inputs; };
-    };
-
+    in
+      lib.nixosSystem rec {
+        system = hostInfo.system;
+        pkgs = makePkgs system;
+        modules = import ./${folder}/${name} lib inputs (commonModules system);
+        specialArgs = {inherit inputs;};
+      };
   in {
-    nixosConfigurations = ( folder: builtins.listToAttrs
-    (map
-      (x: {
-        name = x;
-        value = mkSystem folder x;
-      })
-      (builtins.attrNames (builtins.readDir ./${folder}))
-    )) "hosts";
+    nixosConfigurations = (folder:
+      builtins.listToAttrs
+      (
+        map
+        (x: {
+          name = x;
+          value = mkSystem folder x;
+        })
+        (builtins.attrNames (builtins.readDir ./${folder}))
+      )) "hosts";
 
     formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
     devShells.x86_64-linux.default = let
       pkgs = makePkgs "x86_64-linux";
-    in pkgs.mkShell {
-      buildInputs = [ inputs.agenix.packages.x86_64-linux.default ];
-    };
+    in
+      pkgs.mkShell {
+        buildInputs = [inputs.agenix.packages.x86_64-linux.default];
+      };
   };
 }

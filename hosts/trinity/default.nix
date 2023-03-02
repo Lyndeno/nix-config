@@ -1,4 +1,6 @@
-lib: inputs: commonModules: [
-    ./configuration.nix
-    ./hardware.nix
-] ++ commonModules
+lib: inputs: commonModules:
+[
+  ./configuration.nix
+  ./hardware.nix
+]
+++ commonModules

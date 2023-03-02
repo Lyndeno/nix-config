@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./theme.nix
     ./users.nix
@@ -30,7 +34,7 @@
       enable = true;
       user = "lsanche";
       dataDir = "/home/lsanche";
-      configDir= "/home/lsanche/.config/syncthing";
+      configDir = "/home/lsanche/.config/syncthing";
       openDefaultPorts = true;
     };
   };
@@ -53,7 +57,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    vim 
+    vim
     #pueue
     bottom
     git

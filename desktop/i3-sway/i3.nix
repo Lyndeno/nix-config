@@ -1,11 +1,13 @@
-{config, lib, pkgs, inputs, ...}:
-
-with lib;
-
-let
-  cfg = config.ls.desktop;
-in
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.ls.desktop;
+in {
   config = mkIf ((cfg.environment == "i3") && cfg.enable) {
     programs.gnupg.agent.pinentryFlavor = "gnome3";
     programs.dconf.enable = true;
@@ -18,7 +20,6 @@ in
       };
     };
 
-    
     security = {
       pam.services = {
         login.u2fAuth = false;
@@ -31,7 +32,7 @@ in
     services.gvfs.enable = true;
 
     xdg.portal = {
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
     programs = {
@@ -51,34 +52,34 @@ in
         lock = "${pkgs.i3lock}/bin/i3lock";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         menu = let
-          themeArgs = with config.lib.stylix.colors.withHashtag; builtins.concatStringsSep " " [
-            # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
-            "--tb '${base01}'"
-            "--nb '${base01}'"
-            "--fb '${base01}'"
-            "--hb '${base03}'"
-            "--sb '${base03}'"
-            "--hf '${base0A}'"
-            "--sf '${base0B}'"
-            "--tf '${base05}'"
-            "--ff '${base05}'"
-            "--nf '${base05}'"
-            "--scb '${base01}'"
-            "--scf '${base03}'"
-          ];
+          themeArgs = with config.lib.stylix.colors.withHashtag;
+            builtins.concatStringsSep " " [
+              # Inspired from https://git.sr.ht/~h4n1/base16-bemenu_opts
+              "--tb '${base01}'"
+              "--nb '${base01}'"
+              "--fb '${base01}'"
+              "--hb '${base03}'"
+              "--sb '${base03}'"
+              "--hf '${base0A}'"
+              "--sf '${base0B}'"
+              "--tf '${base05}'"
+              "--ff '${base05}'"
+              "--nf '${base05}'"
+              "--scb '${base01}'"
+              "--scf '${base03}'"
+            ];
         in "${pkgs.bemenu}/bin/bemenu-run -b -H 25 ${themeArgs} --fn 'CaskaydiaCove Nerd Font 12'";
       };
     in rec {
       xsession.windowManager.i3 = {
         enable = true;
-        config = (import ./common.nix {
+        config = import ./common.nix {
           inherit config commands pkgs lib;
-          wallpaper = with cfg.mainResolution; "${import ./wallpaper.nix { inherit config pkgs; } { inherit height width; }}";
+          wallpaper = with cfg.mainResolution; "${import ./wallpaper.nix {inherit config pkgs;} {inherit height width;}}";
           thm = config.lib.stylix.colors;
           homeCfg = config.home-manager.users.lsanche;
-        });
+        };
       };
-
     };
   };
 }

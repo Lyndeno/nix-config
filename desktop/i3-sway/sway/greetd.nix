@@ -1,5 +1,9 @@
-{config, pkgs, lib, ...}:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   services.greetd = {
     enable = true;
     settings = {
@@ -35,7 +39,7 @@
       bash
     '';
   };
-  
+
   security = {
     pam.services = {
       login.u2fAuth = false;

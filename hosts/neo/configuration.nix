@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   info = import ./info.nix;
 in {
   networking.hostName = info.hostname; # Define your hostname.
@@ -18,14 +21,14 @@ in {
     };
   };
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   services.plex = {
     enable = true;
     openFirewall = true;
     group = "media";
   };
-  systemd.services.plex.wantedBy = lib.mkForce [ ];
+  systemd.services.plex.wantedBy = lib.mkForce [];
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
@@ -50,7 +53,7 @@ in {
         package = pkgs.qemu_kvm;
         ovmf = {
           enable = true;
-          packages = [ pkgs.OVMFFull.fd ];
+          packages = [pkgs.OVMFFull.fd];
         };
         swtpm.enable = true;
       };
@@ -137,7 +140,7 @@ in {
       };
     };
   };
-  
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   modules.printers.canon.pixma.mx860.enable = true;
@@ -145,44 +148,46 @@ in {
   services.fstrim.enable = true;
 
   home-manager.users.lsanche.wayland.windowManager.sway.config = let
-      brightness = value: "${pkgs.brightnessctl}/bin/brightnessctl set ${value} | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock";
-  in{
-      keybindings = lib.mkOptionDefault {
-        # TODO: Figure out how to make this conditional on host
-        "XF86MonBrightnessUp" = "exec ${brightness "+5%"}";
-        "XF86MonBrightnessDown" = "exec ${brightness "5%-"}";
-      };
+    brightness = value: "${pkgs.brightnessctl}/bin/brightnessctl set ${value} | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock";
+  in {
+    keybindings = lib.mkOptionDefault {
+      # TODO: Figure out how to make this conditional on host
+      "XF86MonBrightnessUp" = "exec ${brightness "+5%"}";
+      "XF86MonBrightnessDown" = "exec ${brightness "5%-"}";
     };
+  };
 
   home-manager.users.lsanche.services.kanshi = {
-      enable = true;
-      profiles = let
-        main_screen = "eDP-1";
-        zenscreen = "Unknown ASUS MB16AC J6LMTF097058";
-      in {
-        single = {
-          outputs = [{
+    enable = true;
+    profiles = let
+      main_screen = "eDP-1";
+      zenscreen = "Unknown ASUS MB16AC J6LMTF097058";
+    in {
+      single = {
+        outputs = [
+          {
             criteria = main_screen;
             scale = 1.0;
             position = "0,0";
-          }];
-        };
-        with_zenscreen = {
-          outputs = [
-            {
-              criteria = main_screen;
-              scale = 1.0;
-              position = "0,0";
-            }
-            {
-              criteria = zenscreen;
-              scale = 1.0;
-              position = "1920,0";
-            }
-          ];
-        };
+          }
+        ];
+      };
+      with_zenscreen = {
+        outputs = [
+          {
+            criteria = main_screen;
+            scale = 1.0;
+            position = "0,0";
+          }
+          {
+            criteria = zenscreen;
+            scale = 1.0;
+            position = "1920,0";
+          }
+        ];
       };
     };
+  };
 
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
@@ -190,6 +195,4 @@ in {
   ];
 
   system.stateVersion = info.stateVersion; # Did you read the comment?
-
 }
-

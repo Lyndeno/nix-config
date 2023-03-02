@@ -1,5 +1,9 @@
-{config, pkgs, lib, inputs}:
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+}: {
   home-manager.users.lsanche = {
     home.file."firefox-gnome-theme" = {
       target = ".mozilla/firefox/lsanche/chrome/firefox-gnome-theme";
