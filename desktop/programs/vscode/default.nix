@@ -21,25 +21,37 @@ in
       ] ++ extensions;
       mutableExtensionsDir = true;
       userSettings = {
-        "editor.cursorSmoothCaretAnimation" = true;
-        "editor.smoothScrolling" = true;
-        "editor.cursorBlinking" = "phase";
-        "git.autofetch" = true;
-        "git.confirmSync" = false;
-        "git.enableSmartCommit" = true;
-        "workbench.iconTheme" = "material-icon-theme";
-        "editor.fontLigatures" = true;
-        "editor.fontFamily" = "'${config.stylix.fonts.monospace.name}'";
-        "terminal.integrated.fontFamily" = "'${config.stylix.fonts.monospace.name}'";
-        "window.menuBarVisibility" = "toggle";
-        "window.titleBarStyle" = "native";
-        "workbench.editor.decorations.badges" = true;
-        "workbench.editor.decorations.colors" = true;
-        "workbench.editor.wrapTabs" = true;
-        "diffEditor.renderSideBySide" = true;
-        "editor.guides.bracketPairs" = true;
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nil";
+        git = {
+          autofetch = true;
+          confirmSync = false;
+          enableSmartCommit = true;
+        };
+        terminal.integrated.fontFamily = "'${config.stylix.fonts.monospace.name}'";
+        window = {
+          menuBarVisibility = "toggle";
+          titleBarStyle = "native";
+        };
+        diffEditor.renderSideBySide = true;
+        workbench = {
+          iconTheme = "material-icon-theme";
+          editor = {
+            decorations.badges = true;
+            decorations.colors = true;
+            wrapTabs = true;
+          };
+        };
+        editor = {
+          cursorSmoothCaretAnimation = true;
+          smoothScrolling = true;
+          cursorBlinking = "phase";
+          fontLigatures = true;
+          fontFamily = "'${config.stylix.fonts.monospace.name}'";
+          guides.bracketPairs = true;
+        };
+        nix = {
+          enableLanguageServer = true;
+          serverPath = "nil";
+        };
       };
     };
 }
