@@ -94,6 +94,8 @@
       (builtins.attrNames (builtins.readDir ./${folder}))
     )) "hosts";
 
+    formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
+
     devShells.x86_64-linux.default = let
       pkgs = makePkgs "x86_64-linux";
     in pkgs.mkShell {
