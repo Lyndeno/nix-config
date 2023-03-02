@@ -52,6 +52,7 @@ in
         nix = {
           enableLanguageServer = true;
           serverPath = "nil";
+          formatterPath = [ "nix" "fmt" "--" "-" ];
         };
         update.mode = "none";
       };
