@@ -15,6 +15,24 @@
     notifications.mail.enable = true;
   };
 
+  services.minecraft-server = {
+    enable = true;
+    declarative = true;
+    serverProperties = {
+      server-port = 25565;
+      difficulty = "normal";
+      gamemode = "survival";
+      max-players = 20;
+      motd = "Lyndons Server";
+      white-list = false;
+      #enable-rcon = true;
+      #"rcon.password" = "test";
+      view-distance = 32;
+    };
+    eula = true;
+    openFirewall = true;
+  };
+
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -158,6 +176,16 @@
         mode = "repokey-blake2";
         passCommand = "cat ${pass_borgbase.path}";
       };
+      preHook = ''
+        echo "save-off" > /run/minecraft-server.stdin
+        echo "say Saving" > /run/minecraft-server.stdin
+        echo "save-all" > /run/minecraft-server.stdin
+        sleep 5
+        echo "say Backing Up" > /run/minecraft-server.stdin
+      '';
+      postHook = ''
+        echo "save-on" > /run/minecraft-server.stdin
+      '';
       environment.BORG_RSH = "ssh -i ${id_borgbase.path}";
       compression = "auto,zstd,10";
       startAt = "hourly";
