@@ -4,28 +4,25 @@
   lib,
   inputs,
   ...
-}: let
-  extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace (import ./extensions/extensions.lock).extensions;
-in {
+}: {
   home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear];
   home-manager.users.lsanche.programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions;
-      [
-        vscodevim.vim
-        matklad.rust-analyzer
-        pkief.material-icon-theme
-        usernamehw.errorlens
-        yzhang.markdown-all-in-one
-        ibm.output-colorizer
-        christian-kohler.path-intellisense
-        mechatroner.rainbow-csv
-        jnoortheen.nix-ide
-        eamodio.gitlens
-        llvm-vs-code-extensions.vscode-clangd
-      ]
-      ++ extensions;
+    extensions = with pkgs.vscode-extensions; [
+      vscodevim.vim
+      matklad.rust-analyzer
+      pkief.material-icon-theme
+      usernamehw.errorlens
+      yzhang.markdown-all-in-one
+      ibm.output-colorizer
+      christian-kohler.path-intellisense
+      mechatroner.rainbow-csv
+      jnoortheen.nix-ide
+      eamodio.gitlens
+      llvm-vs-code-extensions.vscode-clangd
+      mkhl.direnv
+    ];
     mutableExtensionsDir = true;
     userSettings = {
       git = {
