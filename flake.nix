@@ -6,6 +6,11 @@
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
+
+    pre-commit-hooks-nix = {
+      url = "github:cachix/pre-commit-hooks.nix";
+    };
+
     cfetch = {
       url = github:Lyndeno/cfetch/master;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -101,9 +106,19 @@
 
     devShells.x86_64-linux.default = let
       pkgs = makePkgs "x86_64-linux";
+      pre-commit-format = inputs.pre-commit-hooks-nix.lib."x86_64-linux".run {
+        src = ./.;
+
+        hooks = {
+          alejandra.enable = true;
+        };
+      };
     in
       pkgs.mkShell {
         buildInputs = [inputs.agenix.packages.x86_64-linux.default];
+        shellHook = ''
+          ${pre-commit-format.shellHook}
+        '';
       };
   };
 }
