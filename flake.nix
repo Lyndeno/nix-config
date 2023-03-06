@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
@@ -58,11 +59,18 @@
 
   outputs = inputs @ {self, ...}: let
     makePkgs = system:
-      import inputs.nixpkgs {
+      import inputs.nixpkgs rec {
         inherit system;
         config = {
           allowUnfree = true;
         };
+        overlays = [
+          (final: prev: {
+            unstable = import inputs.nixpkgs-unstable {inherit system config;};
+            plex = final.unstable.plex;
+            _1password-gui = final.unstable._1password-gui;
+          })
+        ];
       };
     lib = inputs.nixpkgs.lib;
 
