@@ -80,7 +80,6 @@
     };
     git = {
       enable = true;
-      lfs.enable = true;
       userName = "Lyndon Sanche";
       userEmail = "lsanche@lyndeno.ca";
       signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE90+2nMvJzOmkEGT3cyqHMESrrPQwVhe9/ToSlteJbB";
@@ -109,10 +108,6 @@
           identitiesOnly = true;
         })
         keys;
-    };
-
-    fish = {
-      enable = true;
     };
 
     starship = {
