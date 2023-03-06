@@ -63,9 +63,6 @@
           };
         };
       };
-      "[nix]" = {
-        editor.formatOnSave = true;
-      };
       update.mode = "none";
     };
   };
