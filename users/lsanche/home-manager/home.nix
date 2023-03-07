@@ -92,6 +92,7 @@
       ignores = [
         "result"
         ".direnv/"
+        ".envrc"
       ];
     };
     ssh = let
