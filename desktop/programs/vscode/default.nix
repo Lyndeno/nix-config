@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear];
+  home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear lldb];
   home-manager.users.lsanche.programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -24,6 +24,7 @@
       eamodio.gitlens
       llvm-vs-code-extensions.vscode-clangd
       mkhl.direnv
+      vadimcn.vscode-lldb
     ];
     mutableExtensionsDir = true;
     userSettings = {

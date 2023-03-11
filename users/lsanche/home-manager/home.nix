@@ -93,6 +93,7 @@
         "result"
         ".direnv/"
         ".envrc"
+        ".vscode/"
       ];
     };
     ssh = let
