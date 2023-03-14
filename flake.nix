@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ironfetch = {
+      url = github:Lyndeno/ironfetch/master;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     site = {
       url = github:Lyndeno/website-hugo;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -83,7 +88,10 @@
         ./programs
         ./desktop
         ({config, ...}: {
-          environment.systemPackages = [inputs.cfetch.packages.${system}.default];
+          environment.systemPackages = [
+            inputs.cfetch.packages.${system}.default
+            inputs.ironfetch.packages.${system}.default
+          ];
         })
         inputs.stylix.nixosModules.stylix
         inputs.agenix.nixosModules.default
