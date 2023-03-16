@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear lldb];
+  home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear lldb clippy rustfmt];
   home-manager.users.lsanche.programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -66,6 +66,7 @@
           };
         };
       };
+      rust-analyzer.checkOnSave.command = "clippy";
     };
   };
 }

@@ -75,6 +75,8 @@
             plex = final.unstable.plex;
             _1password-gui = final.unstable._1password-gui;
             rust-analyzer = final.unstable.rust-analyzer;
+            rustfmt = final.unstable.rustfmt;
+            clippy = final.unstable.clippy;
             # The version of rust-analyzer in 22.11 has a bug that causes it to just not work sometimes
             vscode-extensions =
               prev.vscode-extensions
