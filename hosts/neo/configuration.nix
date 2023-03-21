@@ -11,13 +11,11 @@ in {
   boot.loader = {
     timeout = 3;
     efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
     grub = {
       enable = true;
       efiSupport = true;
       device = "nodev";
       memtest86.enable = true;
-      enableCryptodisk = true;
     };
   };
 
