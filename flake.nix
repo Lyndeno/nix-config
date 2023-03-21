@@ -112,21 +112,23 @@
 
     formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-    devShells.x86_64-linux.default = let
+    checks.x86_64-linux = let
       pkgs = makePkgs "x86_64-linux";
-      pre-commit-format = inputs.pre-commit-hooks-nix.lib."x86_64-linux".run {
+    in {
+      pre-commit-check = inputs.pre-commit-hooks-nix.lib."x86_64-linux".run {
         src = ./.;
-
         hooks = {
           alejandra.enable = true;
         };
       };
+    };
+
+    devShells.x86_64-linux.default = let
+      pkgs = makePkgs "x86_64-linux";
     in
       pkgs.mkShell {
         buildInputs = [inputs.agenix.packages.x86_64-linux.default];
-        shellHook = ''
-          ${pre-commit-format.shellHook}
-        '';
+        inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
       };
   };
 }
