@@ -26,7 +26,6 @@
       mkhl.direnv
       vadimcn.vscode-lldb
     ];
-    mutableExtensionsDir = true;
     userSettings = {
       git = {
         autofetch = true;
@@ -48,7 +47,7 @@
         };
       };
       editor = {
-        cursorSmoothCaretAnimation = true;
+        cursorSmoothCaretAnimation = "on";
         smoothScrolling = true;
         cursorBlinking = "phase";
         fontLigatures = true;
