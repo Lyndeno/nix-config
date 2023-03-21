@@ -2,9 +2,8 @@
   description = "Lyndon's NixOS setup";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.11";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
@@ -69,26 +68,6 @@
         config = {
           allowUnfree = true;
         };
-        overlays = [
-          (final: prev: {
-            unstable = import inputs.nixpkgs-unstable {inherit system config;};
-            plex = final.unstable.plex;
-            _1password-gui = final.unstable._1password-gui;
-            rust-analyzer = final.unstable.rust-analyzer;
-            rustfmt = final.unstable.rustfmt;
-            clippy = final.unstable.clippy;
-            # The version of rust-analyzer in 22.11 has a bug that causes it to just not work sometimes
-            vscode-extensions =
-              prev.vscode-extensions
-              // {
-                matklad =
-                  prev.vscode-extensions.matklad
-                  // {
-                    rust-analyzer = final.unstable.vscode-extensions.matklad.rust-analyzer;
-                  };
-              };
-          })
-        ];
       };
     lib = inputs.nixpkgs.lib;
 

@@ -8,9 +8,6 @@
     enable = true;
     # colours and font managed by stylix
     settings = {
-      font = {
-        size = 11;
-      };
       window = {
         padding = {
           x = 12;
