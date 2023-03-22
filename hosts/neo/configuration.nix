@@ -18,6 +18,7 @@ in {
       memtest86.enable = true;
     };
   };
+  modules.programs.gaming.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 

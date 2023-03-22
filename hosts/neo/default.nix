@@ -21,7 +21,6 @@ with inputs.nixos-hardware.nixosModules;
           ls.desktop.environment = lib.mkForce "gnome";
           services.xserver.videoDrivers = lib.mkForce ["nvidia"];
           services.switcherooControl.enable = true;
-          modules.programs.gaming.enable = true;
           hardware.nvidia = {
             modesetting.enable = true;
           };
