@@ -4,13 +4,18 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}: let
+  rootSubvol = subvol: {
+    device = "/dev/disk/by-label/linuxdata";
+    fsType = "btrfs";
+    options = ["noatime" "compress=zstd" "subvol=${subvol}" "discard=async"];
+  };
+in {
   boot = {
     initrd = {
       availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
       kernelModules = [
         "kvm-intel"
-        "dm-snapshot"
       ];
     };
     kernelParams = [
@@ -36,11 +41,11 @@
   };
 
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/nixroot";
-      fsType = "ext4";
-      options = ["discard" "noatime"];
-    };
+    "/" = rootSubvol "@nixos/@root";
+    "/nix" = rootSubvol "@nix";
+    "/home" = rootSubvol "@nixos/@home";
+    "/var/lib" = rootSubvol "@nixos/@var/lib";
+    "/var/log" = rootSubvol "@nixos/@var/log";
 
     "/boot" = {
       device = "/dev/disk/by-label/ESP";
