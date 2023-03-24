@@ -69,7 +69,7 @@
   outputs = inputs @ {self, ...}: let
     lsLib = import ./lslib.nix;
     makePkgs = system:
-      import inputs.nixpkgs rec {
+      import inputs.nixpkgs {
         inherit system;
         config = {
           allowUnfree = true;
