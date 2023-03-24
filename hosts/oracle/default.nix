@@ -1,12 +1,8 @@
-lib: inputs: commonModules:
+_lib: inputs: commonModules:
 [
   ./configuration.nix
   ./hardware.nix
-  ({
-    config,
-    pkgs,
-    ...
-  }: {
+  ({pkgs, ...}: {
     networking.firewall.allowedTCPPorts = [
       80
       443

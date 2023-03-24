@@ -59,6 +59,11 @@
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
+
+    statix = {
+      url = "github:nerdypepper/statix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {self, ...}: let
@@ -78,12 +83,12 @@
       ./modules
       ./programs
       ./desktop
-      ({config, ...}: {
+      {
         environment.systemPackages = [
           inputs.cfetch.packages.${system}.default
           inputs.ironfetch.packages.${system}.default
         ];
-      })
+      }
       inputs.stylix.nixosModules.stylix
       inputs.agenix.nixosModules.default
     ];
@@ -111,15 +116,18 @@
 
     formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-    checks.x86_64-linux = let
-      pkgs = makePkgs "x86_64-linux";
-    in {
+    checks.x86_64-linux = {
       pre-commit-check = inputs.pre-commit-hooks-nix.lib."x86_64-linux".run {
         src = ./.;
         hooks = {
           alejandra.enable = true;
           statix.enable = true;
-          #deadnix.enable = true;
+          deadnix.enable = true;
+        };
+
+        tools = {
+          # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
+          inherit (inputs.statix.packages."x86_64-linux") statix;
         };
       };
     };
@@ -128,7 +136,7 @@
       pkgs = makePkgs "x86_64-linux";
     in
       pkgs.mkShell {
-        buildInputs = with pkgs; [inputs.agenix.packages.x86_64-linux.default statix deadnix];
+        buildInputs = with pkgs; [inputs.agenix.packages.x86_64-linux.default inputs.statix.packages."x86_64-linux".statix deadnix];
         inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
       };
   };

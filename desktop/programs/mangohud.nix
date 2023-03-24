@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: {
+_: {
   home-manager.users.lsanche = {
     programs.mangohud = {
       enable = true;

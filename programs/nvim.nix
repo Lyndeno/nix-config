@@ -15,7 +15,7 @@
       vim-nix
       fugitive
       (lightline-vim.overrideAttrs (
-        old: let
+        _old: let
           schemeFile = config.lib.stylix.colors inputs.base16-vim-lightline;
         in {patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_.vim'';}
       ))

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   boot.kernelPackages = pkgs.linuxPackages_rpi4; # Raspberry pies have a hard time booting on the LTS kernel.
   boot = {
     tmpOnTmpfs = true;

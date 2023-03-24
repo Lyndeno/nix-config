@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   inputs,
   ...
 }: let
@@ -11,7 +10,7 @@ in {
   fonts.fonts = [inputs.apple-fonts.packages.${pkgs.system}.sf-pro];
   stylix = {
     image = "${inputs.wallpapers}/starry.jpg";
-    base16Scheme = base16Scheme;
+    inherit base16Scheme;
     targets.grub.enable = false;
     targets.chromium.enable = false;
     fonts = let

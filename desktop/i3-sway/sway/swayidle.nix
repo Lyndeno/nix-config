@@ -45,8 +45,7 @@ in {
           command = beforeSleep;
         }
       ];
-      timeouts = let
-      in [
+      timeouts = [
         {
           timeout = 30;
           command = lockScreenTimeout;

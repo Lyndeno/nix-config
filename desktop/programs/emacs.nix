@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   home-manager.users.lsanche.programs.emacs = {
     enable = true;
     package = pkgs.emacs-gtk;

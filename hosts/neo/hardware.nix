@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
-}: let
+{lib, ...}: let
   rootSubvol = subvol: {
     device = "/dev/disk/by-label/linuxdata";
     fsType = "btrfs";

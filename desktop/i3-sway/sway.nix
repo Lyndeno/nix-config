@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 with lib; let
@@ -71,7 +70,7 @@ in {
           };
         wayland.windowManager.sway = with config.scheme.withHashtag; let
           wallpaper = with cfg.mainResolution; "${import ./wallpaper.nix {inherit config pkgs;} {inherit height width;}}";
-          modifier = wayland.windowManager.sway.config.modifier;
+          inherit (wayland.windowManager.sway.config) modifier;
         in {
           enable = true;
           wrapperFeatures.gtk = true;

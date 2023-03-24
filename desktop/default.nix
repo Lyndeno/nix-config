@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.ls.desktop;
-  software = config.ls.desktop.software;
+  inherit (config.ls.desktop) software;
 
   environments = {
     gnome = {
@@ -49,7 +49,7 @@ in {
           };
         };
         environment = mkOption {
-          type = types.nullOr (types.enum (lib.mapAttrsToList (name: value: name) environments));
+          type = types.nullOr (types.enum (lib.mapAttrsToList (name: _value: name) environments));
           default = null;
         };
         mainResolution = {

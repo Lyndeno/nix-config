@@ -2,10 +2,8 @@
   config,
   pkgs,
   lib,
-  wallpaper,
   commands,
   homeCfg,
-  thm,
   extraKeybindings ? {},
   extraStartup ? [],
   ...

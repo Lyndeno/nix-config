@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   networking.hostName = "trinity"; # Define your hostname.
 
   stylix.targets = {

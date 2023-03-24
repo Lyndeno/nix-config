@@ -16,7 +16,7 @@
   );
   checkKey = user: host: userKeys.${user} ? ${host};
 
-  userConfigs = (
+  userConfigs =
     map
     (x: {
       warnings = lib.mkIf (!(checkKey x config.networking.hostName)) [
@@ -35,13 +35,12 @@
 
       users.groups.${x} = {};
 
-      home-manager.users.${x} = {pkgs, ...}: {
+      home-manager.users.${x} = {...}: {
         imports = [../users/${x}/home-manager/home.nix];
         home.stateVersion = config.system.stateVersion;
       };
     })
-    allUsers
-  );
+    allUsers;
 in
   lib.mkMerge ([
       {

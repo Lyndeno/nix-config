@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+_: {
   home-manager.users.lsanche.programs.alacritty = {
     enable = true;
     # colours and font managed by stylix

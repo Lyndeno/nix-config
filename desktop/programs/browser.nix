@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   home-manager.users.lsanche = {
     home.sessionVariables.BROWSER = "brave";
     programs.chromium = {

@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  inputs,
   ...
 }: {
   home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear lldb clippy rustfmt];

@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }: {
   # Referenced https://github.com/base16-project/base16-fzf/blob/main/templates/default.mustache

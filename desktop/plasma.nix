@@ -20,7 +20,7 @@ in {
         enable = true;
         # this seems to fix autostart applications (discord) not having proper icons in taskbar
         runUsingSystemd = true;
-        supportDDC = cfg.supportDDC;
+        inherit (cfg) supportDDC;
       };
     };
 

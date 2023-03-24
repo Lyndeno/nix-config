@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-}: {
+{pkgs, ...}: {
   home-manager.users.lsanche = {
     gtk = {
       enable = true;

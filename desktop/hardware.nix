@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   # Enable support for flashing Moonlander Mk I
   hardware.keyboard.zsa.enable = true;
 
