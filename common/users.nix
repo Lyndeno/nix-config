@@ -2,9 +2,10 @@
   config,
   pkgs,
   lib,
+  lsLib,
   ...
 }: let
-  allUsers = builtins.attrNames (builtins.readDir ../users);
+  allUsers = lsLib.ls ../users;
   userKeys = builtins.listToAttrs (
     map
     (x: {

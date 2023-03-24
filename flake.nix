@@ -62,6 +62,7 @@
   };
 
   outputs = inputs @ {self, ...}: let
+    lsLib = import ./lslib.nix;
     makePkgs = system:
       import inputs.nixpkgs rec {
         inherit system;
@@ -96,7 +97,7 @@
         system = hostInfo.system;
         pkgs = makePkgs system;
         modules = import ./${folder}/${name} lib inputs (commonModules system);
-        specialArgs = {inherit inputs;};
+        specialArgs = {inherit inputs lsLib;};
       };
   in {
     nixosConfigurations = (folder:
@@ -107,7 +108,7 @@
           name = x;
           value = mkSystem folder x;
         })
-        (builtins.attrNames (builtins.readDir ./${folder}))
+        (lsLib.ls ./${folder})
       )) "hosts";
 
     formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
