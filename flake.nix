@@ -6,9 +6,11 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
+    utils.url = "github:numtide/flake-utils";
 
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     cfetch = {
@@ -66,7 +68,11 @@
     };
   };
 
-  outputs = inputs @ {self, ...}: let
+  outputs = inputs @ {
+    self,
+    utils,
+    ...
+  }: let
     lsLib = import ./lslib.nix;
     makePkgs = system:
       import inputs.nixpkgs {
@@ -102,42 +108,44 @@
         modules = import ./${folder}/${name} lib inputs (commonModules system);
         specialArgs = {inherit inputs lsLib;};
       };
-  in {
-    nixosConfigurations = (folder:
-      builtins.listToAttrs
-      (
-        map
-        (x: {
-          name = x;
-          value = mkSystem folder x;
-        })
-        (lsLib.ls ./${folder})
-      )) "hosts";
+  in
+    {
+      nixosConfigurations = (folder:
+        builtins.listToAttrs
+        (
+          map
+          (x: {
+            name = x;
+            value = mkSystem folder x;
+          })
+          (lsLib.ls ./${folder})
+        )) "hosts";
+    }
+    // (utils.lib.eachDefaultSystem (system: let
+      pkgs = makePkgs system;
+      inherit (inputs.statix.packages.${system}) statix;
+    in {
+      formatter = pkgs.alejandra;
 
-    formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      checks = {
+        pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            alejandra.enable = true;
+            statix.enable = true;
+            deadnix.enable = true;
+          };
 
-    checks.x86_64-linux = {
-      pre-commit-check = inputs.pre-commit-hooks-nix.lib."x86_64-linux".run {
-        src = ./.;
-        hooks = {
-          alejandra.enable = true;
-          statix.enable = true;
-          deadnix.enable = true;
-        };
-
-        tools = {
-          # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
-          inherit (inputs.statix.packages."x86_64-linux") statix;
+          tools = {
+            # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
+            inherit statix;
+          };
         };
       };
-    };
 
-    devShells.x86_64-linux.default = let
-      pkgs = makePkgs "x86_64-linux";
-    in
-      pkgs.mkShell {
-        buildInputs = with pkgs; [inputs.agenix.packages.x86_64-linux.default inputs.statix.packages."x86_64-linux".statix deadnix];
-        inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
+      devShells.default = pkgs.mkShell {
+        buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix];
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
       };
-  };
+    }));
 }
