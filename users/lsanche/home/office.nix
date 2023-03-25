@@ -8,5 +8,7 @@
     lib.mkIf isDesktop [
       libreoffice-qt
       kicad
+      zathura
+      imv
     ];
 }

@@ -2,6 +2,7 @@
   config,
   pkgs,
   isDesktop ? false,
+  desktopEnv ? "",
   stateVersion,
   inputs,
   ...
@@ -11,7 +12,7 @@
 
   # Pass more args to "import"
   _module.args = {
-    inherit isDesktop inputs;
+    inherit isDesktop inputs desktopEnv;
   };
   # Import all files in "home"
   imports = let
