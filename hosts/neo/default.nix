@@ -14,6 +14,7 @@ with inputs.nixos-hardware.nixosModules;
             [
               ./configuration.nix
               ./hardware.nix
+              ./disks.nix
               inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
               inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
             ]
