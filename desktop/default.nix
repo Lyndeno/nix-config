@@ -7,7 +7,6 @@
 }:
 with lib; let
   cfg = config.ls.desktop;
-  inherit (config.ls.desktop) software;
 
   environments = {
     gnome = {
