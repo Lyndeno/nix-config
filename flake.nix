@@ -73,7 +73,6 @@
     utils,
     ...
   }: let
-    lsLib = import ./lslib.nix;
     makePkgs = system:
       import inputs.nixpkgs {
         inherit system;
@@ -82,6 +81,7 @@
         };
       };
     inherit (inputs.nixpkgs) lib;
+    lsLib = import ./lslib.nix {inherit lib;};
 
     commonModules = system: [
       inputs.home-manager.nixosModules.home-manager

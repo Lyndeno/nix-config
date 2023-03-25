@@ -38,7 +38,7 @@
 
       home-manager.users.${x} = import ../users/${x}/home.nix {
         config = config.home-manager.users.${x};
-        inherit pkgs lib inputs;
+        inherit pkgs lib inputs lsLib;
         isDesktop = config.ls.desktop.enable;
         inherit (config.system) stateVersion;
       };

@@ -5,6 +5,7 @@
   desktopEnv ? "",
   stateVersion,
   inputs,
+  lsLib,
   ...
 }: {
   # Home Manager needs a bit of information about you and the
@@ -12,13 +13,10 @@
 
   # Pass more args to "import"
   _module.args = {
-    inherit isDesktop inputs desktopEnv;
+    inherit isDesktop inputs desktopEnv lsLib;
   };
   # Import all files in "home"
-  imports = let
-    lslib = import ../../lslib.nix;
-  in
-    lslib.lsPaths ./home;
+  imports = lsLib.lsPaths ./home;
 
   home = {
     username = "lsanche";
