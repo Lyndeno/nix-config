@@ -85,7 +85,7 @@
 
     commonModules = system: [
       inputs.home-manager.nixosModules.home-manager
-      ./common
+      ./common.nix
       ./modules
       ./desktop
       ./users
