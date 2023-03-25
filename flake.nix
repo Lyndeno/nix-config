@@ -88,6 +88,7 @@
       ./common
       ./modules
       ./desktop
+      ./users
       {
         environment.systemPackages = [
           inputs.cfetch.packages.${system}.default

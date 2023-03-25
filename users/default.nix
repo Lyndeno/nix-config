@@ -6,12 +6,12 @@
   inputs,
   ...
 }: let
-  allUsers = lsLib.ls ../users;
+  allUsers = lsLib.lsDirs ./.;
   userKeys = builtins.listToAttrs (
     map
     (x: {
       name = x;
-      value = (import ../users/${x}/info.nix).hostAuthorizedKeys;
+      value = (import ./${x}/info.nix).hostAuthorizedKeys;
     })
     allUsers
   );
@@ -24,7 +24,7 @@
         "User '${x}' does not have valid login ssh key for host '${config.networking.hostName}'"
       ];
       users.users.${x} =
-        (import ../users/${x}/user.nix {
+        (import ./${x}/user.nix {
           inherit config pkgs lib;
           username = x;
         })
@@ -36,7 +36,7 @@
 
       users.groups.${x} = {};
 
-      home-manager.users.${x} = import ../users/${x}/home.nix {
+      home-manager.users.${x} = import ./${x}/home.nix {
         config = config.home-manager.users.${x};
         inherit pkgs lib inputs lsLib;
         isDesktop = config.ls.desktop.enable;
