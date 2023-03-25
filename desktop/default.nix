@@ -99,11 +99,6 @@ in {
       enable = cfg.environment != null;
     };
 
-    environment.systemPackages = with pkgs; [
-      alacritty
-      #(lib.mkIf cfg.supportDDC ddcutil)
-    ];
-
     environment.sessionVariables.NIXOS_OZONE_WL =
       if environments.${cfg.environment}.wayland
       then "1"
@@ -116,16 +111,6 @@ in {
     stylix.targets = {
       gnome.enable = false;
       gtk.enable = false;
-    };
-
-    home-manager.users.lsanche = {
-      programs.ssh.matchBlocks = {
-        "* !*.repo.borgbase.com" = {
-          extraOptions = {
-            "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
-          };
-        };
-      };
     };
   };
 }

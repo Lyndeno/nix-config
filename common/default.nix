@@ -57,10 +57,7 @@
 
   environment.systemPackages = with pkgs; [
     vim
-    #pueue
-    bottom
     git
-    #kdiskmark
     btrfs-progs
     busybox
     screen

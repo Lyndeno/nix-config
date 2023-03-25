@@ -9,5 +9,7 @@
       signal-desktop
       discord
       element-desktop
+      giara
+      fractal
     ];
 }

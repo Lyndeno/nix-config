@@ -4,6 +4,10 @@
   isDesktop,
   ...
 }: {
+  stylix.targets = lib.mkIf isDesktop {
+    swaylock.useImage = false;
+    vscode.enable = false;
+  };
   gtk = lib.mkIf isDesktop {
     enable = true;
     theme.name = "Adwaita-dark";

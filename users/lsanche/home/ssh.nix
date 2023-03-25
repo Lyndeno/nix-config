@@ -9,13 +9,20 @@
     matchBlocks = let
       keys = (import ../info.nix).hostAuthorizedKeys;
     in
-      builtins.mapAttrs (name: value: {
-        hostname = name;
-        identityFile = "${(pkgs.writeText "lsanche-${name}.pub" ''
-          ${value}
-        '')}";
-        identitiesOnly = true;
-      })
-      keys;
+      (builtins.mapAttrs (name: value: {
+          hostname = name;
+          identityFile = "${(pkgs.writeText "lsanche-${name}.pub" ''
+            ${value}
+          '')}";
+          identitiesOnly = true;
+        })
+        keys)
+      // {
+        "* !*.repo.borgbase.com" = {
+          extraOptions = {
+            "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
+          };
+        };
+      };
   };
 }

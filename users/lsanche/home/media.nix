@@ -7,5 +7,8 @@
   home.packages = with pkgs;
     lib.mkIf isDesktop [
       spotify
+      spot
+      fragments
+      celluloid
     ];
 }

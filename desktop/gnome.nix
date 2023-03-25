@@ -42,16 +42,7 @@ in {
       [
         gnome.gnome-tweaks
         (mkIf cfg.software.backup pika-backup)
-        #fractal
-        spot
-        blackbox-terminal
-        giara
-        gnome-feeds
         gnome-firmware
-        celluloid
-        newsflash
-        warp
-        fragments
       ]
       ++ (with gnomeExtensions; [
         appindicator
