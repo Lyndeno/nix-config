@@ -87,7 +87,6 @@
       inputs.home-manager.nixosModules.home-manager
       ./common
       ./modules
-      ./programs
       ./desktop
       {
         environment.systemPackages = [

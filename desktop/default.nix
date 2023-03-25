@@ -29,7 +29,6 @@ in {
     ./plasma.nix
     ./hardware.nix
     (import ./i3-sway {inherit config lib pkgs inputs;})
-    ./programs
   ];
   options = {
     ls = {

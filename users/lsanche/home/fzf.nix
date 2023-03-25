@@ -1,10 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{config, ...}: {
   # Referenced https://github.com/base16-project/base16-fzf/blob/main/templates/default.mustache
-  home-manager.users.lsanche.programs.fzf = {
+  programs.fzf = {
     enable = true;
     defaultOptions = with config.lib.stylix.colors.withHashtag; [
       "--color=spinner:${base0C},hl:${base0D}"

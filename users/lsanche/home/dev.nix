@@ -1,10 +1,12 @@
 {
   config,
   pkgs,
+  lib,
+  isDesktop,
   ...
 }: {
-  home-manager.users.lsanche.home.packages = with pkgs; [nil clang-tools bear lldb clippy rustfmt];
-  home-manager.users.lsanche.programs.vscode = {
+  home.packages = with pkgs; lib.mkIf isDesktop [nil clang-tools bear lldb clippy rustfmt];
+  programs.vscode = lib.mkIf isDesktop {
     enable = true;
     package = pkgs.vscodium;
     enableExtensionUpdateCheck = false;

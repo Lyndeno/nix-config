@@ -3,6 +3,7 @@
   pkgs,
   lib,
   lsLib,
+  inputs,
   ...
 }: let
   allUsers = lsLib.ls ../users;
@@ -35,9 +36,11 @@
 
       users.groups.${x} = {};
 
-      home-manager.users.${x} = {...}: {
-        imports = [../users/${x}/home-manager/home.nix];
-        home.stateVersion = config.system.stateVersion;
+      home-manager.users.${x} = import ../users/${x}/home.nix {
+        config = config.home-manager.users.${x};
+        inherit pkgs lib inputs;
+        isDesktop = config.ls.desktop.enable;
+        inherit (config.system) stateVersion;
       };
     })
     allUsers;

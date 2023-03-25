@@ -1,5 +1,9 @@
-_: {
-  home-manager.users.lsanche.programs.alacritty = {
+{
+  isDesktop,
+  lib,
+  ...
+}: {
+  programs.alacritty = lib.mkIf isDesktop {
     enable = true;
     # colours and font managed by stylix
     settings = {

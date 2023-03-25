@@ -5,7 +5,7 @@
   inputs,
   ...
 }: {
-  home-manager.users.lsanche.programs.neovim = {
+  programs.neovim = {
     enable = true;
 
     vimAlias = true;
