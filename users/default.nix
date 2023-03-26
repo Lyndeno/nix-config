@@ -4,6 +4,7 @@
   lib,
   lsLib,
   inputs,
+  hostName,
   ...
 }: let
   allUsers = lsLib.lsDirs ./.;
@@ -15,8 +16,8 @@
         i = import ./${x}/info.nix;
       in
         if (i ? excludeHosts)
-        then i.excludeHosts
-        else [];
+        then builtins.elem hostName i.excludeHosts
+        else false;
     })
     allUsers
   );
@@ -29,7 +30,7 @@
     allUsers
   );
   checkKey = user: host: userKeys.${user} ? ${host};
-  localUsers = builtins.filter (x: !(builtins.elem config.networking.hostName userExcludes.${x})) allUsers;
+  localUsers = builtins.filter (x: !userExcludes.${x}) allUsers;
 
   userConfigs =
     map

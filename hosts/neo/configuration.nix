@@ -6,8 +6,6 @@
 }: let
   info = import ./info.nix;
 in {
-  networking.hostName = info.hostname; # Define your hostname.
-
   boot.loader = {
     timeout = 3;
     efi.canTouchEfiVariables = true;

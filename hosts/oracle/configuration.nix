@@ -1,9 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
-  networking.hostName = "oracle"; # Define your hostname.
-
+_: {
   #boot.loader = {
   #  systemd-boot = {
   #    enable = true;
@@ -47,16 +45,6 @@
       prefixLength = 64;
     }
   ];
-
-  users.users.brandt = {
-    isNormalUser = true;
-    description = "Brandt Sanche";
-    home = "/home/brandt";
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAG5jQz86ZdWkHAl4795TUyYavrMKue/eOIglwvaGNGD"
-    ];
-  };
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";

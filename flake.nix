@@ -105,8 +105,15 @@
       lib.nixosSystem rec {
         inherit (hostInfo) system;
         pkgs = makePkgs system;
-        modules = import ./${folder}/${name} lib inputs (commonModules system);
-        specialArgs = {inherit inputs lsLib;};
+        modules =
+          (import ./${folder}/${name} lib inputs (commonModules system))
+          ++ [
+            {networking.hostName = name;}
+          ];
+        specialArgs = {
+          inherit inputs lsLib;
+          hostName = name;
+        };
       };
   in
     {

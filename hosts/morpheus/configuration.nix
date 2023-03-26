@@ -4,8 +4,6 @@
   lib,
   ...
 }: {
-  networking.hostName = "morpheus"; # Define your hostname.
-
   hardware.bluetooth.enable = true;
 
   services.smartd = {

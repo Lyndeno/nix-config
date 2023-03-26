@@ -1,6 +1,4 @@
-{pkgs, ...}: {
-  networking.hostName = "trinity"; # Define your hostname.
-
+_: {
   stylix.targets = {
     gnome.enable = false;
     gtk.enable = false;
@@ -15,17 +13,6 @@
       path = "/data/borg/morpheus";
       authorizedKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6nNQlJ+zzi+fmwDnXJ4eZXbp2JrS3fe2m04DlvstkO"];
     };
-  };
-
-  users.users.brandt = {
-    isNormalUser = true;
-    description = "Brandt Sanche";
-    home = "/home/brandt";
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAG5jQz86ZdWkHAl4795TUyYavrMKue/eOIglwvaGNGD"
-    ];
-    extraGroups = ["wheel"];
   };
 
   system.autoUpgrade = {
