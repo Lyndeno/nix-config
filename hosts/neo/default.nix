@@ -6,7 +6,7 @@ with inputs.nixos-hardware.nixosModules;
     ./disks.nix
     dell-xps-15-9560-intel
     common-cpu-intel-kaby-lake
-    (_: {
+    ({hostName, ...}: {
       specialisation.nvidia = {
         inheritParentConfig = false;
         configuration = {
@@ -23,6 +23,7 @@ with inputs.nixos-hardware.nixosModules;
           ls.desktop.environment = lib.mkForce "gnome";
           services.xserver.videoDrivers = lib.mkForce ["nvidia"];
           services.switcherooControl.enable = true;
+          networking.hostName = hostName;
           hardware.nvidia = {
             modesetting.enable = true;
           };
