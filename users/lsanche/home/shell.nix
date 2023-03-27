@@ -4,13 +4,20 @@
   ...
 }: {
   warnings = [
-    "TODO: Switch from manual exa alias to using exa config"
     "TODO: Switch from manually implementing history substring search and use the hm option instead"
   ];
   programs = {
     bat.enable = true;
     bat.config = {theme = "base16-256";};
-    exa.enable = true;
+    exa = {
+      enable = true;
+      enableAliases = true;
+      icons = true;
+      extraOptions = [
+        "--group-directories-first"
+        "-B"
+      ];
+    };
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -21,7 +28,6 @@
       };
       shellAliases = {
         cat = "${pkgs.bat}/bin/bat";
-        ls = "${pkgs.exa}/bin/exa --icons --group-directories-first -B";
       };
       initExtra = ''
         zmodload zsh/complist
