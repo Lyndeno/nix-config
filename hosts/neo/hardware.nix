@@ -14,6 +14,8 @@
     ];
   };
 
+  services.thermald.enable = false;
+
   hardware = {
     enableRedistributableFirmware = true;
     bluetooth.enable = true;
