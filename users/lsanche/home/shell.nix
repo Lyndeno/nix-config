@@ -5,7 +5,6 @@
 }: {
   programs = {
     bat.enable = true;
-    bat.config = {theme = "base16-256";};
     exa = {
       enable = true;
       enableAliases = true;
