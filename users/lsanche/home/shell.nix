@@ -3,9 +3,6 @@
   lib,
   ...
 }: {
-  warnings = [
-    "TODO: Switch from manually implementing history substring search and use the hm option instead"
-  ];
   programs = {
     bat.enable = true;
     bat.config = {theme = "base16-256";};
