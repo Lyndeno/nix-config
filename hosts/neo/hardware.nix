@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   boot = {
     initrd = {
       availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
@@ -13,6 +17,7 @@
       "coretemp" # sensors-detect for Intel temperature
     ];
   };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.thermald.enable = false;
 
