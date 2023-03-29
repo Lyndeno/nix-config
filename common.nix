@@ -25,7 +25,15 @@
 
   services = {
     tailscale.enable = true;
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        # Disable password authentication
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
     syncthing = {
       enable = true;
       user = "lsanche";
