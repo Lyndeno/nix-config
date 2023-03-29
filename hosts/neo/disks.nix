@@ -9,6 +9,7 @@ in {
     "nixcrypt" = {
       preLVM = true;
       device = "/dev/disk/by-label/nixcrypt";
+      allowDiscards = true;
     };
   };
 
