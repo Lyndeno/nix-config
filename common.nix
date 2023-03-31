@@ -22,7 +22,6 @@
   };
 
   programs.dconf.enable = true;
-  security.pam.enableSSHAgentAuth = true;
 
   services = {
     tailscale.enable = true;
@@ -44,9 +43,17 @@
     };
   };
 
-  security.pam = {
-    u2f.enable = true;
-    u2f.cue = true;
+  security = {
+    sudo = {
+      execWheelOnly = true;
+    };
+    pam = {
+      u2f = {
+        enable = true;
+        cue = true;
+      };
+      enableSSHAgentAuth = true;
+    };
   };
 
   programs = {
