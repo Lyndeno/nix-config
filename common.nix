@@ -22,6 +22,7 @@
   };
 
   programs.dconf.enable = true;
+  security.pam.enableSSHAgentAuth = true;
 
   services = {
     tailscale.enable = true;
