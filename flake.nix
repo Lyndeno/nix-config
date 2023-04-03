@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
     utils.url = "github:numtide/flake-utils";
+    deploy-rs.url = "github:serokell/deploy-rs";
 
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -129,30 +130,53 @@
         )) "hosts";
     }
     // (utils.lib.eachDefaultSystem (system: let
-      pkgs = makePkgs system;
-      inherit (inputs.statix.packages.${system}) statix;
-    in {
-      formatter = pkgs.alejandra;
+        pkgs = makePkgs system;
+        inherit (inputs.statix.packages.${system}) statix;
+      in {
+        formatter = pkgs.alejandra;
 
-      checks = {
-        pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            alejandra.enable = true;
-            statix.enable = true;
-            deadnix.enable = true;
-          };
+        checks =
+          {
+            pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                alejandra.enable = true;
+                statix.enable = true;
+                deadnix.enable = true;
+              };
 
-          tools = {
-            # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
-            inherit statix;
+              tools = {
+                # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
+                inherit statix;
+              };
+            };
+          }
+          // (builtins.mapAttrs (_: deploylib: deploylib.deployChecks self.deploy) inputs.deploy-rs.lib).${system};
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix inputs.deploy-rs.packages.${system}.default];
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+        };
+      })
+      // {
+        deploy.nodes.oracle = {
+          hostname = "oracle";
+          profiles.system = {
+            user = "root";
+            remoteBuild = true;
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.oracle;
           };
         };
-      };
 
-      devShells.default = pkgs.mkShell {
-        buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix];
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-      };
-    }));
+        deploy.nodes.trinity = {
+          hostname = "trinity";
+          profiles.system = {
+            user = "root";
+            remoteBuild = true;
+            path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.trinity;
+          };
+        };
+
+        #checks = builtins.mapAttrs (system: deploylib: deploylib.deployChecks self.deploy) inputs.deploy-rs.lib;
+      });
 }
