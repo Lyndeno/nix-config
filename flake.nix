@@ -99,6 +99,7 @@
           inputs.cfetch.packages.${system}.default
           inputs.ironfetch.packages.${system}.default
         ];
+        nixpkgs.config.allowUnfree = true;
       }
       inputs.stylix.nixosModules.stylix
       inputs.agenix.nixosModules.default
@@ -109,7 +110,6 @@
     in
       lib.nixosSystem rec {
         inherit (hostInfo) system;
-        pkgs = makePkgs system;
         modules =
           (import ./${folder}/${name} lib inputs (commonModules system))
           ++ [
