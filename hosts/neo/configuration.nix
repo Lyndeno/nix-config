@@ -27,6 +27,11 @@ in {
   };
   systemd.services.plex.wantedBy = lib.mkForce [];
 
+  users.mutableUsers = false;
+  users.users.root.initialPassword = "test";
+  users.users.lsanche.initialPassword = "test";
+
+
   # Set your time zone.
   time.timeZone = "America/Edmonton";
 

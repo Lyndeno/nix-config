@@ -3,7 +3,9 @@ with inputs.nixos-hardware.nixosModules;
   [
     ./configuration.nix
     ./hardware.nix
-    ./disks.nix
+    #./disks.nix
+    ./disko.nix
+    inputs.disko.nixosModules.disko
     dell-xps-15-9560-intel
     common-cpu-intel-kaby-lake
     ({hostName, ...}: {
