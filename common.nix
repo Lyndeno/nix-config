@@ -8,7 +8,10 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   nix = {
-    settings.auto-optimise-store = true;
+    settings = {
+      trusted-users = ["root" "@wheel"];
+      auto-optimise-store = true;
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
