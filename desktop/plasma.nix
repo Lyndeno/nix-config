@@ -20,9 +20,10 @@ in {
         enable = true;
         # this seems to fix autostart applications (discord) not having proper icons in taskbar
         runUsingSystemd = true;
-        inherit (cfg) supportDDC;
       };
     };
+
+    environment.etc."chromium/native-messaging-hosts/org.kde.plasma.browser_integration.json".source = "${pkgs.plasma-browser-integration}/etc/chromium/native-messaging-hosts/org.kde.plasma.browser_integration.json";
 
     security.pam.services = {
       sddm.u2fAuth = false;
@@ -48,7 +49,10 @@ in {
         okular
         filelight
         partition-manager
+        plasma-integration
         plasma-browser-integration
+        kaccounts-integration
+        kaccounts-providers
       ]);
   };
 }
