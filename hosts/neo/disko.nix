@@ -60,23 +60,26 @@
 									mountpoint = "/nix";
 									mountOptions = [ "compress=zstd" "noatime" ];
 								};
-								"@persist" = {
-									mountpoint = "/persist";
+                "@nixos/root" = {
+                  mountpoint = "/";
 									mountOptions = [ "compress=zstd" "noatime" ];
-								};
+                };
+                "@nixos/home" = {
+                  mountpoint = "/home";
+									mountOptions = [ "compress=zstd" "noatime" ];
+                };
+                "@nixos/var/log" = {
+                  mountpoint = "/var/log";
+									mountOptions = [ "compress=zstd" "noatime" ];
+                };
+                "@nixos/var/lib" = {
+                  mountpoint = "/var/lib";
+									mountOptions = [ "compress=zstd" "noatime" ];
+                };
 							};
 						};
 					};
 				};
-			};
-		};
-		nodev = {
-			"/" = {
-				fsType = "tmpfs";
-				mountOptions = [
-					"defaults"
-					"mode=755"
-				];
 			};
 		};
 	};

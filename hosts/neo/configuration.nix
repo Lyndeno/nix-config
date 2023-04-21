@@ -18,6 +18,8 @@ in {
   };
   modules.programs.gaming.enable = true;
 
+  users.users.lsanche.createHome = true;
+
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   services.plex = {
@@ -26,11 +28,6 @@ in {
     group = "media";
   };
   systemd.services.plex.wantedBy = lib.mkForce [];
-
-  users.mutableUsers = false;
-  users.users.root.initialPassword = "test";
-  users.users.lsanche.initialPassword = "test";
-
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";

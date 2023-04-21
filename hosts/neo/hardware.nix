@@ -13,7 +13,7 @@
     kernelParams = [
       "acpi_rev_override=1" # nvidia card crashes things without this
       "pcie_aspm=off"
-      "nvme_core.default_ps_max_latency_us=10500"
+      "nvme_core.default_ps_max_latency_us=0"
     ];
     kernelModules = [
       "coretemp" # sensors-detect for Intel temperature
