@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   isDesktop,
@@ -32,7 +31,6 @@
         confirmSync = false;
         enableSmartCommit = true;
       };
-      terminal.integrated.fontFamily = "'${config.stylix.fonts.monospace.name}'";
       window = {
         menuBarVisibility = "toggle";
         titleBarStyle = "native";
@@ -51,7 +49,6 @@
         smoothScrolling = true;
         cursorBlinking = "phase";
         fontLigatures = true;
-        fontFamily = "'${config.stylix.fonts.monospace.name}'";
         guides.bracketPairs = true;
       };
       nix = {
