@@ -13,6 +13,34 @@
     notifications.mail.enable = true;
   };
 
+  services.grafana = {
+    enable = true;
+    settings = {
+      server.domain = "localhost";
+    };
+  };
+
+  services.prometheus = {
+    enable = true;
+    exporters = {
+      zfs.enable = true;
+      node = {
+        enable = true;
+        enabledCollectors = ["systemd"];
+      };
+    };
+    scrapeConfigs = [
+      {
+        job_name = "morpheus";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${toString config.services.prometheus.exporters.node.port}"];
+          }
+        ];
+      }
+    ];
+  };
+
   services.minecraft-server = {
     enable = true;
     declarative = true;
