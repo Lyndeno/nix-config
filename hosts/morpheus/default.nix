@@ -1,9 +1,12 @@
 _lib: inputs: commonModules:
-[
-  ./configuration.nix
-  ./hardware.nix
-  ./vm.nix
-  ./disks.nix
-  inputs.nixos-hardware.nixosModules.common-gpu-amd
-]
-++ commonModules
+with inputs.nixos-hardware.nixosModules;
+  [
+    ./configuration.nix
+    ./hardware.nix
+    ./vm.nix
+    ./disks.nix
+    common-gpu-amd
+    common-cpu-amd
+    common-cpu-amd-pstate
+  ]
+  ++ commonModules

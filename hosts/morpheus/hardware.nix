@@ -3,7 +3,6 @@
   boot.kernelModules = ["kvm-amd" "jc42" "nct6775"];
 
   hardware.enableRedistributableFirmware = true;
-  hardware.cpu.amd.updateMicrocode = true;
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 }
