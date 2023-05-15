@@ -9,10 +9,9 @@ in {
   boot.loader = {
     timeout = 3;
     efi.canTouchEfiVariables = true;
-    grub = {
+    grub.enable = false;
+    systemd-boot = {
       enable = true;
-      efiSupport = true;
-      device = "nodev";
       memtest86.enable = true;
     };
   };
