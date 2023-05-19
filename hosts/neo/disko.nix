@@ -51,7 +51,7 @@ _: {
             };
           };
           nixroot = {
-            size = "1.75T";
+            size = "0.86T";
             content = {
               type = "btrfs";
               extraArgs = ["-f"];
@@ -60,6 +60,7 @@ _: {
                   mountpoint = "/nix";
                   mountOptions = ["compress=zstd" "noatime"];
                 };
+                #"@nixos" = { mountpoint = null; };
                 "@nixos/root" = {
                   mountpoint = "/";
                   mountOptions = ["compress=zstd" "noatime"];
@@ -68,6 +69,7 @@ _: {
                   mountpoint = "/home";
                   mountOptions = ["compress=zstd" "noatime"];
                 };
+                #"@nixos/var" = { mountpoint = null; };
                 "@nixos/var/log" = {
                   mountpoint = "/var/log";
                   mountOptions = ["compress=zstd" "noatime"];
