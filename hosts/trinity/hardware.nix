@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   boot.kernelPackages = pkgs.linuxPackages_rpi4; # Raspberry pies have a hard time booting on the LTS kernel.
   boot = {
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
     initrd.availableKernelModules = ["usbhid" "usb_storage"];
     kernelParams = [
       "8250.nr_uarts=1"
