@@ -98,9 +98,9 @@ in {
       enable = cfg.environment != null;
     };
 
-    environment.sessionVariables.NIXOS_OZONE_WL =
-      if environments.${cfg.environment}.wayland
-      then "1"
-      else "";
+    #environment.sessionVariables.NIXOS_OZONE_WL =
+    #  if environments.${cfg.environment}.wayland
+    #  then "1"
+    #  else "";
   };
 }
