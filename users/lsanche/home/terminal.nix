@@ -13,7 +13,6 @@
           y = 12;
         };
         dynamic_padding = true;
-        opacity = 0.95;
       };
       mouse.hide_when_typing = true;
     };

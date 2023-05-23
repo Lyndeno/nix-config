@@ -7,6 +7,9 @@
   stylix.targets = lib.mkIf isDesktop {
     swaylock.useImage = false;
   };
+  stylix.opacity = {
+    terminal = 0.95;
+  };
   gtk = lib.mkIf isDesktop {
     enable = true;
     #theme.name = "Adwaita-dark";
