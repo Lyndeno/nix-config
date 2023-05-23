@@ -5,6 +5,12 @@
   ...
 }: {
   home.packages = with pkgs; lib.mkIf isDesktop [nil clang-tools bear lldb clippy rustfmt];
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+    };
+  };
   programs.vscode = lib.mkIf isDesktop {
     enable = true;
     package = pkgs.vscodium;
