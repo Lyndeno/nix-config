@@ -49,6 +49,7 @@ in {
         #dash-to-panel
         dash-to-dock
         tailscale-status
+        caffeine
       ]);
     services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
   };
