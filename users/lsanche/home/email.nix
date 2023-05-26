@@ -1,4 +1,5 @@
-_: {
+{pkgs, ...}: {
+  home.packages = [pkgs.thunderbird];
   #programs.astroid = {
   #  enable = true;
   #};

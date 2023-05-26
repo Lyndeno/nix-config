@@ -2,21 +2,20 @@
   pkgs,
   isDesktop,
   lib,
-  inputs,
   ...
 }: {
   # TODO: Add single variable to switch between Brave OR Firefox instead of having both
   home = lib.mkIf isDesktop {
-    sessionVariables.BROWSER = "brave";
-    file."firefox-gnome-theme" = {
-      target = ".mozilla/firefox/lsanche/chrome/firefox-gnome-theme";
-      source = inputs.firefox-gnome-theme;
-    };
+    sessionVariables.BROWSER = "firefox";
+    #file."firefox-gnome-theme" = {
+    #  target = ".mozilla/firefox/lsanche/chrome/firefox-gnome-theme";
+    #  source = inputs.firefox-gnome-theme;
+    #};
   };
   programs = lib.mkIf isDesktop {
     chromium = {
       enable = true;
-      package = pkgs.brave;
+      package = pkgs.chromium;
       extensions = [
         {id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";} # 1password
         {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # Sponsorblock
@@ -29,11 +28,11 @@
       profiles.lsanche = {
         id = 0;
         isDefault = true;
-        userChrome = ''
-          @import "firefox-gnome-theme/userChrome.css";
-          @import "firefox-gnome-theme/theme/colors/dark.css";
-        '';
-        extraConfig = builtins.readFile "${inputs.firefox-gnome-theme}/configuration/user.js";
+        #userChrome = ''
+        #  @import "firefox-gnome-theme/userChrome.css";
+        #  @import "firefox-gnome-theme/theme/colors/dark.css";
+        #'';
+        #extraConfig = builtins.readFile "${inputs.firefox-gnome-theme}/configuration/user.js";
       };
     };
   };
