@@ -29,6 +29,12 @@
             "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
           };
         };
+
+        "github.com" = {
+          hostname = "ssh.github.com";
+          port = 443;
+          user = "git";
+        };
       };
   };
 }
