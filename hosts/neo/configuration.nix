@@ -15,6 +15,13 @@ in {
     #  memtest86.enable = true;
     #};
   };
+  boot = {
+    initrd = {
+      systemd = {
+        enable = true;
+      };
+    };
+  };
   modules.programs.gaming.enable = true;
 
   users.users.lsanche.createHome = true;

@@ -8,6 +8,7 @@
       availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
       kernelModules = [
         "kvm-intel"
+        "tpm_tis"
       ];
     };
     kernelParams = [
@@ -20,6 +21,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.thermald.enable = false;
+  security.tpm2.enable = true;
 
   hardware = {
     enableRedistributableFirmware = true;
