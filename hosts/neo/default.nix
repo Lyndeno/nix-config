@@ -6,6 +6,7 @@ with inputs.nixos-hardware.nixosModules;
     #./disks.nix
     ./disko.nix
     inputs.disko.nixosModules.disko
+    inputs.lanzaboote.nixosModules.lanzaboote
     dell-xps-15-9560-intel
     common-cpu-intel-kaby-lake
     ({hostName, ...}: {
@@ -31,6 +32,13 @@ with inputs.nixos-hardware.nixosModules;
             modesetting.enable = true;
           };
         };
+      };
+    })
+    ({lib, ...}: {
+      boot.loader.systemd-boot.enable = lib.mkForce false;
+      boot.lanzaboote = {
+        enable = true;
+        pkiBundle = "/etc/secureboot";
       };
     })
   ]

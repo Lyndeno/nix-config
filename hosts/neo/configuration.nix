@@ -10,10 +10,10 @@ in {
     timeout = 3;
     efi.canTouchEfiVariables = true;
     grub.enable = false;
-    systemd-boot = {
-      enable = true;
-      memtest86.enable = true;
-    };
+    #systemd-boot = {
+    #  enable = true;
+    #  memtest86.enable = true;
+    #};
   };
   modules.programs.gaming.enable = true;
 
@@ -190,6 +190,7 @@ in {
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
     virt-manager
+    sbctl
   ];
 
   system.stateVersion = info.stateVersion; # Did you read the comment?
