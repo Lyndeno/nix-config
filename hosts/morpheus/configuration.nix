@@ -5,6 +5,7 @@
   ...
 }: {
   hardware.bluetooth.enable = true;
+  boot.initrd.systemd.enable = true;
 
   services.smartd = {
     enable = true;
