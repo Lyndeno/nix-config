@@ -5,6 +5,7 @@
   ...
 }: {
   hardware.bluetooth.enable = true;
+  boot.initrd.systemd.enable = true;
 
   services.smartd = {
     enable = true;
@@ -60,11 +61,11 @@
   };
 
   boot.loader = {
-    systemd-boot = {
-      enable = true;
-      consoleMode = "max";
-      configurationLimit = 25;
-    };
+    #systemd-boot = {
+    #  enable = true;
+    #  consoleMode = "max";
+    #  configurationLimit = 25;
+    #};
     timeout = 3;
     efi.canTouchEfiVariables = true;
   };
@@ -267,6 +268,7 @@
 
   environment.systemPackages = with pkgs; [
     gamescope
+    sbctl
   ];
 
   services.hardware.bolt.enable = false;
