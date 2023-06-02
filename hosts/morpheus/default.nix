@@ -17,6 +17,7 @@ with inputs.nixos-hardware.nixosModules;
           pkiBundle = "/etc/secureboot";
           settings = {
             console-mode = "max";
+            timeout = 0;
           };
         };
       };
