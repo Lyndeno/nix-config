@@ -21,6 +21,9 @@ in {
         enable = true;
       };
     };
+    plymouth = {
+      enable = true;
+    };
   };
   modules.programs.gaming.enable = true;
 

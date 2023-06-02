@@ -73,7 +73,11 @@
   in {
     image = "${inputs.wallpapers}/starry.jpg";
     inherit base16Scheme;
-    targets.grub.enable = false;
+    targets = {
+      grub.enable = false;
+      plymouth.enable = false;
+      console.enable = false;
+    };
     fonts = let
       cascadia = pkgs.nerdfonts.override {fonts = ["CascadiaCode"];};
     in {

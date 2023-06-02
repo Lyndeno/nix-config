@@ -15,6 +15,7 @@
       "acpi_rev_override=1" # nvidia card crashes things without this
       "intel_iommu=on"
       "iommu=pt"
+      "quiet"
     ];
     kernelModules = [
       "coretemp" # sensors-detect for Intel temperature
