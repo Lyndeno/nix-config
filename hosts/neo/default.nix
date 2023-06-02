@@ -39,6 +39,9 @@ with inputs.nixos-hardware.nixosModules;
       boot.lanzaboote = {
         enable = true;
         pkiBundle = "/etc/secureboot";
+        settings = {
+          timeout = 0;
+        };
       };
     })
   ]

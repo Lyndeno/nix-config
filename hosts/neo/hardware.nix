@@ -16,7 +16,11 @@
       "intel_iommu=on"
       "iommu=pt"
       "quiet"
+      #"log_level=3"
+      "systemd.show_status=auto"
+      "rd.udev.log_level=3"
     ];
+    consoleLogLevel = 3;
     kernelModules = [
       "coretemp" # sensors-detect for Intel temperature
     ];
