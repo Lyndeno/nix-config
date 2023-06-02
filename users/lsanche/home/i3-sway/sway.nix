@@ -113,7 +113,7 @@ in {
         BAT_STATUS=$(${pkgs.acpi}/bin/acpi -a | ${cut} -d" " -f3 | ${cut} -d- -f1)
         if [ "$BAT_STATUS" = "off" ]
         then
-          ${systemctl} suspend-then-hibernate
+          ${systemctl} suspend
         fi
       '';
       beforeSleep = runInShell "swayidle-before-sleep" ''

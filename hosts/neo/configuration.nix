@@ -82,7 +82,6 @@ in {
     pass_trinity_borg.file = ../../secrets/neo/pass_trinity_borg.age;
   };
   services = {
-    logind.lidSwitch = "suspend-then-hibernate";
     borgbackup.jobs."borgbase" = with config.age.secrets; {
       paths = [
         "/var/lib"
