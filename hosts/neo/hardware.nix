@@ -30,6 +30,8 @@
   services.thermald.enable = false;
   security.tpm2.enable = true;
 
+  zramSwap.enable = true;
+
   hardware = {
     enableRedistributableFirmware = true;
     bluetooth.enable = true;

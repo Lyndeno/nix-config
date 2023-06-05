@@ -44,14 +44,8 @@ _: {
       nixpool = {
         type = "lvm_vg";
         lvs = {
-          nixswap = {
-            size = "64G";
-            content = {
-              type = "swap";
-            };
-          };
           nixroot = {
-            size = "0.86T";
+            size = "100%FREE";
             content = {
               type = "btrfs";
               extraArgs = ["-f"];
