@@ -9,35 +9,12 @@
 
   boot.zfs.extraPools = ["bigpool"];
 
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/nixcrypt";
+
   fileSystems = {
     "/" = {
-      device = "nixpool/nixos/root";
-      fsType = "zfs";
-      options = ["zfsutil" "X-mount.mkdir"];
-    };
-
-    "/home" = {
-      device = "nixpool/nixos/home";
-      fsType = "zfs";
-      options = ["zfsutil" "X-mount.mkdir"];
-    };
-
-    "/var" = {
-      device = "nixpool/nixos/var";
-      fsType = "zfs";
-      options = ["zfsutil" "X-mount.mkdir"];
-    };
-
-    "/var/lib" = {
-      device = "nixpool/nixos/var/lib";
-      fsType = "zfs";
-      options = ["zfsutil" "X-mount.mkdir"];
-    };
-
-    "/var/log" = {
-      device = "nixpool/nixos/var/log";
-      fsType = "zfs";
-      options = ["zfsutil" "X-mount.mkdir"];
+      device = "/dev/disk/by-label/nixroot";
+      fsType = "xfs";
     };
 
     "/boot" = {
@@ -51,8 +28,4 @@
       options = ["subvol=@" "compress=zstd:6"];
     };
   };
-
-  swapDevices = [
-    {device = "/dev/disk/by-label/nixswap";}
-  ];
 }
