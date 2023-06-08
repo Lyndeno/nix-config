@@ -16,11 +16,6 @@
   };
 
   boot.loader = {
-    #systemd-boot = {
-    #  enable = true;
-    #  consoleMode = "max";
-    #  configurationLimit = 25;
-    #};
     timeout = 3;
     efi.canTouchEfiVariables = true;
   };
@@ -35,16 +30,16 @@
     };
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "github:Lyndeno/nix-config/master";
-    allowReboot = true;
-    dates = "03:00";
-    rebootWindow = {
-      lower = "02:00";
-      upper = "05:00";
-    };
-  };
+  #system.autoUpgrade = {
+  #  enable = true;
+  #  flake = "github:Lyndeno/nix-config/master";
+  #  allowReboot = true;
+  #  dates = "03:00";
+  #  rebootWindow = {
+  #    lower = "02:00";
+  #    upper = "05:00";
+  #  };
+  #};
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
