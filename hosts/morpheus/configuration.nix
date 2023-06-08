@@ -15,52 +15,6 @@
     notifications.mail.enable = true;
   };
 
-  services.grafana = {
-    enable = true;
-    settings = {
-      server.domain = "localhost";
-    };
-  };
-
-  services.prometheus = {
-    enable = true;
-    exporters = {
-      zfs.enable = true;
-      node = {
-        enable = true;
-        enabledCollectors = ["systemd"];
-      };
-    };
-    scrapeConfigs = [
-      {
-        job_name = "morpheus";
-        static_configs = [
-          {
-            targets = ["127.0.0.1:${toString config.services.prometheus.exporters.node.port}"];
-          }
-        ];
-      }
-    ];
-  };
-
-  services.minecraft-server = {
-    enable = true;
-    declarative = true;
-    serverProperties = {
-      server-port = 25565;
-      difficulty = "normal";
-      gamemode = "survival";
-      max-players = 20;
-      motd = "Lyndons Server";
-      white-list = false;
-      #enable-rcon = true;
-      #"rcon.password" = "test";
-      view-distance = 32;
-    };
-    eula = true;
-    openFirewall = true;
-  };
-
   boot.loader = {
     #systemd-boot = {
     #  enable = true;
