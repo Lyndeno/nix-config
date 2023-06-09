@@ -35,11 +35,11 @@
         "sf-pro": "sf-pro"
       },
       "locked": {
-        "lastModified": 1673561369,
-        "narHash": "sha256-CU6L6Q399+Jh8kzSBVblws95BUNjl9O0R26IVa8FiZM=",
+        "lastModified": 1686329218,
+        "narHash": "sha256-SB/cCm8sIPTwNj0nyQjQAZ677Tt3r0ulYYr+RRgLVc8=",
         "owner": "Lyndeno",
         "repo": "apple-fonts.nix",
-        "rev": "4c4e2e90929df76adc09530f4a72a63876fdf979",
+        "rev": "3cd92151287bdebc5b435a2400f15b838062a3a5",
         "type": "github"
       },
       "original": {
@@ -322,12 +322,15 @@
       }
     },
     "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
       "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "lastModified": 1685518550,
+        "narHash": "sha256-o2d0KcvaXzTrPRIo0kOLV0/QXHhDQ5DTi+OxcjO8xqY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "rev": "a1720a10a6cfe8234c0e93907ffe81be440f4cef",
         "type": "github"
       },
       "original": {
@@ -368,7 +371,7 @@
     },
     "flake-utils_4": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1681202837,
@@ -386,7 +389,7 @@
     },
     "flake-utils_5": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1685518550,
@@ -698,7 +701,7 @@
     "ny": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-PHSYxH1VzGRjMD3UScSZm7rD0DakQko0Xqk0mmTjYNc=",
+        "narHash": "sha256-tfiDSsgH2s11Vvm5qL+tYztErMqJ2RKCPbtLapiUyto=",
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
       },
@@ -854,7 +857,7 @@
     "sf-arabic": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-oN/oDnj28jRIbzM+qwPQrQ36xnzuzRuCyXKc0Kqwlu8=",
+        "narHash": "sha256-98jYwFjrLkrDsjgAVoac26XRrNzgseil18p0WkNJs+M=",
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Arabic.dmg"
       },
@@ -866,7 +869,7 @@
     "sf-compact": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-4rEYeZjDWu1Umd+oKnLy/+zYgEWwvDrkxPWYv9XggDY=",
+        "narHash": "sha256-GvlicKoMR1kDq6AhTQ7OcnjuP6Ms/5qoGbQ/Y5kJ/zc=",
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg"
       },
@@ -878,7 +881,7 @@
     "sf-mono": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-XT2XFL8ew29B4vl/bqwCvOGFwQ4e+GwmOmepkDtcYZE=",
+        "narHash": "sha256-qGRLk5dB1x7WEK+11B3i1JIDZsWtpreIV5ZXaj6Gtt8=",
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg"
       },
@@ -890,7 +893,7 @@
     "sf-pro": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-Wu63ojQ2xPrXP74YGB5ECnhJ8alJlt5/bll6i/fmhNI=",
+        "narHash": "sha256-IgeRXeB3bp6eaRz5tGhkEoFYj+S9ZwlBuuGy5axGwJg=",
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg"
       },
@@ -1024,9 +1027,24 @@
         "type": "github"
       }
     },
+    "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1685518550,
@@ -1059,7 +1077,7 @@
     },
     "utils_3": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1685518550,
