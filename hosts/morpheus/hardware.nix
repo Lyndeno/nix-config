@@ -8,6 +8,8 @@
   ];
   boot.consoleLogLevel = 3;
 
+  zramSwap.enable = true;
+
   hardware.enableRedistributableFirmware = true;
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
