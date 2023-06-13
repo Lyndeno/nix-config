@@ -97,11 +97,6 @@
     ];
   };
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-
   networking.networkmanager.enable = true;
 
   age.secrets = {
@@ -224,6 +219,4 @@
 
   services.hardware.bolt.enable = false;
   services.power-profiles-daemon.enable = false;
-
-  system.stateVersion = "23.05"; # Did you read the comment?
 }

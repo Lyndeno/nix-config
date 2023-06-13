@@ -30,6 +30,4 @@ _: {
     useDHCP = false;
     networkmanager.enable = true;
   };
-
-  system.stateVersion = "22.05"; # Did you read the comment?
 }

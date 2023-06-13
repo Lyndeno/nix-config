@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  info = import ./info.nix;
-in {
+}: {
   boot = {
     loader = {
       timeout = 0;
@@ -185,6 +183,4 @@ in {
     virt-manager
     sbctl
   ];
-
-  system.stateVersion = info.stateVersion; # Did you read the comment?
 }

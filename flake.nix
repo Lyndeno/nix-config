@@ -119,6 +119,7 @@
           (import ./${folder}/${name} lib inputs (commonModules system))
           ++ [
             {networking.hostName = name;}
+            {system.stateVersion = hostInfo.stateVersion;}
           ];
         specialArgs = {
           inherit inputs lsLib;
