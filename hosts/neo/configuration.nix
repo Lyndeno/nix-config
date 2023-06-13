@@ -6,16 +6,12 @@
 }: let
   info = import ./info.nix;
 in {
-  boot.loader = {
-    timeout = 3;
-    efi.canTouchEfiVariables = true;
-    grub.enable = false;
-    #systemd-boot = {
-    #  enable = true;
-    #  memtest86.enable = true;
-    #};
-  };
   boot = {
+    loader = {
+      timeout = 0;
+      efi.canTouchEfiVariables = true;
+      grub.enable = false;
+    };
     initrd = {
       systemd = {
         enable = true;
@@ -42,14 +38,16 @@ in {
   time.timeZone = "America/Edmonton";
 
   ls = {
-    desktop.enable = true;
-    desktop.environment = "gnome";
-    desktop.mainResolution = {
-      height = 1080;
-      width = 1920;
-    };
-    desktop.software = {
-      backup = false;
+    desktop = {
+      enable = true;
+      environment = "gnome";
+      mainResolution = {
+        height = 1080;
+        width = 1920;
+      };
+      software = {
+        backup = false;
+      };
     };
   };
 
@@ -70,7 +68,6 @@ in {
   programs.dconf.enable = true;
 
   networking = {
-    useDHCP = false;
     networkmanager.enable = true;
   };
 
@@ -165,7 +162,7 @@ in {
   };
 
   home-manager.users.lsanche.services.kanshi = {
-    enable = true;
+    #enable = true;
     profiles = let
       main_screen = "eDP-1";
       zenscreen = "Unknown ASUS MB16AC J6LMTF097058";
