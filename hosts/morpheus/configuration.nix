@@ -7,6 +7,7 @@
   hardware.bluetooth.enable = true;
   boot.initrd.systemd.enable = true;
   boot.plymouth.enable = true;
+  modules.services.vm.enable = true;
 
   services.smartd = {
     enable = true;

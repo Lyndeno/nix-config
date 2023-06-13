@@ -4,5 +4,6 @@
     ./torrents.nix
     ./msmtp.nix
     ./zed.nix
+    ./vm.nix
   ];
 }
