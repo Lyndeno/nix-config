@@ -6,7 +6,6 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
-    utils.url = "github:numtide/flake-utils";
 
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -72,20 +71,13 @@
       url = "github:nix-community/haumea";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+    };
   };
 
-  outputs = inputs @ {
-    self,
-    utils,
-    ...
-  }: let
-    makePkgs = system:
-      import inputs.nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
+  outputs = inputs @ {self, ...}: let
     inherit (inputs.nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
@@ -123,43 +115,50 @@
         };
       };
   in
-    {
-      nixosConfigurations = (folder:
-        builtins.listToAttrs
-        (
-          map
-          (x: {
-            name = x;
-            value = mkSystem folder x;
-          })
-          (lsLib.ls ./${folder})
-        )) "hosts";
-    }
-    // (utils.lib.eachDefaultSystem (system: let
-      pkgs = makePkgs system;
-      inherit (inputs.statix.packages.${system}) statix;
-    in {
-      formatter = pkgs.alejandra;
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      perSystem = {
+        pkgs,
+        system,
+        ...
+      }: {
+        formatter = pkgs.alejandra;
 
-      checks = {
-        pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            alejandra.enable = true;
-            statix.enable = true;
-            deadnix.enable = true;
-          };
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              statix.enable = true;
+              deadnix.enable = true;
+            };
 
-          tools = {
-            # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
-            inherit statix;
+            tools = {
+              # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
+              inherit (inputs.statix.packages.${system}) statix;
+            };
           };
         };
-      };
 
-      devShells.default = pkgs.mkShell {
-        buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix];
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix];
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+        };
       };
-    }));
+      flake = {
+        nixosConfigurations = (folder:
+          builtins.listToAttrs
+          (
+            map
+            (x: {
+              name = x;
+              value = mkSystem folder x;
+            })
+            (lsLib.ls ./${folder})
+          )) "hosts";
+      };
+    };
 }
