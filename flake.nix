@@ -74,10 +74,11 @@
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs @ {self, ...}: let
+  outputs = inputs @ {flake-parts, ...}: let
     inherit (inputs.nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
@@ -115,37 +116,44 @@
         };
       };
   in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.pre-commit-hooks-nix.flakeModule
+      ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
       perSystem = {
         pkgs,
-        system,
+        lib,
+        config,
+        inputs',
         ...
-      }: {
+      }: let
+        statix' = inputs'.statix.packages.statix;
+      in {
         formatter = pkgs.alejandra;
 
-        checks = {
-          pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
+        pre-commit = {
+          check.enable = true;
+          settings = {
             src = ./.;
             hooks = {
               alejandra.enable = true;
               statix.enable = true;
               deadnix.enable = true;
             };
-
             tools = {
               # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
-              inherit (inputs.statix.packages.${system}) statix;
+              statix = lib.mkForce statix';
             };
           };
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix];
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = [inputs'.agenix.packages.default statix' pkgs.deadnix];
+          inputsFrom = [config.pre-commit.devShell];
         };
       };
       flake = {
