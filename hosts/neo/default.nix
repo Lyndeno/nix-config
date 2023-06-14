@@ -28,6 +28,7 @@ with inputs.nixos-hardware.nixosModules;
           services.xserver.videoDrivers = lib.mkForce ["nvidia"];
           services.switcherooControl.enable = true;
           networking.hostName = hostName;
+          system.stateVersion = "23.05";
           hardware.nvidia = {
             modesetting.enable = true;
           };
