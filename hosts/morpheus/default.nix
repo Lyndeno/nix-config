@@ -1,9 +1,10 @@
-_lib: inputs: commonModules:
+_lib: inputs: mods: commonModules:
 with inputs.nixos-hardware.nixosModules;
   [
     ./configuration.nix
     ./hardware.nix
     ./disks.nix
+    mods.printing
     common-gpu-amd
     common-cpu-amd
     common-cpu-amd-pstate
