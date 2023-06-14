@@ -46,7 +46,7 @@ in {
       };
     };
 
-    boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
+    #boot.kernelModules = lib.optional cfg.supportDDC "i2c_dev";
     #services.udev.extraRules = lib.optionalString cfg.supportDDC ''
     #    KERNEL=="i2c-[0-9]*", TAG+="uaccess"
     #'';

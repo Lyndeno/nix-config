@@ -1,9 +1,19 @@
 lib: inputs: commonModules:
-with inputs.nixos-hardware.nixosModules;
+with inputs.nixos-hardware.nixosModules; let
+  # deadnix: skip
+  cfg = {pkgs, ...} @ args:
+    inputs.haumea.lib.load {
+      src = ./cfg;
+      inputs =
+        args
+        // {
+          inherit (inputs.nixpkgs) lib;
+        };
+      transformer = inputs.haumea.lib.transformers.liftDefault;
+    };
+in
   [
-    ./configuration.nix
-    ./hardware.nix
-    #./disks.nix
+    cfg
     ./disko.nix
     inputs.disko.nixosModules.disko
     inputs.lanzaboote.nixosModules.lanzaboote
@@ -15,16 +25,15 @@ with inputs.nixos-hardware.nixosModules;
         configuration = {
           imports =
             [
-              ./configuration.nix
-              ./hardware.nix
+              cfg
               ./disko.nix
+              inputs.lanzaboote.nixosModules.lanzaboote
               inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
               inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
               inputs.disko.nixosModules.disko
             ]
             ++ commonModules;
 
-          ls.desktop.environment = lib.mkForce "gnome";
           services.xserver.videoDrivers = lib.mkForce ["nvidia"];
           services.switcherooControl.enable = true;
           networking.hostName = hostName;
@@ -32,16 +41,6 @@ with inputs.nixos-hardware.nixosModules;
           hardware.nvidia = {
             modesetting.enable = true;
           };
-        };
-      };
-    })
-    ({lib, ...}: {
-      boot.loader.systemd-boot.enable = lib.mkForce false;
-      boot.lanzaboote = {
-        enable = true;
-        pkiBundle = "/etc/secureboot";
-        settings = {
-          timeout = 0;
         };
       };
     })
