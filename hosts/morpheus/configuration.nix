@@ -54,15 +54,6 @@
   ls = {
     desktop = {
       enable = true;
-      supportDDC = true;
-      environment = "gnome";
-      mainResolution = {
-        width = 2560;
-        height = 1440;
-      };
-      software = {
-        backup = false;
-      };
     };
   };
 

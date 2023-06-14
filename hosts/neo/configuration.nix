@@ -38,14 +38,6 @@
   ls = {
     desktop = {
       enable = true;
-      environment = "gnome";
-      mainResolution = {
-        height = 1080;
-        width = 1920;
-      };
-      software = {
-        backup = false;
-      };
     };
   };
 

@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.ls.desktop;
 in {
-  config = mkIf ((cfg.environment == "gnome") && cfg.enable) {
+  config = mkIf cfg.enable {
     programs.gnupg.agent.pinentryFlavor = "gnome3";
     services.xserver = {
       desktopManager.gnome.enable = true;
@@ -41,7 +41,6 @@ in {
     environment.systemPackages = with pkgs;
       [
         gnome.gnome-tweaks
-        (mkIf cfg.software.backup pika-backup)
         gnome-firmware
       ]
       ++ (with gnomeExtensions; [

@@ -1,33 +1,14 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }:
 with lib; let
   cfg = config.ls.desktop;
-
-  environments = {
-    gnome = {
-      wayland = true;
-    };
-    plasma = {
-      wayland = true;
-    };
-    sway = {
-      wayland = true;
-    };
-    i3 = {
-      wayland = false;
-    };
-  };
 in {
   imports = [
     ./gnome.nix
-    ./plasma.nix
     ./hardware.nix
-    (import ./i3-sway {inherit config lib pkgs inputs;})
   ];
   options = {
     ls = {
@@ -35,30 +16,6 @@ in {
         enable = mkOption {
           type = types.bool;
           default = false;
-        };
-        supportDDC = mkOption {
-          type = types.bool;
-          default = false;
-        };
-        software = {
-          backup = mkOption {
-            type = types.bool;
-            default = true;
-          };
-        };
-        environment = mkOption {
-          type = types.nullOr (types.enum (lib.mapAttrsToList (name: _value: name) environments));
-          default = null;
-        };
-        mainResolution = {
-          width = mkOption {
-            type = types.int;
-            default = 1920;
-          };
-          height = mkOption {
-            type = types.int;
-            default = 1080;
-          };
         };
       };
     };
@@ -95,7 +52,7 @@ in {
     #'';
 
     xdg.portal = {
-      enable = cfg.environment != null;
+      enable = true;
     };
 
     #environment.sessionVariables.NIXOS_OZONE_WL =
