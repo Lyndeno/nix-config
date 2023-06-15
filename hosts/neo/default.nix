@@ -9,12 +9,14 @@ with inputs.nixos-hardware.nixosModules; let
         // {
           inherit (inputs.nixpkgs) lib;
         };
-      transformer = inputs.haumea.lib.transformers.liftDefault;
+      transformer = [
+        inputs.haumea.lib.transformers.liftDefault
+        (inputs.haumea.lib.transformers.hoistLists "_imports" "imports")
+      ];
     };
 in
   [
     cfg
-    inputs.lanzaboote.nixosModules.lanzaboote
     dell-xps-15-9560-intel
     common-cpu-intel-kaby-lake
     #({hostName, ...}: {
