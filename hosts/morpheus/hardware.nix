@@ -4,7 +4,7 @@
   ...
 }: {
   boot.initrd.availableKernelModules = ["nvme" "mpt3sas" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.kernelModules = ["kvm-amd" "jc42" "nct6775"];
+  boot.kernelModules = ["kvm-amd" "jc42" "nct6775" "ddcci"];
   boot.kernelParams = [
     "quiet"
     "systemd.show_status=auto"
@@ -12,6 +12,7 @@
     "iommu=pt"
   ];
   boot.consoleLogLevel = 3;
+  boot.extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 
   zramSwap.enable = true;
 
