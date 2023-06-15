@@ -1,4 +1,4 @@
-lib: inputs: mods: commonModules:
+lib: inputs: commonModules:
 with inputs.nixos-hardware.nixosModules; let
   # deadnix: skip
   cfg = {pkgs, ...} @ args:
@@ -19,7 +19,6 @@ in
     inputs.lanzaboote.nixosModules.lanzaboote
     dell-xps-15-9560-intel
     common-cpu-intel-kaby-lake
-    mods.printing
     ({hostName, ...}: {
       specialisation.nvidia = {
         inheritParentConfig = false;

@@ -82,30 +82,9 @@
     inherit (inputs.nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
-    mods = (folder:
-      builtins.listToAttrs (
-        map
-        (
-          x: {
-            name = x;
-            # deadnix: skip
-            value = {pkgs, ...} @ args:
-              inputs.haumea.lib.load {
-                src = ./${folder}/${x};
-                inputs =
-                  args
-                  // {
-                    inherit (inputs.nixpkgs) lib;
-                  };
-                transformer = inputs.haumea.lib.transformers.liftDefault;
-              };
-          }
-        )
-        (lsLib.ls ./${folder})
-      )) "mods";
-
     commonModules = system: [
       inputs.home-manager.nixosModules.home-manager
+      ./mods
       ./common.nix
       ./modules
       ./desktop
@@ -127,7 +106,7 @@
       lib.nixosSystem rec {
         inherit (hostInfo) system;
         modules =
-          (import ./${folder}/${name} lib inputs mods (commonModules system))
+          (import ./${folder}/${name} lib inputs (commonModules system))
           ++ [
             {networking.hostName = name;}
             {system.stateVersion = hostInfo.stateVersion;}

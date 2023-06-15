@@ -1,4 +1,4 @@
-_lib: _inputs: _mods: commonModules:
+_lib: _inputs: commonModules:
 [
   ./configuration.nix
   ./hardware.nix
