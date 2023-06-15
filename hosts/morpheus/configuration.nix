@@ -33,6 +33,7 @@
   mods = {
     printing.enable = true;
     virtualisation.enable = true;
+    zed.enable = true;
   };
 
   #system.autoUpgrade = {

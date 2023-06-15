@@ -1,6 +1,4 @@
 {
-  modules.services.zed.enable = true;
-
   boot.supportedFilesystems = ["zfs"];
   networking.hostId = "a5d4421d";
 
