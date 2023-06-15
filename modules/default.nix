@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./programs/gaming.nix
-  ];
-}

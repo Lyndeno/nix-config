@@ -86,7 +86,6 @@
       inputs.home-manager.nixosModules.home-manager
       ./mods
       ./common.nix
-      ./modules
       ./desktop
       ./users
       {

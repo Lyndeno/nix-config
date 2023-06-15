@@ -1,3 +1,0 @@
-{
-  programs.gaming.enable = true;
-}

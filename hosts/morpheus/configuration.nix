@@ -34,6 +34,7 @@
     printing.enable = true;
     virtualisation.enable = true;
     zed.enable = true;
+    gaming.enable = true;
   };
 
   #system.autoUpgrade = {
@@ -49,12 +50,6 @@
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
-
-  modules = {
-    programs = {
-      gaming.enable = true;
-    };
-  };
 
   ls = {
     desktop = {
