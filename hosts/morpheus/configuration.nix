@@ -208,5 +208,4 @@
   ];
 
   services.hardware.bolt.enable = false;
-  services.power-profiles-daemon.enable = false;
 }
