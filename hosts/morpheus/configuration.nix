@@ -7,7 +7,6 @@
   hardware.bluetooth.enable = true;
   boot.initrd.systemd.enable = true;
   boot.plymouth.enable = true;
-  modules.services.vm.enable = true;
 
   services.smartd = {
     enable = true;
@@ -29,6 +28,11 @@
     serviceConfig = {
       ExecStart = "${pkgs.hd-idle}/bin/hd-idle -i 3600";
     };
+  };
+
+  mods = {
+    printing.enable = true;
+    virtualisation.enable = true;
   };
 
   #system.autoUpgrade = {
