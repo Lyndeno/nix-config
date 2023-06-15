@@ -199,7 +199,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  modules.printers.canon.pixma.mx860.enable = true;
 
   services.fstrim.enable = true;
 
