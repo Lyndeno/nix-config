@@ -1,7 +1,12 @@
 {
   lib,
   pkgs,
+  inputs,
 }: {
+  imports = [
+    inputs.disko.nixosModules.disko
+    ./_disko.nix
+  ];
   # Set your time zone.
   time.timeZone = "America/Edmonton";
   users.users.lsanche.createHome = true;
