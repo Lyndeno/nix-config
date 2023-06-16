@@ -8,17 +8,22 @@
 }: let
   modNames = lsLib.lsDirs ./.;
 
-  # deadnix: skip
-  getMod = name: ({pkgs, ...} @ args:
-    inputs.haumea.lib.load {
-      src = ./${name};
-      inputs =
-        args
-        // {
-          inherit (inputs.nixpkgs) lib;
-        };
-      transformer = inputs.haumea.lib.transformers.liftDefault;
-    });
+  getMod = name: ({
+      # deadnix: skip
+      pkgs,
+      # deadnix: skip
+      config,
+      ...
+    } @ args:
+      inputs.haumea.lib.load {
+        src = ./${name};
+        inputs =
+          args
+          // {
+            inherit (inputs.nixpkgs) lib;
+          };
+        transformer = inputs.haumea.lib.transformers.liftDefault;
+      });
 in {
   options.mods = builtins.listToAttrs (
     map
@@ -33,7 +38,7 @@ in {
   config = lib.mkMerge (
     map
     (
-      x: lib.mkIf config.mods.${x}.enable ((getMod x) {inherit pkgs;})
+      x: lib.mkIf config.mods.${x}.enable ((getMod x) {inherit pkgs config;})
     )
     modNames
   );
