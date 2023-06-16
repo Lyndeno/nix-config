@@ -1,16 +1,20 @@
-_lib: inputs: commonModules:
-[
-  ./configuration.nix
-  ./hardware.nix
-  ({pkgs, ...}: {
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-    ];
-    services.nginx.enable = true;
-    services.nginx.virtualHosts."cloud.lyndeno.ca" = {
-      root = "${inputs.site.packages.${pkgs.system}.default}/";
+_lib: inputs: commonModules: let
+  # deadnix: skip
+  cfg = {pkgs, ...} @ args:
+    inputs.haumea.lib.load {
+      src = ./cfg;
+      inputs =
+        args
+        // {
+          inherit (inputs.nixpkgs) lib;
+        };
+      transformer = [
+        inputs.haumea.lib.transformers.liftDefault
+        (inputs.haumea.lib.transformers.hoistLists "_imports" "imports")
+      ];
     };
-  })
-]
-++ commonModules
+in
+  [
+    cfg
+  ]
+  ++ commonModules
