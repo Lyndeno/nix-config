@@ -82,10 +82,22 @@
     inherit (inputs.nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
+    # deadnix: skip
+    common = {pkgs, ...} @ args:
+      inputs.haumea.lib.load {
+        src = ./common;
+        inputs =
+          args
+          // {
+            inherit (inputs.nixpkgs) lib;
+          };
+        transformer = inputs.haumea.lib.transformers.liftDefault;
+      };
+
     commonModules = system: [
       inputs.home-manager.nixosModules.home-manager
       ./mods
-      ./common.nix
+      common
       ./desktop
       ./users
       {

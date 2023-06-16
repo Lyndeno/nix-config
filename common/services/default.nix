@@ -1,0 +1,3 @@
+{
+  tailscale.enable = true;
+}
