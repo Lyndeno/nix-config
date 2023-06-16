@@ -54,7 +54,7 @@
       home-manager.users.${x} = lib.mkIf (builtins.pathExists ./${x}/home.nix) (import ./${x}/home.nix {
         config = config.home-manager.users.${x};
         inherit pkgs lib inputs lsLib;
-        isDesktop = config.ls.desktop.enable;
+        isDesktop = config.mods.desktop.enable;
         inherit (config.system) stateVersion;
       });
     })

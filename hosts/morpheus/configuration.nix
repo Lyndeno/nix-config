@@ -35,6 +35,7 @@
     virtualisation.enable = true;
     zed.enable = true;
     gaming.enable = true;
+    desktop.enable = true;
   };
 
   #system.autoUpgrade = {
@@ -50,12 +51,6 @@
 
   # Set your time zone.
   time.timeZone = "America/Edmonton";
-
-  ls = {
-    desktop = {
-      enable = true;
-    };
-  };
 
   home-manager.users.lsanche.wayland.windowManager.sway.config = {
     output = {

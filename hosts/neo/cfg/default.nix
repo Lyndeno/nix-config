@@ -10,11 +10,6 @@
   # Set your time zone.
   time.timeZone = "America/Edmonton";
   users.users.lsanche.createHome = true;
-  ls = {
-    desktop = {
-      enable = true;
-    };
-  };
   programs.dconf.enable = true;
 
   security.tpm2.enable = true;
