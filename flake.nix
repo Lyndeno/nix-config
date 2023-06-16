@@ -94,16 +94,12 @@
         transformer = inputs.haumea.lib.transformers.liftDefault;
       };
 
-    commonModules = system: [
+    commonModules = _system: [
       inputs.home-manager.nixosModules.home-manager
       ./mods
       common
       ./users
       {
-        environment.systemPackages = [
-          inputs.cfetch.packages.${system}.default
-          inputs.ironfetch.packages.${system}.default
-        ];
         nixpkgs.config.allowUnfree = true;
       }
       inputs.stylix.nixosModules.stylix
