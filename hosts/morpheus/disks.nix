@@ -5,7 +5,7 @@
   services.zfs.trim.enable = true;
   services.zfs.autoScrub.enable = true;
 
-  boot.zfs.extraPools = ["bigpool"];
+  boot.zfs.extraPools = ["bigpool" "fastmirror"];
 
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/nixcrypt";
 
