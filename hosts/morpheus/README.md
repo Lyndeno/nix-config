@@ -6,7 +6,7 @@ Main desktop machine. Handles programming workstation, gaming, multimedia, serve
 
 - CPU: Ryzen 5950X 16-Core
 - Motherboard: ASUS Prime X570-Pro
-- RAM: 128B 3600MHz G.SKILL
+- RAM: 128GB 3600MHz G.SKILL
 - 2x2TB WD_BLACK SN_770
 - 500GB Generic Samsung Nvme
 - Intel 9260 WiFi + Bluetooth
