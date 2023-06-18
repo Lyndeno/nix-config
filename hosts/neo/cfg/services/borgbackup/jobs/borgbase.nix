@@ -1,19 +1,9 @@
-{config}:
+{
+  config,
+  super,
+}:
 with config.age.secrets; {
-  paths = [
-    "/var/lib"
-    "/srv"
-    "/home"
-  ];
-  exclude = [
-    "/var/lib/systemd"
-    "/var/lib/libvirt"
-    "/var/lib/plex"
-
-    "**/target"
-    "/home/*/.local/share/Steam"
-    "/home/*/Downloads"
-  ];
+  inherit (super.common) paths exclude;
   repo = "f774k1bg@f774k1bg.repo.borgbase.com:repo";
   encryption = {
     mode = "repokey-blake2";
