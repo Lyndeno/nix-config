@@ -4,10 +4,10 @@ Main desktop machine. Handles programming workstation, gaming, multimedia, serve
 
 ## Specs
 
-- CPU: Ryzen 3900X 12-Core
+- CPU: Ryzen 5950X 16-Core
 - Motherboard: ASUS Prime X570-Pro
-- RAM: 64GB 3600MHz G.SKILL
-- 2TB WD_BLACK SN_770
+- RAM: 128B 3600MHz G.SKILL
+- 2x2TB WD_BLACK SN_770
 - 500GB Generic Samsung Nvme
 - Intel 9260 WiFi + Bluetooth
 - GPU: AMD RX6700XT ASUS TUF
