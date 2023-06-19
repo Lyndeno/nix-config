@@ -7,7 +7,6 @@
     "rd.udev.log_level=3"
     "iommu=pt"
   ];
-  boot.consoleLogLevel = 3;
   boot.extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;

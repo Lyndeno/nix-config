@@ -1,0 +1,3 @@
+{
+  consoleLogLevel = 3;
+}
