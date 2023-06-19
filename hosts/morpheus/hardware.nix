@@ -10,7 +10,5 @@
   boot.consoleLogLevel = 3;
   boot.extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 
-  hardware.enableRedistributableFirmware = true;
-
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 }
