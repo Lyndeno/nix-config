@@ -18,7 +18,6 @@ in
   [
     cfg
     ./hardware.nix
-    ./disks.nix
     common-gpu-amd
     common-cpu-amd
     common-cpu-amd-pstate
