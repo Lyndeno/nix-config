@@ -14,8 +14,6 @@
   boot.consoleLogLevel = 3;
   boot.extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 
-  zramSwap.enable = true;
-
   hardware.enableRedistributableFirmware = true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
