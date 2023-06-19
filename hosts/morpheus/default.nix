@@ -17,8 +17,5 @@ with inputs.nixos-hardware.nixosModules; let
 in
   [
     cfg
-    common-gpu-amd
-    common-cpu-amd
-    common-cpu-amd-pstate
   ]
   ++ commonModules
