@@ -31,12 +31,6 @@
 
   programs = {
     bottom.enable = true;
-
-    nnn = {
-      enable = true;
-      package = pkgs.nnn.override {withNerdIcons = true;};
-      plugins.src = config.programs.nnn.package.src + "/plugins";
-    };
   };
 
   xdg = {
