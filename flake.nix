@@ -94,7 +94,7 @@
         transformer = inputs.haumea.lib.transformers.liftDefault;
       };
 
-    commonModules = _system: [
+    commonModules = [
       inputs.home-manager.nixosModules.home-manager
       ./mods
       common
@@ -108,15 +108,30 @@
 
     mkSystem = folder: name: let
       hostInfo = import ./${folder}/${name}/info.nix;
+      # deadnix: skip
+      hostCfg = {pkgs, ...} @ args:
+        inputs.haumea.lib.load {
+          src = ./${folder}/${name}/cfg;
+          inputs =
+            args
+            // {
+              inherit (inputs.nixpkgs) lib;
+            };
+          transformer = [
+            inputs.haumea.lib.transformers.liftDefault
+            (inputs.haumea.lib.transformers.hoistLists "_imports" "imports")
+          ];
+        };
     in
-      lib.nixosSystem rec {
+      lib.nixosSystem {
         inherit (hostInfo) system;
         modules =
-          (import ./${folder}/${name} lib inputs (commonModules system))
-          ++ [
+          [
+            hostCfg
             {networking.hostName = name;}
             {system.stateVersion = hostInfo.stateVersion;}
-          ];
+          ]
+          ++ commonModules;
         specialArgs = {
           inherit inputs lsLib;
           hostName = name;
