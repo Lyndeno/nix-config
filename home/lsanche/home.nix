@@ -1,13 +1,27 @@
 {
-  config,
-  pkgs,
   isDesktop ? false,
   desktopEnv ? "",
   stateVersion,
   inputs,
   lsLib,
   ...
-}: {
+}: let
+  # deadnix: skip
+  cfg = {pkgs, ...} @ args:
+    inputs.haumea.lib.load {
+      src = ./cfg;
+      inputs =
+        args
+        // {
+          inherit (inputs.nixpkgs) lib;
+          inherit isDesktop;
+        };
+      transformer = [
+        inputs.haumea.lib.transformers.liftDefault
+        (inputs.haumea.lib.transformers.hoistLists "_imports" "imports")
+      ];
+    };
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
 
@@ -16,34 +30,7 @@
     inherit isDesktop inputs desktopEnv lsLib;
   };
   # Import all files in "home"
-  imports = lsLib.lsPaths ./home;
-
-  home = {
-    username = "lsanche";
-    homeDirectory = "/home/lsanche";
-    enableNixpkgsReleaseCheck = true;
-
-    packages = with pkgs; [
-      neofetch
-      bottom
-    ];
-  };
-
-  programs = {
-    bottom.enable = true;
-  };
-
-  xdg = {
-    enable = true;
-    userDirs.enable = true;
-    userDirs.createDirectories = true;
-  };
-
-  home.sessionVariables = {
-    MANPAGER = "sh -c '${pkgs.util-linux}/bin/col -bx | ${pkgs.bat}/bin/bat -l man -p'";
-  };
-
-  nixpkgs.config.allowUnfree = true;
+  imports = (lsLib.lsPaths ./home) ++ [cfg];
 
   home.stateVersion = stateVersion;
 }
