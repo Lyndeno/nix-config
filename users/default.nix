@@ -62,12 +62,6 @@
 in
   lib.mkMerge ([
       {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-        };
-        programs.fuse.userAllowOther = true;
-        users.groups.media = {};
       }
     ]
     ++ userConfigs)
