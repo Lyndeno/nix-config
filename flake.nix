@@ -107,7 +107,7 @@
     ];
 
     mkSystem = folder: name: let
-      hostInfo = import ./${folder}/${name}/info.nix;
+      system = import ./${folder}/${name}/_system.nix;
       # deadnix: skip
       hostCfg = {pkgs, ...} @ args:
         inputs.haumea.lib.load {
@@ -124,12 +124,11 @@
         };
     in
       lib.nixosSystem {
-        inherit (hostInfo) system;
+        inherit system;
         modules =
           [
             hostCfg
             {networking.hostName = name;}
-            {system.stateVersion = hostInfo.stateVersion;}
           ]
           ++ commonModules;
         specialArgs = {
