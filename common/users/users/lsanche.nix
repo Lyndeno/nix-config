@@ -1,14 +1,12 @@
 {
-  config,
   pkgs,
   lib,
-  username,
-  ...
-}: {
+  config,
+}: let
+  pubKeys = import ../../../home/lsanche/_pubKeys.nix;
+in {
   isNormalUser = true;
   description = "Lyndon Sanche";
-  home = "/home/${username}";
-  group = "${username}";
   uid = 1000;
   extraGroups = [
     "wheel"
@@ -21,4 +19,7 @@
     "uaccess"
   ];
   shell = pkgs.zsh;
+  openssh.authorizedKeys.keys = [
+    (lib.mkIf (pubKeys ? ${config.networking.hostName}) pubKeys.${config.networking.hostName})
+  ];
 }

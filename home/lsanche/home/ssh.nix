@@ -12,7 +12,7 @@
     # We specify the host key so our ssh agent does not have to keep looking and possibly
     # hitting the limit before finding the right key.
     matchBlocks = let
-      keys = (import ../info.nix).hostAuthorizedKeys;
+      keys = import ../_pubKeys.nix;
     in
       (builtins.mapAttrs (name: value: {
           hostname = name;
