@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [nil clang-tools bear lldb clippy rustfmt];
   programs.gh = {
     enable = true;
     settings = {
