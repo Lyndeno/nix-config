@@ -1,9 +1,5 @@
 {
-  isDesktop,
-  lib,
-  ...
-}: {
-  programs.alacritty = lib.mkIf isDesktop {
+  programs.alacritty = {
     enable = true;
     # colours and font managed by stylix
     settings = {

@@ -1,16 +1,11 @@
-{
-  pkgs,
-  lib,
-  isDesktop,
-  ...
-}: {
-  stylix.targets = lib.mkIf isDesktop {
+{pkgs, ...}: {
+  stylix.targets = {
     swaylock.useImage = false;
   };
   stylix.opacity = {
     terminal = 0.95;
   };
-  gtk = lib.mkIf isDesktop {
+  gtk = {
     enable = true;
     #theme.name = "Adwaita-dark";
     #theme.package = pkgs.gnome.gnome-themes-extra;

@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  isDesktop,
-  ...
-}: {
+{pkgs, ...}: {
   programs.ssh = {
     enable = true;
 
@@ -24,7 +19,7 @@
         })
         keys)
       // {
-        "* !*.repo.borgbase.com" = lib.mkIf isDesktop {
+        "* !*.repo.borgbase.com" = {
           extraOptions = {
             "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
           };

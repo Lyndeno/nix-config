@@ -1,5 +1,5 @@
-{isDesktop}: {
-  enable = isDesktop;
+{
+  enable = true;
   extensions = [
     {id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";} # 1password
   ];

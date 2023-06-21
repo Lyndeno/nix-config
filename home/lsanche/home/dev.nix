@@ -1,17 +1,12 @@
-{
-  pkgs,
-  lib,
-  isDesktop,
-  ...
-}: {
-  home.packages = with pkgs; lib.mkIf isDesktop [nil clang-tools bear lldb clippy rustfmt];
+{pkgs, ...}: {
+  home.packages = with pkgs; [nil clang-tools bear lldb clippy rustfmt];
   programs.gh = {
     enable = true;
     settings = {
       git_protocol = "ssh";
     };
   };
-  programs.vscode = lib.mkIf isDesktop {
+  programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
     enableExtensionUpdateCheck = false;

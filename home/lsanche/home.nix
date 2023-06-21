@@ -1,6 +1,4 @@
 {
-  isDesktop ? false,
-  desktopEnv ? "",
   stateVersion,
   inputs,
   lsLib,
@@ -14,7 +12,6 @@
         args
         // {
           inherit (inputs.nixpkgs) lib;
-          inherit isDesktop;
         };
       transformer = [
         inputs.haumea.lib.transformers.liftDefault
@@ -27,7 +24,7 @@ in {
 
   # Pass more args to "import"
   _module.args = {
-    inherit isDesktop inputs desktopEnv lsLib;
+    inherit inputs lsLib;
   };
   # Import all files in "home"
   imports = (lsLib.lsPaths ./home) ++ [cfg];

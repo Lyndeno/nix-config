@@ -1,9 +1,5 @@
 {
-  lib,
-  isDesktop,
-  ...
-}: {
-  programs.mangohud = lib.mkIf isDesktop {
+  programs.mangohud = {
     enable = true;
     settings = {
       cpu_stats = true;
