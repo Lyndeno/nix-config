@@ -13,7 +13,7 @@
         args
         // {
           inherit (inputs.nixpkgs) lib;
-          inherit isDesktop;
+          inherit isDesktop inputs;
         };
       transformer = [
         inputs.haumea.lib.transformers.liftDefault
