@@ -1,7 +1,4 @@
-{inputs}: {
-  _imports = [
-    inputs.lanzaboote.nixosModules.lanzaboote
-  ];
+{
   enable = true;
   pkiBundle = "/etc/secureboot";
   settings = {

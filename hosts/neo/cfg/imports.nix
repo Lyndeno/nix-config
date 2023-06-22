@@ -3,6 +3,7 @@ with inputs.nixos-hardware.nixosModules; [
   dell-xps-15-9560-intel
   common-cpu-intel-kaby-lake
   inputs.disko.nixosModules.disko
+  inputs.lanzaboote.nixosModules.lanzaboote
   ./_disko.nix
   #({hostName, ...}: {
   #  specialisation.nvidia = {

@@ -1,10 +1,6 @@
-{
-  pkgs,
-  lib,
-}: {
+{pkgs}: {
   enable = true;
-  # FIXME: Why do I need mkForce to avoid recursion?
-  package = lib.mkForce pkgs.vscodium;
+  package = pkgs.vscodium;
   enableExtensionUpdateCheck = false;
   enableUpdateCheck = false;
   extensions = with pkgs.vscode-extensions; [

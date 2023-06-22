@@ -1,7 +1,4 @@
-{
-  config,
-  lib,
-}: {
+{config}: {
   consoleLogLevel = 3;
   kernelModules = ["kvm-amd" "jc42" "nct6775" "ddcci"];
   kernelParams = [
@@ -11,7 +8,6 @@
     "iommu=pt"
   ];
 
-  # FIXME: For some reason mkForce is needed to prevent infinite recursion
-  kernelPackages = lib.mkForce config.boot.zfs.package.latestCompatibleLinuxPackages;
+  kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 }

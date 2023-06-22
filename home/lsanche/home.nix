@@ -15,7 +15,6 @@
         };
       transformer = [
         inputs.haumea.lib.transformers.liftDefault
-        (inputs.haumea.lib.transformers.hoistLists "_imports" "imports")
       ];
     };
 in {

@@ -1,9 +1,5 @@
-{
-  pkgs,
-  lib,
-}: {
-  # FIXME: For some reason mkForce is needed to prevent infinite recursion
-  kernelPackages = lib.mkForce pkgs.linuxPackages_rpi4; # Raspberry pies have a hard time booting on the LTS kernel.
+{pkgs}: {
+  kernelPackages = pkgs.linuxPackages_rpi4; # Raspberry pies have a hard time booting on the LTS kernel.
 
   tmp.useTmpfs = true;
 
