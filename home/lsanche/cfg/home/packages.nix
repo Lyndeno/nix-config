@@ -19,4 +19,10 @@ with pkgs; [
 
   # Email
   thunderbird
+
+  # media
+  spotify
+  spot
+  fragments
+  celluloid
 ]
