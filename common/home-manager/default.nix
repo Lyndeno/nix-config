@@ -1,0 +1,4 @@
+{
+  useGlobalPkgs = true;
+  useUserPackages = true;
+}

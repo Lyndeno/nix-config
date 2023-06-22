@@ -78,42 +78,39 @@
     };
   };
 
-  outputs = inputs @ {flake-parts, ...}: let
-    inherit (inputs.nixpkgs) lib;
+  outputs = inputs @ {
+    flake-parts,
+    nixpkgs,
+    haumea,
+    ...
+  }: let
+    inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
-    commonModules = system: [
-      inputs.home-manager.nixosModules.home-manager
-      ./mods
-      ./common.nix
-      ./modules
-      ./desktop
-      ./users
-      {
-        environment.systemPackages = [
-          inputs.cfetch.packages.${system}.default
-          inputs.ironfetch.packages.${system}.default
-        ];
-        nixpkgs.config.allowUnfree = true;
-      }
-      inputs.stylix.nixosModules.stylix
-      inputs.agenix.nixosModules.default
-    ];
+    # deadnix: skip
+    loadCfg = folder: ({pkgs, ...} @ args:
+      haumea.lib.load {
+        src = folder;
+        inputs = args;
+        transformer = haumea.lib.transformers.liftDefault;
+      });
+
+    common = loadCfg ./common;
 
     mkSystem = folder: name: let
-      hostInfo = import ./${folder}/${name}/info.nix;
+      system = import ./${folder}/${name}/_localSystem.nix;
+
+      hostCfg = loadCfg ./${folder}/${name};
     in
-      lib.nixosSystem rec {
-        inherit (hostInfo) system;
-        modules =
-          (import ./${folder}/${name} lib inputs (commonModules system))
-          ++ [
-            {networking.hostName = name;}
-            {system.stateVersion = hostInfo.stateVersion;}
-          ];
+      lib.nixosSystem {
+        inherit system;
+        modules = [
+          hostCfg
+          common
+          {networking.hostName = name;}
+        ];
         specialArgs = {
           inherit inputs lsLib;
-          hostName = name;
         };
       };
   in
