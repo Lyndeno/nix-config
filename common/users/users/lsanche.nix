@@ -3,7 +3,7 @@
   lib,
   config,
 }: let
-  pubKeys = import ../../../home/lsanche/cfg/programs/ssh/_pubKeys.nix;
+  pubKeys = import ../../../home/lsanche/programs/ssh/_pubKeys.nix;
 in {
   isNormalUser = true;
   description = "Lyndon Sanche";

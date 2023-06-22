@@ -5,7 +5,7 @@
   # deadnix: skip
   cfg = {pkgs, ...} @ args:
     inputs.haumea.lib.load {
-      src = ../../../home/lsanche/cfg;
+      src = ../../../home/lsanche;
       inputs =
         args
         // {
