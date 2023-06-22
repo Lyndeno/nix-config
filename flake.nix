@@ -86,11 +86,7 @@
     common = {pkgs, ...} @ args:
       inputs.haumea.lib.load {
         src = ./common;
-        inputs =
-          args
-          // {
-            inherit (inputs.nixpkgs) lib;
-          };
+        inputs = args;
         transformer = inputs.haumea.lib.transformers.liftDefault;
       };
 
@@ -111,11 +107,7 @@
       hostCfg = {pkgs, ...} @ args:
         inputs.haumea.lib.load {
           src = ./${folder}/${name}/cfg;
-          inputs =
-            args
-            // {
-              inherit (inputs.nixpkgs) lib;
-            };
+          inputs = args;
           transformer = [
             inputs.haumea.lib.transformers.liftDefault
           ];

@@ -20,7 +20,7 @@
         inputs =
           args
           // {
-            inherit (inputs.nixpkgs) lib;
+            inherit lib;
           };
         transformer = inputs.haumea.lib.transformers.liftDefault;
       });

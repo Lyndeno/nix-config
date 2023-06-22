@@ -11,7 +11,6 @@
       inputs =
         args
         // {
-          inherit (inputs.nixpkgs) lib;
           inherit isDesktop inputs;
         };
       transformer = [
