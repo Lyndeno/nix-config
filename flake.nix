@@ -78,29 +78,29 @@
     };
   };
 
-  outputs = inputs @ {flake-parts, ...}: let
-    inherit (inputs.nixpkgs) lib;
+  outputs = inputs @ {
+    flake-parts,
+    nixpkgs,
+    haumea,
+    ...
+  }: let
+    inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
     # deadnix: skip
-    common = {pkgs, ...} @ args:
-      inputs.haumea.lib.load {
-        src = ./common;
+    loadCfg = folder: ({pkgs, ...} @ args:
+      haumea.lib.load {
+        src = folder;
         inputs = args;
-        transformer = inputs.haumea.lib.transformers.liftDefault;
-      };
+        transformer = haumea.lib.transformers.liftDefault;
+      });
+
+    common = loadCfg ./common;
 
     mkSystem = folder: name: let
       system = import ./${folder}/${name}/_localSystem.nix;
-      # deadnix: skip
-      hostCfg = {pkgs, ...} @ args:
-        inputs.haumea.lib.load {
-          src = ./${folder}/${name};
-          inputs = args;
-          transformer = [
-            inputs.haumea.lib.transformers.liftDefault
-          ];
-        };
+
+      hostCfg = loadCfg ./${folder}/${name};
     in
       lib.nixosSystem {
         inherit system;
