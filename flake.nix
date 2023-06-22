@@ -90,17 +90,6 @@
         transformer = inputs.haumea.lib.transformers.liftDefault;
       };
 
-    commonModules = [
-      inputs.home-manager.nixosModules.home-manager
-      ./mods
-      common
-      {
-        nixpkgs.config.allowUnfree = true;
-      }
-      inputs.stylix.nixosModules.stylix
-      inputs.agenix.nixosModules.default
-    ];
-
     mkSystem = folder: name: let
       system = import ./${folder}/${name}/_localSystem.nix;
       # deadnix: skip
@@ -115,12 +104,11 @@
     in
       lib.nixosSystem {
         inherit system;
-        modules =
-          [
-            hostCfg
-            {networking.hostName = name;}
-          ]
-          ++ commonModules;
+        modules = [
+          hostCfg
+          common
+          {networking.hostName = name;}
+        ];
         specialArgs = {
           inherit inputs lsLib;
         };
