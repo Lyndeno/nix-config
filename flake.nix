@@ -6,9 +6,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
-    utils.url = "github:numtide/flake-utils";
     deploy-rs.url = "github:serokell/deploy-rs";
-
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,111 +52,121 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    apple-fonts = {
-      url = "github:Lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    firefox-gnome-theme = {
-      url = "github:rafaelmardojai/firefox-gnome-theme";
-      flake = false;
-    };
-
     statix = {
       url = "github:nerdypepper/statix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    haumea = {
+      url = "github:nix-community/haumea";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
   };
 
   outputs = inputs @ {
     self,
-    utils,
+    flake-parts,
+    nixpkgs,
+    haumea,
     ...
   }: let
-    makePkgs = system:
-      import inputs.nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
-    inherit (inputs.nixpkgs) lib;
+    inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
 
-    commonModules = system: [
-      inputs.home-manager.nixosModules.home-manager
-      ./common.nix
-      ./modules
-      ./desktop
-      ./users
-      {
-        environment.systemPackages = [
-          inputs.cfetch.packages.${system}.default
-          inputs.ironfetch.packages.${system}.default
-        ];
-      }
-      inputs.stylix.nixosModules.stylix
-      inputs.agenix.nixosModules.default
-    ];
+    # deadnix: skip
+    loadCfg = folder: ({pkgs, ...} @ args:
+      haumea.lib.load {
+        src = folder;
+        inputs = args;
+        transformer = haumea.lib.transformers.liftDefault;
+      });
+
+    common = loadCfg ./common;
 
     mkSystem = folder: name: let
-      hostInfo = import ./${folder}/${name}/info.nix;
+      system = import ./${folder}/${name}/_localSystem.nix;
+
+      hostCfg = loadCfg ./${folder}/${name};
     in
-      lib.nixosSystem rec {
-        inherit (hostInfo) system;
-        pkgs = makePkgs system;
-        modules =
-          (import ./${folder}/${name} lib inputs (commonModules system))
-          ++ [
-            {networking.hostName = name;}
-          ];
+      lib.nixosSystem {
+        inherit system;
+        modules = [
+          hostCfg
+          common
+          {networking.hostName = name;}
+        ];
         specialArgs = {
           inherit inputs lsLib;
-          hostName = name;
         };
       };
   in
-    {
-      nixosConfigurations = (folder:
-        builtins.listToAttrs
-        (
-          map
-          (x: {
-            name = x;
-            value = mkSystem folder x;
-          })
-          (lsLib.ls ./${folder})
-        )) "hosts";
-    }
-    // (utils.lib.eachDefaultSystem (system: let
-        pkgs = makePkgs system;
-        inherit (inputs.statix.packages.${system}) statix;
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.pre-commit-hooks-nix.flakeModule
+      ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      perSystem = {
+        pkgs,
+        lib,
+        config,
+        inputs',
+        ...
+      }: let
+        statix' = inputs'.statix.packages.statix;
       in {
         formatter = pkgs.alejandra;
 
-        checks =
-          {
-            pre-commit-check = inputs.pre-commit-hooks-nix.lib.${system}.run {
-              src = ./.;
-              hooks = {
-                alejandra.enable = true;
-                statix.enable = true;
-                deadnix.enable = true;
-              };
-
-              tools = {
-                # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
-                inherit statix;
-              };
+        pre-commit = {
+          check.enable = true;
+          settings = {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              statix.enable = true;
+              deadnix.enable = true;
             };
-          }
-          // (builtins.mapAttrs (_: deploylib: deploylib.deployChecks self.deploy) inputs.deploy-rs.lib).${system};
+            tools = {
+              # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
+              statix = lib.mkForce statix';
+            };
+          };
+        };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [inputs.agenix.packages.${system}.default statix deadnix inputs.deploy-rs.packages.${system}.default];
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = [inputs'.agenix.packages.default statix' pkgs.deadnix];
+          inputsFrom = [config.pre-commit.devShell];
         };
-      })
-      // {
+      };
+      flake = {
+        nixosConfigurations = (folder:
+          builtins.listToAttrs
+          (
+            map
+            (x: {
+              name = x;
+              value = mkSystem folder x;
+            })
+            (lsLib.ls ./${folder})
+          )) "hosts";
+      };
         deploy.nodes.oracle = {
           hostname = "oracle";
           profiles.system = {
@@ -176,7 +184,5 @@
             path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.trinity;
           };
         };
-
-        #checks = builtins.mapAttrs (system: deploylib: deploylib.deployChecks self.deploy) inputs.deploy-rs.lib;
-      });
+    };
 }

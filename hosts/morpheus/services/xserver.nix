@@ -1,0 +1,3 @@
+{
+  displayManager.gdm.autoSuspend = false;
+}
