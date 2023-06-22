@@ -1,7 +1,6 @@
 {
   stateVersion,
   inputs,
-  lsLib,
   isDesktop,
   ...
 }: let
@@ -20,15 +19,7 @@
       ];
     };
 in {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-
-  # Pass more args to "import"
-  _module.args = {
-    inherit inputs lsLib isDesktop;
-  };
-  # Import all files in "home"
-  imports = (lsLib.lsPaths ./home) ++ [cfg];
+  imports = [cfg];
 
   home.stateVersion = stateVersion;
 }
