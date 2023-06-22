@@ -128,6 +128,7 @@
         lib,
         config,
         inputs',
+        system,
         ...
       }: let
         statix' = inputs'.statix.packages.statix;
@@ -150,6 +151,8 @@
           };
         };
 
+        checks = (builtins.mapAttrs (_system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib).${system};
+
         devShells.default = pkgs.mkShell {
           buildInputs = [inputs'.agenix.packages.default statix' pkgs.deadnix];
           inputsFrom = [config.pre-commit.devShell];
@@ -166,7 +169,7 @@
             })
             (lsLib.ls ./${folder})
           )) "hosts";
-      };
+
         deploy.nodes.oracle = {
           hostname = "oracle";
           profiles.system = {
@@ -184,5 +187,6 @@
             path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.trinity;
           };
         };
+      };
     };
 }
