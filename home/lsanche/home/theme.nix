@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  isDesktop,
+  lib,
+  ...
+}: {
   stylix.targets = {
     swaylock.useImage = false;
   };
@@ -6,7 +11,7 @@
     terminal = 0.95;
   };
   gtk = {
-    enable = true;
+    enable = lib.mkDefault isDesktop;
     #theme.name = "Adwaita-dark";
     #theme.package = pkgs.gnome.gnome-themes-extra;
     iconTheme.name = "Papirus-Dark";

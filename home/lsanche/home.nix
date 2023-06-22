@@ -2,6 +2,7 @@
   stateVersion,
   inputs,
   lsLib,
+  isDesktop,
   ...
 }: let
   # deadnix: skip
@@ -12,6 +13,7 @@
         args
         // {
           inherit (inputs.nixpkgs) lib;
+          inherit isDesktop;
         };
       transformer = [
         inputs.haumea.lib.transformers.liftDefault
@@ -23,7 +25,7 @@ in {
 
   # Pass more args to "import"
   _module.args = {
-    inherit inputs lsLib;
+    inherit inputs lsLib isDesktop;
   };
   # Import all files in "home"
   imports = (lsLib.lsPaths ./home) ++ [cfg];

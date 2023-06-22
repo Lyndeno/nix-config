@@ -1,5 +1,8 @@
-{pkgs}: {
-  enable = true;
+{
+  pkgs,
+  isDesktop,
+}: {
+  enable = isDesktop;
   package = pkgs.vscodium;
   enableExtensionUpdateCheck = false;
   enableUpdateCheck = false;

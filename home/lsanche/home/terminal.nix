@@ -1,6 +1,6 @@
-{
+{isDesktop, ...}: {
   programs.alacritty = {
-    enable = true;
+    enable = isDesktop;
     # colours and font managed by stylix
     settings = {
       window = {

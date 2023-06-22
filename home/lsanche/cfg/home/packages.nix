@@ -1,28 +1,40 @@
-{pkgs}:
-with pkgs; [
-  neofetch
+{
+  pkgs,
+  lib,
+  isDesktop,
+}:
+with pkgs;
+  [
+    neofetch
+  ]
+  ++ (lib.lists.optionals isDesktop [
+    # Communication
+    signal-desktop
+    discord
+    element-desktop
+    giara
+    fractal
 
-  # Communication
-  signal-desktop
-  discord
-  element-desktop
-  giara
-  fractal
+    # Development
+    nil
+    clang-tools
+    bear
+    lldb
+    clippy
+    rustfmt
 
-  # Development
-  nil
-  clang-tools
-  bear
-  lldb
-  clippy
-  rustfmt
+    # Email
+    thunderbird
 
-  # Email
-  thunderbird
+    # media
+    spotify
+    spot
+    fragments
+    celluloid
 
-  # media
-  spotify
-  spot
-  fragments
-  celluloid
-]
+    # Office
+    libreoffice
+    kicad
+    zathura
+    imv
+  ])

@@ -1,5 +1,5 @@
-{
-  enable = true;
+{isDesktop}: {
+  enable = isDesktop;
   settings = {
     cpu_stats = true;
     gpu_stats = true;
