@@ -3,7 +3,7 @@
   config,
   lib,
 }: let
-  pubKeys = import ../../../../../home/brandt/pubKeys.nix;
+  pubKeys = import ../../../../home/brandt/pubKeys.nix;
 in {
   isNormalUser = true;
   description = "Brandt Sanche";

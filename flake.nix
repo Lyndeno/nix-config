@@ -102,11 +102,11 @@
     ];
 
     mkSystem = folder: name: let
-      system = import ./${folder}/${name}/_system.nix;
+      system = import ./${folder}/${name}/_localSystem.nix;
       # deadnix: skip
       hostCfg = {pkgs, ...} @ args:
         inputs.haumea.lib.load {
-          src = ./${folder}/${name}/cfg;
+          src = ./${folder}/${name};
           inputs = args;
           transformer = [
             inputs.haumea.lib.transformers.liftDefault
