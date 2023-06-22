@@ -1,9 +1,24 @@
 {
   config,
   inputs,
-}:
-import ../../../home/lsanche/home.nix {
-  isDesktop = config.mods.desktop.enable;
-  inherit inputs;
-  inherit (config.system) stateVersion;
-}
+}: let
+  # deadnix: skip
+  cfg = {pkgs, ...} @ args:
+    inputs.haumea.lib.load {
+      src = ../../../home/lsanche/cfg;
+      inputs =
+        args
+        // {
+          isDesktop = config.mods.desktop.enable;
+          inherit inputs;
+        };
+      transformer = [
+        inputs.haumea.lib.transformers.liftDefault
+      ];
+    };
+in
+  {osConfig, ...}: {
+    imports = [cfg];
+
+    home.stateVersion = osConfig.system.stateVersion;
+  }
