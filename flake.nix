@@ -123,7 +123,6 @@
           ++ commonModules;
         specialArgs = {
           inherit inputs lsLib;
-          hostName = name;
         };
       };
   in
