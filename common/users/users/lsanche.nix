@@ -18,7 +18,7 @@ in {
     "plugdev"
     "uaccess"
   ];
-  shell = pkgs.zsh;
+  shell = pkgs.fish;
   openssh.authorizedKeys.keys = [
     (lib.mkIf (pubKeys ? ${config.networking.hostName}) pubKeys.${config.networking.hostName})
   ];
