@@ -10,7 +10,8 @@ on:
 
 jobs:
   build-nixos:
-    continue-on-error: true
+    fail-fast: true
+    max-parallel: 1
     strategy:
       matrix:
         host: [ neo, morpheus, oracle, trinity ]
