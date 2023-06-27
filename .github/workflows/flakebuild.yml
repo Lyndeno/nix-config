@@ -1,4 +1,4 @@
-name: Check Flake
+name: Build Flake
 
 on:
   push:
