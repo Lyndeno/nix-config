@@ -12,8 +12,10 @@
   };
   settings.substituters = [
     "https://nix-community.cachix.org"
+    "https://lyndeno.cachix.org"
   ];
   settings.trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "lyndeno.cachix.org-1:SgWoC3FEiNlMvHkmGZfPtlBH6hWewaHBB1Y3ng5mMuw="
   ];
 }
