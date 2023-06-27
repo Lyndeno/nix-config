@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Nuke packages
         run: |
-          sudo rm -rf /usr/share /usr/local /opt || true
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc || true
       - name: Install Nix
         uses: cachix/install-nix-action@v22
         with:
