@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+      - name: Nuke packages
+        run: |
+          sudo rm -rf /usr/share /usr/local /opt || true
       - name: Install Nix
         uses: cachix/install-nix-action@v22
         with:
