@@ -10,11 +10,11 @@ on:
 
 jobs:
   build-nixos:
-    fail-fast: true
-    max-parallel: 1
     strategy:
       matrix:
         host: [ neo, morpheus, oracle, trinity ]
+        fail-fast: true
+        max-parallel: 1
     runs-on: ubuntu-20.04
 
     steps:
