@@ -9,7 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-flake:
+  build-nixos:
+    continue-on-error: true
+    strategy:
+      matrix:
+        host: [ neo morpheus oracle trinity ]
     runs-on: ubuntu-20.04
 
     steps:
@@ -31,4 +35,4 @@ jobs:
           DEBIAN_FRONTEND=noninteractive
           sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 qemu-efi binfmt-support qemu-user-static
       - name: Build Nix Flake
-        run: nix build .#nixosConfigurations.neo.config.system.build.toplevel
+        run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
