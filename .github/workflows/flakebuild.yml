@@ -31,4 +31,4 @@ jobs:
           DEBIAN_FRONTEND=noninteractive
           sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 qemu-efi binfmt-support qemu-user-static
       - name: Build Nix Flake
-        run: nixos-rebuild --flake .# build
+        run: nix build .#nixosConfigurations.neo.config.system.build.toplevel
