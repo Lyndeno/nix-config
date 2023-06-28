@@ -10,6 +10,7 @@ on:
 
 jobs:
   build-nixos:
+    uses: ./.github/workflows/flakecheck.yml
     strategy:
       matrix:
         host: [ neo, morpheus, oracle, trinity ]
