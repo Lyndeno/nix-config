@@ -8,6 +8,8 @@ on:
 
   workflow_call:
 
+  push:
+
 jobs:
   check-flake:
     runs-on: ubuntu-20.04
@@ -19,7 +21,7 @@ jobs:
         uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: |
-            extra-platforms = aarch64-linux arm-linux
+            extra-platforms = aarch64-linux arm-linux i686-linux
       - name: Set up cachix
         uses: cachix/cachix-action@v12
         with:
