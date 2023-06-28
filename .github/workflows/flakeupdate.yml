@@ -24,20 +24,13 @@ jobs:
           name: lyndeno
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - uses: DeterminateSystems/magic-nix-cache-action@v1
-      - name: Install binfmt tools
-        run: |
-          DEBIAN_FRONTEND=noninteractive
-          sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 qemu-efi binfmt-support qemu-user-static
       - name: Update Nix Flake Inputs
         run: nix flake update
-      - name: Check Nix Flake
-        run: nix flake check
-      - name: Commit flake.lock
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4.2.3
         with:
-          branch: master
-          commit_message: Update flake.lock
-          commit_options: '--no-verify --signoff'
-          file_pattern: flake.lock
-          skip_dirty_check: false
-          skip_fetch: true
+          base: master
+          branch: update/flake-update
+          delete-branch: true
+          commit-message: Update flake.lock
+          title: Update flake.lock
