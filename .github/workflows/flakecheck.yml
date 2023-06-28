@@ -8,6 +8,8 @@ on:
   workflow_call:
 
   push:
+    branches:
+    - master
 
 jobs:
   check-flake:
@@ -21,7 +23,6 @@ jobs:
         with:
           extra_nix_config: |
             extra-platforms = aarch64-linux arm-linux i686-linux
-      - uses: DeterminateSystems/magic-nix-cache-action@v1
       - name: Install binfmt tools
         run: |
           DEBIAN_FRONTEND=noninteractive
