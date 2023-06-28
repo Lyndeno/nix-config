@@ -1,0 +1,9 @@
+pull_request_rules:
+  - name: Automatically merge successful flake updates
+    conditions:
+      - author=Lyndeno
+      - title=Update flake.lock
+      - "check-success~=check-flake"
+    actions:
+      merge:
+        method: merge
