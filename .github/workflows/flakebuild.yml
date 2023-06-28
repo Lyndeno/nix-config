@@ -9,8 +9,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-nixos:
+  check-flake:
+    name: Check Nix Flake
     uses: ./.github/workflows/flakecheck.yml
+  
+  build-nixos:
+    name: Build NixOS Config : ${{ matrix.host }}
     strategy:
       matrix:
         host: [ neo, morpheus, oracle, trinity ]
