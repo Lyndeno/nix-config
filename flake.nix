@@ -79,7 +79,6 @@
   };
 
   outputs = inputs @ {
-    self,
     flake-parts,
     nixpkgs,
     haumea,
@@ -166,12 +165,6 @@
             })
             (lsLib.ls ./${folder})
           )) "hosts";
-
-        hydraJobs = {
-          morpheus = self.nixosConfigurations.morpheus.config.system.build.toplevel;
-          oracle = self.nixosConfigurations.oracle.config.system.build.toplevel;
-          neo = self.nixosConfigurations.neo.config.system.build.toplevel;
-        };
       };
     };
 }
