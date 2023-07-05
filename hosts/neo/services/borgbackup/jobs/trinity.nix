@@ -11,7 +11,7 @@ with config.age.secrets; {
   };
   environment.BORG_RSH = "ssh -i ${id_trinity_borg.path}";
   compression = "auto,zstd,10";
-  startAt = "hourly";
+  startAt = "weekly";
   prune = {
     keep = {
       within = "3d";
