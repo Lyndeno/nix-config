@@ -6,7 +6,6 @@
     ])
     ++ (with pkgs.gnome; [
       gnome-music
-      gedit
       epiphany
       gnome-characters
       gnome-maps
