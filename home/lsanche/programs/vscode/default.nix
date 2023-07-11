@@ -20,6 +20,8 @@
     llvm-vs-code-extensions.vscode-clangd
     mkhl.direnv
     vadimcn.vscode-lldb
+    dart-code.dart-code
+    dart-code.flutter
   ];
   userSettings = {
     git = {
