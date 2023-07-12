@@ -22,6 +22,8 @@
     vadimcn.vscode-lldb
     dart-code.dart-code
     dart-code.flutter
+    github.vscode-pull-request-github
+    github.vscode-github-actions
   ];
   userSettings = {
     git = {
