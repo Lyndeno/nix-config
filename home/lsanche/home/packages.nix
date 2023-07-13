@@ -13,7 +13,9 @@ with pkgs;
     discord
     element-desktop
     giara
-    fractal
+    fractal-next
+    flare-signal
+    health
 
     # Development
     nil
