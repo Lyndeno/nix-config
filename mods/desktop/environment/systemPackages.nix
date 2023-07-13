@@ -7,6 +7,8 @@ with pkgs;
     gnome-firmware
 
     ettercap
+    ethtool
+    bettercap
   ]
   ++ (with gnomeExtensions; [
     appindicator

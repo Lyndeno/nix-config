@@ -1,0 +1,3 @@
+{
+  style = "adwaita-dark";
+}
