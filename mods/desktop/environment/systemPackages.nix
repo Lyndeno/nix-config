@@ -5,6 +5,8 @@ with pkgs;
     brightnessctl # for brightness control
     gnome.gnome-tweaks
     gnome-firmware
+
+    ettercap
   ]
   ++ (with gnomeExtensions; [
     appindicator
