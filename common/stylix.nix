@@ -10,6 +10,9 @@ in {
     grub.enable = false;
     plymouth.enable = false;
     console.enable = false;
+    gtk.enable = false;
+    gnome.enable = false;
+    #kde.enable = false;
   };
   fonts = let
     cascadia = pkgs.nerdfonts.override {fonts = ["CascadiaCode"];};

@@ -10,5 +10,8 @@
     screen
     inputs.cfetch.packages.${system}.default
     inputs.ironfetch.packages.${system}.default
+
+    ettercap
+    ethtool
   ];
 }

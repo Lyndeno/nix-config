@@ -33,7 +33,7 @@ with pkgs;
     celluloid
 
     # Office
-    libreoffice
+    libreoffice-qt
     kicad
     zathura
     imv

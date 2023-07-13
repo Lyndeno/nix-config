@@ -3,13 +3,22 @@ with pkgs;
   [
     wally-cli # for moonlander
     brightnessctl # for brightness control
-    gnome.gnome-tweaks
-    gnome-firmware
   ]
-  ++ (with gnomeExtensions; [
-    appindicator
-    #dash-to-panel
-    dash-to-dock
-    tailscale-status
-    caffeine
+  ++ (with plasma5Packages; [
+    kmail
+    kmail-account-wizard
+    kmailtransport
+    kalendar
+    kaddressbook
+    accounts-qt
+    kdepim-runtime
+    kdepim-addons
+    ark
+    okular
+    filelight
+    partition-manager
+    plasma-integration
+    plasma-browser-integration
+    kaccounts-integration
+    kaccounts-providers
   ])
