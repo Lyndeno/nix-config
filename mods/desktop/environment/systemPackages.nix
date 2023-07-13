@@ -9,6 +9,8 @@ with pkgs;
     ettercap
     ethtool
     bettercap
+
+    kdiskmark
   ]
   ++ (with gnomeExtensions; [
     appindicator
