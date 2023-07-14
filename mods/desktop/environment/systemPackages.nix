@@ -18,4 +18,7 @@ with pkgs;
     dash-to-dock
     tailscale-status
     caffeine
+    dash-to-panel
+    just-perfection
+    blur-my-shell
   ])

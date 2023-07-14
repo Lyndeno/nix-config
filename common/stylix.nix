@@ -1,30 +1,11 @@
-{
-  inputs,
-  pkgs,
-}: let
-  base16Scheme = "${inputs.base16-schemes}/atelier-dune.yaml";
+{inputs}: let
+  base16Scheme = "${inputs.base16-schemes}/gruvbox-dark-hard.yaml";
 in {
-  image = "${inputs.wallpapers}/starry.jpg";
+  image = "${inputs.wallpapers}/sedona.jpg";
   inherit base16Scheme;
   targets = {
     grub.enable = false;
     plymouth.enable = false;
     console.enable = false;
-  };
-  fonts = let
-    cascadia = pkgs.nerdfonts.override {fonts = ["CascadiaCode"];};
-  in {
-    serif = {
-      package = cascadia;
-      name = "CaskaydiaCove Nerd Font";
-    };
-    sansSerif = {
-      package = cascadia;
-      name = "CaskaydiaCove Nerd Font";
-    };
-    monospace = {
-      package = cascadia;
-      name = "CaskaydiaCove Nerd Font Mono";
-    };
   };
 }

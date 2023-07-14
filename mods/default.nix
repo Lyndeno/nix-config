@@ -38,7 +38,7 @@ in {
   config = lib.mkMerge (
     map
     (
-      x: lib.mkIf config.mods.${x}.enable ((getMod x) {inherit pkgs config;})
+      x: lib.mkIf config.mods.${x}.enable ((getMod x) {inherit pkgs config inputs;})
     )
     modNames
   );
