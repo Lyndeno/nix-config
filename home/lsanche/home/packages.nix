@@ -24,6 +24,7 @@ with pkgs;
     lldb
     clippy
     rustfmt
+    octaveFull
 
     # Email
     thunderbird
@@ -33,6 +34,8 @@ with pkgs;
     spot
     fragments
     celluloid
+    inkscape
+    gimp
 
     # Office
     libreoffice

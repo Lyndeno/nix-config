@@ -54,7 +54,6 @@
 
     statix = {
       url = "github:nerdypepper/statix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -79,7 +78,6 @@
 
     apple-fonts = {
       url = "github:Lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
