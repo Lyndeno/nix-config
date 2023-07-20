@@ -6,6 +6,7 @@
 with pkgs;
   [
     neofetch
+    nix-output-monitor
   ]
   ++ (lib.lists.optionals isDesktop [
     # Communication
