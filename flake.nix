@@ -54,6 +54,7 @@
 
     statix = {
       url = "github:nerdypepper/statix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -62,7 +63,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -77,6 +78,8 @@
     };
 
     apple-fonts = {
+      # Do not follow nixpkgs as it takes forever to build each time
+      # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
     };
   };
