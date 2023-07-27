@@ -43,4 +43,5 @@ with pkgs;
     kicad
     zathura
     imv
+    denaro
   ])
