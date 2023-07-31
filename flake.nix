@@ -82,11 +82,6 @@
       # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
     };
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {
