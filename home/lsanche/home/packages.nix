@@ -18,6 +18,8 @@ with pkgs;
     flare-signal
     health
 
+    newsflash
+
     # Development
     nil
     clang-tools
