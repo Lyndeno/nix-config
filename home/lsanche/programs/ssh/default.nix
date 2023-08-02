@@ -12,6 +12,7 @@
   # hitting the limit before finding the right key.
   matchBlocks = let
     keys = super.pubKeys;
+    gitKeys = super.gitKeys;
   in
     (builtins.mapAttrs (name: value: {
         hostname = name;
@@ -33,6 +34,20 @@
         hostname = "ssh.github.com";
         port = 443;
         user = "git";
+        identitiesOnly = true;
+        identityFile = "${(pkgs.writeText "github.pub" ''
+          ${gitKeys.github}
+        '')}";
+      };
+
+      "gitlab.com" = {
+        hostname = "altssh.gitlab.com";
+        port = 443;
+        user = "git";
+        identitiesOnly = true;
+        identityFile = "${(pkgs.writeText "gitlab.pub" ''
+          ${gitKeys.gitlab}
+        '')}";
       };
     };
 }
