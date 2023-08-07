@@ -17,7 +17,8 @@ with pkgs;
     appindicator
     #dash-to-panel
     dash-to-dock
-    tailscale-status
+    #tailscale-status
+    tailscale-qs
     caffeine
     dash-to-panel
     just-perfection
