@@ -12,7 +12,7 @@
   # hitting the limit before finding the right key.
   matchBlocks = let
     keys = super.pubKeys;
-    gitKeys = super.gitKeys;
+    inherit (super) gitKeys;
   in
     (builtins.mapAttrs (name: value: {
         hostname = name;
