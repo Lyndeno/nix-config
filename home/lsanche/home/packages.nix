@@ -30,7 +30,7 @@ with pkgs;
     octaveFull
 
     # Email
-    thunderbird
+    #thunderbird
 
     # media
     spotify
