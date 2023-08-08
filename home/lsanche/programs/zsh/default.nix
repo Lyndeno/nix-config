@@ -2,7 +2,7 @@
   enable = true;
   enableAutosuggestions = true;
   enableCompletion = true;
-  enableSyntaxHighlighting = true; # seems this is a new addition
+  syntaxHighlighting.enable = true; # seems this is a new addition
   history = {
     path = "$HOME/.cache/zsh/histfile";
   };
