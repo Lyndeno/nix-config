@@ -6,6 +6,7 @@ with pkgs;
     gnome.gnome-tweaks
     gnome-firmware
     mission-center
+    brasero
 
     ettercap
     ethtool
