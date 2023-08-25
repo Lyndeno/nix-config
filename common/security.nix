@@ -7,6 +7,6 @@
       enable = true;
       cue = true;
     };
-    enableSSHAgentAuth = true;
+    #enableSSHAgentAuth = true;
   };
 }
