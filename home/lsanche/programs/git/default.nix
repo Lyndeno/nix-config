@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  isDesktop,
-}: {
+{isDesktop}: {
   enable = true;
   userName = "Lyndon Sanche";
   userEmail = "lsanche@lyndeno.ca";
@@ -11,8 +7,8 @@
   signing.signByDefault = isDesktop;
   extraConfig = {
     pull.rebase = false;
-    gpg.format = lib.mkIf isDesktop "ssh";
-    "gpg \"ssh\"".program = lib.mkIf isDesktop "${pkgs._1password-gui}/share/1password/op-ssh-sign";
+    gpg.format = "ssh";
+    #"gpg \"ssh\"".program = lib.mkIf isDesktop "${pkgs._1password-gui}/share/1password/op-ssh-sign";
   };
   ignores = [
     "result"
