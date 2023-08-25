@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  isDesktop,
   super,
 }: {
   enable = true;
@@ -24,12 +22,6 @@
       })
       keys)
     // {
-      "* !*.repo.borgbase.com" = lib.mkIf isDesktop {
-        extraOptions = {
-          "IdentityAgent" = "~/.1password/agent.sock"; # 1password **should** exist if desktop is enabled
-        };
-      };
-
       "github.com" = {
         hostname = "ssh.github.com";
         port = 443;
