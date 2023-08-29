@@ -3,7 +3,7 @@
   pkgs,
 }: {
   # See Arch wiki bug bugs.archlinux.org/task/79439
-  blacklistedKernelModules = builtins.trace "Temporary fix for laptop" [
+  blacklistedKernelModules = lib.warn "Temporary fix for laptop" [
     "rtsx_pci"
     "rtsx_pci_sdmmc"
   ];
