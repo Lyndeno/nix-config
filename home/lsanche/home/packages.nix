@@ -14,8 +14,8 @@ with pkgs;
     discord
     element-desktop
     giara
-    fractal-next
-    flare-signal
+    #fractal-next
+    #flare-signal
     health
 
     newsflash
