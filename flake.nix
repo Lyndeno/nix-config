@@ -54,11 +54,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    statix = {
-      url = "github:nerdypepper/statix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -136,13 +131,10 @@
       ];
       perSystem = {
         pkgs,
-        lib,
         config,
         inputs',
         ...
-      }: let
-        statix' = inputs'.statix.packages.statix;
-      in {
+      }: {
         formatter = pkgs.alejandra;
 
         pre-commit = {
@@ -154,15 +146,11 @@
               statix.enable = true;
               deadnix.enable = true;
             };
-            tools = {
-              # Current version (0.5.6) incorrectly reports syntax errors in ./common/users.nix
-              statix = lib.mkForce statix';
-            };
           };
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = [inputs'.agenix.packages.default statix' pkgs.deadnix];
+          buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
           inputsFrom = [config.pre-commit.devShell];
         };
       };
