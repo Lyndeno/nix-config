@@ -7,6 +7,7 @@
     "rtsx_pci"
     "rtsx_pci_sdmmc"
   ];
+  swraid.enable = false;
   loader = {
     systemd-boot.enable = lib.mkForce false;
     grub.enable = lib.mkForce false;
