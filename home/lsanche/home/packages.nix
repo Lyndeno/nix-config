@@ -7,6 +7,7 @@ with pkgs;
   [
     neofetch
     nix-output-monitor
+    ocrmypdf
   ]
   ++ (lib.lists.optionals isDesktop [
     # Communication
