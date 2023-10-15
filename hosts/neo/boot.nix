@@ -1,7 +1,4 @@
-{
-  lib,
-  pkgs,
-}: {
+{lib}: {
   # See Arch wiki bug bugs.archlinux.org/task/79439
   blacklistedKernelModules = lib.warn "Temporary fix for laptop" [
     "rtsx_pci"
@@ -44,7 +41,7 @@
     "coretemp" # sensors-detect for Intel temperature
   ];
   consoleLogLevel = 3;
-  kernelPackages = pkgs.linuxPackages_latest;
+  #kernelPackages = pkgs.linuxPackages_latest;
 
   binfmt.emulatedSystems = ["aarch64-linux"];
 }
