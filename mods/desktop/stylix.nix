@@ -2,6 +2,7 @@
   pkgs,
   inputs,
 }: {
+  polarity = "dark";
   fonts = let
     cascadia = pkgs.nerdfonts.override {fonts = ["CascadiaCode"];};
   in {
