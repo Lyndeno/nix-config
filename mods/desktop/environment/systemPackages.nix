@@ -24,4 +24,5 @@ with pkgs;
     dash-to-panel
     just-perfection
     blur-my-shell
+    media-controls
   ])
