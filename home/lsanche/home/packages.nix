@@ -11,13 +11,13 @@ with pkgs;
   ]
   ++ (lib.lists.optionals isDesktop [
     # Communication
-    signal-desktop
+    #signal-desktop
     discord
-    element-desktop
+    #element-desktop
     giara
+    fractal
     #fractal-next
     #flare-signal
-    health
 
     newsflash
 
@@ -35,7 +35,7 @@ with pkgs;
 
     # media
     spotify
-    spot
+    #spot
     fragments
     celluloid
     inkscape
