@@ -5,14 +5,12 @@ _: {
         type = "disk";
         device = "/dev/nvme0n1";
         content = {
-          type = "table";
-          format = "gpt";
-          partitions = [
-            {
-              name = "ESP";
-              start = "1MiB";
-              end = "2GiB";
-              bootable = true;
+          type = "gpt";
+          partitions = {
+            ESP = {
+              type = "EF00";
+              size = "2G";
+              label = "ESP";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -21,11 +19,10 @@ _: {
                   "defaults"
                 ];
               };
-            }
-            {
-              name = "luks";
-              start = "2GiB";
-              end = "100%";
+            };
+            luks = {
+              size = "100%";
+              label = "luks";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -35,8 +32,8 @@ _: {
                   vg = "nixpool";
                 };
               };
-            }
-          ];
+            };
+          };
         };
       };
     };
