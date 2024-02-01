@@ -10,7 +10,6 @@ _: {
             ESP = {
               type = "EF00";
               size = "2G";
-              label = "ESP";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -22,11 +21,12 @@ _: {
             };
             luks = {
               size = "100%";
-              label = "luks";
               content = {
                 type = "luks";
                 name = "crypted";
-                extraOpenArgs = ["--allow-discards"];
+                settings = {
+                  allowDiscards = true;
+                };
                 content = {
                   type = "lvm_pv";
                   vg = "nixpool";
@@ -41,40 +41,26 @@ _: {
       nixpool = {
         type = "lvm_vg";
         lvs = {
+          nixswap = {
+            size = "64G";
+            content = {
+              type = "swap";
+            };
+          };
           nixroot = {
             size = "100%FREE";
             content = {
-              type = "btrfs";
-              extraArgs = ["-f"];
-              subvolumes = {
-                "@nix" = {
-                  mountpoint = "/nix";
-                  mountOptions = ["compress=zstd" "noatime"];
-                };
-                #"@nixos" = { mountpoint = null; };
-                "@nixos/root" = {
-                  mountpoint = "/";
-                  mountOptions = ["compress=zstd" "noatime"];
-                };
-                "@nixos/home" = {
-                  mountpoint = "/home";
-                  mountOptions = ["compress=zstd" "noatime"];
-                };
-                #"@nixos/var" = { mountpoint = null; };
-                "@nixos/var/log" = {
-                  mountpoint = "/var/log";
-                  mountOptions = ["compress=zstd" "noatime"];
-                };
-                "@nixos/var/lib" = {
-                  mountpoint = "/var/lib";
-                  mountOptions = ["compress=zstd" "noatime"];
-                };
-              };
+              type = "filesystem";
+              format = "xfs";
+              mountpoint = "/";
+              mountOptions = [
+                "defaults"
+              ];
             };
           };
         };
       };
     };
   };
-  boot.initrd.luks.devices.crypted.allowDiscards = true;
+  #boot.initrd.luks.devices.crypted.allowDiscards = true;
 }
