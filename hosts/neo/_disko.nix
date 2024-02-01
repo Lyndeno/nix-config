@@ -25,6 +25,7 @@ _: {
                 type = "luks";
                 name = "crypted";
                 settings = {
+                  preLVM = true;
                   allowDiscards = true;
                 };
                 content = {
@@ -45,6 +46,7 @@ _: {
             size = "64G";
             content = {
               type = "swap";
+              resumeDevice = true;
             };
           };
           nixroot = {
@@ -62,5 +64,4 @@ _: {
       };
     };
   };
-  #boot.initrd.luks.devices.crypted.allowDiscards = true;
 }

@@ -9,8 +9,6 @@
 
   security.tpm2.enable = true;
 
-  zramSwap.enable = true;
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   networking = {
