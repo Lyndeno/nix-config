@@ -40,6 +40,7 @@ with pkgs;
     celluloid
     inkscape
     gimp
+    darktable
 
     # Office
     libreoffice
