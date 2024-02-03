@@ -24,4 +24,6 @@ with pkgs;
     just-perfection
     blur-my-shell
     media-controls
+    vitals
+    battery-health-charging
   ])
