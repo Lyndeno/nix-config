@@ -1,9 +1,13 @@
-{pkgs}:
+{
+  pkgs,
+  inputs,
+}:
 with pkgs;
   [
     wally-cli # for moonlander
     brightnessctl # for brightness control
     gnome.gnome-tweaks
+    inputs.bbase.packages.${system}.default
     gnome-firmware
     mission-center
 

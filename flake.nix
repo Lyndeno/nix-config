@@ -22,6 +22,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    bbase = {
+      url = "github:Lyndeno/bbase-client/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     site = {
       url = "github:Lyndeno/website-hugo";
       inputs.nixpkgs.follows = "nixpkgs";
