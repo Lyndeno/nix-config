@@ -24,6 +24,10 @@
     dart-code.flutter
     github.vscode-pull-request-github
     github.vscode-github-actions
+    redhat.vscode-xml
+    graphql.vscode-graphql
+    graphql.vscode-graphql-syntax
+    tamasfe.even-better-toml
   ];
   userSettings = {
     git = {
