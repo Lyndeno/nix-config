@@ -2,6 +2,7 @@
   pkgs,
   lib,
   isDesktop,
+  inputs,
 }:
 with pkgs;
   [
@@ -29,9 +30,11 @@ with pkgs;
     clippy
     rustfmt
     octaveFull
+    inputs.bbase.packages.${system}.default
 
     # Email
     #thunderbird
+    wally-cli # for moonlander
 
     # media
     spotify
@@ -41,6 +44,7 @@ with pkgs;
     inkscape
     gimp
     darktable
+    kdiskmark
 
     # Office
     libreoffice
