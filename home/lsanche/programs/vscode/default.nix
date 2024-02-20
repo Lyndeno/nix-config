@@ -1,6 +1,7 @@
 {
   pkgs,
   isDesktop,
+  inputs,
 }: {
   enable = isDesktop;
   package = pkgs.vscodium;
@@ -28,6 +29,7 @@
     graphql.vscode-graphql
     graphql.vscode-graphql-syntax
     tamasfe.even-better-toml
+    inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace.bodil.blueprint-gtk
   ];
   userSettings = {
     git = {

@@ -88,6 +88,13 @@
       # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
     };
+
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = inputs @ {
