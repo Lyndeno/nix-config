@@ -62,8 +62,13 @@
       serverPath = "nil";
       serverSettings = {
         nil = {
+          maxMemoryMB = null;
           formatting = {
             command = ["nix" "fmt" "--" "--quiet" "-"];
+          };
+          flake = {
+            autoArchive = true;
+            autoEvalInputs = true;
           };
         };
       };
