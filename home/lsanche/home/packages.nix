@@ -2,6 +2,8 @@
   pkgs,
   lib,
   isDesktop,
+  isGnome,
+  isPlasma,
   inputs,
 }:
 with pkgs;
@@ -15,12 +17,6 @@ with pkgs;
     #signal-desktop
     discord
     #element-desktop
-    giara
-    fractal
-    #fractal-next
-    #flare-signal
-
-    newsflash
 
     # Development
     nil
@@ -38,18 +34,31 @@ with pkgs;
 
     # media
     spotify
-    #spot
-    fragments
-    celluloid
     inkscape
     gimp
     darktable
     kdiskmark
 
     # Office
-    libreoffice
     kicad
-    zathura
-    imv
+    #zathura
+    #imv
+  ])
+  ++ (lib.lists.optionals isGnome [
+    libreoffice
     denaro
+
+    #spot
+    fragments
+    celluloid
+
+    giara
+    fractal
+    #fractal-next
+    #flare-signal
+
+    newsflash
+  ])
+  ++ (lib.lists.optionals isPlasma [
+    libreoffice-qt
   ])

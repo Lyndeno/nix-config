@@ -3,4 +3,5 @@
   virtualisation.enable = true;
   gaming.enable = true;
   desktop.enable = true;
+  plasma.enable = true;
 }
