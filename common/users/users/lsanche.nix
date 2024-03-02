@@ -8,6 +8,7 @@ in {
   isNormalUser = true;
   description = "Lyndon Sanche";
   uid = 1000;
+  initialPassword = "test";
   extraGroups = [
     "wheel"
     "media"

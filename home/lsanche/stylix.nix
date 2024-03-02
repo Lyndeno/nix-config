@@ -1,8 +1,8 @@
-{
+{isGnome}: {
   targets = {
     swaylock.useImage = false;
     kde.enable = false;
-    gtk.enable = false;
+    gtk.enable = isGnome;
     firefox.profileNames = ["lsanche"];
   };
   opacity = {
