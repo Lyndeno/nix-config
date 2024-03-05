@@ -1,7 +1,7 @@
 {
   enable = true;
   address = "0.0.0.0";
-  extraConfig = {
+  settings = {
     PAPERLESS_DBHOST = "/run/postgresql";
   };
 }
