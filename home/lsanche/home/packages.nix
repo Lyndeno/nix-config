@@ -16,6 +16,7 @@ with pkgs;
     # Communication
     #signal-desktop
     discord
+    slack
     #element-desktop
 
     # Development
