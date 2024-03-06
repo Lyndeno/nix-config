@@ -1,22 +1,34 @@
-{
-  lib,
-  pkgs,
-}: {
-  # Set your time zone.
-  time.timeZone = "America/Edmonton";
-  users.users.lsanche.createHome = true;
-  programs.dconf.enable = true;
+{inputs}: let
+  # deadnix: skip
+  loadFolder = folder: ({pkgs, ...} @ args:
+    inputs.haumea.lib.load {
+      src = folder;
+      inputs = args;
+      transformer = inputs.haumea.lib.transformers.liftDefault;
+    });
 
-  security.tpm2.enable = true;
-
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-
-  networking = {
-    networkmanager.enable = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    libsmbios # For fan control
-    sbctl
+  hostCommon = loadFolder ./_common;
+  common = loadFolder ../../common;
+in {
+  imports = [
+    inputs.nixos-hardware.nixosModules.dell-xps-15-9560-intel
+    hostCommon
   ];
+
+  specialisation.nvidia = {
+    inheritParentConfig = false;
+    configuration = {
+      imports = [
+        inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
+        hostCommon
+        # this is not automatically imported since we do not inherit base config
+        common
+        {
+          services.switcherooControl.enable = true;
+          hardware.nvidia.modesetting.enable = true;
+          networking.hostName = "neo";
+        }
+      ];
+    };
+  };
 }
