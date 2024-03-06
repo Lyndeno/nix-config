@@ -40,6 +40,7 @@
     window = {
       menuBarVisibility = "toggle";
       titleBarStyle = "native";
+      #autoDetectColorScheme = true;
     };
     diffEditor.renderSideBySide = true;
     workbench = {
