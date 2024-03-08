@@ -1,23 +1,9 @@
 {
-  lib,
-  haumea,
   modFolder,
   lsLib,
+  loadFolder,
 }: let
   modNames = lsLib.lsDirs modFolder;
-
-  getMod = name: ({
-      # deadnix: skip
-      pkgs,
-      # deadnix: skip
-      config,
-      ...
-    } @ args:
-      haumea.lib.load {
-        src = modFolder + "/${name}";
-        inputs = args;
-        transformer = haumea.lib.transformers.liftDefault;
-      });
 in
   {
     config,
@@ -41,7 +27,7 @@ in
     config = lib.mkMerge (
       map
       (
-        x: lib.mkIf config.mods.${x}.enable ((getMod x) args)
+        x: lib.mkIf config.mods.${x}.enable ((loadFolder (modFolder + "/${x}")) args)
       )
       modNames
     );

@@ -3,21 +3,19 @@
   lsLib,
   lib,
 }: let
-  # deadnix: skip
-  loadFolder = folder: ({pkgs, ...} @ args:
-    inputs.haumea.lib.load {
-      src = folder;
-      inputs = args;
-      transformer = inputs.haumea.lib.transformers.liftDefault;
-    });
+  multinix = import ../../multinix {
+    haumea = inputs.haumea;
+    inherit lib lsLib;
+  };
+
+  inherit (multinix) loadFolder;
 
   hostCommon = loadFolder ./_common;
   common = loadFolder ../../common;
 
   # FIXME: This is a hack
   mods = import ../../multinix/modules.nix {
-    inherit lsLib lib;
-    haumea = inputs.haumea;
+    inherit lsLib loadFolder;
     modFolder = ../../mods;
   };
 in {
