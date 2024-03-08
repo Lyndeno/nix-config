@@ -10,10 +10,13 @@
       inputs = args;
       transformer = haumea.lib.transformers.liftDefault;
     });
+
+  mods = modFolder: import ./modules.nix {inherit lsLib lib haumea modFolder;};
 in rec {
   mkSystem = {
     hostFolder,
     commonFolder,
+    modFolder,
     name,
     specialArgs ? {},
   }: let
@@ -26,6 +29,7 @@ in rec {
       modules = [
         hostCfg
         (loadCfg commonFolder)
+        (mods modFolder)
         {networking.hostName = name;}
       ];
       inherit specialArgs;
@@ -34,6 +38,7 @@ in rec {
   makeNixos = {
     hostFolder,
     commonFolder,
+    modFolder,
     specialArgs ? {},
   }:
     builtins.listToAttrs
@@ -42,7 +47,7 @@ in rec {
       (x: {
         name = x;
         value = mkSystem {
-          inherit hostFolder commonFolder specialArgs;
+          inherit hostFolder commonFolder modFolder specialArgs;
           name = x;
         };
       })

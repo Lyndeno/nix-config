@@ -1,4 +1,8 @@
-{inputs}: let
+{
+  inputs,
+  lsLib,
+  lib,
+}: let
   # deadnix: skip
   loadFolder = folder: ({pkgs, ...} @ args:
     inputs.haumea.lib.load {
@@ -9,6 +13,13 @@
 
   hostCommon = loadFolder ./_common;
   common = loadFolder ../../common;
+
+  # FIXME: This is a hack
+  mods = import ../../multinix/modules.nix {
+    inherit lsLib lib;
+    haumea = inputs.haumea;
+    modFolder = ../../mods;
+  };
 in {
   imports = [
     inputs.nixos-hardware.nixosModules.dell-xps-15-9560-intel
@@ -21,6 +32,7 @@ in {
       imports = [
         inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
         hostCommon
+        mods
         # this is not automatically imported since we do not inherit base config
         common
         {

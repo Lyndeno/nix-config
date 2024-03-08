@@ -144,6 +144,7 @@
         nixosConfigurations = multinix.makeNixos {
           hostFolder = ./hosts;
           commonFolder = ./common;
+          modFolder = ./mods;
           specialArgs = {inherit inputs lsLib;};
         };
       };
