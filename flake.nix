@@ -105,33 +105,7 @@
   }: let
     inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
-
-    # deadnix: skip
-    loadCfg = folder: ({pkgs, ...} @ args:
-      haumea.lib.load {
-        src = folder;
-        inputs = args;
-        transformer = haumea.lib.transformers.liftDefault;
-      });
-
-    common = loadCfg ./common;
-
-    mkSystem = folder: name: let
-      system = import ./${folder}/${name}/_localSystem.nix;
-
-      hostCfg = loadCfg ./${folder}/${name};
-    in
-      lib.nixosSystem {
-        inherit system;
-        modules = [
-          hostCfg
-          common
-          {networking.hostName = name;}
-        ];
-        specialArgs = {
-          inherit inputs lsLib;
-        };
-      };
+    multinix = import ./multinix {inherit lib lsLib haumea;};
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
@@ -167,16 +141,11 @@
         };
       };
       flake = {
-        nixosConfigurations = (folder:
-          builtins.listToAttrs
-          (
-            map
-            (x: {
-              name = x;
-              value = mkSystem folder x;
-            })
-            (lsLib.ls ./${folder})
-          )) "hosts";
+        nixosConfigurations = multinix.makeNixos {
+          hostFolder = ./hosts;
+          commonFolder = ./common;
+          specialArgs = {inherit inputs lsLib;};
+        };
       };
     };
 }
