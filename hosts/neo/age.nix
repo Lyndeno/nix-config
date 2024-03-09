@@ -1,9 +1,9 @@
-{
-  secrets = {
-    id_borgbase.file = ../../secrets/id_borgbase.age;
-    pass_borgbase.file = ../../secrets/neo/pass_borgbase.age;
+{secrets}: {
+  secrets = with secrets; {
+    id_borgbase.file = id_borgbase;
+    pass_borgbase.file = neo.pass_borgbase;
 
-    id_trinity_borg.file = ../../secrets/neo/id_trinity_borg.age;
-    pass_trinity_borg.file = ../../secrets/neo/pass_trinity_borg.age;
+    id_trinity_borg.file = neo.id_trinity_borg;
+    pass_trinity_borg.file = neo.pass_trinity_borg;
   };
 }

@@ -106,6 +106,13 @@
     inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
     multinix = import ./multinix {inherit lib haumea;};
+
+    secrets = haumea.lib.load {
+      src = ./secrets;
+      loader = [
+        (haumea.lib.matchers.extension "age" haumea.lib.loaders.path)
+      ];
+    };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
@@ -145,7 +152,7 @@
           hostFolder = ./hosts;
           commonFolder = ./common;
           modFolder = ./mods;
-          specialArgs = {inherit inputs lsLib;};
+          specialArgs = {inherit inputs lsLib secrets;};
         };
       };
     };
