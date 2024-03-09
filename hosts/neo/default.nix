@@ -1,27 +1,23 @@
 {
-  inputs,
-  super,
-}: let
-  hostCommon = super.common;
-  intelModule = "${inputs.nixos-hardware}/dell/xps/15-9560/intel";
-in {
-  imports = [
-    intelModule
-    hostCommon
-  ];
+  lib,
+  pkgs,
+}: {
+  # Set your time zone.
+  time.timeZone = "America/Edmonton";
+  users.users.lsanche.createHome = true;
+  programs.dconf.enable = true;
 
-  specialisation.nvidia = {
-    configuration = {
-      imports = [
-        inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
-      ];
+  security.tpm2.enable = true;
 
-      disabledModules = [
-        intelModule
-      ];
-      services.switcherooControl.enable = true;
-      hardware.nvidia.modesetting.enable = true;
-      networking.hostName = "neo";
-    };
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  networking = {
+    networkmanager.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    libsmbios # For fan control
+    sbctl
+    gnome-network-displays
+  ];
 }
