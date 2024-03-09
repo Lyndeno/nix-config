@@ -4,7 +4,7 @@
   lib,
 }: let
   multinix = import ../../multinix {
-    haumea = inputs.haumea;
+    inherit (inputs) haumea;
     inherit lib lsLib;
   };
 
