@@ -15,7 +15,7 @@
   mods = modFolder: import ./modules.nix {inherit lib modFolder loadFolder;};
 in rec {
   inherit loadFolder;
-  mkSystem = {
+  makeNixosSystem = {
     hostFolder,
     commonFolder,
     modFolder,
@@ -27,31 +27,25 @@ in rec {
     hostCfg = loadFolder (hostFolder + "/${name}");
   in
     lib.nixosSystem {
-      inherit system;
+      inherit system specialArgs;
       modules = [
         hostCfg
         (loadFolder commonFolder)
         (mods modFolder)
         {networking.hostName = name;}
       ];
-      inherit specialArgs;
     };
 
-  makeNixos = {
-    hostFolder,
-    commonFolder,
-    modFolder,
-    specialArgs ? {},
-  }:
+  makeNixosSystems = {hostFolder, ...} @ args:
     builtins.listToAttrs
     (
       map
-      (x: {
-        name = x;
-        value = mkSystem {
-          inherit hostFolder commonFolder modFolder specialArgs;
-          name = x;
-        };
+      (name: {
+        inherit name;
+        value = makeNixosSystem (args
+          // {
+            inherit name;
+          });
       })
       (ls hostFolder)
     );

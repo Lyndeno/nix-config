@@ -141,7 +141,7 @@
         };
       };
       flake = {
-        nixosConfigurations = multinix.makeNixos {
+        nixosConfigurations = multinix.makeNixosSystems {
           hostFolder = ./hosts;
           commonFolder = ./common;
           modFolder = ./mods;
