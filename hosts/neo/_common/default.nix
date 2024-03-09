@@ -18,5 +18,6 @@
   environment.systemPackages = with pkgs; [
     libsmbios # For fan control
     sbctl
+    gnome-network-displays
   ];
 }
