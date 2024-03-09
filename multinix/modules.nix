@@ -1,9 +1,10 @@
 {
   modFolder,
-  lsLib,
   loadFolder,
+  lib,
 }: let
-  modNames = lsLib.lsDirs modFolder;
+  lsDirs = folder: (builtins.attrNames (lib.filterAttrs (_n: v: v == "directory") (builtins.readDir folder)));
+  modNames = lsDirs modFolder;
 in
   {
     config,

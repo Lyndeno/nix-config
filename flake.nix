@@ -105,7 +105,7 @@
   }: let
     inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
-    multinix = import ./multinix {inherit lib lsLib haumea;};
+    multinix = import ./multinix {inherit lib haumea;};
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [

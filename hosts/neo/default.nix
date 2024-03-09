@@ -1,11 +1,10 @@
 {
   inputs,
-  lsLib,
   lib,
 }: let
   multinix = import ../../multinix {
     inherit (inputs) haumea;
-    inherit lib lsLib;
+    inherit lib;
   };
 
   inherit (multinix) loadFolder;
@@ -15,7 +14,7 @@
 
   # FIXME: This is a hack
   mods = import ../../multinix/modules.nix {
-    inherit lsLib loadFolder;
+    inherit loadFolder lib;
     modFolder = ../../mods;
   };
 in {

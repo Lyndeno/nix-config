@@ -1,7 +1,6 @@
 {
   haumea,
   lib,
-  lsLib,
 }: let
   # deadnix: skip
   loadFolder = folder: ({pkgs, ...} @ args:
@@ -11,7 +10,9 @@
       transformer = haumea.lib.transformers.liftDefault;
     });
 
-  mods = modFolder: import ./modules.nix {inherit lsLib modFolder loadFolder;};
+  ls = folder: (builtins.attrNames (builtins.readDir folder));
+
+  mods = modFolder: import ./modules.nix {inherit lib modFolder loadFolder;};
 in rec {
   inherit loadFolder;
   mkSystem = {
@@ -52,6 +53,6 @@ in rec {
           name = x;
         };
       })
-      (lsLib.ls hostFolder)
+      (ls hostFolder)
     );
 }
