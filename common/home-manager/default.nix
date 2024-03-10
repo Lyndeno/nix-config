@@ -2,6 +2,7 @@
   config,
   inputs,
   pubKeys,
+  homes,
 }: {
   useGlobalPkgs = true;
   useUserPackages = true;
@@ -11,4 +12,6 @@
     isGnome = config.mods.gnome.enable;
     inherit inputs pubKeys;
   };
+
+  users.lsanche = homes.lsanche;
 }
