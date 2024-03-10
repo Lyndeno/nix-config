@@ -2,8 +2,9 @@
   pkgs,
   config,
   lib,
+  pubKeys,
 }: let
-  pubKeys = import ../../../../home/brandt/pubKeys.nix;
+  keys = pubKeys.brandt;
 in {
   isNormalUser = true;
   description = "Brandt Sanche";
@@ -12,6 +13,6 @@ in {
   ];
   shell = pkgs.zsh;
   openssh.authorizedKeys.keys = [
-    (lib.mkIf (pubKeys ? ${config.networking.hostName}) pubKeys.${config.networking.hostName})
+    (lib.mkIf (keys ? ${config.networking.hostName}) keys.${config.networking.hostName})
   ];
 }

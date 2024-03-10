@@ -1,6 +1,7 @@
 {
   pkgs,
   super,
+  pubKeys,
 }: {
   enable = true;
 
@@ -9,7 +10,7 @@
   # We specify the host key so our ssh agent does not have to keep looking and possibly
   # hitting the limit before finding the right key.
   matchBlocks = let
-    keys = super.pubKeys;
+    keys = pubKeys.lsanche;
     inherit (super) gitKeys;
   in
     (builtins.mapAttrs (name: value: {

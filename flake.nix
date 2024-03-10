@@ -113,6 +113,10 @@
         (haumea.lib.matchers.extension "age" haumea.lib.loaders.path)
       ];
     };
+
+    pubKeys = haumea.lib.load {
+      src = ./pubKeys;
+    };
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
@@ -152,7 +156,7 @@
           hostFolder = ./hosts;
           commonFolder = ./common;
           modFolder = ./mods;
-          specialArgs = {inherit inputs lsLib secretPaths;};
+          specialArgs = {inherit inputs lsLib secretPaths pubKeys;};
         };
       };
     };

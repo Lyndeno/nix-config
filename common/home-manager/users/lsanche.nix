@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pubKeys,
 }: let
   # deadnix: skip
   cfg = {pkgs, ...} @ args:
@@ -12,7 +13,7 @@
           isDesktop = config.mods.desktop.enable;
           isPlasma = config.mods.plasma.enable;
           isGnome = config.mods.gnome.enable;
-          inherit inputs;
+          inherit inputs pubKeys;
         };
       transformer = [
         inputs.haumea.lib.transformers.liftDefault

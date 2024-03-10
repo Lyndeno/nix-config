@@ -2,8 +2,9 @@
   pkgs,
   lib,
   config,
+  pubKeys,
 }: let
-  pubKeys = import ../../../home/lsanche/programs/ssh/_pubKeys.nix;
+  keys = pubKeys.lsanche;
 in {
   isNormalUser = true;
   description = "Lyndon Sanche";
@@ -22,6 +23,6 @@ in {
   ];
   shell = pkgs.fish;
   openssh.authorizedKeys.keys = [
-    (lib.mkIf (pubKeys ? ${config.networking.hostName}) pubKeys.${config.networking.hostName})
+    (lib.mkIf (keys ? ${config.networking.hostName}) keys.${config.networking.hostName})
   ];
 }
