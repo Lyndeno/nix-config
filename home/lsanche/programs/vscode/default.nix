@@ -1,9 +1,9 @@
 {
   pkgs,
-  isDesktop,
   inputs,
+  osConfig,
 }: {
-  enable = isDesktop;
+  enable = osConfig.mods.desktop.enable;
   package = pkgs.vscodium;
   enableExtensionUpdateCheck = false;
   enableUpdateCheck = false;
