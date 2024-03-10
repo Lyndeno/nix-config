@@ -1,3 +1,3 @@
-{
-  secrets.gmail_pass.file = ../../secrets/email_pass.age;
+{secretPaths}: {
+  secrets.gmail_pass.file = secretPaths.email_pass;
 }
