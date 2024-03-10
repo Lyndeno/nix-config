@@ -107,7 +107,7 @@
     lsLib = import ./lslib.nix {inherit lib;};
     multinix = import ./multinix {inherit lib haumea;};
 
-    secrets = haumea.lib.load {
+    secretPaths = haumea.lib.load {
       src = ./secrets;
       loader = [
         (haumea.lib.matchers.extension "age" haumea.lib.loaders.path)
@@ -152,7 +152,7 @@
           hostFolder = ./hosts;
           commonFolder = ./common;
           modFolder = ./mods;
-          specialArgs = {inherit inputs lsLib secrets;};
+          specialArgs = {inherit inputs lsLib secretPaths;};
         };
       };
     };

@@ -1,5 +1,5 @@
-{secrets}: {
-  secrets = with secrets; {
+{secretPaths}: {
+  secrets = with secretPaths; {
     id_borgbase.file = id_borgbase;
     pass_borgbase.file = neo.pass_borgbase;
 
