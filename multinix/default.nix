@@ -49,4 +49,15 @@ in rec {
       })
       (ls hostFolder)
     );
+
+  homes = homeFolder:
+    builtins.listToAttrs
+    (
+      map
+      (name: {
+        inherit name;
+        value = loadFolder (homeFolder + "/${name}");
+      })
+      (ls homeFolder)
+    );
 }

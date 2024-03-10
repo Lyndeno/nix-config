@@ -117,6 +117,8 @@
     pubKeys = haumea.lib.load {
       src = ./pubKeys;
     };
+
+    homes = multinix.homes ./home;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
@@ -156,7 +158,7 @@
           hostFolder = ./hosts;
           commonFolder = ./common;
           modFolder = ./mods;
-          specialArgs = {inherit inputs lsLib secretPaths pubKeys;};
+          specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
         };
       };
     };

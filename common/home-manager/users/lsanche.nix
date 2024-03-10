@@ -1,27 +1,5 @@
-{
-  config,
-  inputs,
-  pubKeys,
-}: let
-  # deadnix: skip
-  cfg = {pkgs, ...} @ args:
-    inputs.haumea.lib.load {
-      src = ../../../home/lsanche;
-      inputs =
-        args
-        // {
-          isDesktop = config.mods.desktop.enable;
-          isPlasma = config.mods.plasma.enable;
-          isGnome = config.mods.gnome.enable;
-          inherit inputs pubKeys;
-        };
-      transformer = [
-        inputs.haumea.lib.transformers.liftDefault
-      ];
-    };
-in
-  {osConfig, ...}: {
-    imports = [cfg];
+{homes}: {osConfig, ...}: {
+  imports = [homes.lsanche];
 
-    home.stateVersion = osConfig.system.stateVersion;
-  }
+  home.stateVersion = osConfig.system.stateVersion;
+}
