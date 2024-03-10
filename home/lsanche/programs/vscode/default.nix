@@ -3,7 +3,7 @@
   inputs,
   osConfig,
 }: {
-  enable = osConfig.mods.desktop.enable;
+  inherit (osConfig.mods.desktop) enable;
   package = pkgs.vscodium;
   enableExtensionUpdateCheck = false;
   enableUpdateCheck = false;

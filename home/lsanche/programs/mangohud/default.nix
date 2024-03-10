@@ -1,5 +1,5 @@
 {osConfig}: {
-  enable = osConfig.mods.desktop.enable;
+  inherit (osConfig.mods.desktop) enable;
   settings = {
     cpu_stats = true;
     gpu_stats = true;

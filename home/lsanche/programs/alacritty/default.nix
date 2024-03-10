@@ -1,5 +1,5 @@
 {osConfig}: {
-  enable = osConfig.mods.desktop.enable;
+  inherit (osConfig.mods.desktop) enable;
   # colours and font managed by stylix
   settings = {
     window = {
