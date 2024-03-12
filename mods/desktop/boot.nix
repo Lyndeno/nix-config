@@ -1,0 +1,3 @@
+{
+  plymouth.enable = true;
+}
