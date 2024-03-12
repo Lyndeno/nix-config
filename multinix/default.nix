@@ -21,8 +21,18 @@ in rec {
     modFolder,
     name,
     specialArgs ? {},
+    defaultSystem ? null,
   }: let
-    system = import (hostFolder + "/${name}/_localSystem.nix");
+    systemPath = hostFolder + "/${name}/_localSystem.nix";
+    system =
+      if builtins.pathExists systemPath
+      then (import systemPath)
+      else
+        (
+          if defaultSystem != null
+          then defaultSystem
+          else (abort "Neither host '${name}' or 'defaultSystem' have an architecture set")
+        );
 
     hostCfg = loadFolder (hostFolder + "/${name}");
   in

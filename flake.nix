@@ -159,6 +159,7 @@
           commonFolder = ./common;
           modFolder = ./mods;
           specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
+          defaultSystem = "x86_64-linux";
         };
       };
     };
