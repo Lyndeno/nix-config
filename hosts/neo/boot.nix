@@ -28,7 +28,6 @@
   kernelModules = [
     "coretemp" # sensors-detect for Intel temperature
   ];
-  consoleLogLevel = lib.mkDefault 3;
   #kernelPackages = pkgs.linuxPackages_latest;
 
   binfmt.emulatedSystems = ["aarch64-linux"];
