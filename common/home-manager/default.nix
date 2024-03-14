@@ -9,5 +9,7 @@
     inherit inputs pubKeys;
   };
 
-  users.lsanche = homes.lsanche;
+  users = {
+    inherit (homes) lsanche;
+  };
 }
