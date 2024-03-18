@@ -1,3 +1,0 @@
-{
-  agent.pinentryFlavor = "gnome3";
-}
