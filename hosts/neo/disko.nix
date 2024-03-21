@@ -27,6 +27,7 @@
                 settings = {
                   preLVM = true;
                   allowDiscards = true;
+                  bypassWorkqueues = true;
                 };
                 content = {
                   type = "lvm_pv";
