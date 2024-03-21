@@ -41,7 +41,6 @@ in
       inkscape
       gimp
       darktable
-      kdiskmark
 
       # Office
       kicad
