@@ -7,6 +7,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
+    multinix = {
+      url = "github:lyndeno/multinix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -101,11 +106,11 @@
     flake-parts,
     nixpkgs,
     haumea,
+    multinix,
     ...
   }: let
     inherit (nixpkgs) lib;
     lsLib = import ./lslib.nix {inherit lib;};
-    multinix = import ./multinix {inherit lib haumea;};
 
     secretPaths = haumea.lib.load {
       src = ./secrets;
@@ -118,7 +123,7 @@
       src = ./pubKeys;
     };
 
-    homes = multinix.homes ./home;
+    homes = multinix.lib.homes ./home;
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
@@ -154,7 +159,7 @@
         };
       };
       flake = {
-        nixosConfigurations = multinix.makeNixosSystems {
+        nixosConfigurations = multinix.lib.makeNixosSystems {
           hostFolder = ./hosts;
           commonFolder = ./common;
           modFolder = ./mods;
