@@ -5,6 +5,5 @@
   ];
   swraid.enable = false;
 
-  kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 }
