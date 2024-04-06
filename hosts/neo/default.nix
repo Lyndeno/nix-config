@@ -9,6 +9,10 @@
 
   security.tpm2.enable = true;
 
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=2h
+  '';
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   networking = {
