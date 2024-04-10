@@ -7,5 +7,6 @@ in {
     grub.enable = false;
     plymouth.enable = false;
     console.enable = false;
+    nixos-icons.enable = false;
   };
 }
