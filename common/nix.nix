@@ -1,5 +1,11 @@
 {inputs}: {
-  settings.auto-optimise-store = true;
+  settings = {
+    auto-optimise-store = true;
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+  };
   extraOptions = ''
     experimental-features = nix-command flakes
     keep-outputs = true
