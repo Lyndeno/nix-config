@@ -7,6 +7,9 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
+    custom-kernel.url = "github:Lyndeno/linux/dell_platform";
+    custom-kernel.flake = false;
+
     multinix = {
       url = "github:lyndeno/multinix";
       inputs.nixpkgs.follows = "nixpkgs";

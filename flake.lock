@@ -307,6 +307,23 @@
         "type": "github"
       }
     },
+    "custom-kernel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713996765,
+        "narHash": "sha256-+V9Rt3Qm8xu7FVl7OU+1oxTxPBTK1jWJZ49PSJjo63Y=",
+        "owner": "Lyndeno",
+        "repo": "linux",
+        "rev": "48a0ec1799b1cdb84c3aa51b76f69ad6a5842bab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lyndeno",
+        "ref": "dell_platform",
+        "repo": "linux",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -1215,6 +1232,7 @@
         "base16-vim-lightline": "base16-vim-lightline",
         "bbase": "bbase",
         "cfetch": "cfetch",
+        "custom-kernel": "custom-kernel",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "haumea": "haumea",

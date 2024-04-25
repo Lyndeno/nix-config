@@ -1,4 +1,26 @@
-{lib}: {
+{
+  lib,
+  pkgs,
+  inputs,
+}: {
+  kernelPackages = let
+    linux_custom_pkg = {buildLinux, ...} @ args:
+      buildLinux (args
+        // rec {
+          version = "6.9.0-rc5";
+          modDirVersion = version;
+          src = inputs.custom-kernel;
+          kernelPatches = [];
+          autoModules = true;
+          enableCommonConfig = true;
+          ignoreConfigErrors = true;
+
+          extraMeta.branch = "6.7";
+        }
+        // (args.argsOverride or {}));
+    linux_custom = pkgs.callPackage linux_custom_pkg {};
+  in
+    pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_custom);
   swraid.enable = false;
   loader = {
     systemd-boot.enable = lib.mkForce false;
