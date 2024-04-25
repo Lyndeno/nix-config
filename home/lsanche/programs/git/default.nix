@@ -1,4 +1,8 @@
-{osConfig}: {
+{
+  osConfig,
+  pkgs,
+}: {
+  package = pkgs.gitFull;
   enable = true;
   userName = "Lyndon Sanche";
   userEmail = "lsanche@lyndeno.ca";
