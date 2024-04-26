@@ -1,0 +1,296 @@
+From cdbb992ef4b181ddea0328d19181f170573cfd7c Mon Sep 17 00:00:00 2001
+From: Lyndon Sanche <lsanche@lyndeno.ca>
+Date: Wed, 24 Apr 2024 10:16:49 -0600
+Subject: [PATCH] platform/x86: dell-laptop: Implement platform_profile
+
+Some Dell laptops support configuration of preset
+fan modes through smbios tables.
+
+If the platform supports these fan modes, set up
+platform_profile to change these modes. If not
+supported, skip enabling platform_profile.
+
+Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
+---
+ drivers/platform/x86/dell/dell-laptop.c | 220 ++++++++++++++++++++++++
+ drivers/platform/x86/dell/dell-smbios.h |   1 +
+ 2 files changed, 221 insertions(+)
+
+diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+index 42f7de2b4522..7f9c4e0e5ef5 100644
+--- a/drivers/platform/x86/dell/dell-laptop.c
++++ b/drivers/platform/x86/dell/dell-laptop.c
+@@ -27,6 +27,7 @@
+ #include <linux/i8042.h>
+ #include <linux/debugfs.h>
+ #include <linux/seq_file.h>
++#include <linux/platform_profile.h>
+ #include <acpi/video.h>
+ #include "dell-rbtn.h"
+ #include "dell-smbios.h"
+@@ -95,10 +96,18 @@ static struct backlight_device *dell_backlight_device;
+ static struct rfkill *wifi_rfkill;
+ static struct rfkill *bluetooth_rfkill;
+ static struct rfkill *wwan_rfkill;
++static struct platform_profile_handler *thermal_handler;
+ static bool force_rfkill;
+ static bool micmute_led_registered;
+ static bool mute_led_registered;
+ 
++enum thermal_mode_bits {
++	DELL_BALANCED = 0,
++	DELL_COOL_BOTTOM = 1,
++	DELL_QUIET = 2,
++	DELL_PERFORMANCE = 3,
++};
++
+ module_param(force_rfkill, bool, 0444);
+ MODULE_PARM_DESC(force_rfkill, "enable rfkill on non whitelisted models");
+ 
+@@ -2199,6 +2208,211 @@ static int mute_led_set(struct led_classdev *led_cdev,
+ 	return 0;
+ }
+ 
++// Derived from smbios-thermal-ctl
++//
++// cbClass 17
++// cbSelect 19
++// User Selectable Thermal Tables(USTT)
++// cbArg1 determines the function to be performed
++// cbArg1 0x0 = Get Thermal Information
++//  cbRES1         Standard return codes (0, -1, -2)
++//  cbRES2, byte 0  Bitmap of supported thermal modes. A mode is supported if its bit is set to 1
++//     Bit 0 Balanced
++//     Bit 1 Cool Bottom
++//     Bit 2 Quiet
++//     Bit 3 Performance
++//  cbRES2, byte 1 Bitmap of supported Active Acoustic Controller (AAC) modes. Each mode
++//                 corresponds to the supported thermal modes in byte 0. A mode is supported if
++//                 its bit is set to 1.
++//     Bit 0 AAC (Balanced)
++//     Bit 1 AAC (Cool Bottom
++//     Bit 2 AAC (Quiet)
++//     Bit 3 AAC (Performance)
++//  cbRes3, byte 0 Current Thermal Mode
++//     Bit 0 Balanced
++//     Bit 1 Cool Bottom
++//     Bit 2 Quiet
++//     Bit 3 Performanc
++//  cbRes3, byte 1  AAC Configuration type
++//          0       Global (AAC enable/disable applies to all supported USTT modes)
++//          1       USTT mode specific
++//  cbRes3, byte 2  Current Active Acoustic Controller (AAC) Mode
++//     If AAC Configuration Type is Global,
++//          0       AAC mode disabled
++//          1       AAC mode enabled
++//     If AAC Configuration Type is USTT mode specific (multiple bits may be set),
++//          Bit 0 AAC (Balanced)
++//          Bit 1 AAC (Cool Bottom
++//          Bit 2 AAC (Quiet)
++//          Bit 3 AAC (Performance)
++//  cbRes3, byte 3  Current Fan Failure Mode
++//     Bit 0 Minimal Fan Failure (at least one fan has failed, one fan working)
++//     Bit 1 Catastrophic Fan Failure (all fans have failed)
++//  cbArg1 0x1   (Set Thermal Information), both desired thermal mode and
++//               desired AAC mode shall be applied
++//  cbArg2, byte 0  Desired Thermal Mode to set (only one bit may be set for this parameter)
++//     Bit 0 Balanced
++//     Bit 1 Cool Bottom
++//     Bit 2 Quiet
++//     Bit 3 Performance
++//  cbArg2, byte 1  Desired Active Acoustic Controller (AAC) Mode to set
++//     If AAC Configuration Type is Global,
++//         0  AAC mode disabled
++//         1  AAC mode enabled
++//
++//     If AAC Configuration Type is USTT mode specific (multiple bits may be set for this parameter),
++//         Bit 0 AAC (Balanced)
++//         Bit 1 AAC (Cool Bottom
++//         Bit 2 AAC (Quiet)
++//         Bit 3 AAC (Performance)
++static int thermal_get_mode(void)
++{
++	struct calling_interface_buffer buffer;
++	int state;
++	int ret;
++
++	dell_fill_request(&buffer, 0x0, 0, 0, 0);
++	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
++	if (ret)
++		return ret;
++	state = buffer.output[2];
++	if ((state >> DELL_BALANCED) & 1)
++		return DELL_BALANCED;
++	else if ((state >> DELL_COOL_BOTTOM) & 1)
++		return DELL_COOL_BOTTOM;
++	else if ((state >> DELL_QUIET) & 1)
++		return DELL_QUIET;
++	else if ((state >> DELL_PERFORMANCE) & 1)
++		return DELL_PERFORMANCE;
++	else
++		return 0;
++}
++
++static int thermal_get_supported_modes(int *supported_bits)
++{
++	struct calling_interface_buffer buffer;
++	int ret;
++
++	dell_fill_request(&buffer, 0x0, 0, 0, 0);
++	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
++	if (ret)
++		return ret;
++	*supported_bits = buffer.output[1] & 0xF;
++	return 0;
++}
++
++static int thermal_get_acc_mode(int *acc_mode)
++{
++	struct calling_interface_buffer buffer;
++	int ret;
++
++	dell_fill_request(&buffer, 0x0, 0, 0, 0);
++	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
++	if (ret)
++		return ret;
++	*acc_mode = ((buffer.output[3] >> 8) & 0xFF);
++	return 0;
++}
++
++static int thermal_set_mode(enum thermal_mode_bits state)
++{
++	struct calling_interface_buffer buffer;
++	int ret;
++	int acc_mode;
++
++	ret = thermal_get_acc_mode(&acc_mode);
++	if (ret)
++		return ret;
++
++	dell_fill_request(&buffer, 0x1, (acc_mode << 8) | BIT(state), 0, 0);
++	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
++	return ret;
++}
++
++static int thermal_platform_profile_set(struct platform_profile_handler *pprof,
++					enum platform_profile_option profile)
++{
++	int ret;
++
++	switch (profile) {
++	case PLATFORM_PROFILE_BALANCED:
++		ret = thermal_set_mode(DELL_BALANCED);
++		break;
++	case PLATFORM_PROFILE_PERFORMANCE:
++		ret = thermal_set_mode(DELL_PERFORMANCE);
++		break;
++	case PLATFORM_PROFILE_QUIET:
++		ret = thermal_set_mode(DELL_QUIET);
++		break;
++	case PLATFORM_PROFILE_COOL:
++		ret = thermal_set_mode(DELL_COOL_BOTTOM);
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
++
++	return ret;
++}
++
++static int thermal_platform_profile_get(struct platform_profile_handler *pprof,
++					enum platform_profile_option *profile)
++{
++	switch (thermal_get_mode()) {
++	case DELL_BALANCED:
++		*profile = PLATFORM_PROFILE_BALANCED;
++		break;
++	case DELL_PERFORMANCE:
++		*profile = PLATFORM_PROFILE_PERFORMANCE;
++		break;
++	case DELL_COOL_BOTTOM:
++		*profile = PLATFORM_PROFILE_COOL;
++		break;
++	case DELL_QUIET:
++		*profile = PLATFORM_PROFILE_QUIET;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++int thermal_init(void)
++{
++	int ret;
++	int supported_modes;
++
++	ret = thermal_get_supported_modes(&supported_modes);
++
++	if (ret != 0 || supported_modes == 0)
++		return -ENXIO;
++
++	thermal_handler = kzalloc(sizeof(*thermal_handler), GFP_KERNEL);
++	if (!thermal_handler)
++		return -ENOMEM;
++	thermal_handler->profile_get = thermal_platform_profile_get;
++	thermal_handler->profile_set = thermal_platform_profile_set;
++
++	if ((supported_modes >> DELL_QUIET) & 1)
++		set_bit(PLATFORM_PROFILE_QUIET, thermal_handler->choices);
++	if ((supported_modes >> DELL_COOL_BOTTOM) & 1)
++		set_bit(PLATFORM_PROFILE_COOL, thermal_handler->choices);
++	if ((supported_modes >> DELL_BALANCED) & 1)
++		set_bit(PLATFORM_PROFILE_BALANCED, thermal_handler->choices);
++	if ((supported_modes >> DELL_PERFORMANCE) & 1)
++		set_bit(PLATFORM_PROFILE_PERFORMANCE, thermal_handler->choices);
++
++	platform_profile_register(thermal_handler);
++
++	return 0;
++}
++
++void thermal_cleanup(void)
++{
++	platform_profile_remove();
++	kfree(thermal_handler);
++}
++
+ static struct led_classdev mute_led_cdev = {
+ 	.name = "platform::mute",
+ 	.max_brightness = 1,
+@@ -2266,6 +2480,11 @@ static int __init dell_init(void)
+ 		mute_led_registered = true;
+ 	}
+ 
++	// Do not fail module if thermal modes not supported,
++	// just skip
++	if (thermal_init() != 0)
++		pr_warn("Unable to setup platform_profile, skipping");
++
+ 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
+ 		return 0;
+ 
+@@ -2344,6 +2563,7 @@ static void __exit dell_exit(void)
+ 		platform_device_unregister(platform_device);
+ 		platform_driver_unregister(&platform_driver);
+ 	}
++	thermal_cleanup();
+ }
+ 
+ /* dell-rbtn.c driver export functions which will not work correctly (and could
+diff --git a/drivers/platform/x86/dell/dell-smbios.h b/drivers/platform/x86/dell/dell-smbios.h
+index eb341bf000c6..585d042f1779 100644
+--- a/drivers/platform/x86/dell/dell-smbios.h
++++ b/drivers/platform/x86/dell/dell-smbios.h
+@@ -19,6 +19,7 @@
+ /* Classes and selects used only in kernel drivers */
+ #define CLASS_KBD_BACKLIGHT 4
+ #define SELECT_KBD_BACKLIGHT 11
++#define SELECT_THERMAL_MANAGEMENT 19
+ 
+ /* Tokens used in kernel drivers, any of these
+  * should be filtered from userspace access
+-- 
+2.42.0
+

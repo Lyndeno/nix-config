@@ -29,6 +29,12 @@
     "coretemp" # sensors-detect for Intel temperature
   ];
   #kernelPackages = pkgs.linuxPackages_latest;
+  kernelPatches = [
+    {
+      name = "dell-platform-profile";
+      patch = ./dell_pp.patch;
+    }
+  ];
 
   binfmt.emulatedSystems = ["aarch64-linux"];
 }
