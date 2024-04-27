@@ -1,4 +1,4 @@
-From cdbb992ef4b181ddea0328d19181f170573cfd7c Mon Sep 17 00:00:00 2001
+From b5c819d42784bf603852d959a95c1773ccb1f286 Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Wed, 24 Apr 2024 10:16:49 -0600
 Subject: [PATCH] platform/x86: dell-laptop: Implement platform_profile
@@ -12,12 +12,12 @@ supported, skip enabling platform_profile.
 
 Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
- drivers/platform/x86/dell/dell-laptop.c | 220 ++++++++++++++++++++++++
+ drivers/platform/x86/dell/dell-laptop.c | 223 ++++++++++++++++++++++++
  drivers/platform/x86/dell/dell-smbios.h |   1 +
- 2 files changed, 221 insertions(+)
+ 2 files changed, 224 insertions(+)
 
 diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 42f7de2b4522..7f9c4e0e5ef5 100644
+index 42f7de2b4522..ff67bc7697b1 100644
 --- a/drivers/platform/x86/dell/dell-laptop.c
 +++ b/drivers/platform/x86/dell/dell-laptop.c
 @@ -27,6 +27,7 @@
@@ -103,7 +103,8 @@ index 42f7de2b4522..7f9c4e0e5ef5 100644
 +//         0  AAC mode disabled
 +//         1  AAC mode enabled
 +//
-+//     If AAC Configuration Type is USTT mode specific (multiple bits may be set for this parameter),
++//     If AAC Configuration Type is USTT mode specific
++//     (multiple bits may be set for this parameter),
 +//         Bit 0 AAC (Balanced)
 +//         Bit 1 AAC (Cool Bottom
 +//         Bit 2 AAC (Quiet)
@@ -128,7 +129,7 @@ index 42f7de2b4522..7f9c4e0e5ef5 100644
 +	else if ((state >> DELL_PERFORMANCE) & 1)
 +		return DELL_PERFORMANCE;
 +	else
-+		return 0;
++		return -ENXIO;
 +}
 +
 +static int thermal_get_supported_modes(int *supported_bits)
@@ -175,32 +176,29 @@ index 42f7de2b4522..7f9c4e0e5ef5 100644
 +static int thermal_platform_profile_set(struct platform_profile_handler *pprof,
 +					enum platform_profile_option profile)
 +{
-+	int ret;
-+
 +	switch (profile) {
 +	case PLATFORM_PROFILE_BALANCED:
-+		ret = thermal_set_mode(DELL_BALANCED);
-+		break;
++		return thermal_set_mode(DELL_BALANCED);
 +	case PLATFORM_PROFILE_PERFORMANCE:
-+		ret = thermal_set_mode(DELL_PERFORMANCE);
-+		break;
++		return thermal_set_mode(DELL_PERFORMANCE);
 +	case PLATFORM_PROFILE_QUIET:
-+		ret = thermal_set_mode(DELL_QUIET);
-+		break;
++		return thermal_set_mode(DELL_QUIET);
 +	case PLATFORM_PROFILE_COOL:
-+		ret = thermal_set_mode(DELL_COOL_BOTTOM);
-+		break;
++		return thermal_set_mode(DELL_COOL_BOTTOM);
 +	default:
 +		return -EOPNOTSUPP;
 +	}
-+
-+	return ret;
 +}
 +
 +static int thermal_platform_profile_get(struct platform_profile_handler *pprof,
 +					enum platform_profile_option *profile)
 +{
-+	switch (thermal_get_mode()) {
++	int ret = thermal_get_mode();
++
++	if (ret < 0)
++		return ret;
++
++	switch (ret) {
 +	case DELL_BALANCED:
 +		*profile = PLATFORM_PROFILE_BALANCED;
 +		break;
@@ -227,8 +225,8 @@ index 42f7de2b4522..7f9c4e0e5ef5 100644
 +
 +	ret = thermal_get_supported_modes(&supported_modes);
 +
-+	if (ret != 0 || supported_modes == 0)
-+		return -ENXIO;
++	if (ret || !supported_modes)
++		return 0;
 +
 +	thermal_handler = kzalloc(sizeof(*thermal_handler), GFP_KERNEL);
 +	if (!thermal_handler)
@@ -245,7 +243,9 @@ index 42f7de2b4522..7f9c4e0e5ef5 100644
 +	if ((supported_modes >> DELL_PERFORMANCE) & 1)
 +		set_bit(PLATFORM_PROFILE_PERFORMANCE, thermal_handler->choices);
 +
-+	platform_profile_register(thermal_handler);
++	// Clean up but do not fail
++	if (platform_profile_register(thermal_handler))
++		kfree(thermal_handler);
 +
 +	return 0;
 +}
@@ -259,19 +259,29 @@ index 42f7de2b4522..7f9c4e0e5ef5 100644
  static struct led_classdev mute_led_cdev = {
  	.name = "platform::mute",
  	.max_brightness = 1,
-@@ -2266,6 +2480,11 @@ static int __init dell_init(void)
- 		mute_led_registered = true;
+@@ -2238,6 +2452,12 @@ static int __init dell_init(void)
+ 		goto fail_rfkill;
  	}
  
 +	// Do not fail module if thermal modes not supported,
 +	// just skip
-+	if (thermal_init() != 0)
-+		pr_warn("Unable to setup platform_profile, skipping");
++	ret = thermal_init();
++	if (ret)
++		goto fail_thermal;
 +
- 	if (acpi_video_get_backlight_type() != acpi_backlight_vendor)
- 		return 0;
+ 	if (quirks && quirks->touchpad_led)
+ 		touchpad_led_init(&platform_device->dev);
  
-@@ -2344,6 +2563,7 @@ static void __exit dell_exit(void)
+@@ -2317,6 +2537,8 @@ static int __init dell_init(void)
+ 		led_classdev_unregister(&mute_led_cdev);
+ fail_led:
+ 	dell_cleanup_rfkill();
++fail_thermal:
++	thermal_cleanup();
+ fail_rfkill:
+ 	platform_device_del(platform_device);
+ fail_platform_device2:
+@@ -2344,6 +2566,7 @@ static void __exit dell_exit(void)
  		platform_device_unregister(platform_device);
  		platform_driver_unregister(&platform_driver);
  	}
