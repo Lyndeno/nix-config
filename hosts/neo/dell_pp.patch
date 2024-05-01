@@ -1,7 +1,7 @@
-From 32b0fe94315e64a9bfc12f52f70e320c979c4c39 Mon Sep 17 00:00:00 2001
+From 2e4d143ea58f4f2adc7d8e8c41f7294145e20f43 Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Wed, 24 Apr 2024 10:16:49 -0600
-Subject: [PATCH v3] platform/x86: dell-laptop: Implement platform_profile
+Subject: [PATCH v4] platform/x86: dell-laptop: Implement platform_profile
 
 Some Dell laptops support configuration of preset fan modes through
 smbios tables.
@@ -11,24 +11,53 @@ change these modes. If not supported, skip enabling platform_profile.
 
 Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
- drivers/platform/x86/dell/dell-laptop.c | 232 ++++++++++++++++++++++++
- drivers/platform/x86/dell/dell-smbios.h |   1 +
- 2 files changed, 233 insertions(+)
+
+Notes:
+    v4:
+     - Make thermal_init and thermal_cleanup static
+     - Rearrange order of added includes, did not edit current includes
+     - Include bits.h
+     - Switch comment style
+     - Return error if platform_profile registering failed
+     - Add thermal calls to call_blacklist
+     - Align defines with tabs
+     - Correct separation of function and error handling
+     - Propagate error codes up
+    v3:
+     - Convert smbios-thermal-ctl docs to multiline comment and wrap
+     - Change thermal_mode_bits enum to directly be BIT() values
+      - Convert related code to use this
+     - Use FIELD_GET/PREP and GENNMASK for getting/setting thermal modes
+      - Correct offset for getting current ACC mode, setting offset
+    		unchanged
+     - Check if thermal_handler is allocated before freeing and
+    	 unregistering platform_profile
+    v2:
+     - Wrap smbios-thermal-ctl comment
+     - Return proper error code when invalid state returned
+     - Simplify platform_profile_get returns
+     - Propogate ENOMEM error
+
+ drivers/platform/x86/dell/dell-laptop.c      | 238 +++++++++++++++++++
+ drivers/platform/x86/dell/dell-smbios-base.c |   2 +
+ drivers/platform/x86/dell/dell-smbios.h      |   1 +
+ 3 files changed, 241 insertions(+)
 
 diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 42f7de2b4522..fa58e7751d06 100644
+index 42f7de2b4522..530ee6079447 100644
 --- a/drivers/platform/x86/dell/dell-laptop.c
 +++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -27,6 +27,8 @@
+@@ -27,6 +27,9 @@
  #include <linux/i8042.h>
  #include <linux/debugfs.h>
  #include <linux/seq_file.h>
-+#include <linux/platform_profile.h>
 +#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/platform_profile.h>
  #include <acpi/video.h>
  #include "dell-rbtn.h"
  #include "dell-smbios.h"
-@@ -95,6 +97,7 @@ static struct backlight_device *dell_backlight_device;
+@@ -95,6 +98,7 @@ static struct backlight_device *dell_backlight_device;
  static struct rfkill *wifi_rfkill;
  static struct rfkill *bluetooth_rfkill;
  static struct rfkill *wwan_rfkill;
@@ -36,7 +65,7 @@ index 42f7de2b4522..fa58e7751d06 100644
  static bool force_rfkill;
  static bool micmute_led_registered;
  static bool mute_led_registered;
-@@ -2199,6 +2202,227 @@ static int mute_led_set(struct led_classdev *led_cdev,
+@@ -2199,6 +2203,232 @@ static int mute_led_set(struct led_classdev *led_cdev,
  	return 0;
  }
  
@@ -102,9 +131,9 @@ index 42f7de2b4522..fa58e7751d06 100644
 + *         Bit 3 AAC (Performance)
 + */
 +
-+#define DELL_ACC_GET_FIELD GENMASK(19, 16)
-+#define DELL_ACC_SET_FIELD GENMASK(11, 8)
-+#define DELL_THERMAL_SUPPORTED GENMASK(3, 0)
++#define DELL_ACC_GET_FIELD		GENMASK(19, 16)
++#define DELL_ACC_SET_FIELD		GENMASK(11, 8)
++#define DELL_THERMAL_SUPPORTED	GENMASK(3, 0)
 +
 +enum thermal_mode_bits {
 +	DELL_BALANCED = BIT(0),
@@ -197,8 +226,9 @@ index 42f7de2b4522..fa58e7751d06 100644
 +static int thermal_platform_profile_get(struct platform_profile_handler *pprof,
 +					enum platform_profile_option *profile)
 +{
-+	int ret = thermal_get_mode();
++	int ret;
 +
++	ret = thermal_get_mode();
 +	if (ret < 0)
 +		return ret;
 +
@@ -222,13 +252,16 @@ index 42f7de2b4522..fa58e7751d06 100644
 +	return 0;
 +}
 +
-+int thermal_init(void)
++static int thermal_init(void)
 +{
 +	int ret;
 +	int supported_modes;
 +
++	/* If thermal modes not supported, exit without error */
 +	ret = thermal_get_supported_modes(&supported_modes);
-+	if (ret || !supported_modes)
++	if (ret < 0)
++		return ret;
++	if (!supported_modes)
 +		return 0;
 +
 +	thermal_handler = kzalloc(sizeof(*thermal_handler), GFP_KERNEL);
@@ -246,14 +279,15 @@ index 42f7de2b4522..fa58e7751d06 100644
 +	if (supported_modes & DELL_PERFORMANCE)
 +		set_bit(PLATFORM_PROFILE_PERFORMANCE, thermal_handler->choices);
 +
-+	// Clean up but do not fail
-+	if (platform_profile_register(thermal_handler))
++	/* Clean up if failed */
++	ret = platform_profile_register(thermal_handler);
++	if (ret)
 +		kfree(thermal_handler);
 +
-+	return 0;
++	return ret;
 +}
 +
-+void thermal_cleanup(void)
++static void thermal_cleanup(void)
 +{
 +	if (thermal_handler) {
 +		platform_profile_remove();
@@ -264,11 +298,11 @@ index 42f7de2b4522..fa58e7751d06 100644
  static struct led_classdev mute_led_cdev = {
  	.name = "platform::mute",
  	.max_brightness = 1,
-@@ -2238,6 +2462,11 @@ static int __init dell_init(void)
+@@ -2238,6 +2468,11 @@ static int __init dell_init(void)
  		goto fail_rfkill;
  	}
  
-+	// Do not fail module if thermal modes not supported, just skip
++	/* Do not fail module if thermal modes not supported, just skip */
 +	ret = thermal_init();
 +	if (ret)
 +		goto fail_thermal;
@@ -276,7 +310,7 @@ index 42f7de2b4522..fa58e7751d06 100644
  	if (quirks && quirks->touchpad_led)
  		touchpad_led_init(&platform_device->dev);
  
-@@ -2317,6 +2546,8 @@ static int __init dell_init(void)
+@@ -2317,6 +2552,8 @@ static int __init dell_init(void)
  		led_classdev_unregister(&mute_led_cdev);
  fail_led:
  	dell_cleanup_rfkill();
@@ -285,7 +319,7 @@ index 42f7de2b4522..fa58e7751d06 100644
  fail_rfkill:
  	platform_device_del(platform_device);
  fail_platform_device2:
-@@ -2344,6 +2575,7 @@ static void __exit dell_exit(void)
+@@ -2344,6 +2581,7 @@ static void __exit dell_exit(void)
  		platform_device_unregister(platform_device);
  		platform_driver_unregister(&platform_driver);
  	}
@@ -293,6 +327,26 @@ index 42f7de2b4522..fa58e7751d06 100644
  }
  
  /* dell-rbtn.c driver export functions which will not work correctly (and could
+diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
+index e61bfaf8b5c4..40aa4469b38b 100644
+--- a/drivers/platform/x86/dell/dell-smbios-base.c
++++ b/drivers/platform/x86/dell/dell-smbios-base.c
+@@ -9,6 +9,7 @@
+  *  Based on documentation in the libsmbios package:
+  *  Copyright (C) 2005-2014 Dell Inc.
+  */
++#include "linux/wmi.h"
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/kernel.h>
+@@ -71,6 +72,7 @@ static struct smbios_call call_blacklist[] = {
+ 	/* handled by kernel: dell-laptop */
+ 	{0x0000, CLASS_INFO, SELECT_RFKILL},
+ 	{0x0000, CLASS_KBD_BACKLIGHT, SELECT_KBD_BACKLIGHT},
++	{0x0000, CLASS_INFO, SELECT_THERMAL_MANAGEMENT},
+ };
+ 
+ struct token_range {
 diff --git a/drivers/platform/x86/dell/dell-smbios.h b/drivers/platform/x86/dell/dell-smbios.h
 index eb341bf000c6..585d042f1779 100644
 --- a/drivers/platform/x86/dell/dell-smbios.h
