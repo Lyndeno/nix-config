@@ -15,10 +15,10 @@
     };
     accounts = {
       default = {
-        host = "smtp.gmail.com";
-        passwordeval = "${pkgs.busybox}/bin/cat ${config.age.secrets.gmail_pass.path}";
-        user = "lyndeno@gmail.com";
-        from = "${config.networking.hostName}@lyndeno.ca";
+        host = "smtp.fastmail.com";
+        passwordeval = "${pkgs.busybox}/bin/cat ${config.age.secrets.fastmail_pass.path}";
+        user = "lsanche@fastmail.com";
+        from = "${config.networking.hostName}@system.lyndeno.ca";
       };
     };
   };

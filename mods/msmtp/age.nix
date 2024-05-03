@@ -1,3 +1,3 @@
 {secretPaths}: {
-  secrets.gmail_pass.file = secretPaths.email_pass;
+  secrets.fastmail_pass.file = secretPaths.fastmail;
 }
