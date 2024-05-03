@@ -28,7 +28,6 @@
   kernelModules = [
     "coretemp" # sensors-detect for Intel temperature
   ];
-  #kernelPackages = pkgs.linuxPackages_latest;
   kernelPatches = [
     {
       name = "dell-platform-profile";

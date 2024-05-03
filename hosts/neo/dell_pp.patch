@@ -1,7 +1,7 @@
-From 2e4d143ea58f4f2adc7d8e8c41f7294145e20f43 Mon Sep 17 00:00:00 2001
+From bc1ec019dd428e2c1fb984cad26203cf219198fa Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Wed, 24 Apr 2024 10:16:49 -0600
-Subject: [PATCH v4] platform/x86: dell-laptop: Implement platform_profile
+Subject: [PATCH v5] platform/x86: dell-laptop: Implement platform_profile
 
 Some Dell laptops support configuration of preset fan modes through
 smbios tables.
@@ -11,40 +11,26 @@ change these modes. If not supported, skip enabling platform_profile.
 
 Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
-
-Notes:
-    v4:
-     - Make thermal_init and thermal_cleanup static
-     - Rearrange order of added includes, did not edit current includes
-     - Include bits.h
-     - Switch comment style
-     - Return error if platform_profile registering failed
-     - Add thermal calls to call_blacklist
-     - Align defines with tabs
-     - Correct separation of function and error handling
-     - Propagate error codes up
-    v3:
-     - Convert smbios-thermal-ctl docs to multiline comment and wrap
-     - Change thermal_mode_bits enum to directly be BIT() values
-      - Convert related code to use this
-     - Use FIELD_GET/PREP and GENNMASK for getting/setting thermal modes
-      - Correct offset for getting current ACC mode, setting offset
-    		unchanged
-     - Check if thermal_handler is allocated before freeing and
-    	 unregistering platform_profile
-    v2:
-     - Wrap smbios-thermal-ctl comment
-     - Return proper error code when invalid state returned
-     - Simplify platform_profile_get returns
-     - Propogate ENOMEM error
-
+ drivers/platform/x86/dell/Kconfig            |   1 +
  drivers/platform/x86/dell/dell-laptop.c      | 238 +++++++++++++++++++
- drivers/platform/x86/dell/dell-smbios-base.c |   2 +
+ drivers/platform/x86/dell/dell-smbios-base.c |   1 +
  drivers/platform/x86/dell/dell-smbios.h      |   1 +
- 3 files changed, 241 insertions(+)
+ 4 files changed, 241 insertions(+)
 
+diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
+index bdd78076b1d7..2f05c5594e48 100644
+--- a/drivers/platform/x86/dell/Kconfig
++++ b/drivers/platform/x86/dell/Kconfig
+@@ -59,6 +59,7 @@ config DELL_LAPTOP
+ 	select NEW_LEDS
+ 	select LEDS_TRIGGERS
+ 	select LEDS_TRIGGER_AUDIO
++	select ACPI_PLATFORM_PROFILE
+ 	help
+ 	This driver adds support for rfkill and backlight control to Dell
+ 	laptops (except for some models covered by the Compal driver).
 diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 42f7de2b4522..530ee6079447 100644
+index 6586438356de..ad38e927f684 100644
 --- a/drivers/platform/x86/dell/dell-laptop.c
 +++ b/drivers/platform/x86/dell/dell-laptop.c
 @@ -27,6 +27,9 @@
@@ -110,19 +96,19 @@ index 42f7de2b4522..530ee6079447 100644
 + *  cbRes3, byte 3  Current Fan Failure Mode
 + *     Bit 0 Minimal Fan Failure (at least one fan has failed, one fan working)
 + *     Bit 1 Catastrophic Fan Failure (all fans have failed)
-+ *  cbArg1 0x1   (Set Thermal Information), both desired thermal mode and
++ *
++ * cbArg1 0x1   (Set Thermal Information), both desired thermal mode and
 + *               desired AAC mode shall be applied
-+ *  cbArg2, byte 0  Desired Thermal Mode to set
++ * cbArg2, byte 0  Desired Thermal Mode to set
 + *                  (only one bit may be set for this parameter)
 + *     Bit 0 Balanced
 + *     Bit 1 Cool Bottom
 + *     Bit 2 Quiet
 + *     Bit 3 Performance
-+ *  cbArg2, byte 1  Desired Active Acoustic Controller (AAC) Mode to set
++ * cbArg2, byte 1  Desired Active Acoustic Controller (AAC) Mode to set
 + *     If AAC Configuration Type is Global,
 + *         0  AAC mode disabled
 + *         1  AAC mode enabled
-+ *
 + *     If AAC Configuration Type is USTT mode specific
 + *     (multiple bits may be set for this parameter),
 + *         Bit 0 AAC (Balanced)
@@ -310,7 +296,7 @@ index 42f7de2b4522..530ee6079447 100644
  	if (quirks && quirks->touchpad_led)
  		touchpad_led_init(&platform_device->dev);
  
-@@ -2317,6 +2552,8 @@ static int __init dell_init(void)
+@@ -2319,6 +2554,8 @@ static int __init dell_init(void)
  		led_classdev_unregister(&mute_led_cdev);
  fail_led:
  	dell_cleanup_rfkill();
@@ -319,7 +305,7 @@ index 42f7de2b4522..530ee6079447 100644
  fail_rfkill:
  	platform_device_del(platform_device);
  fail_platform_device2:
-@@ -2344,6 +2581,7 @@ static void __exit dell_exit(void)
+@@ -2346,6 +2583,7 @@ static void __exit dell_exit(void)
  		platform_device_unregister(platform_device);
  		platform_driver_unregister(&platform_driver);
  	}
@@ -328,18 +314,10 @@ index 42f7de2b4522..530ee6079447 100644
  
  /* dell-rbtn.c driver export functions which will not work correctly (and could
 diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
-index e61bfaf8b5c4..40aa4469b38b 100644
+index e61bfaf8b5c4..5bc2e394dd1c 100644
 --- a/drivers/platform/x86/dell/dell-smbios-base.c
 +++ b/drivers/platform/x86/dell/dell-smbios-base.c
-@@ -9,6 +9,7 @@
-  *  Based on documentation in the libsmbios package:
-  *  Copyright (C) 2005-2014 Dell Inc.
-  */
-+#include "linux/wmi.h"
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/kernel.h>
-@@ -71,6 +72,7 @@ static struct smbios_call call_blacklist[] = {
+@@ -71,6 +71,7 @@ static struct smbios_call call_blacklist[] = {
  	/* handled by kernel: dell-laptop */
  	{0x0000, CLASS_INFO, SELECT_RFKILL},
  	{0x0000, CLASS_KBD_BACKLIGHT, SELECT_KBD_BACKLIGHT},
