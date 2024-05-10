@@ -1,4 +1,7 @@
-{lib}: {
+{
+  lib,
+  pkgs,
+}: {
   swraid.enable = false;
   loader = {
     systemd-boot.enable = lib.mkForce false;
@@ -28,10 +31,15 @@
   kernelModules = [
     "coretemp" # sensors-detect for Intel temperature
   ];
+  kernelPackages = pkgs.linuxPackages_testing;
   kernelPatches = [
     {
       name = "dell-platform-profile";
       patch = ./dell_pp.patch;
+    }
+    {
+      name = "dell-platform-profile2";
+      patch = ./dell_pp2.patch;
     }
   ];
 
