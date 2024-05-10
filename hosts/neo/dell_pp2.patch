@@ -253,7 +253,7 @@ index 42f7de2b4522..038637f714f0 100644
 +
 +	/* If thermal commands not supported, exit without error */
 +	ret = dell_laptop_check_supported_cmds(CLASS_INFO);
-+	if (ret)
++	if (!ret)
 +		return 0;
 +
 +	/* If thermal modes not supported, exit without error */
