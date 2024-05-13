@@ -1,9 +1,12 @@
-From 44b5cb8d5a0276c572784e065c82843aca8c8bdf Mon Sep 17 00:00:00 2001
+From b444455d09df3c46f44fc34c84273df2bcd53eee Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Thu, 9 May 2024 22:33:48 -0600
 Subject: [PATCH v6 1/2] platform/x86: dell-smbios: Add helper for checking
  supported commands
 
+Add symbol to check if a specific class of smbios command is supported.
+
+Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
  drivers/platform/x86/dell/dell-smbios-base.c | 6 ++++++
  drivers/platform/x86/dell/dell-smbios.h      | 1 +

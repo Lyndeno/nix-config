@@ -1,4 +1,4 @@
-From 11fa1863aa4273a8ba42c260f80d7fb754603986 Mon Sep 17 00:00:00 2001
+From 981798ded351c26b736615221cdc4e1f88893724 Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Wed, 24 Apr 2024 10:16:49 -0600
 Subject: [PATCH v6 2/2] platform/x86: dell-laptop: Implement platform_profile
@@ -12,10 +12,10 @@ change these modes. If not supported, skip enabling platform_profile.
 Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
  drivers/platform/x86/dell/Kconfig            |   2 +
- drivers/platform/x86/dell/dell-laptop.c      | 243 +++++++++++++++++++
+ drivers/platform/x86/dell/dell-laptop.c      | 242 +++++++++++++++++++
  drivers/platform/x86/dell/dell-smbios-base.c |   1 +
  drivers/platform/x86/dell/dell-smbios.h      |   1 +
- 4 files changed, 247 insertions(+)
+ 4 files changed, 246 insertions(+)
 
 diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
 index bd9f445974cc..26679f22733c 100644
@@ -38,7 +38,7 @@ index bd9f445974cc..26679f22733c 100644
  	This driver adds support for rfkill and backlight control to Dell
  	laptops (except for some models covered by the Compal driver).
 diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 42f7de2b4522..038637f714f0 100644
+index 42f7de2b4522..07f54f1cbac5 100644
 --- a/drivers/platform/x86/dell/dell-laptop.c
 +++ b/drivers/platform/x86/dell/dell-laptop.c
 @@ -27,6 +27,9 @@
@@ -59,7 +59,7 @@ index 42f7de2b4522..038637f714f0 100644
  static bool force_rfkill;
  static bool micmute_led_registered;
  static bool mute_led_registered;
-@@ -2199,6 +2203,237 @@ static int mute_led_set(struct led_classdev *led_cdev,
+@@ -2199,6 +2203,236 @@ static int mute_led_set(struct led_classdev *led_cdev,
  	return 0;
  }
  
@@ -252,8 +252,7 @@ index 42f7de2b4522..038637f714f0 100644
 +	int supported_modes;
 +
 +	/* If thermal commands not supported, exit without error */
-+	ret = dell_laptop_check_supported_cmds(CLASS_INFO);
-+	if (!ret)
++	if (!dell_laptop_check_supported_cmds(CLASS_INFO))
 +		return 0;
 +
 +	/* If thermal modes not supported, exit without error */
@@ -297,7 +296,7 @@ index 42f7de2b4522..038637f714f0 100644
  static struct led_classdev mute_led_cdev = {
  	.name = "platform::mute",
  	.max_brightness = 1,
-@@ -2238,6 +2473,11 @@ static int __init dell_init(void)
+@@ -2238,6 +2472,11 @@ static int __init dell_init(void)
  		goto fail_rfkill;
  	}
  
@@ -309,7 +308,7 @@ index 42f7de2b4522..038637f714f0 100644
  	if (quirks && quirks->touchpad_led)
  		touchpad_led_init(&platform_device->dev);
  
-@@ -2317,6 +2557,8 @@ static int __init dell_init(void)
+@@ -2317,6 +2556,8 @@ static int __init dell_init(void)
  		led_classdev_unregister(&mute_led_cdev);
  fail_led:
  	dell_cleanup_rfkill();
@@ -318,7 +317,7 @@ index 42f7de2b4522..038637f714f0 100644
  fail_rfkill:
  	platform_device_del(platform_device);
  fail_platform_device2:
-@@ -2344,6 +2586,7 @@ static void __exit dell_exit(void)
+@@ -2344,6 +2585,7 @@ static void __exit dell_exit(void)
  		platform_device_unregister(platform_device);
  		platform_driver_unregister(&platform_driver);
  	}
