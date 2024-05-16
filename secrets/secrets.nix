@@ -18,6 +18,7 @@ in {
   "morpheus/pass_borgbase.age".publicKeys = [lsanche morpheus];
   "morpheus/id_trinity_borg.age".publicKeys = [lsanche morpheus];
   "morpheus/pass_trinity_borg.age".publicKeys = [lsanche morpheus];
+  "morpheus/webdav.age".publicKeys = [lsanche morpheus];
 
   "oracle/nc_db.age".publicKeys = [lsanche oracle];
   "oracle/nc_root_pw.age".publicKeys = [lsanche oracle];
