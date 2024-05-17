@@ -3,6 +3,11 @@
   inputs,
 }: {
   polarity = "dark";
+  cursor = {
+    package = pkgs.gnome.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
+  };
   fonts = let
     cascadia = pkgs.nerdfonts.override {fonts = ["CascadiaCode"];};
   in {

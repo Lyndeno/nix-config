@@ -1,7 +1,7 @@
-From 981798ded351c26b736615221cdc4e1f88893724 Mon Sep 17 00:00:00 2001
+From a66815da4affbd81059bd8e17eeab68822d395da Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Wed, 24 Apr 2024 10:16:49 -0600
-Subject: [PATCH v6 2/2] platform/x86: dell-laptop: Implement platform_profile
+Subject: [PATCH v7 2/2] platform/x86: dell-laptop: Implement platform_profile
 
 Some Dell laptops support configuration of preset fan modes through
 smbios tables.
@@ -11,58 +11,118 @@ change these modes. If not supported, skip enabling platform_profile.
 
 Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
- drivers/platform/x86/dell/Kconfig            |   2 +
- drivers/platform/x86/dell/dell-laptop.c      | 242 +++++++++++++++++++
+ drivers/platform/x86/dell/Kconfig            |  11 +
+ drivers/platform/x86/dell/Makefile           |   1 +
+ drivers/platform/x86/dell/dell-pc.c          | 326 +++++++++++++++++++
  drivers/platform/x86/dell/dell-smbios-base.c |   1 +
  drivers/platform/x86/dell/dell-smbios.h      |   1 +
- 4 files changed, 246 insertions(+)
+ 5 files changed, 340 insertions(+)
+ create mode 100644 drivers/platform/x86/dell/dell-pc.c
 
 diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
-index bd9f445974cc..26679f22733c 100644
+index bd9f445974cc..baa91cdcbfd0 100644
 --- a/drivers/platform/x86/dell/Kconfig
 +++ b/drivers/platform/x86/dell/Kconfig
-@@ -47,6 +47,7 @@ config DCDBAS
- config DELL_LAPTOP
- 	tristate "Dell Laptop Extras"
- 	default m
+@@ -91,6 +91,17 @@ config DELL_RBTN
+ 	  To compile this driver as a module, choose M here: the module will
+ 	  be called dell-rbtn.
+ 
++config DELL_PC
++	tristate "Dell PC Extras"
++	default m
 +	depends on ACPI
- 	depends on DMI
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	depends on ACPI_VIDEO || ACPI_VIDEO = n
-@@ -57,6 +58,7 @@ config DELL_LAPTOP
- 	select POWER_SUPPLY
- 	select LEDS_CLASS
- 	select NEW_LEDS
++	depends on DMI
++	depends on DELL_SMBIOS
 +	select ACPI_PLATFORM_PROFILE
- 	help
- 	This driver adds support for rfkill and backlight control to Dell
- 	laptops (except for some models covered by the Compal driver).
-diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 42f7de2b4522..07f54f1cbac5 100644
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -27,6 +27,9 @@
- #include <linux/i8042.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
++	help
++	 This driver adds support for controlling the fan modes via platform_profile
++	 on supported Dell systems regardless of formfactor.
++
+ #
+ # The DELL_SMBIOS driver depends on ACPI_WMI and/or DCDBAS if those
+ # backends are selected. The "depends" line prevents a configuration
+diff --git a/drivers/platform/x86/dell/Makefile b/drivers/platform/x86/dell/Makefile
+index 1b8942426622..9b0094fafcce 100644
+--- a/drivers/platform/x86/dell/Makefile
++++ b/drivers/platform/x86/dell/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_DCDBAS)			+= dcdbas.o
+ obj-$(CONFIG_DELL_LAPTOP)		+= dell-laptop.o
+ obj-$(CONFIG_DELL_RBTN)			+= dell-rbtn.o
+ obj-$(CONFIG_DELL_RBU)			+= dell_rbu.o
++obj-$(CONFIG_DELL_PC)			+= dell-pc.o
+ obj-$(CONFIG_DELL_SMBIOS)		+= dell-smbios.o
+ dell-smbios-objs			:= dell-smbios-base.o
+ dell-smbios-$(CONFIG_DELL_SMBIOS_WMI)	+= dell-smbios-wmi.o
+diff --git a/drivers/platform/x86/dell/dell-pc.c b/drivers/platform/x86/dell/dell-pc.c
+new file mode 100644
+index 000000000000..1ec5c6a3771c
+--- /dev/null
++++ b/drivers/platform/x86/dell/dell-pc.c
+@@ -0,0 +1,326 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ *  Driver for Dell laptop extras
++ *
++ *  Copyright (c) Lyndon Sanche <lsanche@lyndeno.ca>
++ *
++ *  Based on documentation in the libsmbios package:
++ *  Copyright (C) 2005-2014 Dell Inc.
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/module.h>
++#include <linux/kernel.h>
++#include <linux/init.h>
++#include <linux/err.h>
++#include <linux/dmi.h>
 +#include <linux/bitfield.h>
 +#include <linux/bits.h>
 +#include <linux/platform_profile.h>
- #include <acpi/video.h>
- #include "dell-rbtn.h"
- #include "dell-smbios.h"
-@@ -95,6 +98,7 @@ static struct backlight_device *dell_backlight_device;
- static struct rfkill *wifi_rfkill;
- static struct rfkill *bluetooth_rfkill;
- static struct rfkill *wwan_rfkill;
-+static struct platform_profile_handler *thermal_handler;
- static bool force_rfkill;
- static bool micmute_led_registered;
- static bool mute_led_registered;
-@@ -2199,6 +2203,236 @@ static int mute_led_set(struct led_classdev *led_cdev,
- 	return 0;
- }
- 
++#include <linux/slab.h>
++#include "dell-smbios.h"
++
++
++static const struct dmi_system_id dell_device_table[] __initconst = {
++	{
++		.ident = "Dell Inc.",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++		},
++	},
++	{
++		.ident = "Dell Computer Corporation",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Computer Corporation"),
++		},
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(dmi, dell_device_table);
++
++static void dell_fill_request(struct calling_interface_buffer *buffer,
++			       u32 arg0, u32 arg1, u32 arg2, u32 arg3)
++{
++	memset(buffer, 0, sizeof(struct calling_interface_buffer));
++	buffer->input[0] = arg0;
++	buffer->input[1] = arg1;
++	buffer->input[2] = arg2;
++	buffer->input[3] = arg3;
++}
++
++static int dell_send_request(struct calling_interface_buffer *buffer,
++			     u16 class, u16 select)
++{
++	int ret;
++
++	buffer->cmd_class = class;
++	buffer->cmd_select = select;
++	ret = dell_smbios_call(buffer);
++	if (ret != 0)
++		return ret;
++	return dell_smbios_error(buffer->output[0]);
++}
++
 +/* Derived from smbios-thermal-ctl
 + *
 + * cbClass 17
@@ -128,6 +188,8 @@ index 42f7de2b4522..07f54f1cbac5 100644
 +#define DELL_ACC_GET_FIELD		GENMASK(19, 16)
 +#define DELL_ACC_SET_FIELD		GENMASK(11, 8)
 +#define DELL_THERMAL_SUPPORTED	GENMASK(3, 0)
++
++static struct platform_profile_handler *thermal_handler;
 +
 +enum thermal_mode_bits {
 +	DELL_BALANCED = BIT(0),
@@ -293,38 +355,36 @@ index 42f7de2b4522..07f54f1cbac5 100644
 +	}
 +}
 +
- static struct led_classdev mute_led_cdev = {
- 	.name = "platform::mute",
- 	.max_brightness = 1,
-@@ -2238,6 +2472,11 @@ static int __init dell_init(void)
- 		goto fail_rfkill;
- 	}
- 
++static int __init dell_init(void)
++{
++	int ret;
++
++	if (!dmi_check_system(dell_device_table))
++		return -ENODEV;
++
 +	/* Do not fail module if thermal modes not supported, just skip */
 +	ret = thermal_init();
 +	if (ret)
 +		goto fail_thermal;
 +
- 	if (quirks && quirks->touchpad_led)
- 		touchpad_led_init(&platform_device->dev);
- 
-@@ -2317,6 +2556,8 @@ static int __init dell_init(void)
- 		led_classdev_unregister(&mute_led_cdev);
- fail_led:
- 	dell_cleanup_rfkill();
++	return 0;
++
 +fail_thermal:
 +	thermal_cleanup();
- fail_rfkill:
- 	platform_device_del(platform_device);
- fail_platform_device2:
-@@ -2344,6 +2585,7 @@ static void __exit dell_exit(void)
- 		platform_device_unregister(platform_device);
- 		platform_driver_unregister(&platform_driver);
- 	}
++	return ret;
++}
++
++static void __exit dell_exit(void)
++{
 +	thermal_cleanup();
- }
- 
- /* dell-rbtn.c driver export functions which will not work correctly (and could
++}
++
++module_init(dell_init);
++module_exit(dell_exit);
++
++MODULE_AUTHOR("Lyndon Sanche <lsanche@lyndeno.ca>");
++MODULE_DESCRIPTION("Dell PC driver");
++MODULE_LICENSE("GPL");
 diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
 index 6ae09d7f76fb..387fa5618f7a 100644
 --- a/drivers/platform/x86/dell/dell-smbios-base.c
