@@ -5,5 +5,8 @@
       document-font-name = "${serif.name}  ${toString (sizes.applications - 1)}";
       monospace-font-name = "${monospace.name} ${toString sizes.applications}";
     };
+    "org/gnome/mutter" = {
+      experimental-features = ["variable-refresh-rate"];
+    };
   };
 }
