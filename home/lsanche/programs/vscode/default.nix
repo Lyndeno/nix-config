@@ -29,6 +29,7 @@
     graphql.vscode-graphql
     graphql.vscode-graphql-syntax
     tamasfe.even-better-toml
+    james-yu.latex-workshop
     inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace.bodil.blueprint-gtk
   ];
   userSettings = {
