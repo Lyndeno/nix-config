@@ -160,9 +160,7 @@
       };
       flake = {
         nixosConfigurations = multinix.lib.makeNixosSystems {
-          hostFolder = ./hosts;
-          commonFolder = ./common;
-          modFolder = ./mods;
+          flakeRoot = ./.;
           specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
           defaultSystem = "x86_64-linux";
         };

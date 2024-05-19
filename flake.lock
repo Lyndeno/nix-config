@@ -857,11 +857,11 @@
         "pre-commit-hooks-nix": "pre-commit-hooks-nix_3"
       },
       "locked": {
-        "lastModified": 1710442897,
-        "narHash": "sha256-/xseSB2g1oFaOsoTDJnN4LbTjGUvF/aI53e5zbR+nvI=",
+        "lastModified": 1716156886,
+        "narHash": "sha256-kBYwg6nUEDVM3ayQzfuZqrUIcNjONUdppnoR+0MTsgI=",
         "owner": "lyndeno",
         "repo": "multinix",
-        "rev": "38f29aee08d7761fded86b4e7f53275eeefafb5e",
+        "rev": "bdf0bad4b77200e9b0f1bd53a73a311940fc61e1",
         "type": "github"
       },
       "original": {
