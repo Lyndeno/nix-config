@@ -61,16 +61,11 @@
     };
     nix = {
       enableLanguageServer = true;
-      serverPath = "nil";
+      serverPath = "nixd";
       serverSettings = {
-        nil = {
-          maxMemoryMB = null;
+        nixd = {
           formatting = {
             command = ["nix" "fmt" "--" "--quiet" "-"];
-          };
-          flake = {
-            autoArchive = true;
-            autoEvalInputs = true;
           };
         };
       };

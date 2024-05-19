@@ -17,4 +17,5 @@
     options = "--delete-older-than 60d";
   };
   registry.nixpkgs.flake = inputs.nixpkgs;
+  nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 }

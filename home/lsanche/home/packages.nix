@@ -23,7 +23,7 @@ in
       #element-desktop
 
       # Development
-      nil
+      nixd
       clang-tools
       bear
       lldb
