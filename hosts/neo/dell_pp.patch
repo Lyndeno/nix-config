@@ -1,7 +1,163 @@
-From bc1ec019dd428e2c1fb984cad26203cf219198fa Mon Sep 17 00:00:00 2001
+From a2647c609adff5c93378547b478b566a448c9941 Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
-Date: Wed, 24 Apr 2024 10:16:49 -0600
-Subject: [PATCH v5] platform/x86: dell-laptop: Implement platform_profile
+Date: Thu, 9 May 2024 22:33:48 -0600
+Subject: [PATCH v7 1/3] platform/x86: dell-smbios: Add helper for checking
+ supported class
+
+Add helper that returns true if smbios command class is supported.
+
+Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
+---
+ drivers/platform/x86/dell/dell-smbios-base.c | 9 +++++++++
+ drivers/platform/x86/dell/dell-smbios.h      | 1 +
+ 2 files changed, 10 insertions(+)
+
+diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
+index e61bfaf8b5c4..fbdd12a7cb8d 100644
+--- a/drivers/platform/x86/dell/dell-smbios-base.c
++++ b/drivers/platform/x86/dell/dell-smbios-base.c
+@@ -350,6 +350,15 @@ void dell_laptop_call_notifier(unsigned long action, void *data)
+ }
+ EXPORT_SYMBOL_GPL(dell_laptop_call_notifier);
+ 
++bool dell_smbios_class_is_supported(u16 class)
++{
++	/* Classes over 30 always unsupported */
++	if (class > 30)
++		return false;
++	return da_supported_commands & (1 << class);
++}
++EXPORT_SYMBOL_GPL(dell_smbios_class_is_supported);
++
+ static void __init parse_da_table(const struct dmi_header *dm)
+ {
+ 	/* Final token is a terminator, so we don't want to copy it */
+diff --git a/drivers/platform/x86/dell/dell-smbios.h b/drivers/platform/x86/dell/dell-smbios.h
+index eb341bf000c6..756c354b1eef 100644
+--- a/drivers/platform/x86/dell/dell-smbios.h
++++ b/drivers/platform/x86/dell/dell-smbios.h
+@@ -73,6 +73,7 @@ enum dell_laptop_notifier_actions {
+ int dell_laptop_register_notifier(struct notifier_block *nb);
+ int dell_laptop_unregister_notifier(struct notifier_block *nb);
+ void dell_laptop_call_notifier(unsigned long action, void *data);
++bool dell_smbios_class_is_supported(u16 class);
+ 
+ /* for the supported backends */
+ #ifdef CONFIG_DELL_SMBIOS_WMI
+-- 
+2.42.0
+
+
+From b0620e5c529b4cd010740da8f53aad6ebfe14462 Mon Sep 17 00:00:00 2001
+From: Lyndon Sanche <lsanche@lyndeno.ca>
+Date: Fri, 17 May 2024 12:23:59 -0600
+Subject: [PATCH v7 2/3] platform/x86: dell-smbios: Move request functions for
+ reuse
+
+Move the dell_send_request and dell_fill_request symbols into smbios-base
+so that they can be used in multiple modules.
+
+Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
+---
+ drivers/platform/x86/dell/dell-laptop.c      | 23 ------------------
+ drivers/platform/x86/dell/dell-smbios-base.c | 25 ++++++++++++++++++++
+ drivers/platform/x86/dell/dell-smbios.h      |  5 ++++
+ 3 files changed, 30 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+index 42f7de2b4522..6552dfe491c6 100644
+--- a/drivers/platform/x86/dell/dell-laptop.c
++++ b/drivers/platform/x86/dell/dell-laptop.c
+@@ -353,29 +353,6 @@ static const struct dmi_system_id dell_quirks[] __initconst = {
+ 	{ }
+ };
+ 
+-static void dell_fill_request(struct calling_interface_buffer *buffer,
+-			       u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+-{
+-	memset(buffer, 0, sizeof(struct calling_interface_buffer));
+-	buffer->input[0] = arg0;
+-	buffer->input[1] = arg1;
+-	buffer->input[2] = arg2;
+-	buffer->input[3] = arg3;
+-}
+-
+-static int dell_send_request(struct calling_interface_buffer *buffer,
+-			     u16 class, u16 select)
+-{
+-	int ret;
+-
+-	buffer->cmd_class = class;
+-	buffer->cmd_select = select;
+-	ret = dell_smbios_call(buffer);
+-	if (ret != 0)
+-		return ret;
+-	return dell_smbios_error(buffer->output[0]);
+-}
+-
+ /*
+  * Derived from information in smbios-wireless-ctl:
+  *
+diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
+index fbdd12a7cb8d..515c454acfe6 100644
+--- a/drivers/platform/x86/dell/dell-smbios-base.c
++++ b/drivers/platform/x86/dell/dell-smbios-base.c
+@@ -314,6 +314,31 @@ int dell_smbios_call(struct calling_interface_buffer *buffer)
+ }
+ EXPORT_SYMBOL_GPL(dell_smbios_call);
+ 
++void dell_fill_request(struct calling_interface_buffer *buffer,
++			       u32 arg0, u32 arg1, u32 arg2, u32 arg3)
++{
++	memset(buffer, 0, sizeof(struct calling_interface_buffer));
++	buffer->input[0] = arg0;
++	buffer->input[1] = arg1;
++	buffer->input[2] = arg2;
++	buffer->input[3] = arg3;
++}
++EXPORT_SYMBOL_GPL(dell_fill_request);
++
++int dell_send_request(struct calling_interface_buffer *buffer,
++			     u16 class, u16 select)
++{
++	int ret;
++
++	buffer->cmd_class = class;
++	buffer->cmd_select = select;
++	ret = dell_smbios_call(buffer);
++	if (ret != 0)
++		return ret;
++	return dell_smbios_error(buffer->output[0]);
++}
++EXPORT_SYMBOL_GPL(dell_send_request);
++
+ struct calling_interface_token *dell_smbios_find_token(int tokenid)
+ {
+ 	int i;
+diff --git a/drivers/platform/x86/dell/dell-smbios.h b/drivers/platform/x86/dell/dell-smbios.h
+index 756c354b1eef..1d6463cca12a 100644
+--- a/drivers/platform/x86/dell/dell-smbios.h
++++ b/drivers/platform/x86/dell/dell-smbios.h
+@@ -64,6 +64,11 @@ int dell_smbios_call_filter(struct device *d,
+ 	struct calling_interface_buffer *buffer);
+ int dell_smbios_call(struct calling_interface_buffer *buffer);
+ 
++void dell_fill_request(struct calling_interface_buffer *buffer,
++			       u32 arg0, u32 arg1, u32 arg2, u32 arg3);
++int dell_send_request(struct calling_interface_buffer *buffer,
++			     u16 class, u16 select);
++
+ struct calling_interface_token *dell_smbios_find_token(int tokenid);
+ 
+ enum dell_laptop_notifier_actions {
+-- 
+2.42.0
+
+
+From d1a91ff714ddf01651eefa1dc8b8c9b5fa2e1e1c Mon Sep 17 00:00:00 2001
+From: Lyndon Sanche <lsanche@lyndeno.ca>
+Date: Fri, 17 May 2024 12:29:42 -0600
+Subject: [PATCH v7 3/3] platform/x86: dell-pc: Implement platform_profile
 
 Some Dell laptops support configuration of preset fan modes through
 smbios tables.
@@ -11,50 +167,115 @@ change these modes. If not supported, skip enabling platform_profile.
 
 Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
 ---
- drivers/platform/x86/dell/Kconfig            |   1 +
- drivers/platform/x86/dell/dell-laptop.c      | 238 +++++++++++++++++++
+ MAINTAINERS                                  |   6 +
+ drivers/platform/x86/dell/Kconfig            |  13 +
+ drivers/platform/x86/dell/Makefile           |   1 +
+ drivers/platform/x86/dell/dell-pc.c          | 310 +++++++++++++++++++
  drivers/platform/x86/dell/dell-smbios-base.c |   1 +
  drivers/platform/x86/dell/dell-smbios.h      |   1 +
- 4 files changed, 241 insertions(+)
+ 6 files changed, 332 insertions(+)
+ create mode 100644 drivers/platform/x86/dell/dell-pc.c
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ebf03f5f0619..69c582b72a08 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5961,6 +5961,12 @@ F:	Documentation/ABI/obsolete/procfs-i8k
+ F:	drivers/hwmon/dell-smm-hwmon.c
+ F:	include/uapi/linux/i8k.h
+ 
++DELL PC DRIVER
++M:	Lyndon Sanche <lsanche@lyndeno.ca>
++L:	platform-driver-x86@vger.kernel.org
++S:	Maintained
++F:	drivers/platform/x86/dell/dell-pc.c
++
+ DELL REMOTE BIOS UPDATE DRIVER
+ M:	Stuart Hayes <stuart.w.hayes@gmail.com>
+ L:	platform-driver-x86@vger.kernel.org
 diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
-index bdd78076b1d7..2f05c5594e48 100644
+index bd9f445974cc..0732850a3dd6 100644
 --- a/drivers/platform/x86/dell/Kconfig
 +++ b/drivers/platform/x86/dell/Kconfig
-@@ -59,6 +59,7 @@ config DELL_LAPTOP
- 	select NEW_LEDS
- 	select LEDS_TRIGGERS
- 	select LEDS_TRIGGER_AUDIO
+@@ -91,6 +91,19 @@ config DELL_RBTN
+ 	  To compile this driver as a module, choose M here: the module will
+ 	  be called dell-rbtn.
+ 
++config DELL_PC
++	tristate "Dell PC Extras"
++	default m
++	depends on ACPI
++	depends on DMI
++	depends on DELL_SMBIOS
 +	select ACPI_PLATFORM_PROFILE
- 	help
- 	This driver adds support for rfkill and backlight control to Dell
- 	laptops (except for some models covered by the Compal driver).
-diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 6586438356de..ad38e927f684 100644
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -27,6 +27,9 @@
- #include <linux/i8042.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
++	help
++	This driver adds support for controlling the fan modes via platform_profile
++	on supported Dell systems regardless of formfactor.
++	Module will simply do nothing if thermal management commands are not
++	supported.
++
+ #
+ # The DELL_SMBIOS driver depends on ACPI_WMI and/or DCDBAS if those
+ # backends are selected. The "depends" line prevents a configuration
+diff --git a/drivers/platform/x86/dell/Makefile b/drivers/platform/x86/dell/Makefile
+index 1b8942426622..9b0094fafcce 100644
+--- a/drivers/platform/x86/dell/Makefile
++++ b/drivers/platform/x86/dell/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_DCDBAS)			+= dcdbas.o
+ obj-$(CONFIG_DELL_LAPTOP)		+= dell-laptop.o
+ obj-$(CONFIG_DELL_RBTN)			+= dell-rbtn.o
+ obj-$(CONFIG_DELL_RBU)			+= dell_rbu.o
++obj-$(CONFIG_DELL_PC)			+= dell-pc.o
+ obj-$(CONFIG_DELL_SMBIOS)		+= dell-smbios.o
+ dell-smbios-objs			:= dell-smbios-base.o
+ dell-smbios-$(CONFIG_DELL_SMBIOS_WMI)	+= dell-smbios-wmi.o
+diff --git a/drivers/platform/x86/dell/dell-pc.c b/drivers/platform/x86/dell/dell-pc.c
+new file mode 100644
+index 000000000000..3dd762e39f45
+--- /dev/null
++++ b/drivers/platform/x86/dell/dell-pc.c
+@@ -0,0 +1,310 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ *  Driver for Dell laptop extras
++ *
++ *  Copyright (c) Lyndon Sanche <lsanche@lyndeno.ca>
++ *
++ *  Based on documentation in the libsmbios package:
++ *  Copyright (C) 2005-2014 Dell Inc.
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/module.h>
++#include <linux/kernel.h>
++#include <linux/init.h>
++#include <linux/err.h>
++#include <linux/dmi.h>
 +#include <linux/bitfield.h>
 +#include <linux/bits.h>
 +#include <linux/platform_profile.h>
- #include <acpi/video.h>
- #include "dell-rbtn.h"
- #include "dell-smbios.h"
-@@ -95,6 +98,7 @@ static struct backlight_device *dell_backlight_device;
- static struct rfkill *wifi_rfkill;
- static struct rfkill *bluetooth_rfkill;
- static struct rfkill *wwan_rfkill;
-+static struct platform_profile_handler *thermal_handler;
- static bool force_rfkill;
- static bool micmute_led_registered;
- static bool mute_led_registered;
-@@ -2199,6 +2203,232 @@ static int mute_led_set(struct led_classdev *led_cdev,
- 	return 0;
- }
- 
++#include <linux/slab.h>
++#include "dell-smbios.h"
++
++
++static const struct dmi_system_id dell_device_table[] __initconst = {
++	{
++		.ident = "Dell Inc.",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++		},
++	},
++	{
++		.ident = "Dell Computer Corporation",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Computer Corporation"),
++		},
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(dmi, dell_device_table);
++
 +/* Derived from smbios-thermal-ctl
 + *
 + * cbClass 17
@@ -121,6 +342,8 @@ index 6586438356de..ad38e927f684 100644
 +#define DELL_ACC_SET_FIELD		GENMASK(11, 8)
 +#define DELL_THERMAL_SUPPORTED	GENMASK(3, 0)
 +
++static struct platform_profile_handler *thermal_handler;
++
 +enum thermal_mode_bits {
 +	DELL_BALANCED = BIT(0),
 +	DELL_COOL_BOTTOM = BIT(1),
@@ -158,8 +381,15 @@ index 6586438356de..ad38e927f684 100644
 +
 +	dell_fill_request(&buffer, 0x0, 0, 0, 0);
 +	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
-+	if (ret)
-+		return ret;
++	if (ret) {
++		/* Thermal function not supported */
++		if (ret == -ENXIO) {
++			*supported_bits = 0;
++			return 0;
++		} else {
++			return ret;
++		}
++	}
 +	*supported_bits = FIELD_GET(DELL_THERMAL_SUPPORTED, buffer.output[1]);
 +	return 0;
 +}
@@ -243,6 +473,10 @@ index 6586438356de..ad38e927f684 100644
 +	int ret;
 +	int supported_modes;
 +
++	/* If thermal commands not supported, exit without error */
++	if (!dell_smbios_class_is_supported(CLASS_INFO))
++		return 0;
++
 +	/* If thermal modes not supported, exit without error */
 +	ret = thermal_get_supported_modes(&supported_modes);
 +	if (ret < 0)
@@ -281,40 +515,38 @@ index 6586438356de..ad38e927f684 100644
 +	}
 +}
 +
- static struct led_classdev mute_led_cdev = {
- 	.name = "platform::mute",
- 	.max_brightness = 1,
-@@ -2238,6 +2468,11 @@ static int __init dell_init(void)
- 		goto fail_rfkill;
- 	}
- 
++static int __init dell_init(void)
++{
++	int ret;
++
++	if (!dmi_check_system(dell_device_table))
++		return -ENODEV;
++
 +	/* Do not fail module if thermal modes not supported, just skip */
 +	ret = thermal_init();
 +	if (ret)
 +		goto fail_thermal;
 +
- 	if (quirks && quirks->touchpad_led)
- 		touchpad_led_init(&platform_device->dev);
- 
-@@ -2319,6 +2554,8 @@ static int __init dell_init(void)
- 		led_classdev_unregister(&mute_led_cdev);
- fail_led:
- 	dell_cleanup_rfkill();
++	return 0;
++
 +fail_thermal:
 +	thermal_cleanup();
- fail_rfkill:
- 	platform_device_del(platform_device);
- fail_platform_device2:
-@@ -2346,6 +2583,7 @@ static void __exit dell_exit(void)
- 		platform_device_unregister(platform_device);
- 		platform_driver_unregister(&platform_driver);
- 	}
++	return ret;
++}
++
++static void __exit dell_exit(void)
++{
 +	thermal_cleanup();
- }
- 
- /* dell-rbtn.c driver export functions which will not work correctly (and could
++}
++
++module_init(dell_init);
++module_exit(dell_exit);
++
++MODULE_AUTHOR("Lyndon Sanche <lsanche@lyndeno.ca>");
++MODULE_DESCRIPTION("Dell PC driver");
++MODULE_LICENSE("GPL");
 diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
-index e61bfaf8b5c4..5bc2e394dd1c 100644
+index 515c454acfe6..d61b33d5af95 100644
 --- a/drivers/platform/x86/dell/dell-smbios-base.c
 +++ b/drivers/platform/x86/dell/dell-smbios-base.c
 @@ -71,6 +71,7 @@ static struct smbios_call call_blacklist[] = {
@@ -326,7 +558,7 @@ index e61bfaf8b5c4..5bc2e394dd1c 100644
  
  struct token_range {
 diff --git a/drivers/platform/x86/dell/dell-smbios.h b/drivers/platform/x86/dell/dell-smbios.h
-index eb341bf000c6..585d042f1779 100644
+index 1d6463cca12a..ea0cc38642a2 100644
 --- a/drivers/platform/x86/dell/dell-smbios.h
 +++ b/drivers/platform/x86/dell/dell-smbios.h
 @@ -19,6 +19,7 @@
