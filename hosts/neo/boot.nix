@@ -41,6 +41,10 @@
       name = "dell-platform-profile2";
       patch = ./dell_pp2.patch;
     }
+    {
+      name = "dell-platform-profile3";
+      patch = ./dell_pp3.patch;
+    }
   ];
 
   binfmt.emulatedSystems = ["aarch64-linux"];
