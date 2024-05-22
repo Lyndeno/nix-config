@@ -24,6 +24,7 @@ in
 
       # Development
       nixd
+      rust-analyzer
       clang-tools
       bear
       lldb

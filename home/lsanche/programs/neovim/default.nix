@@ -19,9 +19,12 @@
         # TODO: Remove hardcoded theme file
       in {patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_${config.lib.stylix.colors.scheme-slug-underscored}.vim'';}
     ))
+    nvim-lspconfig
   ];
   # mkAfter so we can override some stylix settings
   extraConfig = lib.mkAfter ''
+    lua require'lspconfig'.rust_analyzer.setup{}
+    lua require'lspconfig'.nixd.setup{}
     set tabstop=2
     set noshowmode
     set hlsearch
