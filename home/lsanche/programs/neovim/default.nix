@@ -17,7 +17,7 @@
       _old: let
         schemeFile = config.lib.stylix.colors inputs.base16-vim-lightline;
         # TODO: Remove hardcoded theme file
-      in {patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_gruvbox_dark_hard.vim'';}
+      in {patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_${config.lib.stylix.colors.scheme-slug-underscored}.vim'';}
     ))
   ];
   # mkAfter so we can override some stylix settings
@@ -38,7 +38,7 @@
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
       \ },
-      \ 'colorscheme': 'base16_gruvbox_dark_hard',
+      \ 'colorscheme': 'base16_${config.lib.stylix.colors.scheme-slug-underscored}',
       \ }
 
     set signcolumn=number
