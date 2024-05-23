@@ -56,8 +56,9 @@
         \ 'component_function': {
         \   'gitbranch': 'FugitiveHead'
         \ },
-        \ 'colorscheme': 'base16_${config.lib.stylix.colors.scheme-slug-underscored}',
         \ }
+
+      let g:lightline.colorscheme = 'base16_${config.lib.stylix.colors.scheme-slug-underscored}'
 
       set signcolumn=number
       set relativenumber
