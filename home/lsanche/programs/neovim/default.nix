@@ -21,10 +21,12 @@
     ))
     nvim-lspconfig
   ];
+  extraLuaConfig = ''
+    require'lspconfig'.rust_analyzer.setup{}
+    require'lspconfig'.nixd.setup{}
+  '';
   # mkAfter so we can override some stylix settings
   extraConfig = lib.mkAfter ''
-    lua require'lspconfig'.rust_analyzer.setup{}
-    lua require'lspconfig'.nixd.setup{}
     set tabstop=2
     set noshowmode
     set hlsearch
