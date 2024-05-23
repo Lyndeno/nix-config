@@ -26,6 +26,8 @@
     ''
       require'lspconfig'.rust_analyzer.setup{}
       require'lspconfig'.nixd.setup{}
+      require'lspconfig'.clangd.setup{}
+      require'lspconfig'.texlab.setup{}
 
       require'nvim-treesitter.configs'.setup {
         highlight = {

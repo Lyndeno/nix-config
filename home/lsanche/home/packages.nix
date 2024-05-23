@@ -25,6 +25,7 @@ in
       # Development
       nixd
       rust-analyzer
+      texlab
       clang-tools
       bear
       lldb
