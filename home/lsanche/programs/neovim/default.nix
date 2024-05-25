@@ -28,11 +28,6 @@
   extraLuaConfig =
     # lua
     ''
-      --require'lspconfig'.rust_analyzer.setup{}
-      --require'lspconfig'.nixd.setup{}
-      --require'lspconfig'.clangd.setup{}
-      --require'lspconfig'.texlab.setup{}
-
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local lspconfig = require('lspconfig')
@@ -44,6 +39,13 @@
             vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
           end,
           capabilities = capabilities,
+          settings = {
+            ['rust-analyzer'] = {
+              check = {
+                command = "clippy",
+              },
+            },
+          },
         }
       end
 
