@@ -1,8 +1,6 @@
 {
   pkgs,
   lib,
-  config,
-  inputs,
 }: {
   enable = true;
   defaultEditor = true;
@@ -13,21 +11,18 @@
   plugins = with pkgs.vimPlugins; [
     vim-nix
     fugitive
-    (lightline-vim.overrideAttrs (
-      _old: let
-        schemeFile = config.lib.stylix.colors inputs.base16-vim-lightline;
-      in {patchPhase = ''cp ${schemeFile} autoload/lightline/colorscheme/base16_${config.lib.stylix.colors.scheme-slug-underscored}.vim'';}
-    ))
     nvim-lspconfig
     nvim-treesitter.withAllGrammars
     nvim-cmp
     cmp-nvim-lsp
     cmp_luasnip
     luasnip
+    lualine-nvim
   ];
   extraLuaConfig =
     # lua
     ''
+      require('lualine').setup()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local lspconfig = require('lspconfig')
@@ -111,17 +106,6 @@
       set cmdheight=1
       set shiftwidth=0
       set noshowcmd " hide the keys pressed in normal mode
-      let g:lightline = {
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-        \ },
-        \ 'component_function': {
-        \   'gitbranch': 'FugitiveHead'
-        \ },
-        \ }
-
-      let g:lightline.colorscheme = 'base16_${config.lib.stylix.colors.scheme-slug-underscored}'
 
       set signcolumn=number
       set relativenumber

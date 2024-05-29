@@ -179,22 +179,6 @@
         "type": "github"
       }
     },
-    "base16-vim-lightline": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1563989007,
-        "narHash": "sha256-Sbkx/2RTa/UEW82aNf9Rlyd6vRAbSyn1pgPMNWdknVE=",
-        "owner": "mike-hearn",
-        "repo": "base16-vim-lightline",
-        "rev": "cea11b7d0a407eccf0085feefb5e3be2ec99bdbb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mike-hearn",
-        "repo": "base16-vim-lightline",
-        "type": "github"
-      }
-    },
     "bbase": {
       "inputs": {
         "naersk": "naersk",
@@ -1160,7 +1144,6 @@
         "agenix": "agenix",
         "apple-fonts": "apple-fonts",
         "base16-schemes": "base16-schemes",
-        "base16-vim-lightline": "base16-vim-lightline",
         "bbase": "bbase",
         "cfetch": "cfetch",
         "disko": "disko",

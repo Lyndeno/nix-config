@@ -42,11 +42,6 @@
       flake = false;
     };
 
-    base16-vim-lightline = {
-      url = "github:mike-hearn/base16-vim-lightline";
-      flake = false;
-    };
-
     wallpapers = {
       url = "github:Lyndeno/wallpapers";
       flake = false;
