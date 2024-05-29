@@ -1,7 +1,7 @@
-From a2647c609adff5c93378547b478b566a448c9941 Mon Sep 17 00:00:00 2001
+From 06e080e41fd1472f2c476cbfc100f6b533a6741c Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Thu, 9 May 2024 22:33:48 -0600
-Subject: [PATCH v7 1/3] platform/x86: dell-smbios: Add helper for checking
+Subject: [PATCH v8 1/3] platform/x86: dell-smbios: Add helper for checking
  supported class
 
 Add helper that returns true if smbios command class is supported.
@@ -48,10 +48,10 @@ index eb341bf000c6..756c354b1eef 100644
 2.42.0
 
 
-From b0620e5c529b4cd010740da8f53aad6ebfe14462 Mon Sep 17 00:00:00 2001
+From 190f28ff68d9281345c3e7fcc233bda10af383ca Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
 Date: Fri, 17 May 2024 12:23:59 -0600
-Subject: [PATCH v7 2/3] platform/x86: dell-smbios: Move request functions for
+Subject: [PATCH v8 2/3] platform/x86: dell-smbios: Move request functions for
  reuse
 
 Move the dell_send_request and dell_fill_request symbols into smbios-base
@@ -154,10 +154,10 @@ index 756c354b1eef..1d6463cca12a 100644
 2.42.0
 
 
-From d1a91ff714ddf01651eefa1dc8b8c9b5fa2e1e1c Mon Sep 17 00:00:00 2001
+From a2f629fe50de9fbbd63dc4df57732464d005e33b Mon Sep 17 00:00:00 2001
 From: Lyndon Sanche <lsanche@lyndeno.ca>
-Date: Fri, 17 May 2024 12:29:42 -0600
-Subject: [PATCH v7 3/3] platform/x86: dell-pc: Implement platform_profile
+Date: Tue, 28 May 2024 12:18:39 -0600
+Subject: [PATCH v8 3/3] platform/x86: dell-pc: Implement platform_profile
 
 Some Dell laptops support configuration of preset fan modes through
 smbios tables.
@@ -170,17 +170,17 @@ Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
  MAINTAINERS                                  |   6 +
  drivers/platform/x86/dell/Kconfig            |  13 +
  drivers/platform/x86/dell/Makefile           |   1 +
- drivers/platform/x86/dell/dell-pc.c          | 310 +++++++++++++++++++
+ drivers/platform/x86/dell/dell-pc.c          | 308 +++++++++++++++++++
  drivers/platform/x86/dell/dell-smbios-base.c |   1 +
  drivers/platform/x86/dell/dell-smbios.h      |   1 +
- 6 files changed, 332 insertions(+)
+ 6 files changed, 330 insertions(+)
  create mode 100644 drivers/platform/x86/dell/dell-pc.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index ebf03f5f0619..69c582b72a08 100644
+index d6c90161c7bf..09ff0dfd65cb 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -5961,6 +5961,12 @@ F:	Documentation/ABI/obsolete/procfs-i8k
+@@ -6116,6 +6116,12 @@ F:	Documentation/ABI/obsolete/procfs-i8k
  F:	drivers/hwmon/dell-smm-hwmon.c
  F:	include/uapi/linux/i8k.h
  
@@ -194,7 +194,7 @@ index ebf03f5f0619..69c582b72a08 100644
  M:	Stuart Hayes <stuart.w.hayes@gmail.com>
  L:	platform-driver-x86@vger.kernel.org
 diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
-index bd9f445974cc..0732850a3dd6 100644
+index 195a8bf532cc..85a78ef91182 100644
 --- a/drivers/platform/x86/dell/Kconfig
 +++ b/drivers/platform/x86/dell/Kconfig
 @@ -91,6 +91,19 @@ config DELL_RBTN
@@ -218,7 +218,7 @@ index bd9f445974cc..0732850a3dd6 100644
  # The DELL_SMBIOS driver depends on ACPI_WMI and/or DCDBAS if those
  # backends are selected. The "depends" line prevents a configuration
 diff --git a/drivers/platform/x86/dell/Makefile b/drivers/platform/x86/dell/Makefile
-index 1b8942426622..9b0094fafcce 100644
+index 8176a257d9c3..79d60f1bf4c1 100644
 --- a/drivers/platform/x86/dell/Makefile
 +++ b/drivers/platform/x86/dell/Makefile
 @@ -9,6 +9,7 @@ obj-$(CONFIG_DCDBAS)			+= dcdbas.o
@@ -231,10 +231,10 @@ index 1b8942426622..9b0094fafcce 100644
  dell-smbios-$(CONFIG_DELL_SMBIOS_WMI)	+= dell-smbios-wmi.o
 diff --git a/drivers/platform/x86/dell/dell-pc.c b/drivers/platform/x86/dell/dell-pc.c
 new file mode 100644
-index 000000000000..3dd762e39f45
+index 000000000000..f0c4e64bfa1d
 --- /dev/null
 +++ b/drivers/platform/x86/dell/dell-pc.c
-@@ -0,0 +1,310 @@
+@@ -0,0 +1,308 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + *  Driver for Dell laptop extras
@@ -256,6 +256,7 @@ index 000000000000..3dd762e39f45
 +#include <linux/bits.h>
 +#include <linux/platform_profile.h>
 +#include <linux/slab.h>
++
 +#include "dell-smbios.h"
 +
 +
@@ -338,16 +339,16 @@ index 000000000000..3dd762e39f45
 + *         Bit 3 AAC (Performance)
 + */
 +
-+#define DELL_ACC_GET_FIELD		GENMASK(19, 16)
-+#define DELL_ACC_SET_FIELD		GENMASK(11, 8)
++#define DELL_ACC_GET_FIELD	GENMASK(19, 16)
++#define DELL_ACC_SET_FIELD	GENMASK(11, 8)
 +#define DELL_THERMAL_SUPPORTED	GENMASK(3, 0)
 +
 +static struct platform_profile_handler *thermal_handler;
 +
 +enum thermal_mode_bits {
-+	DELL_BALANCED = BIT(0),
++	DELL_BALANCED    = BIT(0),
 +	DELL_COOL_BOTTOM = BIT(1),
-+	DELL_QUIET = BIT(2),
++	DELL_QUIET       = BIT(2),
 +	DELL_PERFORMANCE = BIT(3),
 +};
 +
@@ -381,15 +382,13 @@ index 000000000000..3dd762e39f45
 +
 +	dell_fill_request(&buffer, 0x0, 0, 0, 0);
 +	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
-+	if (ret) {
-+		/* Thermal function not supported */
-+		if (ret == -ENXIO) {
-+			*supported_bits = 0;
-+			return 0;
-+		} else {
-+			return ret;
-+		}
++	/* Thermal function not supported */
++	if (ret == -ENXIO) {
++		*supported_bits = 0;
++		return 0;
 +	}
++	if (ret)
++		return ret;
 +	*supported_bits = FIELD_GET(DELL_THERMAL_SUPPORTED, buffer.output[1]);
 +	return 0;
 +}
@@ -418,8 +417,7 @@ index 000000000000..3dd762e39f45
 +		return ret;
 +
 +	dell_fill_request(&buffer, 0x1, FIELD_PREP(DELL_ACC_SET_FIELD, acc_mode) | state, 0, 0);
-+	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
-+	return ret;
++	return dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
 +}
 +
 +static int thermal_platform_profile_set(struct platform_profile_handler *pprof,
@@ -473,11 +471,11 @@ index 000000000000..3dd762e39f45
 +	int ret;
 +	int supported_modes;
 +
-+	/* If thermal commands not supported, exit without error */
++	/* If thermal commands are not supported, exit without error */
 +	if (!dell_smbios_class_is_supported(CLASS_INFO))
 +		return 0;
 +
-+	/* If thermal modes not supported, exit without error */
++	/* If thermal modes are not supported, exit without error */
 +	ret = thermal_get_supported_modes(&supported_modes);
 +	if (ret < 0)
 +		return ret;
