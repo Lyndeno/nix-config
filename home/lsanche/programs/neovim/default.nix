@@ -18,6 +18,7 @@
     cmp_luasnip
     luasnip
     lualine-nvim
+    gitgutter
   ];
   extraLuaConfig =
     # lua
@@ -106,6 +107,7 @@
       set cmdheight=1
       set shiftwidth=0
       set noshowcmd " hide the keys pressed in normal mode
+      set updatetime=100
 
       set signcolumn=number
       set relativenumber
@@ -121,6 +123,11 @@
       hi CursorLineNr guibg=NONE ctermbg=NONE
       hi LineNr guibg=NONE ctermbg=NONE
       hi Todo cterm=none ctermfg=white ctermbg=red
+
+      hi GitGutterAdd guibg=NONE
+      hi GItGutterChange guibg=NONE
+      hi GitGutterDelete guibg=NONE
+      hi GitGutterChangeDelete guibg=NONE
 
     '';
 }
