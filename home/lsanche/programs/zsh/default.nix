@@ -6,9 +6,6 @@
   history = {
     path = "$HOME/.cache/zsh/histfile";
   };
-  shellAliases = {
-    cat = "${pkgs.bat}/bin/bat";
-  };
   initExtra = ''
     zmodload zsh/complist
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
