@@ -18,12 +18,17 @@
     cmp_luasnip
     luasnip
     lualine-nvim
+    lualine-lsp-progress
     gitgutter
   ];
   extraLuaConfig =
     # lua
     ''
-      require('lualine').setup()
+      require('lualine').setup{
+        sections = {
+          lualine_c = {'filename', 'lsp_progress'}
+        }
+      }
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local lspconfig = require('lspconfig')
