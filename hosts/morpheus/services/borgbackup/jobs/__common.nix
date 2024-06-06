@@ -4,6 +4,8 @@
     "/srv"
     "/home"
     "/data/bigpool/archive"
+    "/data/bigpool/immich/data/upload"
+    "/data/bigpool/immich/data/library"
     config.services.paperless.dataDir
     "/var/lib/${config.services.calibre-web.dataDir}"
   ];
