@@ -9,7 +9,7 @@
   enableUpdateCheck = false;
   extensions = with pkgs.vscode-extensions; [
     vscodevim.vim
-    matklad.rust-analyzer
+    rust-lang.rust-analyzer
     pkief.material-icon-theme
     usernamehw.errorlens
     yzhang.markdown-all-in-one
