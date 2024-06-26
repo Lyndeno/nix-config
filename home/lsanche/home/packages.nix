@@ -48,6 +48,7 @@ in
       kicad
       #zathura
       #imv
+      joplin-desktop
     ])
     ++ (lib.lists.optionals isGnome [
       libreoffice
