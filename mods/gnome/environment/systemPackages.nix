@@ -4,6 +4,7 @@ with pkgs;
     gnome.gnome-tweaks
     gnome-firmware
     mission-center
+    papers
   ]
   ++ (with gnomeExtensions; [
     appindicator

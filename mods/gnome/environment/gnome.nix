@@ -3,6 +3,7 @@
     (with pkgs; [
       gnome-tour
       gnome-text-editor
+      evince
     ])
     ++ (with pkgs.gnome; [
       gnome-music
