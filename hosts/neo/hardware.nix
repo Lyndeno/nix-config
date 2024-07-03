@@ -1,8 +1,5 @@
-{
-  pkgs,
-  lib,
-}: {
+{pkgs}: {
   enableRedistributableFirmware = true;
   bluetooth.enable = true;
-  opengl.extraPackages = lib.warn "Upstream this to nixos-hardware" [pkgs.intel-compute-runtime];
+  graphics.extraPackages = [pkgs.intel-compute-runtime];
 }
