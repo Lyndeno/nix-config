@@ -1,16 +1,13 @@
 {pkgs}: {
-  excludePackages =
-    (with pkgs; [
-      gnome-tour
-      gnome-text-editor
-      evince
-    ])
-    ++ (with pkgs.gnome; [
-      gnome-music
-      epiphany
-      gnome-characters
-      gnome-maps
-      gnome-font-viewer
-      totem
-    ]);
+  excludePackages = with pkgs; [
+    gnome-tour
+    gnome-text-editor
+    evince
+    epiphany
+    gnome-font-viewer
+    totem
+    gnome.gnome-music
+    gnome.gnome-characters
+    gnome.gnome-maps
+  ];
 }

@@ -1,7 +1,7 @@
 {pkgs}:
 with pkgs;
   [
-    gnome.gnome-tweaks
+    gnome-tweaks
     gnome-firmware
     mission-center
     papers
