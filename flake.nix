@@ -7,6 +7,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
+    dell-fan-profile = {
+      url = "github:Lyndeno/dell-fan-profile";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     multinix = {
       url = "github:lyndeno/multinix";
       inputs.nixpkgs.follows = "nixpkgs";

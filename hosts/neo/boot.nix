@@ -1,4 +1,9 @@
-{lib}: {
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+}: {
   swraid.enable = false;
   loader = {
     systemd-boot.enable = lib.mkForce false;
@@ -27,12 +32,15 @@
   kernelModules = [
     "coretemp" # sensors-detect for Intel temperature
   ];
-  kernelPatches = [
-    {
-      name = "dell-platform-profile";
-      patch = ./dell_pp.patch;
-    }
+  extraModulePackages = [
+    (inputs.dell-fan-profile.packages.${pkgs.system}.default {inherit (config.boot.kernelPackages) kernel;})
   ];
+  #kernelPatches = [
+  #  {
+  #    name = "dell-platform-profile";
+  #    patch = ./dell_pp.patch;
+  #  }
+  #];
 
   binfmt.emulatedSystems = ["aarch64-linux"];
 }
