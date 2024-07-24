@@ -13,7 +13,7 @@ in
     [
       neofetch
       nix-output-monitor
-      ocrmypdf
+      #ocrmypdf
       nixpkgs-review
 
       # Development
@@ -29,7 +29,7 @@ in
     ++ (lib.lists.optionals isDesktop [
       # Communication
       #signal-desktop
-      discord
+      #discord
       slack
 
       inputs.bbase.packages.${system}.default
