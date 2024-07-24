@@ -14,12 +14,6 @@ in
       neofetch
       nix-output-monitor
       ocrmypdf
-    ]
-    ++ (lib.lists.optionals isDesktop [
-      # Communication
-      #signal-desktop
-      discord
-      slack
 
       # Development
       nixd
@@ -30,6 +24,13 @@ in
       lldb
       clippy
       rustfmt
+    ]
+    ++ (lib.lists.optionals isDesktop [
+      # Communication
+      #signal-desktop
+      discord
+      slack
+
       inputs.bbase.packages.${system}.default
 
       # Email
