@@ -1,4 +1,4 @@
 {pkgs}: {
-  enable = true;
+  #enable = true;
   package = pkgs.wireshark;
 }
