@@ -14,6 +14,7 @@ in
       neofetch
       nix-output-monitor
       ocrmypdf
+      nixpkgs-review
 
       # Development
       nixd
