@@ -20,7 +20,6 @@ in
       #signal-desktop
       discord
       slack
-      #element-desktop
 
       # Development
       nixd
@@ -31,39 +30,33 @@ in
       lldb
       clippy
       rustfmt
-      octaveFull
       inputs.bbase.packages.${system}.default
 
       # Email
-      #thunderbird
       wally-cli # for moonlander
 
       # media
       spotify
-      inkscape
+      #inkscape
       gimp
-      darktable
+      #darktable
 
       # Office
-      kicad
+      #kicad
+      #octaveFull
       #zathura
       #imv
       joplin-desktop
     ])
     ++ (lib.lists.optionals isGnome [
       libreoffice
-      denaro
+      #denaro
 
       #spot
       fragments
       celluloid
 
-      giara
       fractal
-      #fractal-next
-      #flare-signal
-
-      newsflash
     ])
     ++ (lib.lists.optionals isPlasma [
       libreoffice-qt
