@@ -1,5 +1,6 @@
 {lib}: {
   enable = true;
+  enableTransience = true;
   settings = {
     add_newline = false;
 
