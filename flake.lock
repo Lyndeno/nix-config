@@ -268,26 +268,6 @@
         "type": "github"
       }
     },
-    "dell-fan-profile": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1720721246,
-        "narHash": "sha256-sARKaOnuV5BaugYWJ4CzhGS/XEkhC2Hm9Jg8OMSqHoI=",
-        "owner": "Lyndeno",
-        "repo": "dell-fan-profile",
-        "rev": "4a6d50daa5af19c12dc1c5a2d37ee4b6ed5ebc44",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Lyndeno",
-        "repo": "dell-fan-profile",
-        "type": "github"
-      }
-    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -1116,7 +1096,6 @@
         "base16-schemes": "base16-schemes",
         "bbase": "bbase",
         "cfetch": "cfetch",
-        "dell-fan-profile": "dell-fan-profile",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "haumea": "haumea",

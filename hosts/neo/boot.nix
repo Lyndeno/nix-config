@@ -1,8 +1,6 @@
 {
-  inputs,
   lib,
   pkgs,
-  config,
 }: {
   swraid.enable = false;
   loader = {
@@ -29,18 +27,9 @@
     "acpi_rev_override=1" # nvidia card crashes things without this
     "intel_iommu=on"
   ];
+  kernelPackages = pkgs.linuxPackages_testing;
   kernelModules = [
     "coretemp" # sensors-detect for Intel temperature
   ];
-  extraModulePackages = [
-    (inputs.dell-fan-profile.packages.${pkgs.system}.default {inherit (config.boot.kernelPackages) kernel;})
-  ];
-  #kernelPatches = [
-  #  {
-  #    name = "dell-platform-profile";
-  #    patch = ./dell_pp.patch;
-  #  }
-  #];
-
   binfmt.emulatedSystems = ["aarch64-linux"];
 }
