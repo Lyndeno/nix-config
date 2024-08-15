@@ -13,5 +13,10 @@
       owner = config.services.webdav-server-rs.user;
       inherit (config.services.webdav-server-rs) group;
     };
+    firefly-id = {
+      file = morpheus.firefly_id;
+      owner = config.services.firefly-iii.user;
+      inherit (config.services.firefly-iii) group;
+    };
   };
 }
