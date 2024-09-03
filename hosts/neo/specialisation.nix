@@ -13,6 +13,7 @@
       ];
       services.switcherooControl.enable = true;
       hardware.nvidia.modesetting.enable = true;
+      hardware.nvidia.open = false;
       networking.hostName = "neo";
     };
   };
