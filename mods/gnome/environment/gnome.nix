@@ -6,8 +6,8 @@
     epiphany
     gnome-font-viewer
     totem
-    gnome.gnome-music
-    gnome.gnome-characters
-    gnome.gnome-maps
+    gnome-music
+    gnome-characters
+    gnome-maps
   ];
 }
