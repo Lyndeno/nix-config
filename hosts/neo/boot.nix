@@ -27,7 +27,7 @@
     "acpi_rev_override=1" # nvidia card crashes things without this
     "intel_iommu=on"
   ];
-  kernelPackages = pkgs.linuxPackages_testing;
+  kernelPackages = pkgs.linuxPackages_latest;
   kernelModules = [
     "coretemp" # sensors-detect for Intel temperature
   ];
