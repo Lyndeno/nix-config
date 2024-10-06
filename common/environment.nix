@@ -5,7 +5,6 @@
   systemPackages = with pkgs; [
     vim
     git
-    btrfs-progs
     busybox
     screen
     inputs.cfetch.packages.${system}.default
