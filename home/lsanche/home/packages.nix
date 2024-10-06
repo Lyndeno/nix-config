@@ -11,7 +11,6 @@ with osConfig.mods; let
 in
   with pkgs;
     [
-      neofetch
       nix-output-monitor
       #ocrmypdf
       nixpkgs-review
