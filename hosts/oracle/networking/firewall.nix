@@ -1,9 +1,14 @@
-let
+{config}: let
   morpheusIp = "100.116.158.45";
 in {
   allowedTCPPorts = [
     80
     443
+    53
+    8080
+  ];
+  allowedUDPPorts = [
+    53
   ];
   extraCommands = ''
     iptables -t nat -A PREROUTING -p tcp -i enp1s0 --dport 32400 -j DNAT --to-destination ${morpheusIp}:32400
