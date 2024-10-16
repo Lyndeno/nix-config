@@ -2,7 +2,7 @@
   ff-user = config.services.firefly-iii.user;
 in {
   enable = true;
-  virtualHost = "morpheus";
+  virtualHost = "firefly.lyndeno.ca";
   enableNginx = true;
   settings = {
     DB_USERNAME = ff-user;

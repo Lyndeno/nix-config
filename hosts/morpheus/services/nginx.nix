@@ -32,5 +32,10 @@
         proxyWebsockets = true;
       };
     };
+    "${config.services.firefly-iii.virtualHost}" = {
+      enableACME = true;
+      acmeRoot = null;
+      forceSSL = true;
+    };
   };
 }
