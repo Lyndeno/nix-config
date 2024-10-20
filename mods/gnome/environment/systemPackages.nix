@@ -5,6 +5,7 @@ with pkgs;
     gnome-firmware
     mission-center
     papers
+    alpaca
   ]
   ++ (with gnomeExtensions; [
     appindicator
