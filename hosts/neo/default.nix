@@ -2,8 +2,6 @@
   lib,
   pkgs,
 }: {
-  # Set your time zone.
-  time.timeZone = "America/Edmonton";
   users.users.lsanche.createHome = true;
   programs.dconf.enable = true;
 
