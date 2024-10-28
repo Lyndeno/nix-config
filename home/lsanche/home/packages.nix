@@ -14,6 +14,7 @@ in
       nix-output-monitor
       #ocrmypdf
       nixpkgs-review
+      nh
 
       # Development
       nixd
@@ -47,6 +48,7 @@ in
       #octaveFull
       #zathura
       #imv
+      thunderbird
       joplin-desktop
     ])
     ++ (lib.lists.optionals isGnome [
