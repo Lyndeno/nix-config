@@ -3,7 +3,9 @@
   inputs,
 }: {
   enable = true;
-  virtualHosts."cloud.lyndeno.ca" = {
+  virtualHosts."beta.lyndeno.ca" = {
+    enableACME = true;
+    forceSSL = true;
     root = "${inputs.site.packages.${pkgs.system}.default}/";
   };
 }
