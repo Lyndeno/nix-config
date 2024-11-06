@@ -1,5 +1,5 @@
 {
   enable = true;
-  signal.relayHosts = ["cloud.lyndeno.ca"];
+  relayIP = "cloud.lyndeno.ca";
   openFirewall = true;
 }
