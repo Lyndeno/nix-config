@@ -1,5 +1,5 @@
 {pkgs}: {
-  enable = true;
+  #enable = true;
   autosuggestion.enable = true;
   enableCompletion = true;
   syntaxHighlighting.enable = true; # seems this is a new addition

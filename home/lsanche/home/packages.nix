@@ -15,16 +15,6 @@ in
       #ocrmypdf
       nixpkgs-review
       nh
-
-      # Development
-      nixd
-      rust-analyzer
-      texlab
-      clang-tools
-      bear
-      lldb
-      clippy
-      rustfmt
     ]
     ++ (lib.lists.optionals isDesktop [
       # Communication
@@ -50,6 +40,16 @@ in
       #imv
       thunderbird
       joplin-desktop
+
+      # Development
+      nixd
+      rust-analyzer
+      texlab
+      clang-tools
+      bear
+      lldb
+      clippy
+      rustfmt
     ])
     ++ (lib.lists.optionals isGnome [
       libreoffice

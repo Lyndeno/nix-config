@@ -1,8 +1,9 @@
 {
   pkgs,
   lib,
+  osConfig,
 }: {
-  enable = true;
+  inherit (osConfig.mods.desktop) enable;
   defaultEditor = true;
 
   vimAlias = true;
