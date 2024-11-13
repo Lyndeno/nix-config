@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   pubKeys,
@@ -11,7 +10,6 @@ in {
   extraGroups = [
     "wheel"
   ];
-  shell = pkgs.zsh;
   openssh.authorizedKeys.keys = [
     (lib.mkIf (keys ? ${config.networking.hostName}) keys.${config.networking.hostName})
   ];
