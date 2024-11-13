@@ -7,4 +7,5 @@
     PasswordAuthentication = false;
     PermitRootLogin = "no";
   };
+  openFirewall = false;
 }
