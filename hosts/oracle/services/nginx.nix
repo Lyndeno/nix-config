@@ -8,4 +8,8 @@
     forceSSL = true;
     root = "${inputs.site.packages.${pkgs.system}.default}/";
   };
+  virtualHosts."invoice.lyndeno.ca" = {
+    enableACME = true;
+    forceSSL = true;
+  };
 }
