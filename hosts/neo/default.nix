@@ -4,6 +4,7 @@
 }: {
   users.users.lsanche.createHome = true;
   programs.dconf.enable = true;
+  programs.niri.enable = true;
 
   security.tpm2.enable = true;
 
@@ -27,5 +28,6 @@
     libsmbios # For fan control
     sbctl
     gnome-network-displays
+    fuzzel
   ];
 }
