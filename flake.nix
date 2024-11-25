@@ -2,8 +2,8 @@
   description = "Lyndon's NixOS setup";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
@@ -24,11 +24,6 @@
 
     ironfetch = {
       url = "github:Lyndeno/ironfetch/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    bbase = {
-      url = "github:Lyndeno/bbase-client/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

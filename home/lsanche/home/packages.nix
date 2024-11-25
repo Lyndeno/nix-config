@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
   osConfig,
 }:
 with osConfig.mods; let
@@ -21,8 +20,6 @@ in
       #signal-desktop
       #discord
       slack
-
-      inputs.bbase.packages.${system}.default
 
       # Email
       wally-cli # for moonlander
