@@ -4,6 +4,7 @@ with pkgs;
     gnome-tweaks
     gnome-firmware
     #mission-center
+    resources
     papers
     alpaca
   ]
