@@ -9,5 +9,8 @@
     gnome-music
     gnome-characters
     gnome-maps
+    geary
+    gnome-calendar
+    simple-scan
   ];
 }
