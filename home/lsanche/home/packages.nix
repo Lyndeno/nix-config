@@ -50,6 +50,7 @@ in
     ])
     ++ (lib.lists.optionals isGnome [
       libreoffice
+      hunspellDicts.en_CA
       #denaro
 
       #spot
