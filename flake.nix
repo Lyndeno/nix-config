@@ -24,7 +24,10 @@
 
     cfetch = {
       url = "github:Lyndeno/cfetch/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     ironfetch = {
@@ -32,12 +35,16 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+        utils.follows = "flake-utils";
       };
     };
 
     site = {
       url = "github:Lyndeno/website-hugo";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     base16-schemes = {
@@ -65,6 +72,7 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         git-hooks.follows = "pre-commit-hooks-nix";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -79,6 +87,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -102,7 +111,12 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
       };
+    };
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
     };
   };
 
