@@ -9,7 +9,12 @@
 
     multinix = {
       url = "github:lyndeno/multinix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        haumea.follows = "haumea";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+      };
     };
 
     pre-commit-hooks-nix = {
@@ -24,7 +29,10 @@
 
     ironfetch = {
       url = "github:Lyndeno/ironfetch/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+      };
     };
 
     site = {
@@ -44,14 +52,20 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        darwin.follows = "";
+      };
     };
 
     stylix = {
       url = "github:danth/stylix/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        git-hooks.follows = "pre-commit-hooks-nix";
+      };
     };
 
     disko = {
