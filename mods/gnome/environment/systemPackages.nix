@@ -3,7 +3,7 @@ with pkgs;
   [
     gnome-tweaks
     gnome-firmware
-    #mission-center
+    mission-center
     resources
     papers
     alpaca

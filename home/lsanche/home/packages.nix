@@ -26,13 +26,13 @@ in
 
       # media
       spotify
-      #inkscape
+      inkscape
       gimp
-      #darktable
+      darktable
 
       # Office
-      #kicad
-      #octaveFull
+      kicad
+      octaveFull
       #zathura
       #imv
       thunderbird
