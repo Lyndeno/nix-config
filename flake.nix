@@ -124,6 +124,7 @@
     nixpkgs,
     haumea,
     multinix,
+    self,
     ...
   }: let
     inherit (nixpkgs) lib;
@@ -180,6 +181,10 @@
           flakeRoot = ./.;
           specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
           defaultSystem = "x86_64-linux";
+        };
+
+        hydraJobs = {
+          morpheus = self.outputs.nixosConfigurations.morpheus.config.system.build.toplevel;
         };
       };
     };
