@@ -183,9 +183,7 @@
           defaultSystem = "x86_64-linux";
         };
 
-        hydraJobs = {
-          morpheus = self.outputs.nixosConfigurations.morpheus.config.system.build.toplevel;
-        };
+        hydraJobs = (builtins.mapAttrs (_name: value: value.config.system.build.toplevel) self.outputs.nixosConfigurations) // {inherit (self.outputs) checks;};
       };
     };
 }
