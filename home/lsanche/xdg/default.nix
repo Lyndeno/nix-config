@@ -5,6 +5,9 @@
   inherit (osConfig.mods.desktop) enable;
   configFile."autostart/gnome-keyring-ssh.desktop" = lib.mkIf osConfig.mods.desktop.enable {
     text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=SSH Key Agent
       Comment=GNOME Keyring: SSH Agent
       Exec=/run/wrappers/bin/gnome-keyring-daemon --start --components=ssh
       OnlyShowIn=GNOME;Unity;MATE;
