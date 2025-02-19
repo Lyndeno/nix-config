@@ -31,7 +31,7 @@ in
       darktable
 
       # Office
-      kicad
+      #kicad
       octaveFull
       #zathura
       #imv
