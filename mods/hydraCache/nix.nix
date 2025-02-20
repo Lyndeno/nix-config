@@ -1,7 +1,7 @@
 {
   settings = {
     substituters = [
-      "http://morpheus:5000"
+      "https://hydra.lyndeno.ca"
     ];
   };
   extraOptions = ''
