@@ -5,4 +5,5 @@
       records = true;
     };
   };
+  daemon.enable = true;
 }
