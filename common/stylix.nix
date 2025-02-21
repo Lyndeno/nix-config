@@ -9,5 +9,7 @@ in {
     plymouth.enable = false;
     console.enable = false;
     nixos-icons.enable = false;
+    gnome-text-editor.enable = false;
+    qt.enable = false;
   };
 }

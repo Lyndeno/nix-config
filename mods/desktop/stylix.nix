@@ -9,7 +9,7 @@
     size = 24;
   };
   fonts = let
-    cascadia = pkgs.nerdfonts.override {fonts = ["CascadiaCode"];};
+    cascadia = pkgs.nerd-fonts.caskaydia-cove;
   in {
     serif = {
       package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
