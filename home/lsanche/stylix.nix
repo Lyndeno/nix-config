@@ -1,6 +1,9 @@
 {
   targets = {
-    swaylock.useImage = false;
+    swaylock = {
+      useImage = false;
+      enable = false;
+    };
     kde.enable = false;
     gtk.enable = false;
     gnome.enable = false;
