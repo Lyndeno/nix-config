@@ -1,15 +1,8 @@
-{
-  lib,
-  pkgs,
-}: {
+{lib}: {
   users.users.lsanche.createHome = true;
   programs.dconf.enable = true;
 
   security.tpm2.enable = true;
-
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2h
-  '';
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
@@ -22,8 +15,4 @@
       };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    gnome-network-displays
-  ];
 }
