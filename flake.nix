@@ -175,7 +175,10 @@
           defaultSystem = "x86_64-linux";
         };
 
-        hydraJobs = (builtins.mapAttrs (_name: value: value.config.system.build.toplevel) self.outputs.nixosConfigurations) // {inherit (self.outputs) checks;};
+        hydraJobs = {
+          inherit (self.outputs) checks devShells;
+          nixos = builtins.mapAttrs (_name: value: value.config.system.build.toplevel) self.outputs.nixosConfigurations;
+        };
       };
     };
 }
