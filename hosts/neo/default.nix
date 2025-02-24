@@ -1,6 +1,5 @@
 {lib}: {
   users.users.lsanche.createHome = true;
-  programs.dconf.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
