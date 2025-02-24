@@ -4,7 +4,6 @@
 }: {
   users.users.lsanche.createHome = true;
   programs.dconf.enable = true;
-  programs.niri.enable = true;
 
   security.tpm2.enable = true;
 
@@ -27,6 +26,5 @@
   environment.systemPackages = with pkgs; [
     sbctl
     gnome-network-displays
-    fuzzel
   ];
 }

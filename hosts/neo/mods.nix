@@ -3,4 +3,5 @@
   desktop.enable = true;
   gnome.enable = true;
   hydraCache.enable = true;
+  niri.enable = true;
 }
