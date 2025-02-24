@@ -1,15 +1,5 @@
-{lib}: {
+{
   swraid.enable = false;
-  loader = {
-    systemd-boot.enable = lib.mkForce false;
-    grub.enable = lib.mkForce false;
-    timeout = 0;
-    efi.canTouchEfiVariables = true;
-  };
-  lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
   initrd = {
     systemd = {
       enable = true;

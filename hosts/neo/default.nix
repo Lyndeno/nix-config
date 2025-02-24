@@ -24,7 +24,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    sbctl
     gnome-network-displays
   ];
 }
