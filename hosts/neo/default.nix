@@ -1,6 +1,4 @@
 {lib}: {
-  users.users.lsanche.createHome = true;
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   networking = {
