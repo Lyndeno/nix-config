@@ -1,7 +1,7 @@
 {
   settings = {
     substituters = [
-      "https://hydra.lyndeno.ca"
+      "https://cache.lyndeno.ca"
     ];
   };
   extraOptions = ''
