@@ -1,6 +1,6 @@
 {
   enable = true;
-  hydraURL = "http://localhost:3000";
+  hydraURL = "https://hydra.lyndeno.ca";
   notificationSender = "hydra@morpheus";
   useSubstitutes = true;
 }
