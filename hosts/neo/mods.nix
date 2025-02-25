@@ -3,4 +3,7 @@
   desktop.enable = true;
   gnome.enable = true;
   hydraCache.enable = true;
+  niri.enable = true;
+  secureboot.enable = true;
+  laptop.enable = true;
 }

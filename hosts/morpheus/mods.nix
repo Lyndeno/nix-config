@@ -4,4 +4,5 @@
   gaming.enable = true;
   desktop.enable = true;
   gnome.enable = true;
+  secureboot.enable = true;
 }
