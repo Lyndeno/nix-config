@@ -109,76 +109,83 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+
+    blueprint = {
+      url = "github:numtide/blueprint";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ {
-    flake-parts,
-    nixpkgs,
-    haumea,
-    multinix,
-    self,
-    ...
-  }: let
-    inherit (nixpkgs) lib;
-    lsLib = import ./lslib.nix {inherit lib;};
+  outputs = inputs: inputs.blueprint {inherit inputs;};
 
-    secretPaths = haumea.lib.load {
-      src = ./secrets;
-      loader = [
-        (haumea.lib.matchers.extension "age" haumea.lib.loaders.path)
-      ];
-    };
+  #inputs @ {
+  #  flake-parts,
+  #  nixpkgs,
+  #  haumea,
+  #  multinix,
+  #  self,
+  #  ...
+  #}: let
+  #  inherit (nixpkgs) lib;
+  #  lsLib = import ./lslib.nix {inherit lib;};
 
-    pubKeys = haumea.lib.load {
-      src = ./pubKeys;
-    };
+  #  secretPaths = haumea.lib.load {
+  #    src = ./secrets;
+  #    loader = [
+  #      (haumea.lib.matchers.extension "age" haumea.lib.loaders.path)
+  #    ];
+  #  };
 
-    homes = multinix.lib.homes ./home;
-  in
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        inputs.pre-commit-hooks-nix.flakeModule
-      ];
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      perSystem = {
-        pkgs,
-        config,
-        inputs',
-        ...
-      }: {
-        formatter = pkgs.alejandra;
+  #  pubKeys = haumea.lib.load {
+  #    src = ./pubKeys;
+  #  };
 
-        pre-commit = {
-          check.enable = true;
-          settings = {
-            src = ./.;
-            hooks = {
-              alejandra.enable = true;
-              statix.enable = true;
-              deadnix.enable = true;
-            };
-          };
-        };
+  #  homes = multinix.lib.homes ./home;
+  #in
+  #  flake-parts.lib.mkFlake {inherit inputs;} {
+  #    imports = [
+  #      inputs.pre-commit-hooks-nix.flakeModule
+  #    ];
+  #    systems = [
+  #      "x86_64-linux"
+  #      "aarch64-linux"
+  #    ];
+  #    perSystem = {
+  #      pkgs,
+  #      config,
+  #      inputs',
+  #      ...
+  #    }: {
+  #      formatter = pkgs.alejandra;
 
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
-          inputsFrom = [config.pre-commit.devShell];
-        };
-      };
-      flake = {
-        nixosConfigurations = multinix.lib.makeNixosSystems {
-          flakeRoot = ./.;
-          specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
-          defaultSystem = "x86_64-linux";
-        };
+  #      pre-commit = {
+  #        check.enable = true;
+  #        settings = {
+  #          src = ./.;
+  #          hooks = {
+  #            alejandra.enable = true;
+  #            statix.enable = true;
+  #            deadnix.enable = true;
+  #          };
+  #        };
+  #      };
 
-        hydraJobs = {
-          inherit (self.outputs) checks devShells;
-          nixos = builtins.mapAttrs (_name: value: value.config.system.build.toplevel) self.outputs.nixosConfigurations;
-        };
-      };
-    };
+  #      devShells.default = pkgs.mkShell {
+  #        buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
+  #        inputsFrom = [config.pre-commit.devShell];
+  #      };
+  #    };
+  #    flake = {
+  #      nixosConfigurations = multinix.lib.makeNixosSystems {
+  #        flakeRoot = ./.;
+  #        specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
+  #        defaultSystem = "x86_64-linux";
+  #      };
+
+  #      hydraJobs = {
+  #        inherit (self.outputs) checks devShells;
+  #        nixos = builtins.mapAttrs (_name: value: value.config.system.build.toplevel) self.outputs.nixosConfigurations;
+  #      };
+  #    };
+  #  };
 }

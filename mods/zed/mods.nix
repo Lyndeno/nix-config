@@ -1,3 +1,0 @@
-{
-  msmtp.enable = true;
-}
