@@ -3,7 +3,7 @@
   lib,
   osConfig,
 }: {
-  inherit (osConfig.mods.desktop) enable;
+  inherit (osConfig.modules.desktop) enable;
   defaultEditor = true;
 
   vimAlias = true;

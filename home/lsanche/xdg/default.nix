@@ -2,8 +2,8 @@
   lib,
   osConfig,
 }: {
-  inherit (osConfig.mods.desktop) enable;
-  configFile."autostart/gnome-keyring-ssh.desktop" = lib.mkIf osConfig.mods.desktop.enable {
+  inherit (osConfig.modules.desktop) enable;
+  configFile."autostart/gnome-keyring-ssh.desktop" = lib.mkIf osConfig.modules.desktop.enable {
     text = ''
       [Desktop Entry]
       Type=Application

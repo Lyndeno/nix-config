@@ -2,9 +2,9 @@
   pkgs,
   lib,
   config,
-  pubKeys,
+  flakeLib,
 }: let
-  keys = pubKeys.lsanche;
+  keys = flakeLib.pubKeys.lsanche;
 in {
   isNormalUser = true;
   description = "Lyndon Sanche";

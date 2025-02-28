@@ -3,7 +3,7 @@
   lib,
   osConfig,
 }:
-with osConfig.mods; let
+with osConfig.modules; let
   isDesktop = desktop.enable;
   isGnome = gnome.enable;
   isPlasma = plasma.enable;

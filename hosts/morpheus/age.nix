@@ -1,8 +1,8 @@
 {
   config,
-  secretPaths,
+  flakeLib,
 }: {
-  secrets = with secretPaths; {
+  secrets = with flakeLib.secretPaths; {
     id_borgbase.file = id_borgbase;
     pass_borgbase.file = morpheus.pass_borgbase;
 

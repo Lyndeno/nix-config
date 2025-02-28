@@ -1,13 +1,13 @@
 {
   inputs,
-  pubKeys,
+  flakeLib,
   homes,
 }: {
   useGlobalPkgs = true;
   useUserPackages = true;
   backupFileExtension = "bak";
   extraSpecialArgs = {
-    inherit inputs pubKeys;
+    inherit inputs flakeLib;
   };
 
   users = {

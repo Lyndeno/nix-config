@@ -473,11 +473,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1716156886,
-        "narHash": "sha256-kBYwg6nUEDVM3ayQzfuZqrUIcNjONUdppnoR+0MTsgI=",
+        "lastModified": 1740778039,
+        "narHash": "sha256-rtXWlDsCq3OR95lZVoauCbUU93SVrb1R4H/kzqGvTh0=",
         "owner": "lyndeno",
         "repo": "multinix",
-        "rev": "bdf0bad4b77200e9b0f1bd53a73a311940fc61e1",
+        "rev": "9a91aebee731a7babb080624b6315fb313aa752c",
         "type": "github"
       },
       "original": {

@@ -105,24 +105,9 @@
 
   outputs = inputs @ {
     flake-parts,
-    haumea,
     multinix,
-    self,
     ...
-  }: let
-    secretPaths = haumea.lib.load {
-      src = ./secrets;
-      loader = [
-        (haumea.lib.matchers.extension "age" haumea.lib.loaders.path)
-      ];
-    };
-
-    pubKeys = haumea.lib.load {
-      src = ./pubKeys;
-    };
-
-    homes = multinix.lib.homes ./home;
-  in
+  }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         inputs.pre-commit-hooks-nix.flakeModule
@@ -156,17 +141,6 @@
           inputsFrom = [config.pre-commit.devShell];
         };
       };
-      flake = {
-        nixosConfigurations = multinix.lib.makeNixosSystems {
-          flakeRoot = ./.;
-          specialArgs = {inherit inputs secretPaths pubKeys homes;};
-          defaultSystem = "x86_64-linux";
-        };
-
-        hydraJobs = {
-          inherit (self.outputs) checks devShells;
-          nixos = builtins.mapAttrs (_name: value: value.config.system.build.toplevel) self.outputs.nixosConfigurations;
-        };
-      };
+      flake = multinix.lib.multinix inputs;
     };
 }

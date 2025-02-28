@@ -9,5 +9,5 @@
   # Set your time zone.
   time.timeZone = "America/Edmonton";
   stylix.enable = lib.mkForce false;
-  mods.hydraCache.enable = true;
+  modules.hydraCache.enable = true;
 }

@@ -1,5 +1,5 @@
-{secretPaths}: {
-  secrets = with secretPaths; {
+{flakeLib}: {
+  secrets = with flakeLib.secretPaths; {
     id_borgbase.file = id_borgbase;
     pass_borgbase.file = neo.pass_borgbase;
 

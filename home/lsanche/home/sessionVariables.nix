@@ -3,7 +3,7 @@
   lib,
   osConfig,
 }: let
-  isDesktop = osConfig.mods.desktop.enable;
+  isDesktop = osConfig.modules.desktop.enable;
 in
   lib.mkMerge [
     {
