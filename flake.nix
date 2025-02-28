@@ -105,15 +105,11 @@
 
   outputs = inputs @ {
     flake-parts,
-    nixpkgs,
     haumea,
     multinix,
     self,
     ...
   }: let
-    inherit (nixpkgs) lib;
-    lsLib = import ./lslib.nix {inherit lib;};
-
     secretPaths = haumea.lib.load {
       src = ./secrets;
       loader = [
@@ -163,7 +159,7 @@
       flake = {
         nixosConfigurations = multinix.lib.makeNixosSystems {
           flakeRoot = ./.;
-          specialArgs = {inherit inputs lsLib secretPaths pubKeys homes;};
+          specialArgs = {inherit inputs secretPaths pubKeys homes;};
           defaultSystem = "x86_64-linux";
         };
 
