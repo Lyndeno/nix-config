@@ -22,14 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cfetch = {
-      url = "github:Lyndeno/cfetch/master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     ironfetch = {
       url = "github:Lyndeno/ironfetch/master";
       inputs = {

@@ -131,30 +131,6 @@
         "type": "github"
       }
     },
-    "cfetch": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1722365123,
-        "narHash": "sha256-Sa0JxIqqC3ySLUhwgVN1AHIy1xRt7hOulAPZWn/XTC0=",
-        "owner": "Lyndeno",
-        "repo": "cfetch",
-        "rev": "e3b0111f4c618aad302d6ab0478c3a80ea92b292",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Lyndeno",
-        "ref": "master",
-        "repo": "cfetch",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1737563566,
@@ -619,7 +595,6 @@
         "agenix": "agenix",
         "apple-fonts": "apple-fonts",
         "base16-schemes": "base16-schemes",
-        "cfetch": "cfetch",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
