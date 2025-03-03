@@ -1,4 +1,4 @@
 {
   enable = true;
-  dataDir = "/data/bigpool/minio/data";
+  dataDir = ["/data/bigpool/minio/data"];
 }
