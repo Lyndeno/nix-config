@@ -5,4 +5,5 @@
   desktop.enable = true;
   gnome.enable = true;
   secureboot.enable = true;
+  attic-watch.enable = true;
 }

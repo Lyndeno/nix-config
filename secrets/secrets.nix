@@ -11,6 +11,7 @@ let
   allSystems = [neo morpheus oracle trinity];
 in {
   "fastmail.age".publicKeys = allUsers ++ [neo morpheus];
+  "attic_auth.age".publicKeys = [lsanche neo morpheus];
 
   "neo/id_trinity_borg.age".publicKeys = [lsanche neo];
   "neo/pass_trinity_borg.age".publicKeys = [lsanche neo];
@@ -21,6 +22,7 @@ in {
   "morpheus/webdav.age".publicKeys = [lsanche morpheus];
   "morpheus/firefly_id.age".publicKeys = [lsanche morpheus];
   "morpheus/nix-serve.age".publicKeys = [lsanche morpheus];
+  "morpheus/attic_token.age".publicKeys = [lsanche morpheus];
 
   "oracle/nc_db.age".publicKeys = [lsanche oracle];
   "oracle/nc_root_pw.age".publicKeys = [lsanche oracle];

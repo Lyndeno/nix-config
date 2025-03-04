@@ -1,10 +1,10 @@
 {
   settings = {
     substituters = [
-      "https://cache.lyndeno.ca"
+      "https://cache.lyndeno.ca/main"
     ];
     trusted-public-keys = [
-      "morpheus:sENQ8rUrJnNC5eLSBAfXuWouftFrVFjB5V7FCbDXb+M="
+      "main:syNgLPFLeX/wWUxGh7SWMW8wuOPVhEkC9HIhIl7NXQQ="
     ];
   };
   extraOptions = ''

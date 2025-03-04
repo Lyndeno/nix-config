@@ -10,15 +10,18 @@
     pass_trinity_borg.file = morpheus.pass_trinity_borg;
 
     nix-serve.file = morpheus.nix-serve;
-    webdav = {
-      file = morpheus.webdav;
-      owner = config.services.webdav-server-rs.user;
-      inherit (config.services.webdav-server-rs) group;
-    };
+    #webdav = {
+    #  file = morpheus.webdav;
+    #  owner = config.services.webdav-server-rs.user;
+    #  inherit (config.services.webdav-server-rs) group;
+    #};
     firefly-id = {
       file = morpheus.firefly_id;
       owner = config.services.firefly-iii.user;
       inherit (config.services.firefly-iii) group;
     };
+
+    attic-auth.file = attic_auth;
+    attic-token.file = morpheus.attic_token;
   };
 }

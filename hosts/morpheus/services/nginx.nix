@@ -38,7 +38,7 @@
       forceSSL = true;
 
       locations."/".extraConfig = ''
-        proxy_pass http://localhost:5000;
+        proxy_pass http://localhost:8080;
         proxy_set_header Host $host;
         proxy_redirect http:// https://;
         proxy_http_version 1.1;
