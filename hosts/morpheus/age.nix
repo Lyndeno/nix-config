@@ -20,8 +20,6 @@
       owner = config.services.firefly-iii.user;
       inherit (config.services.firefly-iii) group;
     };
-
-    attic-auth.file = attic_auth;
     attic-token.file = morpheus.attic_token;
   };
 }

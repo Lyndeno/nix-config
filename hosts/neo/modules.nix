@@ -6,4 +6,5 @@
   niri.enable = true;
   secureboot.enable = true;
   laptop.enable = true;
+  attic-watch.enable = true;
 }

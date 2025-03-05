@@ -20,8 +20,8 @@
       set -eux -o pipefail
       ATTIC_TOKEN=$(< $CREDENTIALS_DIRECTORY/prod-auth-token)
       # Replace https://cache.<domain> with your own cache URL.
-      attic login local http://localhost:8080 $ATTIC_TOKEN
-      attic use local:main
+      attic login prod https://cache.lyndeno.ca $ATTIC_TOKEN
+      attic use prod:main
       exec attic watch-store prod:main
     '';
   };
