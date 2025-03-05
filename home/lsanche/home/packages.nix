@@ -20,6 +20,7 @@ in
       #signal-desktop
       #discord
       slack
+      flare-signal
 
       # Email
       wally-cli # for moonlander
