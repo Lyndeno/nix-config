@@ -9,7 +9,7 @@
       type = "s3";
       region = "us-east-1";
       bucket = "attic";
-      endpoint = "http://localhost:9000";
+      endpoint = "http://morpheus:9000";
     };
   };
 }
