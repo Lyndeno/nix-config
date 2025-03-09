@@ -6,4 +6,5 @@
   gnome.enable = true;
   secureboot.enable = true;
   attic-watch.enable = true;
+  hydraCache.enable = true;
 }
