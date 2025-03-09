@@ -1,4 +1,4 @@
-{
+{osConfig}: {
   email.accounts.fastmail = {
     primary = true;
     realName = "Lyndon Sanche";
@@ -9,6 +9,21 @@
       host = "smtp.fastmail.com";
       port = 465;
       tls.enable = true;
+    };
+    jmap = {
+      sessionUrl = "https://api.fastmail.com/jmap/session";
+    };
+    notmuch = {
+      enable = true;
+    };
+    mujmap = {
+      enable = true;
+      settings = {
+        password_command = "cat ${osConfig.age.secrets.fastmail-jmap.path}";
+      };
+    };
+    astroid = {
+      enable = true;
     };
   };
 }

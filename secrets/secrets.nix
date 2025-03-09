@@ -11,6 +11,7 @@ let
   allSystems = [neo morpheus oracle trinity];
 in {
   "fastmail.age".publicKeys = allUsers ++ [neo morpheus];
+  "fastmail_jmap.age".publicKeys = allUsers ++ allSystems;
   "attic_auth.age".publicKeys = [lsanche neo morpheus];
 
   "neo/id_trinity_borg.age".publicKeys = [lsanche neo];

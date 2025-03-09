@@ -101,6 +101,15 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+
+    mujmap = {
+      url = "github:Lyndeno/mujmap";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+        utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs = inputs @ {

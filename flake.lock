@@ -164,6 +164,21 @@
         "type": "github"
       }
     },
+    "crane_3": {
+      "locked": {
+        "lastModified": 1741148495,
+        "narHash": "sha256-EV8KUaIZ2/CdBXlutXrHoZYbWPeB65p5kKZk71gvDRI=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "75390a36cd0c2cdd5f1aafd8a9f827d7107f2e53",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -460,6 +475,33 @@
         "type": "github"
       }
     },
+    "mujmap": {
+      "inputs": {
+        "crane": "crane_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks-nix": [
+          "pre-commit-hooks-nix"
+        ],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741283264,
+        "narHash": "sha256-RK+A/jkYU2HO1VXSrgo5RLknHEUsxTT/csDQN4o1p6M=",
+        "owner": "Lyndeno",
+        "repo": "mujmap",
+        "rev": "bcacf43960679405b45dbec103acdaa401dd26cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lyndeno",
+        "repo": "mujmap",
+        "type": "github"
+      }
+    },
     "multinix": {
       "inputs": {
         "flake-parts": [
@@ -605,6 +647,7 @@
         "home-manager": "home-manager",
         "ironfetch": "ironfetch",
         "lanzaboote": "lanzaboote",
+        "mujmap": "mujmap",
         "multinix": "multinix",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
