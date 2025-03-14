@@ -1,4 +1,4 @@
 {pkgs}: [
   pkgs.kdiskmark
-  pkgs.rustdesk-flutter
+  #pkgs.rustdesk-flutter
 ]
