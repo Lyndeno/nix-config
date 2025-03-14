@@ -3,4 +3,8 @@
     enable = true;
     polkitPolicyOwners = ["lsanche"];
   };
+
+  appimage = {
+    enable = true;
+  };
 }
