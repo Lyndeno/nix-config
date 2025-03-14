@@ -21,6 +21,7 @@ in
       #discord
       slack
       flare-signal
+      code-cursor
 
       # Email
       wally-cli # for moonlander
