@@ -16,6 +16,7 @@
     firefox.profileNames = ["lsanche"];
     qt.enable = false;
     gnome-text-editor.enable = false;
+    vscode.profileNames = ["default"];
   };
   opacity = {
     terminal = 0.95;
