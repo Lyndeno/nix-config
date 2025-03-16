@@ -6,6 +6,11 @@
     number = true;
     signcolumn = "yes:1";
     relativenumber = true;
+    cmdheight = 0;
+    hlsearch = true;
+    incsearch = true;
+    showmode = false;
+    showcmd = false;
   };
   plugins = {
     nix.enable = true;
@@ -13,7 +18,11 @@
     lsp = {
       enable = true;
       servers = {
-        rust_analyzer.enable = true;
+        rust_analyzer = {
+          enable = true;
+          installRustc = false;
+          installCargo = false;
+        };
         nixd.enable = true;
         clangd.enable = true;
         texlab.enable = true;
