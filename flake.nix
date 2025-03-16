@@ -110,6 +110,11 @@
         utils.follows = "flake-utils";
       };
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
