@@ -79,5 +79,13 @@
     gitgutter = {
       enable = true;
     };
+    floaterm = {
+      enable = true;
+      settings = {
+        keymap_toggle = "<Leader>t";
+        width = 0.8;
+        height = 0.8;
+      };
+    };
   };
 }
