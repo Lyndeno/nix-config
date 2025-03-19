@@ -1,4 +1,4 @@
-{
+{pkgs}: {
   enable = true;
   viAlias = true;
   vimAlias = true;
@@ -12,11 +12,15 @@
     showmode = false;
     showcmd = false;
   };
+  extraPlugins = [
+    pkgs.vimPlugins.lualine-lsp-progress
+  ];
   plugins = {
     nix.enable = true;
     fugitive.enable = true;
     lsp = {
       enable = true;
+      inlayHints = true;
       servers = {
         rust_analyzer = {
           enable = true;
@@ -61,7 +65,17 @@
       };
     };
     luasnip.enable = true;
-    lualine.enable = true;
+    lualine = {
+      enable = true;
+      settings = {
+        sections = {
+          lualine_c = [
+            "filename"
+            "lsp_progress"
+          ];
+        };
+      };
+    };
     gitgutter = {
       enable = true;
     };
