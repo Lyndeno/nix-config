@@ -30,6 +30,7 @@
         nixd.enable = true;
         clangd.enable = true;
         texlab.enable = true;
+        blueprint_ls.enable = true;
       };
     };
     treesitter = {
@@ -97,6 +98,11 @@
     nvim-autopairs = {
       enable = true;
       settings.check_ts = true;
+    };
+    mini = {
+      enable = true;
+      mockDevIcons = true;
+      modules.icons.enable = true;
     };
   };
 }
