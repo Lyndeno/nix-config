@@ -94,5 +94,9 @@
       enable = true;
     };
     notify.enable = true;
+    nvim-autopairs = {
+      enable = true;
+      settings.check_ts = true;
+    };
   };
 }
