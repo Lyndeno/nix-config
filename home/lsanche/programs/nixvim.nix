@@ -93,5 +93,6 @@
     markdown-preview = {
       enable = true;
     };
+    notify.enable = true;
   };
 }
