@@ -87,5 +87,8 @@
         height = 0.8;
       };
     };
+    neo-tree = {
+      enable = true;
+    };
   };
 }
