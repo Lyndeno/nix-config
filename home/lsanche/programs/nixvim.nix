@@ -90,5 +90,8 @@
     neo-tree = {
       enable = true;
     };
+    markdown-preview = {
+      enable = true;
+    };
   };
 }
