@@ -20,14 +20,12 @@ in
       #signal-desktop
       #discord
       slack
-      flare-signal
-      code-cursor
+      #flare-signal
 
       # Email
       wally-cli # for moonlander
 
       # media
-      spotify
       inkscape
       gimp
       darktable
