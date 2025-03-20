@@ -12,9 +12,12 @@
     showmode = false;
     showcmd = false;
   };
-  extraPlugins = [
-    pkgs.vimPlugins.lualine-lsp-progress
+  extraPlugins = with pkgs.vimPlugins; [
+    nvim-lsp-notify
   ];
+  extraConfigLua = ''
+    require('lsp-notify').setup({})
+  '';
   plugins = {
     nix.enable = true;
     fugitive.enable = true;
@@ -72,9 +75,11 @@
         sections = {
           lualine_c = [
             "filename"
-            "lsp_progress"
           ];
         };
+        extensions = [
+          "neo-tree"
+        ];
       };
     };
     gitgutter = {
