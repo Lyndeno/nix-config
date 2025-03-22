@@ -16,7 +16,10 @@
     "/var/lib/plex"
 
     "**/target"
-    "/home/*/.local/share/Steam"
+    "**/.notmuch"
+    "/home/*/.local"
+    "/home/*/.cache"
+    "/home/*/.mozilla"
     "/home/*/Downloads"
   ];
 }
