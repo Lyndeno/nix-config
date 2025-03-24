@@ -17,12 +17,8 @@ in
     ]
     ++ (lib.lists.optionals isDesktop [
       # Communication
-      #signal-desktop
-      #discord
       slack
-      #flare-signal
 
-      # Email
       wally-cli # for moonlander
 
       # media
@@ -31,11 +27,10 @@ in
       darktable
 
       # Office
-      #kicad
+      kicad
       octaveFull
       #zathura
       #imv
-      thunderbird
       joplin-desktop
 
       # Development
@@ -47,13 +42,12 @@ in
       lldb
       clippy
       rustfmt
+
+      hunspellDicts.en_CA
     ])
     ++ (lib.lists.optionals isGnome [
       libreoffice
-      hunspellDicts.en_CA
-      #denaro
 
-      #spot
       fragments
       celluloid
 
