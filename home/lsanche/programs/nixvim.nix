@@ -1,7 +1,8 @@
-{pkgs}: {
+{
   enable = true;
   viAlias = true;
   vimAlias = true;
+  defaultEditor = true;
   opts = {
     number = true;
     signcolumn = "yes:1";
@@ -12,12 +13,6 @@
     showmode = false;
     showcmd = false;
   };
-  extraPlugins = with pkgs.vimPlugins; [
-    nvim-lsp-notify
-  ];
-  extraConfigLua = ''
-    require('lsp-notify').setup({})
-  '';
   plugins = {
     nix.enable = true;
     fugitive.enable = true;
@@ -25,11 +20,6 @@
       enable = true;
       inlayHints = true;
       servers = {
-        rust_analyzer = {
-          enable = true;
-          installRustc = false;
-          installCargo = false;
-        };
         nixd.enable = true;
         clangd.enable = true;
         texlab.enable = true;
@@ -40,7 +30,6 @@
       enable = true;
       settings = {
         highlight = {
-          #additional_vim_regex_highlighting = true;
           enable = true;
         };
       };
@@ -99,7 +88,6 @@
     markdown-preview = {
       enable = true;
     };
-    notify.enable = true;
     nvim-autopairs = {
       enable = true;
       settings.check_ts = true;
@@ -108,6 +96,13 @@
       enable = true;
       mockDevIcons = true;
       modules.icons.enable = true;
+    };
+    rustaceanvim = {
+      enable = true;
+      settings.enable_clippy = true;
+    };
+    fidget = {
+      enable = true;
     };
   };
 }
