@@ -19,4 +19,5 @@ with pkgs;
     media-controls
     vitals
     battery-health-charging
+    gravatar
   ])
