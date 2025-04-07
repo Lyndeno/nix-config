@@ -8,6 +8,7 @@
         y = 12;
       };
       dynamic_padding = true;
+      decorations = "None";
     };
     mouse.hide_when_typing = true;
   };
