@@ -26,6 +26,6 @@ jobs:
       - name: Install binfmt tools
         run: |
           DEBIAN_FRONTEND=noninteractive
-          sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 qemu-efi binfmt-support qemu-user-static
+          sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 binfmt-support qemu-user-static
       - name: Check Nix Flake
         run: nix flake check
