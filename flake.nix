@@ -31,6 +31,15 @@
       };
     };
 
+    ppd = {
+      url = "github:Lyndeno/ppd-rs/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+        utils.follows = "flake-utils";
+      };
+    };
+
     site = {
       url = "github:Lyndeno/website-hugo";
       inputs = {

@@ -179,6 +179,21 @@
         "type": "github"
       }
     },
+    "crane_4": {
+      "locked": {
+        "lastModified": 1744386647,
+        "narHash": "sha256-DXwQEJllxpYeVOiSlBhQuGjfvkoGHTtILLYO2FvcyzQ=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "d02c1cdd7ec539699aa44e6ff912e15535969803",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -725,6 +740,34 @@
         "url": "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
       }
     },
+    "ppd": {
+      "inputs": {
+        "crane": "crane_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks-nix": [
+          "pre-commit-hooks-nix"
+        ],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746109387,
+        "narHash": "sha256-CasPC4nkCxEntpJxXMyf7LZ2Imx1oNCeX30lnZq+CyE=",
+        "owner": "Lyndeno",
+        "repo": "ppd-rs",
+        "rev": "4a2dcdb3a4c890f766ef33d387ab379ff6ff954e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lyndeno",
+        "ref": "master",
+        "repo": "ppd-rs",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -764,6 +807,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
+        "ppd": "ppd",
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "site": "site",
         "spicetify-nix": "spicetify-nix",
