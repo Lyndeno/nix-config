@@ -108,5 +108,8 @@
     fidget = {
       enable = true;
     };
+    dap = {
+      enable = true;
+    };
   };
 }
