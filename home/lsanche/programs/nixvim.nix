@@ -13,6 +13,10 @@
     showmode = false;
     showcmd = false;
   };
+  diagnostic.config = {
+    virtual_text = true;
+    virtual_lines.current_line = true;
+  };
   plugins = {
     nix.enable = true;
     fugitive.enable = true;
