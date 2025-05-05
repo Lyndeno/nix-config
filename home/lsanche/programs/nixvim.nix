@@ -13,7 +13,7 @@
     showmode = false;
     showcmd = false;
   };
-  diagnostic.config = {
+  diagnostic.settings = {
     virtual_text = true;
     virtual_lines.current_line = true;
   };
