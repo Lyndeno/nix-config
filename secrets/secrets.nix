@@ -22,7 +22,6 @@ in {
   "morpheus/pass_trinity_borg.age".publicKeys = [lsanche morpheus];
   "morpheus/webdav.age".publicKeys = [lsanche morpheus];
   "morpheus/firefly_id.age".publicKeys = [lsanche morpheus];
-  "morpheus/nix-serve.age".publicKeys = [lsanche morpheus];
   "morpheus/attic_token.age".publicKeys = [lsanche morpheus];
 
   "oracle/nc_db.age".publicKeys = [lsanche oracle];

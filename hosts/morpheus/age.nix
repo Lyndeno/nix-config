@@ -9,7 +9,6 @@
     id_trinity_borg.file = morpheus.id_trinity_borg;
     pass_trinity_borg.file = morpheus.pass_trinity_borg;
 
-    nix-serve.file = morpheus.nix-serve;
     #webdav = {
     #  file = morpheus.webdav;
     #  owner = config.services.webdav-server-rs.user;
