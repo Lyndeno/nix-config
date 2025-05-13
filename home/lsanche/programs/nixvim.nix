@@ -12,6 +12,8 @@
     incsearch = true;
     showmode = false;
     showcmd = false;
+    tabstop = 2;
+    ignorecase = true;
   };
   diagnostic.settings = {
     virtual_text = true;
@@ -52,12 +54,14 @@
           "<C-Space>" = "cmp.mapping.complete()";
           "<CR>" = ''
             cmp.mapping.confirm {
-              behavior = cmp.ConfirmBehavior.Replace,
+              behavior = cmp.ConfirmBehavior.Insert,
               select = true,
             }
           '';
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+          "<C-j>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+          "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
         };
       };
     };
