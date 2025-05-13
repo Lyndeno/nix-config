@@ -129,6 +129,11 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -169,6 +174,10 @@
           inputsFrom = [config.pre-commit.devShell];
         };
       };
-      flake = multinix.lib.multinix inputs;
+      flake = {self, ...}:
+        (multinix.lib.multinix inputs)
+        // {
+          githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
+        };
     };
 }
