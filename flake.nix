@@ -137,6 +137,7 @@
   };
 
   outputs = inputs @ {
+    self,
     flake-parts,
     multinix,
     ...
@@ -174,7 +175,7 @@
           inputsFrom = [config.pre-commit.devShell];
         };
       };
-      flake = {self, ...}:
+      flake =
         (multinix.lib.multinix inputs)
         // {
           githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
