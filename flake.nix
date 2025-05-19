@@ -73,7 +73,7 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         git-hooks.follows = "pre-commit-hooks-nix";
-        flake-utils.follows = "flake-utils";
+        flake-parts.follows = "flake-parts";
       };
     };
 
