@@ -40,7 +40,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Install Nix
-        uses: cachix/install-nix-action@v30
+        uses: cachix/install-nix-action@v31
       - id: set-matrix
         name: Check Nix Flake
         run: |
@@ -56,5 +56,5 @@ jobs:
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v30
+      - uses: cachix/install-nix-action@v31
       - run: nix build -L '.#${{ matrix.attr }}'
