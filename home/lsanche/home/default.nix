@@ -9,4 +9,8 @@
     cat = "${pkgs.bat}/bin/bat";
   };
   inherit (osConfig.system) stateVersion;
+
+  file.".config/niri/config.kdl" = {
+    source = ./config.kdl;
+  };
 }

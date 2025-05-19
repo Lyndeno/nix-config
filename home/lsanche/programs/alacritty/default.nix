@@ -11,5 +11,12 @@
       decorations = "None";
     };
     mouse.hide_when_typing = true;
+    keyboard.bindings = [
+      {
+        key = "Space";
+        mods = "Control";
+        chars = "\\u0000";
+      }
+    ];
   };
 }

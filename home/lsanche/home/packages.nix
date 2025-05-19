@@ -44,6 +44,10 @@ in
       rustfmt
 
       hunspellDicts.en_CA
+
+      # Niri
+      wireplumber
+      xwayland-satellite
     ])
     ++ (lib.lists.optionals isGnome [
       libreoffice
