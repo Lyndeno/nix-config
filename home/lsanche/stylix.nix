@@ -2,7 +2,7 @@
   targets = {
     swaylock = {
       useImage = false;
-      enable = false;
+      enable = true;
     };
     firefox.profileNames = ["lsanche"];
     vscode.profileNames = ["default"];

@@ -8,4 +8,6 @@
   services.xserver.displayManager.gdm = {
     enable = true;
   };
+
+  security.pam.services.swaylock.enable = true;
 }
