@@ -3,9 +3,9 @@
   systemd.enable = true;
   settings = {
     mainBar = {
-      height = 20;
+      height = 36;
       modules-left = ["niri/workspaces"];
-      modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray"];
+      modules-right = ["disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -92,6 +92,18 @@
           "portable" = "";
           "car" = "";
           "default" = ["󰕿" "󰖀" "󰕾"];
+        };
+      };
+
+      "power-profiles-daemon" = {
+        "format" = "{icon}";
+        "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
+        "tooltip" = true;
+        "format-icons" = {
+          "default" = "";
+          "performance" = "";
+          "balanced" = "";
+          "power-saver" = "";
         };
       };
     };
