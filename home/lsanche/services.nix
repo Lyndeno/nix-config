@@ -53,6 +53,10 @@
         command = lock;
       }
       {
+        timeout = 305;
+        command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+      }
+      {
         timeout = 900;
         command = "${pkgs.systemd}/bin/systemctl suspend-then-hibernate";
       }

@@ -4,6 +4,7 @@
   settings = {
     mainBar = {
       height = 20;
+      modules-left = ["niri/workspaces"];
       modules-right = ["disk#root" "cpu" "memory" "network" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray"];
       "disk#root" = {
         interval = 30;
