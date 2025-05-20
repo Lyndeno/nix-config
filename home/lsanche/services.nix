@@ -1,4 +1,7 @@
-{osConfig}: {
+{
+  osConfig,
+  pkgs,
+}: {
   pueue = {
     enable = true;
     settings = {
@@ -32,5 +35,27 @@
 
   swayosd = {
     enable = true;
+  };
+
+  swayidle = let
+    lock = "${pkgs.swaylock}/bin/swaylock -fF";
+  in {
+    enable = true;
+    events = [
+      {
+        event = "before-sleep";
+        command = lock;
+      }
+    ];
+    timeouts = [
+      {
+        timeout = 300;
+        command = lock;
+      }
+      {
+        timeout = 900;
+        command = "${pkgs.systemd}/bin/systemctl suspend-then-hibernate";
+      }
+    ];
   };
 }
