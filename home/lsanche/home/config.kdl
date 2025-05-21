@@ -347,14 +347,14 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "bash" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "bash" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock"; }
-    XF86AudioMute        allow-when-locked=true { spawn "bash" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "bash" "-c" "(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $XDG_RUNTIME_DIR/wob.sock) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock)"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "bash" "-c" "(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $XDG_RUNTIME_DIR/wob.sock) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock)"; }
+    XF86AudioMute        allow-when-locked=true { spawn "bash" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $XDG_RUNTIME_DIR/wob.sock) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
 		// Brightness
-		XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "s" "+5%"; }
-		XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-n" "s" "5%-"; }
+		XF86MonBrightnessUp allow-when-locked=true { spawn "bash" "-c" "brightnessctl set +5% | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
+		XF86MonBrightnessDown allow-when-locked=true { spawn "bash" "-c" "brightnessctl -n set 5%- | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
 
     Mod+Q { close-window; }
 

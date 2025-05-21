@@ -65,5 +65,11 @@
 
   polkit-gnome.enable = true;
 
-  wob.enable = true;
+  wob = {
+    enable = true;
+    settings."" = {
+      anchor = "bottom";
+      margin = 60;
+    };
+  };
 }
