@@ -5,7 +5,7 @@
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces"];
-      modules-right = ["disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "backlight" "clock" "pulseaudio" "idle_inhibitor" "tray"];
+      modules-right = ["disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -25,7 +25,7 @@
         };
         format-discharging = "{icon} {capacity}%";
         format-charging = "{icon}󰚥 {capacity}%";
-        format-full = "󰁹 Full";
+        format-full = "󱐋";
         format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹"];
       };
 
@@ -38,8 +38,8 @@
       "idle_inhibitor" = {
         format = "{icon}";
         format-icons = {
-          "activated" = " ";
-          "deactivated" = " ";
+          "activated" = "";
+          "deactivated" = "";
         };
       };
 
