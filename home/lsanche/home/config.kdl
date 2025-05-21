@@ -354,7 +354,7 @@ binds {
 
 		// Brightness
 		XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "s" "+5%"; }
-		XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
+		XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-n" "s" "5%-"; }
 
     Mod+Q { close-window; }
 
