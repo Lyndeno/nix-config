@@ -62,4 +62,8 @@
       }
     ];
   };
+
+  polkit-gnome.enable = true;
+
+  wob.enable = true;
 }
