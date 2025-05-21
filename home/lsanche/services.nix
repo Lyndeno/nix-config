@@ -33,6 +33,9 @@ in {
 
   mako = {
     enable = isNiri;
+    settings = {
+      timeout = 30 * 1000;
+    };
   };
 
   swayosd = {
