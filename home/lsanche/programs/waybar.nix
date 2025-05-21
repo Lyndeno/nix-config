@@ -1,5 +1,5 @@
-{
-  enable = true;
+{osConfig}: {
+  inherit (osConfig.modules.niri) enable;
   systemd.enable = true;
   settings = {
     mainBar = {

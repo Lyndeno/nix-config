@@ -1,3 +1,3 @@
-{
-  enable = true;
+{osConfig}: {
+  inherit (osConfig.modules.niri) enable;
 }

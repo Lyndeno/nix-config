@@ -1,7 +1,9 @@
 {
   osConfig,
   pkgs,
-}: {
+}: let
+  isNiri = osConfig.modules.niri.enable;
+in {
   pueue = {
     enable = true;
     settings = {
@@ -24,23 +26,23 @@
   };
 
   wlsunset = {
-    enable = true;
+    enable = isNiri;
     latitude = "53.6";
     longitude = "-113.9";
   };
 
   mako = {
-    enable = true;
+    enable = isNiri;
   };
 
   swayosd = {
-    enable = true;
+    enable = isNiri;
   };
 
   swayidle = let
     lock = "${pkgs.swaylock}/bin/swaylock -fF";
   in {
-    enable = true;
+    enable = isNiri;
     events = [
       {
         event = "before-sleep";
@@ -63,10 +65,10 @@
     ];
   };
 
-  polkit-gnome.enable = true;
+  polkit-gnome.enable = isNiri;
 
   wob = {
-    enable = true;
+    enable = isNiri;
     settings."" = {
       anchor = "bottom";
       margin = 60;
