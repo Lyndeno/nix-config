@@ -4,7 +4,7 @@
   settings = {
     mainBar = {
       height = 36;
-      modules-left = ["niri/workspaces"];
+      modules-left = ["niri/workspaces" "cava"];
       modules-right = ["disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
       "disk#root" = {
         interval = 30;
@@ -14,6 +14,23 @@
           "warning" = 80;
           "high" = 90;
           "critical" = 95;
+        };
+      };
+
+      "cava" = {
+        #cava_config = "$XDG_CONFIG_HOME/cava/config";
+        method = "pipewire";
+        format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
+        bars = 12;
+        bar_delimiter = 0;
+        hide_on_silence = true;
+        monstercat = false;
+        waves = false;
+        stereo = false;
+        sleep_timer = 5;
+        framerate = 60;
+        actions = {
+          on-click-right = "mode";
         };
       };
 
