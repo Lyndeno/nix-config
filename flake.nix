@@ -180,6 +180,9 @@
           src = ./.;
           doCheck = true;
           nativeBuildInputs = [pkgs.niri];
+          buildPhase = ''
+            touch $out
+          '';
           checkPhase = ''
             niri validate -c ./home/lsanche/home/config.kdl
           '';
