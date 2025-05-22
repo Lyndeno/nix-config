@@ -29,6 +29,7 @@ in {
     enable = isNiri;
     latitude = "53.6";
     longitude = "-113.9";
+    temperature.night = 2000;
   };
 
   mako = {
