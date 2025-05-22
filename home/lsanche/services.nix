@@ -39,10 +39,6 @@ in {
     };
   };
 
-  swayosd = {
-    enable = isNiri;
-  };
-
   swayidle = let
     lock = "${pkgs.swaylock}/bin/swaylock -fF";
   in {
