@@ -35,7 +35,7 @@ in {
   mako = {
     enable = isNiri;
     settings = {
-      timeout = 30 * 1000;
+      default-timeout = 30 * 1000;
     };
   };
 
