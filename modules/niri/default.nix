@@ -10,4 +10,11 @@
   };
 
   security.pam.services.swaylock.enable = true;
+  services = {
+    gvfs.enable = true;
+    gnome = {
+      glib-networking.enable = true;
+      localsearch.enable = true;
+    };
+  };
 }
