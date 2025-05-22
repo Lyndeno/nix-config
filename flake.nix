@@ -73,7 +73,7 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         git-hooks.follows = "pre-commit-hooks-nix";
-        flake-utils.follows = "flake-utils";
+        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -173,6 +173,16 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
           inputsFrom = [config.pre-commit.devShell];
+        };
+
+        checks.niri-config = pkgs.stdenvNoCC.mkDerivation {
+          name = "niri-validate";
+          src = ./.;
+          doCheck = true;
+          nativeBuildInputs = [pkgs.niri];
+          checkPhase = ''
+            niri validate -c ./home/lsanche/home/config.kdl
+          '';
         };
       };
       flake =

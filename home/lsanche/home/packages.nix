@@ -7,6 +7,7 @@ with osConfig.modules; let
   isDesktop = desktop.enable;
   isGnome = gnome.enable;
   isPlasma = plasma.enable;
+  isNiri = niri.enable;
 in
   with pkgs;
     [
@@ -29,8 +30,6 @@ in
       # Office
       kicad
       octaveFull
-      #zathura
-      #imv
       joplin-desktop
 
       # Development
@@ -55,4 +54,11 @@ in
     ])
     ++ (lib.lists.optionals isPlasma [
       libreoffice-qt
+    ])
+    ++ (lib.lists.optionals isNiri [
+      libreoffice
+      wireplumber
+      brightnessctl
+      nautilus
+      gnome-clocks
     ])

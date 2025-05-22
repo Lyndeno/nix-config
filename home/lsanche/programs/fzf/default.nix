@@ -1,6 +1,7 @@
 {config}: {
   # Referenced https://github.com/base16-project/base16-fzf/blob/main/templates/default.mustache
   enable = true;
+  enableFishIntegration = true;
   defaultOptions = with config.lib.stylix.colors.withHashtag; [
     "--color=spinner:${base0C},hl:${base0D}"
     "--color=fg:${base04},header:${base0D},info:${base0A},pointer:${base0C}"
