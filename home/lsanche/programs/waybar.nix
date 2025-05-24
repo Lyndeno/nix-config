@@ -1,11 +1,22 @@
-{osConfig}: {
+{
+  osConfig,
+  pkgs,
+}: let
+  inherit (osConfig.networking) hostName;
+  fanQuery =
+    if hostName == "neo"
+    then "'.\"dell_smm-isa-0000\".\"fan1\".\"fan1_input\" | floor'"
+    else if hostName == "morpheus"
+    then "'.\"nct6798-isa-0290\".\"fan1\".\"fan1_input\" | floor'"
+    else "";
+in {
   inherit (osConfig.modules.niri) enable;
   systemd.enable = true;
   settings = {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
+      modules-right = ["custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -15,6 +26,12 @@
           "high" = 90;
           "critical" = 95;
         };
+      };
+
+      "custom/fan" = {
+        exec = "${pkgs.lm_sensors}/bin/sensors -j | ${pkgs.jq}/bin/jq ${fanQuery}";
+        interval = 3;
+        format = "󰈐 {}";
       };
 
       "cava" = {
