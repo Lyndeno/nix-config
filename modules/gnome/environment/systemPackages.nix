@@ -6,7 +6,6 @@ with pkgs;
     mission-center
     resources
     papers
-    alpaca
   ]
   ++ (with gnomeExtensions; [
     appindicator

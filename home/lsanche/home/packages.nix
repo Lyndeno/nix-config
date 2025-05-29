@@ -51,6 +51,7 @@ in
       celluloid
 
       fractal
+      alpaca
     ])
     ++ (lib.lists.optionals isPlasma [
       libreoffice-qt
@@ -61,4 +62,7 @@ in
       brightnessctl
       nautilus
       gnome-clocks
+      mpv
+      fractal
+      alpaca
     ])
