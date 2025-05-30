@@ -1,4 +1,7 @@
-{osConfig}: {
+{
+  osConfig,
+  config,
+}: {
   email.accounts.fastmail = {
     primary = true;
     realName = "Lyndon Sanche";
@@ -24,6 +27,7 @@
     };
     astroid = {
       enable = true;
+      sendMailCommand = "${config.programs.mujmap.package}/bin/mujmap -C /home/lsanche/Maildir/fastmail send -i -t";
     };
   };
 }
