@@ -435,11 +435,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748608563,
-        "narHash": "sha256-21EexT0pxgNxRsKMgjeRO+zCloNWPo9xAQ+aqEWvI+A=",
-        "owner": "Lyndeno",
+        "lastModified": 1748610552,
+        "narHash": "sha256-bCBPjZ3ukUbAaCIDzGmvA+ZcMNk4+YIWLM8cks0jiic=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8535a9ec9f8d24a0a479fa32dc64211382930583",
+        "rev": "482c306ef70785f53d9d90839b6b5643521ac031",
         "type": "github"
       },
       "original": {
