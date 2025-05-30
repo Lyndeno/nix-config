@@ -54,7 +54,7 @@ in {
         #cava_config = "$XDG_CONFIG_HOME/cava/config";
         method = "pipewire";
         format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
-        bars = 12;
+        bars = 24;
         bar_delimiter = 0;
         hide_on_silence = true;
         monstercat = false;
@@ -62,6 +62,11 @@ in {
         stereo = false;
         sleep_timer = 5;
         framerate = 60;
+        autosens = 0;
+        sensitivity = 18;
+        lower_cutoff_freq = 50;
+        higher_cutoff_freq = 10000;
+        noise_reduction = 0.25;
         actions = {
           on-click-right = "mode";
         };
@@ -74,7 +79,7 @@ in {
           "critical" = 15;
         };
         format-discharging = "{icon} {capacity}%";
-        format-charging = "{icon}󰚥 {capacity}%";
+        format-charging = "󰚥 {capacity}%";
         format-full = "󱐋";
         format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹"];
       };
@@ -88,8 +93,8 @@ in {
       "idle_inhibitor" = {
         format = "{icon}";
         format-icons = {
-          "activated" = "";
-          "deactivated" = "";
+          "activated" = "󰅶";
+          "deactivated" = "󰾪";
         };
       };
 
@@ -102,11 +107,14 @@ in {
         format = " {usage}%";
         tooltip = true;
         interval = 3;
+        on-click = "${pkgs.resources}/bin/resources -t cpu";
       };
 
       "memory" = {
         format = " {used:0.1f}G ({percentage}%)";
+        tooltip-format = "{used:0.1f} GiB / {total:0.1f} GiB\n{swapUsed:0.1f} GiB / {swapTotal:0.1f} GiB";
         interval = 3;
+        on-click = "${pkgs.resources}/bin/resources -t memory";
       };
 
       "backlight" = {

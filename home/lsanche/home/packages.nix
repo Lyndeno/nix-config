@@ -65,4 +65,5 @@ in
       mpv
       fractal
       alpaca
+      resources
     ])
