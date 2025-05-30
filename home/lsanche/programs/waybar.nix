@@ -21,12 +21,15 @@ in {
       #custom-email {
         padding: 0 5px;
       }
+      #systemd-failed-units {
+        padding: 0 5px;
+      }
     '';
   settings = {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
+      modules-right = ["systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -36,6 +39,11 @@ in {
           "high" = 90;
           "critical" = 95;
         };
+      };
+
+      "systemd-failed-units" = {
+        hide-on-ok = true;
+        format = "󰋼 {nr_failed}";
       };
 
       "custom/fan" = {
