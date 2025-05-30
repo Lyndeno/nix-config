@@ -300,6 +300,7 @@ window-rule {
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
+		default-floating-position x=32 y=32 relative-to="bottom-left"
 }
 
 // Indicate screencasted windows with red colors.
@@ -335,6 +336,22 @@ window-rule {
 
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
+}
+
+window-rule {
+    // Match by "dropdown" app ID.
+    // You need to set this app ID when running your terminal, e.g.:
+    // spawn "alacritty" "--class" "dropdown"
+    match app-id="^hover$"
+
+    // Open it as floating.
+    open-floating true
+    // Anchor to the top edge of the screen.
+    // default-floating-position x=0 y=0 relative-to="top"
+    // Half of the screen high.
+    default-window-height { proportion 0.8; }
+    // 80% of the screen wide.
+    default-column-width { proportion 0.8; }
 }
 
 // Block out mako notifications from screencasts.
