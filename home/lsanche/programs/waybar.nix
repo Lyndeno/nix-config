@@ -12,11 +12,21 @@
 in {
   inherit (osConfig.modules.niri) enable;
   systemd.enable = true;
+  style =
+    # css
+    ''
+      #custom-fan {
+        padding: 0 5px;
+      }
+      #custom-email {
+        padding: 0 5px;
+      }
+    '';
   settings = {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
+      modules-right = ["custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -32,6 +42,12 @@ in {
         exec = "${pkgs.lm_sensors}/bin/sensors -j | ${pkgs.jq}/bin/jq ${fanQuery}";
         interval = 3;
         format = "󰈐 {}";
+      };
+
+      "custom/email" = {
+        exec = "${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread";
+        interval = 15;
+        format = "󰇮 {}";
       };
 
       "cava" = {
