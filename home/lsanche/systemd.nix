@@ -18,6 +18,9 @@
         Timer = {
           OnCalendar = "hourly";
         };
+        Install = {
+          WantedBy = ["timers.target"];
+        };
       };
     };
   };
