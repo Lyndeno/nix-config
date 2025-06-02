@@ -145,15 +145,15 @@ in {
       "pulseaudio" = {
         # "scroll-step": 1, // %, can be a float
         format = "{icon} {volume}%";
-        format-bluetooth = "{icon} {volume}% {format_source} ";
-        format-bluetooth-muted = "婢 {icon} {format_source}";
+        format-bluetooth = "{icon} {volume}%";
+        format-bluetooth-muted = "{icon} 󰖁";
         format-muted = "󰖁";
         format-source = " {volume}%";
         format-source-muted = "";
         format-icons = {
-          "headphone" = "";
-          "hands-free" = "";
-          "headset" = "";
+          "headphone" = "󰋋";
+          "hands-free" = "󰋋";
+          "headset" = "󰋋";
           "phone" = "";
           "portable" = "";
           "car" = "";
