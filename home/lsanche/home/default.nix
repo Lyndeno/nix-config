@@ -1,6 +1,7 @@
 {
   pkgs,
   osConfig,
+  config,
 }: {
   username = "lsanche";
   homeDirectory = "/home/lsanche";
@@ -10,7 +11,17 @@
   };
   inherit (osConfig.system) stateVersion;
 
-  file.".config/niri/config.kdl" = {
-    source = ./config.kdl;
+  file = {
+    ".config/niri/config.kdl" = {
+      source = ./config.kdl;
+    };
+    ".cargo/config.toml" = {
+      text =
+        # toml
+        ''
+          [build]
+          target-dir = "${config.home.homeDirectory}/.cargo/target"
+        '';
+    };
   };
 }
