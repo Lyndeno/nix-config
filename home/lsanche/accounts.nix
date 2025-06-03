@@ -27,7 +27,7 @@
     };
     astroid = {
       enable = true;
-      sendMailCommand = "${config.programs.mujmap.package}/bin/mujmap -C /home/lsanche/Maildir/fastmail send -i -t";
+      sendMailCommand = "${config.programs.mujmap.package}/bin/mujmap -C ${config.home.homeDirectory}/Maildir/fastmail send -i -t";
     };
   };
 }
