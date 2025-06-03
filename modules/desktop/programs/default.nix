@@ -4,6 +4,10 @@
     polkitPolicyOwners = ["lsanche"];
   };
 
+  _1password = {
+    enable = true;
+  };
+
   appimage = {
     enable = true;
   };
