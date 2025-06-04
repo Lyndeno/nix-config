@@ -1,6 +1,7 @@
 {
   osConfig,
   pkgs,
+  config,
 }: let
   inherit (osConfig.networking) hostName;
   fanQuery =
@@ -22,6 +23,9 @@ in {
         padding: 0 5px;
       }
       #systemd-failed-units {
+        padding: 0 5px;
+      }
+      #power-profiles-daemon {
         padding: 0 5px;
       }
     '';
@@ -132,14 +136,15 @@ in {
       };
 
       "network" = {
-        format-wifi = " ";
-        format-ethernet = "󰈀  {bandwidthDownBits}";
+        format-wifi = "{icon}";
+        format-ethernet = "󰈀 {bandwidthDownBits}";
         format-linked = "󰈀 {ifname} (No IP)";
         format-disconnected = "Disconnected ⚠";
-        format-alt = "{ifname} = {ipaddr}/{cidr}   {bandwidthDownBits}  {bandwidthUpBits}";
+        format-alt = "{ifname} | {ipaddr}/{cidr} | {bandwidthDownBits} {bandwidthUpBits}";
         tooltip-format-wifi = "SSID = {essid}\nAddress = {ipaddr}\nBand {frequency} MHz\nUp = {bandwidthUpBits}\nDown = {bandwidthDownBits}\nStrength = {signalStrength}%";
         interval = 2;
-        #on-click-right = "${commands.terminal} -e nmtui";
+        on-click-right = "${config.programs.alacritty.package}/bin/alacritty --class hover -e nmtui";
+        format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
       };
 
       "pulseaudio" = {
