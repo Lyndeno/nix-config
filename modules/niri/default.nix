@@ -16,5 +16,6 @@
       glib-networking.enable = true;
       localsearch.enable = true;
     };
+    upower.enable = true;
   };
 }
