@@ -23,5 +23,9 @@
       package = cascadia;
       name = "CaskaydiaCove Nerd Font Mono";
     };
+    sizes = {
+      desktop = 11;
+      popups = 12;
+    };
   };
 }
