@@ -33,7 +33,7 @@ in {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
+      modules-right = ["custom/weather" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -60,6 +60,14 @@ in {
         exec = "${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread";
         interval = 15;
         format = "󰇮 {}";
+      };
+
+      "custom/weather" = {
+        "format" = "{}°";
+        "tooltip" = true;
+        "interval" = 3600;
+        "exec" = "${pkgs.wttrbar}/bin/wttrbar";
+        "return-type" = "json";
       };
 
       "cava" = {
