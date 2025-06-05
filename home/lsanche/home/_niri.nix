@@ -204,7 +204,7 @@ with config.lib.stylix.colors.withHashtag;
         // You can enable drop shadows for windows.
         shadow {
             // Uncomment the next line to enable shadows.
-            // on
+            on
 
             // By default, the shadow draws only around its window, and not behind it.
             // Uncomment this setting to make the shadow draw behind its window.
@@ -328,6 +328,7 @@ with config.lib.stylix.colors.withHashtag;
 
         shadow {
             color "#7d0d2d70"
+            spread 20
         }
 
         tab-indicator {
