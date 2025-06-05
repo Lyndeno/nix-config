@@ -2,6 +2,7 @@
   pkgs,
   osConfig,
   config,
+  super,
 }: {
   username = "lsanche";
   homeDirectory = "/home/lsanche";
@@ -13,7 +14,7 @@
 
   file = {
     ".config/niri/config.kdl" = {
-      source = ./config.kdl;
+      text = super.niri;
     };
     ".cargo/config.toml" = {
       text =

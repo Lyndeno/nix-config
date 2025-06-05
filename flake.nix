@@ -175,18 +175,18 @@
           inputsFrom = [config.pre-commit.devShell];
         };
 
-        checks.niri-config = pkgs.stdenvNoCC.mkDerivation {
-          name = "niri-validate";
-          src = ./.;
-          doCheck = true;
-          nativeBuildInputs = [pkgs.niri];
-          buildPhase = ''
-            touch $out
-          '';
-          checkPhase = ''
-            niri validate -c ./home/lsanche/home/config.kdl
-          '';
-        };
+        #checks.niri-config = pkgs.stdenvNoCC.mkDerivation {
+        #  name = "niri-validate";
+        #  src = ./.;
+        #  doCheck = true;
+        #  nativeBuildInputs = [pkgs.niri];
+        #  buildPhase = ''
+        #    touch $out
+        #  '';
+        #  checkPhase = ''
+        #    niri validate -c ./home/lsanche/home/config.kdl
+        #  '';
+        #};
       };
       flake =
         (multinix.lib.multinix inputs)
