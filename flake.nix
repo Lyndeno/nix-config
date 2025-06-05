@@ -49,7 +49,7 @@
     };
 
     base16-schemes = {
-      url = "github:tinted-theming/base16-schemes";
+      url = "github:tinted-theming/schemes";
       flake = false;
     };
 
