@@ -100,12 +100,17 @@ with config.lib.stylix.colors.withHashtag;
         position x=1280 y=0
     }
 
+    overview {
+      backdrop-color "${base01}"
+    }
+
     // Settings that influence how windows are positioned and sized.
     // Find more information on the wiki:
     // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
     layout {
         // Set gaps around windows in logical pixels.
         gaps 16
+        background-color "${base00}"
 
         // When to center a column when changing focus, options are:
         // - "never", default behavior, focusing an off-screen column will keep at the left
