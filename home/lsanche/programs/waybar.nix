@@ -10,6 +10,11 @@
     else if hostName == "morpheus"
     then "'.\"nct6798-isa-0290\".\"fan1\".\"fan1_input\" | floor'"
     else "";
+
+  framerate =
+    if hostName == "morpheus"
+    then 144
+    else 60;
 in {
   inherit (osConfig.modules.niri) enable;
   systemd.enable = true;
@@ -96,6 +101,7 @@ in {
       };
 
       "cava" = {
+        inherit framerate;
         #cava_config = "$XDG_CONFIG_HOME/cava/config";
         method = "pipewire";
         format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
@@ -106,7 +112,6 @@ in {
         waves = false;
         stereo = false;
         sleep_timer = 5;
-        framerate = 60;
         autosens = 0;
         sensitivity = 18;
         lower_cutoff_freq = 50;
