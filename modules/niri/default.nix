@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     fuzzel
     xwayland-satellite
+    wdisplays
   ];
 
   services.displayManager.gdm = {
