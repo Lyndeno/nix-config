@@ -66,4 +66,5 @@ in
       fractal
       alpaca
       resources
+      fragments
     ])
