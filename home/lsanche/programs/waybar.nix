@@ -33,7 +33,7 @@ in {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["custom/weather" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "power-profiles-daemon" "battery" "pulseaudio" "idle_inhibitor" "clock"];
+      modules-right = ["systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "group/group-power" "pulseaudio" "group/group-clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -60,6 +60,31 @@ in {
         exec = "${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread";
         interval = 15;
         format = "󰇮 {}";
+      };
+
+      "group/group-power" = {
+        orientation = "inherit";
+        drawer = {
+          transition-duration = 500;
+          transition-left-to-right = false;
+        };
+        modules = [
+          "battery"
+          "power-profiles-daemon"
+          "idle_inhibitor"
+        ];
+      };
+
+      "group/group-clock" = {
+        orientation = "inherit";
+        drawer = {
+          transition-duration = 500;
+          transition-left-to-right = false;
+        };
+        modules = [
+          "clock"
+          "custom/weather"
+        ];
       };
 
       "custom/weather" = {
