@@ -2,6 +2,7 @@
   osConfig,
   pkgs,
   config,
+  lib,
 }: let
   inherit (osConfig.networking) hostName;
   fanQuery =
@@ -10,6 +11,11 @@
     else if hostName == "morpheus"
     then "'.\"nct6798-isa-0290\".\"fan1\".\"fan1_input\" | floor'"
     else "";
+
+  sensitivity =
+    if hostName == "neo"
+    then 18
+    else 10;
 
   framerate =
     if hostName == "morpheus"
@@ -74,7 +80,7 @@ in {
           transition-left-to-right = false;
         };
         modules = [
-          "battery"
+          (lib.mkIf (hostName == "neo") "battery")
           "power-profiles-daemon"
           "idle_inhibitor"
         ];
@@ -101,7 +107,7 @@ in {
       };
 
       "cava" = {
-        inherit framerate;
+        inherit framerate sensitivity;
         #cava_config = "$XDG_CONFIG_HOME/cava/config";
         method = "pipewire";
         format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
@@ -113,7 +119,6 @@ in {
         stereo = false;
         sleep_timer = 5;
         autosens = 0;
-        sensitivity = 18;
         lower_cutoff_freq = 50;
         higher_cutoff_freq = 10000;
         noise_reduction = 0.25;
