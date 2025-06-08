@@ -9,5 +9,8 @@
     waybar = {
       font = "sansSerif";
     };
+
+    # this has ifd
+    blender.enable = false;
   };
 }
