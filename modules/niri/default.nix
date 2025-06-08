@@ -6,9 +6,7 @@
     wdisplays
   ];
 
-  services.displayManager.gdm = {
-    enable = true;
-  };
+  programs.regreet.enable = true;
 
   security.pam.services.swaylock.enable = true;
   services = {
@@ -18,5 +16,6 @@
       localsearch.enable = true;
     };
     upower.enable = true;
+    greetd.enable = true;
   };
 }
