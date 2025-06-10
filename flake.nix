@@ -1,6 +1,65 @@
 {
   description = "Lyndon's NixOS setup";
 
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    multinix,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.git-hooks.flakeModule
+      ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      perSystem = {
+        pkgs,
+        config,
+        inputs',
+        ...
+      }: {
+        formatter = pkgs.alejandra;
+
+        pre-commit = {
+          check.enable = true;
+          settings = {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              statix.enable = true;
+              deadnix.enable = true;
+            };
+          };
+        };
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
+          inputsFrom = [config.pre-commit.devShell];
+        };
+
+        #checks.niri-config = pkgs.stdenvNoCC.mkDerivation {
+        #  name = "niri-validate";
+        #  src = ./.;
+        #  doCheck = true;
+        #  nativeBuildInputs = [pkgs.niri];
+        #  buildPhase = ''
+        #    touch $out
+        #  '';
+        #  checkPhase = ''
+        #    niri validate -c ./home/lsanche/home/config.kdl
+        #  '';
+        #};
+      };
+      flake =
+        (multinix.lib.multinix inputs)
+        // {
+          githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
+        };
+    };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
@@ -116,63 +175,4 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    multinix,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        inputs.git-hooks.flakeModule
-      ];
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      perSystem = {
-        pkgs,
-        config,
-        inputs',
-        ...
-      }: {
-        formatter = pkgs.alejandra;
-
-        pre-commit = {
-          check.enable = true;
-          settings = {
-            src = ./.;
-            hooks = {
-              alejandra.enable = true;
-              statix.enable = true;
-              deadnix.enable = true;
-            };
-          };
-        };
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
-          inputsFrom = [config.pre-commit.devShell];
-        };
-
-        #checks.niri-config = pkgs.stdenvNoCC.mkDerivation {
-        #  name = "niri-validate";
-        #  src = ./.;
-        #  doCheck = true;
-        #  nativeBuildInputs = [pkgs.niri];
-        #  buildPhase = ''
-        #    touch $out
-        #  '';
-        #  checkPhase = ''
-        #    niri validate -c ./home/lsanche/home/config.kdl
-        #  '';
-        #};
-      };
-      flake =
-        (multinix.lib.multinix inputs)
-        // {
-          githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
-        };
-    };
 }
