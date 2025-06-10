@@ -521,6 +521,28 @@
     },
     "git-hooks": {
       "inputs": {
+        "flake-compat": "flake-compat",
+        "gitignore": "gitignore",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747372754,
+        "narHash": "sha256-2Y53NGIX2vxfie1rOW0Qb86vjRZ7ngizoo+bnXU9D9k=",
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "rev": "80479b6ec16fefd9c1db3ea13aeb038c60530f46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "git-hooks_2": {
+      "inputs": {
         "flake-compat": [
           "stylix",
           "flake-compat"
@@ -548,8 +570,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "ironfetch",
-          "pre-commit-hooks-nix",
+          "git-hooks",
           "nixpkgs"
         ]
       },
@@ -570,7 +591,7 @@
     "gitignore_2": {
       "inputs": {
         "nixpkgs": [
-          "lanzaboote",
+          "ironfetch",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -592,7 +613,7 @@
     "gitignore_3": {
       "inputs": {
         "nixpkgs": [
-          "mujmap",
+          "lanzaboote",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -614,7 +635,7 @@
     "gitignore_4": {
       "inputs": {
         "nixpkgs": [
-          "multinix",
+          "mujmap",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -636,7 +657,7 @@
     "gitignore_5": {
       "inputs": {
         "nixpkgs": [
-          "ppd",
+          "multinix",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -658,6 +679,7 @@
     "gitignore_6": {
       "inputs": {
         "nixpkgs": [
+          "ppd",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -833,7 +855,7 @@
     "lanzaboote": {
       "inputs": {
         "crane": "crane_2",
-        "flake-compat": "flake-compat_2",
+        "flake-compat": "flake-compat_3",
         "flake-parts": "flake-parts_2",
         "nixpkgs": [
           "nixpkgs"
@@ -1122,8 +1144,8 @@
     },
     "pre-commit-hooks-nix": {
       "inputs": {
-        "flake-compat": "flake-compat",
-        "gitignore": "gitignore",
+        "flake-compat": "flake-compat_2",
+        "gitignore": "gitignore_2",
         "nixpkgs": [
           "ironfetch",
           "nixpkgs"
@@ -1149,7 +1171,7 @@
           "lanzaboote",
           "flake-compat"
         ],
-        "gitignore": "gitignore_2",
+        "gitignore": "gitignore_3",
         "nixpkgs": [
           "lanzaboote",
           "nixpkgs"
@@ -1171,8 +1193,8 @@
     },
     "pre-commit-hooks-nix_3": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "gitignore": "gitignore_3",
+        "flake-compat": "flake-compat_4",
+        "gitignore": "gitignore_4",
         "nixpkgs": [
           "mujmap",
           "nixpkgs"
@@ -1194,8 +1216,8 @@
     },
     "pre-commit-hooks-nix_4": {
       "inputs": {
-        "flake-compat": "flake-compat_4",
-        "gitignore": "gitignore_4",
+        "flake-compat": "flake-compat_5",
+        "gitignore": "gitignore_5",
         "nixpkgs": [
           "multinix",
           "nixpkgs"
@@ -1217,32 +1239,10 @@
     },
     "pre-commit-hooks-nix_5": {
       "inputs": {
-        "flake-compat": "flake-compat_5",
-        "gitignore": "gitignore_5",
-        "nixpkgs": [
-          "ppd",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1747372754,
-        "narHash": "sha256-2Y53NGIX2vxfie1rOW0Qb86vjRZ7ngizoo+bnXU9D9k=",
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "rev": "80479b6ec16fefd9c1db3ea13aeb038c60530f46",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "type": "github"
-      }
-    },
-    "pre-commit-hooks-nix_6": {
-      "inputs": {
         "flake-compat": "flake-compat_6",
         "gitignore": "gitignore_6",
         "nixpkgs": [
+          "ppd",
           "nixpkgs"
         ]
       },
@@ -1267,6 +1267,7 @@
         "base16-schemes": "base16-schemes",
         "disko": "disko",
         "flake-parts": "flake-parts",
+        "git-hooks": "git-hooks",
         "haumea": "haumea",
         "home-manager": "home-manager",
         "ironfetch": "ironfetch",
@@ -1278,7 +1279,6 @@
         "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
         "ppd": "ppd",
-        "pre-commit-hooks-nix": "pre-commit-hooks-nix_6",
         "site": "site",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
@@ -1441,7 +1441,7 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "flake-compat": "flake-compat_7",
         "flake-parts": "flake-parts_5",
-        "git-hooks": "git-hooks",
+        "git-hooks": "git-hooks_2",
         "gnome-shell": "gnome-shell",
         "home-manager": [
           "home-manager"

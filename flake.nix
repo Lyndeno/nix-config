@@ -14,8 +14,8 @@
       };
     };
 
-    pre-commit-hooks-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -125,7 +125,7 @@
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        inputs.pre-commit-hooks-nix.flakeModule
+        inputs.git-hooks.flakeModule
       ];
       systems = [
         "x86_64-linux"
