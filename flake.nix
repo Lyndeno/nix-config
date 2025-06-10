@@ -27,7 +27,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
-        utils.follows = "flake-utils";
       };
     };
 
@@ -36,7 +35,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
-        utils.follows = "flake-utils";
       };
     };
 
@@ -44,7 +42,6 @@
       url = "github:Lyndeno/website-hugo";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -73,7 +70,6 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         git-hooks.follows = "pre-commit-hooks-nix";
-        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -86,7 +82,6 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
@@ -107,16 +102,11 @@
       url = "github:Lyndeno/apple-fonts.nix";
     };
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
-
     mujmap = {
       url = "github:Lyndeno/mujmap";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
-        utils.follows = "flake-utils";
       };
     };
 
