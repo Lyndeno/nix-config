@@ -13,7 +13,6 @@
         nixpkgs.follows = "nixpkgs";
         haumea.follows = "haumea";
         flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
 
@@ -26,7 +25,6 @@
       url = "github:Lyndeno/ironfetch/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
 
@@ -34,7 +32,6 @@
       url = "github:Lyndeno/ppd-rs/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
 
@@ -69,7 +66,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
-        git-hooks.follows = "pre-commit-hooks-nix";
       };
     };
 
@@ -82,7 +78,6 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
 
@@ -106,7 +101,6 @@
       url = "github:Lyndeno/mujmap";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
 
