@@ -11,8 +11,6 @@
       url = "github:lyndeno/multinix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        haumea.follows = "haumea";
-        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -57,7 +55,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
-        darwin.follows = "";
       };
     };
 
