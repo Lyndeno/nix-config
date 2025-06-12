@@ -71,6 +71,7 @@ in {
         exec = "${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread";
         interval = 15;
         format = "󰇮 {}";
+        on-click = "${pkgs.systemd}/bin/systemctl --user start refresh-email.service";
       };
 
       "group/group-power" = {
