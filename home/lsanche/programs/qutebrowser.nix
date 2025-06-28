@@ -1,5 +1,5 @@
-{
-  #inherit (osConfig.modules.desktop) enable;
+{osConfig}: {
+  inherit (osConfig.modules.desktop) enable;
   settings = {
     window.hide_decoration = true;
     tabs.show = "multiple";
