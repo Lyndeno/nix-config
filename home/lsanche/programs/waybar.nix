@@ -7,7 +7,7 @@
   inherit (osConfig.networking) hostName;
   fanQuery =
     if hostName == "neo"
-    then "'.\"dell_smm-isa-0000\".\"fan1\".\"fan1_input\" | floor'"
+    then "'to_entries[] | select(.key|startswith(\"dell\"))| .\"value\".\"fan1\".\"fan1_input\" | floor'"
     else if hostName == "morpheus"
     then "'.\"nct6798-isa-0290\".\"fan1\".\"fan1_input\" | floor'"
     else "";
