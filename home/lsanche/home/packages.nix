@@ -21,11 +21,12 @@ in
       slack
 
       wally-cli # for moonlander
+      wl-clipboard
 
       # media
       inkscape
       gimp
-      darktable
+      #darktable
 
       # Office
       kicad
