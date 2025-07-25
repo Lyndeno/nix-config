@@ -19,17 +19,17 @@ in
       # Communication
       slack
 
-      wally-cli # for moonlander
+      #wally-cli # for moonlander
       wl-clipboard
 
       # media
-      inkscape
+      #inkscape
       gimp
       #darktable
 
       # Office
-      kicad
-      octaveFull
+      #kicad
+      #octaveFull
       joplin-desktop
 
       # Development
