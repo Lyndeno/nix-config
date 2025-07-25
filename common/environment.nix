@@ -3,9 +3,8 @@
   inputs,
 }: {
   systemPackages = with pkgs; [
-    vim
+    neovim
     git
-    busybox
     screen
     inputs.ironfetch.packages.${system}.default
     inputs.ppd.packages.${system}.default
