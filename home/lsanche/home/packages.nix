@@ -6,7 +6,6 @@
 with osConfig.modules; let
   isDesktop = desktop.enable;
   isGnome = gnome.enable;
-  isPlasma = plasma.enable;
   isNiri = niri.enable;
 in
   with pkgs;
@@ -53,9 +52,6 @@ in
 
       fractal
       alpaca
-    ])
-    ++ (lib.lists.optionals isPlasma [
-      libreoffice-qt
     ])
     ++ (lib.lists.optionals isNiri [
       libreoffice

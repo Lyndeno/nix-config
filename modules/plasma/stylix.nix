@@ -1,5 +1,0 @@
-{
-  targets = {
-    gtk.enable = false;
-  };
-}
