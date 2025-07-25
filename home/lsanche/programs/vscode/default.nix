@@ -1,8 +1,8 @@
 {
   pkgs,
-  osConfig,
+  #  osConfig,
 }: {
-  inherit (osConfig.modules.desktop) enable;
+  #inherit (osConfig.modules.desktop) enable;
   package = pkgs.vscodium;
   profiles.default = {
     enableExtensionUpdateCheck = false;
