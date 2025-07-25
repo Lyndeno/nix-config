@@ -15,7 +15,6 @@
       hardware.nvidia.modesetting.enable = true;
       hardware.nvidia.open = false;
       networking.hostName = "neo";
-      services.ollama.acceleration = "cuda";
       # For nh
       environment.etc."specialisation".text = "nvidia";
     };
