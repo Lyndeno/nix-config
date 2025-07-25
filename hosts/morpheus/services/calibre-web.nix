@@ -1,5 +1,5 @@
 {
-  enable = true;
+  #enable = true;
   options = {
     enableBookUploading = true;
     enableBookConversion = true;
