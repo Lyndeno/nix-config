@@ -1,4 +1,4 @@
-{
+{config}: {
   swraid.enable = false;
   initrd = {
     systemd = {
@@ -18,4 +18,5 @@
     "coretemp" # sensors-detect for Intel temperature
   ];
   binfmt.emulatedSystems = ["aarch64-linux"];
+  extraModulePackages = [config.boot.kernelPackages.ddcci-driver];
 }
