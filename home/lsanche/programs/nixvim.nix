@@ -19,6 +19,11 @@
     virtual_text = true;
     virtual_lines.current_line = true;
   };
+  filetype = {
+    pattern = {
+      "%.gitlab%-ci%.ya?ml" = "yaml.gitlab";
+    };
+  };
   plugins = {
     nix.enable = true;
     fugitive.enable = true;
@@ -30,6 +35,16 @@
         clangd.enable = true;
         texlab.enable = true;
         blueprint_ls.enable = true;
+        dockerls.enable = true;
+        fish_lsp.enable = true;
+        bashls.enable = true;
+        gitlab_ci_ls.enable = true;
+        ruff.enable = true;
+        systemd_ls.enable = true;
+        gopls.enable = true;
+        neocmake.enable = true;
+        just.enable = true;
+        jsonls.enable = true;
       };
     };
     treesitter = {
@@ -47,6 +62,7 @@
         sources = [
           {name = "nvim_lsp";}
           {name = "luasnip";}
+          {name = "render-markdown";}
         ];
         mapping = {
           "<C-u>" = "cmp.mapping.scroll_docs(-4)";
@@ -107,12 +123,28 @@
     };
     rustaceanvim = {
       enable = true;
-      settings.enable_clippy = true;
+      settings = {
+        enable_clippy = true;
+        inlayHints = {
+          lifetimeElisionHints = {
+            enable = "always";
+          };
+        };
+      };
     };
     fidget = {
       enable = true;
     };
     dap = {
+      enable = true;
+    };
+    gitblame = {
+      enable = true;
+    };
+    render-markdown = {
+      enable = true;
+    };
+    git-conflict = {
       enable = true;
     };
   };
