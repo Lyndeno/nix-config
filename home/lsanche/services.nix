@@ -4,15 +4,6 @@
 }: let
   isNiri = osConfig.modules.niri.enable;
 in {
-  pueue = {
-    enable = true;
-    settings = {
-      shared = {
-        default_parallel_tasks = 1;
-      };
-    };
-  };
-
   spotifyd = {
     enable = osConfig.networking.hostName == "morpheus";
     settings = {
@@ -41,6 +32,24 @@ in {
 
   swayidle = let
     lock = "${pkgs.swaylock}/bin/swaylock -fF";
+    runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
+    screenTimeout = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+    pgrep = "${pkgs.procps}/bin/pgrep";
+    cut = "${pkgs.coreutils-full}/bin/cut";
+    systemctl = "${pkgs.systemd}/bin/systemctl";
+    lockScreenTimeout = runInShell "swayidle-lockscreen-timeout" ''
+      if ${pgrep} swaylock
+      then
+        ${screenTimeout}
+      fi
+    '';
+    idleSleep = runInShell "swayidle-sleep-when-idle" ''
+      BAT_STATUS=$(${pkgs.acpi}/bin/acpi -a | ${cut} -d" " -f3 | ${cut} -d- -f1)
+      if [ "$BAT_STATUS" = "off" ]
+      then
+        ${systemctl} suspend-then-hibernate
+      fi
+    '';
   in {
     enable = isNiri;
     events = [
@@ -51,16 +60,20 @@ in {
     ];
     timeouts = [
       {
+        timeout = 5;
+        command = lockScreenTimeout;
+      }
+      {
         timeout = 300;
         command = lock;
       }
       {
         timeout = 305;
-        command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+        command = screenTimeout;
       }
       {
         timeout = 900;
-        command = "${pkgs.systemd}/bin/systemctl suspend-then-hibernate";
+        command = idleSleep;
       }
     ];
   };
