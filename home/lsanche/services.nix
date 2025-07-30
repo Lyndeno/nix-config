@@ -87,4 +87,63 @@ in {
       margin = 60;
     };
   };
+
+  kanshi = {
+    enable = true;
+    profiles = {
+    };
+    settings = let
+      main_screen = "Sharp Corporation 0x1453 Unknown";
+      zenscreen = "Unknown ASUS MB16AC J6LMTF097058";
+      lg_gaming = "LG Electronics LG QHD 0x00012B23";
+    in [
+      {
+        profile = {
+          name = "laptop_only";
+          outputs = [
+            {
+              criteria = main_screen;
+              scale = 1.0;
+              position = "0,0";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "with_zenscreen";
+          outputs = [
+            {
+              criteria = main_screen;
+              scale = 1.0;
+              position = "0,0";
+            }
+            {
+              criteria = zenscreen;
+              scale = 1.0;
+              position = "1920,0";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "docked";
+          outputs = [
+            {
+              criteria = main_screen;
+              scale = 1.25;
+              position = "384,0";
+            }
+            {
+              mode = "2560x1440@99.946";
+              criteria = lg_gaming;
+              scale = 1.0;
+              position = "1920,0";
+            }
+          ];
+        };
+      }
+    ];
+  };
 }
