@@ -129,6 +129,11 @@
           {name = "nvim_lsp";}
           {name = "luasnip";}
           {name = "render-markdown";}
+          {name = "git";}
+          {name = "buffer";}
+          {name = "rg";}
+          {name = "async_path";}
+          {name = "nixpkgs_maintainers";}
         ];
         mapping = {
           "<C-u>" = "cmp.mapping.scroll_docs(-4)";
