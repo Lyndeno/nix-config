@@ -108,6 +108,8 @@
   plugins = {
     otter.enable = true;
     lspconfig.enable = true;
+    lsp-signature.enable = true;
+    lspkind.enable = true;
     nix.enable = true;
     fugitive.enable = true;
     gitmessenger.enable = true;
