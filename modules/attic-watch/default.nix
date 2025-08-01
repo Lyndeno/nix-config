@@ -9,6 +9,7 @@
     environment.HOME = "/var/lib/attic-watch-store";
     serviceConfig = {
       Restart = "on-failure";
+      RestartSec = 5;
       DynamicUser = true;
       MemoryHigh = "5%";
       MemoryMax = "10%";
