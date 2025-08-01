@@ -106,6 +106,7 @@
     };
   };
   plugins = {
+    otter.enable = true;
     lspconfig.enable = true;
     nix.enable = true;
     fugitive.enable = true;
