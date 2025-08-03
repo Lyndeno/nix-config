@@ -21,6 +21,7 @@ in
 
       #wally-cli # for moonlander
       wl-clipboard
+      ripgrep
 
       # media
       #inkscape
