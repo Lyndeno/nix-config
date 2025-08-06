@@ -65,4 +65,7 @@ in
       alpaca
       resources
       fragments
+      bzmenu
+      iwmenu
+      playerctl
     ])
