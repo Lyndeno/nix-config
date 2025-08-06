@@ -1,5 +1,5 @@
 {
-  settings.Manager = {
-    DefaultTimeoutStopSec = "10s";
-  };
+  extraConfig = ''
+    DefaultTimeoutStopSec=10s
+  '';
 }
