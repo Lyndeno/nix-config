@@ -54,6 +54,10 @@
         lspBufAction = "implementation";
       }
       {
+        key = "gra";
+        action = config.lib.nixvim.mkRaw "require('actions-preview').code_actions";
+      }
+      {
         key = "K";
         #lspBufAction = "hover";
         #action = "vim.lsp.buf.hover()";
@@ -228,6 +232,9 @@
       enable = true;
     };
     git-conflict = {
+      enable = true;
+    };
+    actions-preview = {
       enable = true;
     };
   };
