@@ -24,6 +24,7 @@
     showcmd = false;
     tabstop = 2;
     ignorecase = true;
+    clipboard = "unnamedplus";
   };
   diagnostic.settings = {
     virtual_text = true;
