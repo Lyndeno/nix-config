@@ -96,6 +96,7 @@ in {
       main_screen = "Sharp Corporation 0x1453 Unknown";
       zenscreen = "Unknown ASUS MB16AC J6LMTF097058";
       lg_gaming = "LG Electronics LG QHD 0x00012B23";
+      small_dell = "Dell Inc. DELL P2014H J6HFT3B9AK7L";
     in [
       {
         profile = {
@@ -140,6 +141,24 @@ in {
               criteria = lg_gaming;
               scale = 1.0;
               position = "1920,0";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "office_desktop";
+          outputs = [
+            {
+              criteria = lg_gaming;
+              scale = 1.0;
+              position = "0,0";
+              mode = "2560x1440@144.000";
+            }
+            {
+              criteria = small_dell;
+              scale = 1.0;
+              position = "2560,370";
             }
           ];
         };
