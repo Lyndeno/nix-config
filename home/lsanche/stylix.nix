@@ -1,7 +1,7 @@
 {
   targets = {
     swaylock = {
-      useImage = false;
+      useWallpaper = false;
       enable = true;
     };
     firefox.profileNames = ["lsanche"];

@@ -1,3 +1,0 @@
-{
-  runtimeTime = "1m";
-}
