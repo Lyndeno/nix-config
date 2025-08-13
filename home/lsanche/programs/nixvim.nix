@@ -1,4 +1,13 @@
-{config}: {
+{
+  config,
+  inputs,
+  pkgs,
+}: let
+  cmp-notmuch = pkgs.vimUtils.buildVimPlugin {
+    name = "cmp-notmuch";
+    src = inputs.cmp-notmuch;
+  };
+in {
   enable = true;
   viAlias = true;
   vimAlias = true;
@@ -110,6 +119,9 @@
       jsonls.enable = true;
     };
   };
+  extraPlugins = [
+    cmp-notmuch
+  ];
   plugins = {
     otter.enable = true;
     lspconfig.enable = true;
@@ -142,6 +154,7 @@
           {name = "rg";}
           {name = "async_path";}
           {name = "nixpkgs_maintainers";}
+          {name = "notmuch";}
         ];
         mapping = {
           "<C-u>" = "cmp.mapping.scroll_docs(-4)";

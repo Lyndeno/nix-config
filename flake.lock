@@ -134,6 +134,22 @@
         "type": "github"
       }
     },
+    "cmp-notmuch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1732187794,
+        "narHash": "sha256-8cgZNz9BXxHik09kGaHgu8DVC7XqiUmIeGEshFG+BQo=",
+        "owner": "michaeladler",
+        "repo": "cmp-notmuch",
+        "rev": "c7c28e9b24a8a753c7ee0530a8e0f2d77c5331cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "michaeladler",
+        "repo": "cmp-notmuch",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1744386647,
@@ -1254,6 +1270,7 @@
         "agenix": "agenix",
         "apple-fonts": "apple-fonts",
         "base16-schemes": "base16-schemes",
+        "cmp-notmuch": "cmp-notmuch",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "git-hooks": "git-hooks",

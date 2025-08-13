@@ -173,5 +173,10 @@
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    cmp-notmuch = {
+      url = "github:michaeladler/cmp-notmuch";
+      flake = false;
+    };
   };
 }
