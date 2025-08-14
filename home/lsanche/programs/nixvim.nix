@@ -146,15 +146,50 @@ in {
       autoEnableSources = true;
       settings = {
         sources = [
-          {name = "nvim_lsp";}
-          {name = "luasnip";}
-          {name = "render-markdown";}
-          {name = "git";}
-          {name = "buffer";}
-          {name = "rg";}
-          {name = "async_path";}
-          {name = "nixpkgs_maintainers";}
-          {name = "notmuch";}
+          {
+            name = "nvim_lsp";
+            priority = 1000;
+          }
+          {
+            name = "nvim_lsp_signature_help";
+            priority = 1000;
+          }
+          {
+            name = "nvim_lsp_document_symbol";
+            priority = 1000;
+          }
+          {
+            name = "luasnip";
+            priority = 750;
+          }
+          {
+            name = "render-markdown";
+            priority = 750;
+          }
+          {
+            name = "buffer";
+            priority = 500;
+          }
+          {
+            name = "rg";
+            priority = 300;
+          }
+          {
+            name = "async_path";
+            priority = 300;
+          }
+          {
+            name = "git";
+            priority = 250;
+          }
+          {
+            name = "nixpkgs_maintainers";
+            priority = 250;
+          }
+          {
+            name = "notmuch";
+            priority = 250;
+          }
         ];
         mapping = {
           "<C-u>" = "cmp.mapping.scroll_docs(-4)";
