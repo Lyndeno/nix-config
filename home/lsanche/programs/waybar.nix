@@ -78,9 +78,20 @@ in {
       };
 
       "custom/email" = {
-        exec = "${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread";
-        interval = 15;
-        format = "󰇮 {}";
+        exec =
+          # bash
+          ''
+            count="$(${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread)"
+
+            refreshState="$(${pkgs.systemd}/bin/systemctl --user is-active refresh-email.service)"
+            if [[ $refreshState == "active" ]]; then
+              echo 󰑐 $count
+            else
+              echo 󰇮 $count
+            fi
+          '';
+        interval = 5;
+        format = "{}";
         on-click = "${pkgs.systemd}/bin/systemctl --user start refresh-email.service";
       };
 
