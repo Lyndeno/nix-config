@@ -65,9 +65,17 @@ in {
       };
 
       "custom/fan" = {
-        exec = "${pkgs.lm_sensors}/bin/sensors -j | ${pkgs.jq}/bin/jq ${fanQuery}";
+        exec =
+          # bash
+          ''
+            rpm="$(${pkgs.lm_sensors}/bin/sensors -j | ${pkgs.jq}/bin/jq ${fanQuery})"
+            if [[ $rpm != "0" ]]; then
+              echo $rpm
+            fi
+          '';
         interval = 3;
         format = "󰈐 {}";
+        hide-empty-test = true;
       };
 
       "custom/ts" = {
