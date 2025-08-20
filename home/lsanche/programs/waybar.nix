@@ -33,6 +33,9 @@ in {
       #custom-email {
         padding: 0 5px;
       }
+      #custom-ts {
+        padding: 0 5px;
+      }
       #systemd-failed-units {
         padding: 0 5px;
       }
@@ -44,7 +47,7 @@ in {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "group/group-power" "pulseaudio" "group/group-clock"];
+      modules-right = ["custom/ts" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "group/group-power" "pulseaudio" "group/group-clock"];
       "disk#root" = {
         interval = 30;
         format = "󰋊 {percentage_free}%";
@@ -65,6 +68,13 @@ in {
         exec = "${pkgs.lm_sensors}/bin/sensors -j | ${pkgs.jq}/bin/jq ${fanQuery}";
         interval = 3;
         format = "󰈐 {}";
+      };
+
+      "custom/ts" = {
+        exec = "${pkgs.tailscale}/bin/tailscale status --peers --json | ${pkgs.jq}/bin/jq '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' | tr -d '\"'";
+        interval = 3;
+        format = "󰲐 {}";
+        hide-empty-test = true;
       };
 
       "custom/email" = {
