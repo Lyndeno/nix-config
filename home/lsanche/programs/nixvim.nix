@@ -286,5 +286,11 @@ in {
     actions-preview = {
       enable = true;
     };
+    neotest = {
+      enable = true;
+      settings.adapters = [
+        "require('rustaceanvim.neotest')"
+      ];
+    };
   };
 }
