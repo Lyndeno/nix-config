@@ -1,0 +1,3 @@
+{
+  powerKey = "ignore";
+}
