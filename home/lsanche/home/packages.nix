@@ -51,7 +51,7 @@ in
       fragments
       celluloid
 
-      fractal
+      #fractal
       alpaca
     ])
     ++ (lib.lists.optionals isNiri [
@@ -61,7 +61,7 @@ in
       nautilus
       gnome-clocks
       mpv
-      fractal
+      #fractal
       alpaca
       resources
       fragments
