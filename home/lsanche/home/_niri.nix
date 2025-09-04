@@ -414,6 +414,9 @@ with config.lib.stylix.colors.withHashtag;
     		XF86MonBrightnessUp allow-when-locked=true { spawn "bash" "-c" "brightnessctl set +5% | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
     		XF86MonBrightnessDown allow-when-locked=true { spawn "bash" "-c" "brightnessctl -n set 5%- | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
 
+        // Gamma
+    		Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "bash" "-c" "systemctl --user kill --signal SIGUSR1 wlsunset.service"; }
+
         // Media
         XF86AudioPrev allow-when-locked=true { spawn "bash" "-c" "playerctl previous"; }
         XF86AudioNext allow-when-locked=true { spawn "bash" "-c" "playerctl next"; }
