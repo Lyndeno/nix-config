@@ -2,7 +2,10 @@
   config,
   inputs,
   pkgs,
-}: let
+  osConfig,
+  lib,
+}:
+lib.mkIf osConfig.modules.desktop.enable (let
   cmp-notmuch = pkgs.vimUtils.buildVimPlugin {
     name = "cmp-notmuch";
     src = inputs.cmp-notmuch;
@@ -293,4 +296,4 @@ in {
       ];
     };
   };
-}
+})

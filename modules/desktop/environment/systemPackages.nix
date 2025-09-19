@@ -1,4 +1,9 @@
-{pkgs}: [
+{
+  pkgs,
+  inputs,
+}:
+with pkgs; [
   #pkgs.kdiskmark
-  pkgs.rustdesk-flutter
+  rustdesk-flutter
+  inputs.ppd.packages.${system}.default
 ]
