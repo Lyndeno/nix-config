@@ -213,11 +213,12 @@ in {
 
       "network" = {
         format-wifi = "{icon}";
-        format-ethernet = "󰈀 {bandwidthDownBits}";
+        format-ethernet = "󰈀";
         format-linked = "󰈀 {ifname} (No IP)";
         format-disconnected = "Disconnected ⚠";
         format-alt = "{ifname} | {ipaddr}/{cidr} | {bandwidthDownBits} {bandwidthUpBits}";
-        tooltip-format-wifi = "SSID = {essid}\nAddress = {ipaddr}\nBand {frequency} MHz\nUp = {bandwidthUpBits}\nDown = {bandwidthDownBits}\nStrength = {signalStrength}%";
+        tooltip-format-wifi = "SSID: {essid}\nAddress: {ipaddr}\nBand {frequency} MHz\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\nStrength: {signalStrength}%\nGateway: {gwaddr}";
+        tooltip-format-ethernet = "SSID: {essid}\nAddress: {ipaddr}\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\nGateway: {gwaddr}";
         interval = 2;
         on-click-right = "${config.programs.alacritty.package}/bin/alacritty --class hover -e nmtui";
         format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
