@@ -50,7 +50,10 @@ in {
       modules-right = ["custom/ts" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "group/group-power" "pulseaudio" "group/group-clock"];
       "disk#root" = {
         interval = 30;
-        format = "󰋊 {percentage_free}%";
+        format = "";
+        format-high = "󰋊 {percentage_free}%";
+        format-warning = "󰋊 {percentage_free}%";
+        format-critical = "󰋊 {percentage_free}%";
         path = "/";
         states = {
           "warning" = 80;
