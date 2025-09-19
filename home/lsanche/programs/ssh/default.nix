@@ -4,6 +4,7 @@
   flakeLib,
 }: {
   enable = true;
+  enableDefaultConfig = false;
 
   # Create sshconfig with aliases for all the hosts in this config.
   # We assume each host is accessable via hostname, in this case by Tailscale.
