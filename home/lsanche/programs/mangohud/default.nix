@@ -1,5 +1,5 @@
 {osConfig}: {
-  inherit (osConfig.modules.desktop) enable;
+  inherit (osConfig.modules.gaming) enable;
   settings = {
     cpu_stats = true;
     gpu_stats = true;
