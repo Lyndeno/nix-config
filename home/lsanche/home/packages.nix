@@ -53,6 +53,7 @@ in
 
       #fractal
       alpaca
+      resources
     ])
     ++ (lib.lists.optionals isNiri [
       libreoffice
@@ -63,9 +64,8 @@ in
       mpv
       #fractal
       alpaca
-      resources
       fragments
       bzmenu
-      iwmenu
+      #iwmenu
       playerctl
     ])
