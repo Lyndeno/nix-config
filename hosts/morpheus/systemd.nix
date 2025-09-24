@@ -8,4 +8,20 @@
     AllowSuspendThenHibernate=no
     AllowHybridSleep=no
   '';
+  network = {
+    enable = true;
+    networks = {
+      "10-enp7s0" = {
+        name = "enp7s0";
+        DHCP = "yes";
+        routes = [
+          {
+            Gateway = "_dhcp4";
+            InitialCongestionWindow = 30;
+            InitialAdvertisedReceiveWindow = 30;
+          }
+        ];
+      };
+    };
+  };
 }
