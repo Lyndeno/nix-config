@@ -256,12 +256,7 @@ with config.lib.stylix.colors.withHashtag;
     // which may be more convenient to use.
     // See the binds section below for more spawn examples.
     // spawn-at-startup "alacritty" "-e" "fish"
-    spawn-at-startup "xwayland-satellite" ":0"
     spawn-at-startup "1password" "--silent"
-
-    environment {
-    				DISPLAY ":0"
-    }
 
     // Uncomment this line to ask the clients to omit their client-side decorations if possible.
     // If the client will specifically ask for CSD, the request will be honored.
