@@ -46,7 +46,7 @@ in {
     mainBar = {
       height = 36;
       modules-left = ["niri/workspaces" "cava"];
-      modules-right = ["custom/ts" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "group/group-power" "pulseaudio" "group/group-clock"];
+      modules-right = ["custom/ts" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" (lib.mkIf osConfig.modules.laptop.enable "battery") "pulseaudio" "group/group-clock"];
       "disk#root" = {
         interval = 30;
         format = "";
@@ -105,19 +105,6 @@ in {
         on-click = "${pkgs.systemd}/bin/systemctl --user start refresh-email.service";
       };
 
-      "group/group-power" = {
-        orientation = "inherit";
-        drawer = {
-          transition-duration = 500;
-          transition-left-to-right = false;
-        };
-        modules = [
-          (lib.mkIf (hostName == "neo") "battery")
-          "power-profiles-daemon"
-          "idle_inhibitor"
-        ];
-      };
-
       "group/group-clock" = {
         orientation = "inherit";
         drawer = {
@@ -127,6 +114,8 @@ in {
         modules = [
           "clock"
           "custom/weather"
+          "power-profiles-daemon"
+          "idle_inhibitor"
         ];
       };
 
@@ -167,7 +156,7 @@ in {
         };
         format-discharging = "{icon} {capacity}%";
         format-charging = "󰚥 {capacity}%";
-        format-full = "󰚥";
+        format-full = "";
         format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹"];
       };
 
