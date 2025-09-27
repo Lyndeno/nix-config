@@ -1,7 +1,6 @@
 {
   osConfig,
   pkgs,
-  config,
   lib,
 }: let
   inherit (osConfig.networking) hostName;
@@ -220,15 +219,13 @@ in {
         tooltip-format-wifi = "SSID: {essid}\nAddress: {ipaddr}\nBand {frequency} MHz\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\nStrength: {signalStrength}%\nGateway: {gwaddr}";
         tooltip-format-ethernet = "SSID: {essid}\nAddress: {ipaddr}\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\nGateway: {gwaddr}";
         interval = 2;
-        on-click-right = "${config.programs.alacritty.package}/bin/alacritty --class hover -e nmtui";
+        on-click-right = "${pkgs.iwmenu}/bin/iwmenu --launcher fuzzel";
         format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
       };
 
       "pulseaudio" = {
         # "scroll-step": 1, // %, can be a float
         format = "{icon} {volume}%";
-        format-bluetooth = "{icon} {volume}%";
-        format-bluetooth-muted = "{icon} 󰖁";
         format-muted = "󰖁";
         format-source = " {volume}%";
         format-source-muted = "";

@@ -66,6 +66,6 @@ in
       alpaca
       fragments
       bzmenu
-      #iwmenu
+      iwmenu
       playerctl
     ])
