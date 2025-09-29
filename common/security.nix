@@ -1,5 +1,6 @@
 {
   sudo = {
+    enable = false;
     execWheelOnly = true;
   };
   pam = {
