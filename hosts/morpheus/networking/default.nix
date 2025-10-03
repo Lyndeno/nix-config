@@ -1,3 +1,0 @@
-{
-  useDHCP = false;
-}

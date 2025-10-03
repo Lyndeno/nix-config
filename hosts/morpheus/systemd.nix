@@ -9,7 +9,6 @@
     AllowHybridSleep=no
   '';
   network = {
-    enable = true;
     networks = {
       "10-enp7s0" = {
         name = "enp7s0";

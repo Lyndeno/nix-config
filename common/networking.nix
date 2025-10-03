@@ -1,4 +1,5 @@
 {config}: {
+  useDHCP = false;
   firewall = {
     interfaces = {
       "${config.services.tailscale.interfaceName}" = {
