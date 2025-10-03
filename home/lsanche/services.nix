@@ -89,7 +89,7 @@ in {
   };
 
   kanshi = {
-    enable = true;
+    enable = isNiri;
     profiles = {
     };
     settings = let

@@ -10,9 +10,6 @@ with osConfig.modules; let
 in
   with pkgs;
     [
-      nix-output-monitor
-      #ocrmypdf
-      nixpkgs-review
       nh
     ]
     ++ (lib.lists.optionals isDesktop [
@@ -42,6 +39,9 @@ in
       lldb
       clippy
       rustfmt
+      nix-output-monitor
+      #ocrmypdf
+      nixpkgs-review
 
       hunspellDicts.en_CA
     ])

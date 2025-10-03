@@ -1,3 +1,3 @@
-{
-  html.enable = true;
+{osConfig}: {
+  html.enable = osConfig.modules.desktop.enable;
 }

@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  lib,
+  osConfig,
 }: let
   updateScript = pkgs.writeShellScriptBin "update-email" ''
     echo "Display is $DISPLAY"
@@ -28,7 +30,7 @@
     exit "$returnCode"
   '';
 in {
-  user = {
+  user = lib.mkIf osConfig.modules.desktop.enable {
     services = {
       refresh-email = {
         Unit = {

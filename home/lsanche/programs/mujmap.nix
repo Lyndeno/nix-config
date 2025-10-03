@@ -1,7 +1,8 @@
 {
   inputs,
   pkgs,
+  osConfig,
 }: {
-  enable = true;
+  inherit (osConfig.modules.desktop) enable;
   package = inputs.mujmap.packages.${pkgs.system}.default;
 }
