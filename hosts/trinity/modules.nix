@@ -1,0 +1,3 @@
+{
+  hydraCache.enable = true;
+}
