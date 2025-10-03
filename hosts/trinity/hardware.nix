@@ -1,3 +1,0 @@
-{
-  enableRedistributableFirmware = true;
-}

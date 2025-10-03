@@ -1,4 +1,5 @@
-{
+{lib}: {
   useDHCP = false;
-  networkmanager.enable = true;
+  networkmanager.enable = lib.mkForce false;
+  wireless.iwd.enable = true;
 }

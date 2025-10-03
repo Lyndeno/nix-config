@@ -10,4 +10,5 @@
     };
     #enableSSHAgentAuth = true;
   };
+  polkit.enable = true;
 }
