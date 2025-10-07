@@ -31,4 +31,5 @@
       };
     };
   };
+  services.borgbackup-job-borgbase.unitConfig.ConditionACPower = true;
 }
