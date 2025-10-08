@@ -13,6 +13,7 @@ in {
   "fastmail.age".publicKeys = allUsers ++ [neo morpheus];
   "fastmail_jmap.age".publicKeys = allUsers ++ allSystems;
   "attic_auth.age".publicKeys = [lsanche neo morpheus];
+  "vpn.age".publicKeys = [lsanche neo morpheus];
 
   "neo/id_trinity_borg.age".publicKeys = [lsanche neo];
   "neo/pass_trinity_borg.age".publicKeys = [lsanche neo];

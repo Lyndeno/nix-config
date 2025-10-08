@@ -171,5 +171,10 @@
       url = "github:michaeladler/cmp-notmuch";
       flake = false;
     };
+
+    vpn-confinement = {
+      url = "github:Maroka-chan/VPN-Confinement";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

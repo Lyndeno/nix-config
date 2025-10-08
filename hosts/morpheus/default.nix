@@ -1,4 +1,4 @@
-{
+{config}: {
   # Set your time zone.
   time.timeZone = "America/Edmonton";
   nix = {
@@ -27,5 +27,19 @@
         "gccarch-skylake"
       ];
     };
+  };
+
+  vpnNamespaces.vpn = {
+    enable = true;
+    wireguardConfigFile = config.age.secrets.vpn.path;
+    accessibleFrom = [
+      "192.168.1.0/24"
+    ];
+    portMappings = [
+      {
+        from = 9091;
+        to = 9091;
+      }
+    ];
   };
 }

@@ -5,6 +5,7 @@
   secrets = with flakeLib.secretPaths; {
     id_borgbase.file = id_borgbase;
     pass_borgbase.file = morpheus.pass_borgbase;
+    vpn.file = vpn;
 
     id_trinity_borg.file = morpheus.id_trinity_borg;
     pass_trinity_borg.file = morpheus.pass_trinity_borg;
