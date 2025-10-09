@@ -41,5 +41,11 @@
         to = 9091;
       }
     ];
+    openVPNPorts = [
+      {
+        port = 51413;
+        protocol = "both";
+      }
+    ];
   };
 }

@@ -23,7 +23,7 @@
       };
     };
   };
-  systemd.services.transmission.vpnConfinement = {
+  services.transmission.vpnConfinement = {
     enable = true;
     vpnNamespace = "vpn";
   };
