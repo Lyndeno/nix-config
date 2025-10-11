@@ -34,6 +34,8 @@
     wireguardConfigFile = config.age.secrets.vpn.path;
     accessibleFrom = [
       "192.168.1.0/24"
+      "100.0.0.0/8"
+      "127.0.0.1"
     ];
     portMappings = [
       {
@@ -43,7 +45,7 @@
     ];
     openVPNPorts = [
       {
-        port = 51413;
+        port = 27607;
         protocol = "both";
       }
     ];
