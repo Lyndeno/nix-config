@@ -172,8 +172,8 @@
       flake = false;
     };
 
-    vpn-confinement = {
-      url = "github:Maroka-chan/VPN-Confinement";
+    nixarr = {
+      url = "github:rasmus-kirk/nixarr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

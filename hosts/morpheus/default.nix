@@ -29,25 +29,24 @@
     };
   };
 
-  vpnNamespaces.vpn = {
+  nixarr = {
     enable = true;
-    wireguardConfigFile = config.age.secrets.vpn.path;
-    accessibleFrom = [
-      "192.168.1.0/24"
-      "100.0.0.0/8"
-      "127.0.0.1"
-    ];
-    portMappings = [
-      {
-        from = 9091;
-        to = 9091;
-      }
-    ];
-    openVPNPorts = [
-      {
-        port = 27607;
-        protocol = "both";
-      }
-    ];
+    mediaDir = "/data/bigpool/media/nixarr";
+    stateDir = "/data/bigpool/media/nixarr/.state/nixarr";
+
+    vpn = {
+      enable = true;
+      wgConf = config.age.secrets.vpn.path;
+    };
+
+    transmission = {
+      enable = true;
+      vpn.enable = true;
+      peerPort = 27607;
+    };
+
+    radarr.enable = true;
+    sonarr.enable = true;
+    prowlarr.enable = true;
   };
 }
