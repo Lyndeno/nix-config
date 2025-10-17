@@ -1,3 +1,3 @@
 {
-  extraPools = ["bigpool" "fastmirror"];
+  extraPools = ["bigpool"];
 }
