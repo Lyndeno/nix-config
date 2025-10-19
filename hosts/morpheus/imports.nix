@@ -5,4 +5,5 @@ with inputs.nixos-hardware.nixosModules; [
   common-cpu-amd-pstate
   common-pc-ssd
   inputs.nixarr.nixosModules.default
+  inputs.disko.nixosModules.default
 ]
