@@ -1,10 +1,15 @@
-{config}: {
+{
+  config,
+  lib,
+}: {
   enable = true;
   clientMaxBodySize = "50000M";
   proxyTimeout = "600s";
 
   recommendedProxySettings = true;
   recommendedTlsSettings = true;
+  recommendedGzipSettings = lib.mkForce false;
+  recommendedOptimisation = lib.mkForce false;
 
   virtualHosts = {
     "paperless.lyndeno.ca" = {

@@ -290,7 +290,7 @@ in {
       enable = true;
     };
     neotest = {
-      enable = true;
+      #enable = true;
       settings.adapters = [
         "require('rustaceanvim.neotest')"
       ];
