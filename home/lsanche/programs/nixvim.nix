@@ -37,6 +37,7 @@ in {
     tabstop = 2;
     ignorecase = true;
     clipboard = "unnamedplus";
+    termguicolors = true;
   };
   diagnostic.settings = {
     virtual_text = true;
