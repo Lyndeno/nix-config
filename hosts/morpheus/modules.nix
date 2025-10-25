@@ -5,6 +5,6 @@
   desktop.enable = true;
   niri.enable = true;
   secureboot.enable = true;
-  #attic-watch.enable = true;
-  #hydraCache.enable = true;
+  attic-watch.enable = true;
+  hydraCache.enable = true;
 }
