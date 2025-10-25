@@ -21,5 +21,6 @@
       inherit (config.services.firefly-iii) group;
     };
     attic-token.file = morpheus.attic_token;
+    garage.file = morpheus.garage;
   };
 }

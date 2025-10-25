@@ -23,4 +23,11 @@
       };
     };
   };
+  services.garage = {
+    serviceConfig = {
+      User = "garage";
+      Group = "garage";
+      DynamicUser = false;
+    };
+  };
 }

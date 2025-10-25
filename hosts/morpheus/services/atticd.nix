@@ -7,9 +7,9 @@
     };
     storage = {
       type = "s3";
-      region = "us-east-1";
+      region = "garage";
       bucket = "attic";
-      endpoint = "http://morpheus:9000";
+      endpoint = "http://morpheus:3900";
     };
   };
 }
