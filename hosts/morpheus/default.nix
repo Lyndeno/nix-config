@@ -43,6 +43,12 @@
       enable = true;
       vpn.enable = true;
       peerPort = 27607;
+      extraSettings = {
+        idle-seeding-limit = "600";
+        idle-seeding-limit-enabled = true;
+        ratio-limit = "3.0";
+        ratio-limit-enabled = true;
+      };
     };
 
     radarr.enable = true;
