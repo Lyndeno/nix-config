@@ -63,8 +63,6 @@ in
       gnome-clocks
       mpv
       #fractal
-      alpaca
-      fragments
       bzmenu
       iwmenu
       playerctl
