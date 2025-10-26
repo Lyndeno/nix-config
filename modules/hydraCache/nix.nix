@@ -4,7 +4,7 @@
       "https://cache.lyndeno.ca/main"
     ];
     trusted-public-keys = [
-      "main:rsW5Mmzo9fABvXSPOKJQeaJWXVpLSb8vZivRw4d/TaQ="
+      "main:cA2LVXhKXjabZQLd+MsodW8qmMYh3IXf6T2k1KI6PUE="
     ];
   };
   extraOptions = ''
