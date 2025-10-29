@@ -5,9 +5,7 @@ in {
   image = "${inputs.wallpapers}/sedona.jpg";
   inherit base16Scheme;
   targets = {
-    grub.enable = false;
     plymouth.enable = false;
-    console.enable = false;
     nixos-icons.enable = false;
   };
 }
