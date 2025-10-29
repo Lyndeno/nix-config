@@ -10,7 +10,9 @@
   };
   settings = {
     data_dir = "/data/bigpool/services/garage";
-    db_engine = "sqlite";
+    db_engine = "lmdb";
+
+    metadata_auto_snapshot_interval = "6 hours";
 
     replication_factor = 1;
 
