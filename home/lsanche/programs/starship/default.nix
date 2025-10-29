@@ -1,6 +1,5 @@
 {lib}: {
   enable = true;
-  enableTransience = true;
   settings = {
     add_newline = false;
 
@@ -16,6 +15,10 @@
       "$cmd_duration"
       "$nix_shell"
       "$character"
+    ];
+
+    right_format = lib.concatStrings [
+      "$all"
     ];
 
     cmd_duration = {

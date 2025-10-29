@@ -1,0 +1,8 @@
+{
+  enable = true;
+  config = ''
+    #command
+    / forw-search ^W
+    ? back-search ^W
+  '';
+}
