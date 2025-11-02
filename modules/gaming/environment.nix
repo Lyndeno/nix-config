@@ -2,6 +2,6 @@
   systemPackages = with pkgs; [
     gamescope
     prismlauncher
-    dolphin-emu-beta
+    dolphin-emu
   ];
 }
