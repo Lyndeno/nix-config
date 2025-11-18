@@ -4,7 +4,7 @@
 }:
 with pkgs; [
   #pkgs.kdiskmark
-  rustdesk-flutter
+  #rustdesk-flutter
   inputs.ppd.packages.${system}.default
   man-pages
 ]
