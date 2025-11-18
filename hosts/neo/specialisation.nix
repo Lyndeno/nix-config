@@ -12,8 +12,11 @@
         super.intelModule
       ];
       services.switcherooControl.enable = true;
-      hardware.nvidia.modesetting.enable = true;
-      hardware.nvidia.open = false;
+      hardware.nvidia = {
+        modesetting.enable = true;
+        open = false;
+        nvidiaSettings = false;
+      };
       networking.hostName = "neo";
       # For nh
       environment.etc."specialisation".text = "nvidia";
