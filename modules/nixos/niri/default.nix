@@ -18,4 +18,10 @@
     upower.enable = true;
     greetd.enable = true;
   };
+
+  stylix = {
+    targets.regreet = {
+      useWallpaper = false;
+    };
+  };
 }

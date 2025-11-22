@@ -1,5 +1,0 @@
-{
-  targets.regreet = {
-    useWallpaper = false;
-  };
-}
