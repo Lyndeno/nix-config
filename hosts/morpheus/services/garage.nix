@@ -2,7 +2,7 @@
   pkgs,
   config,
 }: {
-  enable = true;
+  #enable = true;
   package = pkgs.garage_2;
   environmentFile = config.age.secrets.garage.path;
   extraEnvironment = {

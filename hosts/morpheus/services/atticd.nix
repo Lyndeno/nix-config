@@ -1,5 +1,5 @@
 {config}: {
-  enable = true;
+  #enable = true;
   environmentFile = config.age.secrets.attic-token.path;
   settings = {
     database = {
