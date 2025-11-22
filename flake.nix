@@ -76,12 +76,15 @@
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "";
     };
 
     ironfetch = {
       url = "github:Lyndeno/ironfetch/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "";
+        nix-github-actions.follows = "";
       };
     };
 
@@ -89,6 +92,8 @@
       url = "github:Lyndeno/ppd-rs/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "";
+        nix-github-actions.follows = "";
       };
     };
 
@@ -107,6 +112,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
+        darwin.follows = "";
       };
     };
 
@@ -114,6 +120,8 @@
       url = "github:danth/stylix/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nur.follows = "";
       };
     };
 
@@ -126,6 +134,8 @@
       url = "github:nix-community/lanzaboote/v0.4.3";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "";
+        flake-compat.follows = "";
       };
     };
 
@@ -143,18 +153,25 @@
       # Do not follow nixpkgs as it takes forever to build each time
       # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     mujmap = {
       url = "github:Lyndeno/mujmap";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "";
+        nix-github-actions.follows = "";
       };
     };
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nuschtosSearch.follows = "";
+      };
     };
 
     spicetify-nix = {
@@ -174,7 +191,10 @@
 
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        website-builder.follows = "";
+      };
     };
 
     nix-index-database = {
