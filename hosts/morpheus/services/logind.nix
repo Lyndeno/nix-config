@@ -1,3 +1,3 @@
 {
-  powerKey = "ignore";
+  settings.Login.HandlePowerKey = "ignore";
 }
