@@ -5,6 +5,6 @@
 with pkgs; [
   #pkgs.kdiskmark
   #rustdesk-flutter
-  inputs.ppd.packages.${system}.default
+  inputs.ppd.packages.${stdenv.hostPlatform.system}.default
   man-pages
 ]

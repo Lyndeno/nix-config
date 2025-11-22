@@ -5,6 +5,6 @@
   systemPackages = with pkgs; [
     git
     screen
-    inputs.ironfetch.packages.${system}.default
+    inputs.ironfetch.packages.${stdenv.hostPlatform.system}.default
   ];
 }
