@@ -1,63 +1,37 @@
 {
   description = "Lyndon's NixOS setup";
 
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    multinix,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        inputs.git-hooks.flakeModule
-      ];
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      perSystem = {
-        pkgs,
-        config,
-        inputs',
-        ...
-      }: {
-        formatter = pkgs.alejandra;
+  #outputs = inputs @ {
+  #  self,
+  #  ...
+  #}:
+  #  flake-parts.lib.mkFlake {inherit inputs;} {
+  #    imports = [
+  #      inputs.git-hooks.flakeModule
+  #    ];
+  #    systems = [
+  #      "x86_64-linux"
+  #      "aarch64-linux"
+  #    ];
+  #    perSystem = {
+  #      pkgs,
+  #      config,
+  #      inputs',
+  #      ...
+  #    }: {
+  #      formatter = pkgs.alejandra;
 
-        pre-commit = {
-          check.enable = true;
-          settings = {
-            src = ./.;
-            hooks = {
-              alejandra.enable = true;
-              statix.enable = true;
-              deadnix.enable = true;
-            };
-          };
-        };
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [inputs'.agenix.packages.default statix deadnix];
-          inputsFrom = [config.pre-commit.devShell];
-        };
-
-        #checks.niri-config = pkgs.stdenvNoCC.mkDerivation {
-        #  name = "niri-validate";
-        #  src = ./.;
-        #  doCheck = true;
-        #  nativeBuildInputs = [pkgs.niri];
-        #  buildPhase = ''
-        #    touch $out
-        #  '';
-        #  checkPhase = ''
-        #    niri validate -c ./home/lsanche/home/config.kdl
-        #  '';
-        #};
-      };
-      flake =
-        (multinix.lib.multinix inputs)
-        // {
-          githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
-        };
+  #    };
+  #    flake =
+  #      (multinix.lib.multinix inputs)
+  #      // {
+  #        githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
+  #      };
+  #  };
+  outputs = inputs:
+    (inputs.blueprint {inherit inputs;})
+    // {
+      githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (inputs.self) checks;};
     };
 
   inputs = {
@@ -199,6 +173,11 @@
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    blueprint = {
+      url = "github:numtide/blueprint";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
