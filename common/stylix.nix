@@ -3,6 +3,7 @@
 in {
   enable = true;
   image = "${inputs.wallpapers}/sedona.jpg";
+  overlays.enable = false;
   inherit base16Scheme;
   targets = {
     plymouth.enable = false;
