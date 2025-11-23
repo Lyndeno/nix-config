@@ -1,3 +1,0 @@
-{
-  steam.enable = true;
-}
