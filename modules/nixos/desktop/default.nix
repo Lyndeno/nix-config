@@ -1,0 +1,109 @@
+{
+  lib,
+  pkgs,
+  perSystem,
+  inputs,
+}: {
+  imports = [
+    inputs.agenix.nixosModules.default
+  ];
+  age.secrets.fastmail-jmap = {
+    file = ../../../secrets/fastmail_jmap.age;
+    owner = "lsanche";
+  };
+  boot = {
+    plymouth.enable = true;
+
+    consoleLogLevel = 3;
+    kernelParams = [
+      "quiet"
+      "systemd.show_status=auto"
+      "rd.udev.log_level=3"
+    ];
+  };
+  documentation = {
+    dev.enable = true;
+    man.generateCaches = true;
+    #nixos.includeAllModules = true;
+  };
+
+  environment = {
+    sessionVariables.NIXOS_OZONE_WL = "1";
+    systemPackages = with pkgs; [
+      #kdiskmark
+      #rustdesk-flutter
+      perSystem.ppd.default
+      man-pages
+    ];
+  };
+
+  hardware.keyboard.zsa.enable = true;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  programs = {
+    adb.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = ["lsanche"];
+    };
+
+    _1password = {
+      enable = true;
+    };
+
+    appimage = {
+      enable = true;
+    };
+  };
+  security = {
+    rtkit.enable = true; # Realtime pipewire
+    pam.services = {
+      login.u2fAuth = false;
+      gdm.u2fAuth = false;
+    };
+  };
+
+  services = {
+    fwupd.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+    power-profiles-daemon.enable = true;
+    pulseaudio.enable = false;
+    resolved.enable = true;
+  };
+
+  stylix = {
+    polarity = "dark";
+    cursor = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      size = 24;
+    };
+    fonts = let
+      cascadia = pkgs.nerd-fonts.caskaydia-cove;
+    in {
+      serif = {
+        package = perSystem.apple-fonts.sf-pro-nerd;
+        name = "SFProDisplay Nerd Font";
+      };
+      sansSerif = {
+        package = perSystem.apple-fonts.sf-pro-nerd;
+        name = "SFProDisplay Nerd Font";
+      };
+      monospace = {
+        package = cascadia;
+        name = "CaskaydiaCove Nerd Font Mono";
+      };
+      sizes = {
+        desktop = 11;
+        popups = 12;
+      };
+    };
+  };
+
+  xdg.portal.enable = true;
+}

@@ -1,5 +1,0 @@
-{
-  portal = {
-    enable = true;
-  };
-}
