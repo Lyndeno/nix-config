@@ -5,7 +5,7 @@
 }: {
   imports = [
     inputs.agenix.nixosModules.default
-    ../msmtp
+    inputs.self.nixosModules.msmtp
   ];
   age.secrets = {
     zed_pushover.file = ../../../secrets/zed_pushover.age;

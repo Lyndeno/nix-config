@@ -1,7 +1,11 @@
 {
   pkgs,
   lib,
+  inputs,
 }: {
+  imports = [
+    inputs.lanzaboote.nixosModules.lanzaboote
+  ];
   # This requires the host to manually import lanzaboote currently
   environment.systemPackages = [pkgs.sbctl];
   boot = {
