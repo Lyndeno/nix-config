@@ -1,33 +1,6 @@
 {
   description = "Lyndon's NixOS setup";
 
-  #outputs = inputs @ {
-  #  self,
-  #  ...
-  #}:
-  #  flake-parts.lib.mkFlake {inherit inputs;} {
-  #    imports = [
-  #      inputs.git-hooks.flakeModule
-  #    ];
-  #    systems = [
-  #      "x86_64-linux"
-  #      "aarch64-linux"
-  #    ];
-  #    perSystem = {
-  #      pkgs,
-  #      config,
-  #      inputs',
-  #      ...
-  #    }: {
-  #      formatter = pkgs.alejandra;
-
-  #    };
-  #    flake =
-  #      (multinix.lib.multinix inputs)
-  #      // {
-  #        githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (self) checks;};
-  #      };
-  #  };
   outputs = inputs:
     (inputs.blueprint {inherit inputs;})
     // {
@@ -39,13 +12,6 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
-
-    multinix = {
-      url = "github:lyndeno/multinix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
 
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -94,7 +60,6 @@
       url = "github:danth/stylix/release-25.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
         nur.follows = "";
       };
     };
@@ -111,16 +76,6 @@
         pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };
-    };
-
-    haumea = {
-      url = "github:nix-community/haumea";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     apple-fonts = {
@@ -143,7 +98,6 @@
       url = "github:nix-community/nixvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
         nuschtosSearch.follows = "";
       };
     };
