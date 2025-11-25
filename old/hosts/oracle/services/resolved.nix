@@ -1,5 +1,0 @@
-{
-  extraConfig = ''
-    DNSStubListener=no
-  '';
-}
