@@ -2,7 +2,6 @@
   pkgs,
   osConfig,
   config,
-  super,
 }: {
   username = "lsanche";
   homeDirectory = "/home/lsanche";
@@ -13,9 +12,6 @@
   inherit (osConfig.system) stateVersion;
 
   file = {
-    ".config/niri/config.kdl" = {
-      text = super.niri;
-    };
     ".cargo/config.toml" = {
       text =
         # toml
