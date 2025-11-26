@@ -30,19 +30,6 @@ in
       #octaveFull
       joplin-desktop
 
-      # Development
-      nixd
-      rust-analyzer
-      texlab
-      clang-tools
-      bear
-      lldb
-      clippy
-      rustfmt
-      nix-output-monitor
-      #ocrmypdf
-      nixpkgs-review
-
       hunspellDicts.en_CA
     ])
     ++ (lib.lists.optionals isGnome [

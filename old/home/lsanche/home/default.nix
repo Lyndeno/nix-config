@@ -1,7 +1,6 @@
 {
   pkgs,
   osConfig,
-  config,
 }: {
   username = "lsanche";
   homeDirectory = "/home/lsanche";
@@ -10,15 +9,4 @@
     cat = "${pkgs.bat}/bin/bat";
   };
   inherit (osConfig.system) stateVersion;
-
-  file = {
-    ".cargo/config.toml" = {
-      text =
-        # toml
-        ''
-          [build]
-          target-dir = "${config.home.homeDirectory}/.cargo/target"
-        '';
-    };
-  };
 }
