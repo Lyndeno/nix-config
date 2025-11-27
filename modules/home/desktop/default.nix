@@ -6,6 +6,8 @@
       GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
     };
 
+    manual.html.enable = true;
+
     programs.firefox = {
       enable = true;
       profiles.lsanche = {
