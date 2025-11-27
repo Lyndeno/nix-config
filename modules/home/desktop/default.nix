@@ -6,6 +6,17 @@
       GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
     };
 
+    programs.firefox = {
+      enable = true;
+      profiles.lsanche = {
+        id = 0;
+        isDefault = true;
+        settings = {
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
+        };
+      };
+    };
+
     packages = with pkgs; [
       # Communication
       slack
