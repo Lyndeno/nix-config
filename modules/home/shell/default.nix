@@ -4,30 +4,30 @@
   inputs,
   ...
 }: {
-  programs = {
-    imports = [
-      inputs.nix-index-database.homeModules.default
-    ];
+  imports = [
+    inputs.nix-index-database.homeModules.default
+  ];
 
+  home = {
+    shellAliases = {
+      cat = "${pkgs.bat}/bin/bat";
+    };
+    packages = with pkgs; [
+      ripgrep
+    ];
+    sessionVariables = {
+      # TODO: For some reason bat cannot theme man pages with custom themes, so we unset here
+      MANPAGER = "sh -c '${pkgs.util-linux}/bin/col -bx | BAT_THEME= ${pkgs.bat}/bin/bat -l man -p'";
+      MANROFFOPT = "-c";
+    };
+  };
+
+  programs = {
     command-not-found.enable = false;
     bottom.enable = true;
     fzf.enable = true;
     nix-index-database.enable = true;
     nix-index.enable = true;
-
-    home = {
-      shellAliases = {
-        cat = "${pkgs.bat}/bin/bat";
-      };
-      packages = with pkgs; [
-        ripgrep
-      ];
-      sessionVariables = {
-        # TODO: For some reason bat cannot theme man pages with custom themes, so we unset here
-        MANPAGER = "sh -c '${pkgs.util-linux}/bin/col -bx | BAT_THEME= ${pkgs.bat}/bin/bat -l man -p'";
-        MANROFFOPT = "-c";
-      };
-    };
 
     atuin = {
       enable = true;
