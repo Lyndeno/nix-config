@@ -61,8 +61,8 @@
     };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs.url = "https://channels.nixos.org/nixos-25.11-small/nixexprs.tar.xz";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
@@ -117,7 +117,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix/master";
+      url = "github:danth/stylix/release-25.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
