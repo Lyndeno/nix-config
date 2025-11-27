@@ -1,8 +1,7 @@
 {
   config,
   pkgs,
-  lib,
-  osConfig,
+  ...
 }: let
   updateScript = pkgs.writeShellScriptBin "update-email" ''
     echo "Display is $DISPLAY"
@@ -30,27 +29,29 @@
     exit "$returnCode"
   '';
 in {
-  user = lib.mkIf osConfig.modules.desktop.enable {
-    services = {
-      refresh-email = {
-        Unit = {
-          Description = "Refresh Emails";
-        };
-        Service = {
-          ExecStart = "${updateScript}/bin/update-email";
+  systemd = {
+    user = {
+      services = {
+        refresh-email = {
+          Unit = {
+            Description = "Refresh Emails";
+          };
+          Service = {
+            ExecStart = "${updateScript}/bin/update-email";
+          };
         };
       };
-    };
-    timers = {
-      refresh-email = {
-        Unit = {
-          Description = "Refresh Emails";
-        };
-        Timer = {
-          OnCalendar = "*:0/5";
-        };
-        Install = {
-          WantedBy = ["timers.target"];
+      timers = {
+        refresh-email = {
+          Unit = {
+            Description = "Refresh Emails";
+          };
+          Timer = {
+            OnCalendar = "*:0/5";
+          };
+          Install = {
+            WantedBy = ["timers.target"];
+          };
         };
       };
     };
