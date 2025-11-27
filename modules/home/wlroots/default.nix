@@ -11,26 +11,17 @@
     zathura.enable = true;
   };
 
-  xdg = {
-    enable = true;
-    userDirs = {
-      enable = true;
-    };
-    configFile."autostart/gnome-keyring-ssh.desktop" = {
-      text = ''
-        [Desktop Entry]
-        Type=Application
-        Name=SSH Key Agent
-        Comment=GNOME Keyring: SSH Agent
-        Exec=/run/wrappers/bin/gnome-keyring-daemon --start --components=ssh
-        OnlyShowIn=GNOME;Unity;MATE;
-        X-GNOME-Autostart-Phase=PreDisplayServer
-        X-GNOME-AutoRestart=false
-        X-GNOME-Autostart-Notify=true
-        Hidden=true
-      '';
-    };
-  };
+  home.packages = with pkgs; [
+    wireplumber
+    brightnessctl
+    nautilus
+    gnome-clocks
+    mpv
+    #fractal
+    bzmenu
+    iwmenu
+    playerctl
+  ];
 
   programs.waybar = let
     inherit (osConfig.networking) hostName;
