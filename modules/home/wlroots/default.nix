@@ -2,8 +2,12 @@
   pkgs,
   lib,
   osConfig,
+  flake,
   ...
 }: {
+  imports = [
+    flake.homeModules.alacritty
+  ];
   programs = {
     fuzzel.enable = true;
     imv.enable = true;
