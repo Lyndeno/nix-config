@@ -1,6 +1,6 @@
-{osConfig}: {
-  spotifyd = {
-    enable = osConfig.networking.hostName == "morpheus";
+{
+  programs.spotifyd = {
+    enable = true;
     settings = {
       global = {
         device_name = "morpheus";
