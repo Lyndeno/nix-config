@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  osConfig,
+  perSystem,
   ...
 }: let
   updateScript = pkgs.writeShellScriptBin "update-email" ''
@@ -29,6 +31,52 @@
     exit "$returnCode"
   '';
 in {
+  programs = {
+    msmtp.enable = true;
+    notmuch.enable = true;
+
+    mujmap = {
+      enable = true;
+      package = perSystem.mujmap.default;
+    };
+
+    astroid = {
+      enable = true;
+      externalEditor = "${config.programs.alacritty.package}/bin/alacritty --class hover -e ${config.programs.nixvim.build.package}/bin/nvim -c 'set ft=mail' '+set fileencoding=utf-8' '+set ff=unix' '+set enc=utf-8' '+set fo+=w' %1";
+    };
+  };
+
+  accounts = {
+    email.accounts.fastmail = {
+      primary = true;
+      realName = "Lyndon Sanche";
+      userName = "lsanche@fastmail.com";
+      address = "lsanche@lyndeno.ca";
+      msmtp.enable = true;
+      smtp = {
+        host = "smtp.fastmail.com";
+        port = 465;
+        tls.enable = true;
+      };
+      jmap = {
+        sessionUrl = "https://api.fastmail.com/jmap/session";
+      };
+      notmuch = {
+        enable = true;
+      };
+      mujmap = {
+        enable = true;
+        settings = {
+          password_command = "cat ${osConfig.age.secrets.fastmail-jmap.path}";
+        };
+      };
+      astroid = {
+        enable = true;
+        sendMailCommand = "${config.programs.mujmap.package}/bin/mujmap -C ${config.home.homeDirectory}/Maildir/fastmail send -i -t";
+      };
+    };
+  };
+
   systemd = {
     user = {
       services = {
