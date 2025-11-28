@@ -12,6 +12,8 @@
     #flake.nixosModules.hydraCache
   ];
 
+  networking.hostName = "oracle";
+
   boot = {
     loader.grub = {
       enable = true;

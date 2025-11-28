@@ -29,6 +29,20 @@
   };
 
   programs = {
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
+      settings = {
+        pull.rebase = false;
+      };
+      ignores = [
+        "result"
+        "result-*"
+        ".direnv/"
+        ".envrc"
+        ".vscode/"
+      ];
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;

@@ -38,7 +38,6 @@
           open = false;
           nvidiaSettings = false;
         };
-        networking.hostName = "neo";
         # For nh
         environment.etc."specialisation".text = "nvidia";
       };
@@ -78,6 +77,7 @@
   };
 
   networking = {
+    hostName = "neo";
     wireless.iwd = {
       enable = true;
       settings = {
