@@ -12,6 +12,7 @@
   i18n.defaultLocale = "en_CA.UTF-8";
   boot.tmp.cleanOnBoot = true;
   environment.systemPackages = with pkgs; [
+    nh
     git
     screen
     perSystem.ironfetch.default
