@@ -17,7 +17,7 @@
     # hitting the limit before finding the right key.
     matchBlocks = let
       keys = (import ../../../pubKeys.nix).lsanche;
-      gitKeys = import ./gitKeys;
+      gitKeys = import ./gitKeys.nix;
     in
       (builtins.mapAttrs (name: value: {
           hostname = name;
