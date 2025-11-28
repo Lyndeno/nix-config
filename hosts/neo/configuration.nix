@@ -2,11 +2,13 @@
   inputs,
   flake,
   ...
-}: {
+}: let
+  intelModule = "${inputs.nixos-hardware}/dell/xps/15-9560/intel";
+in {
   imports = [
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
-    "${inputs.nixos-hardware}/dell/xps/15-9560/intel"
+    intelModule
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
     flake.nixosModules.common
     flake.nixosModules.virtualisation
@@ -30,7 +32,7 @@
         ];
 
         disabledModules = [
-          "${inputs.nixos-hardware}/dell/xps/15-9560/intel"
+          intelModule
         ];
         services.switcherooControl.enable = true;
         hardware.nvidia = {
