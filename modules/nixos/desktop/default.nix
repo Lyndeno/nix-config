@@ -38,7 +38,12 @@
     ];
   };
 
-  hardware.keyboard.zsa.enable = true;
+  hardware = {
+    keyboard.zsa.enable = true;
+    # Unlikely to NOT need this on desktop
+    enableRedistributableFirmware = true;
+    bluetooth.enable = lib.mkDefault true;
+  };
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   programs = {

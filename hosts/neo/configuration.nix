@@ -79,11 +79,6 @@ in {
 
   networking.hostName = "neo";
 
-  hardware = {
-    enableRedistributableFirmware = true;
-    bluetooth.enable = true;
-  };
-
   systemd = {
     services.borgbackup-job-borgbase.unitConfig.ConditionACPower = true;
   };
