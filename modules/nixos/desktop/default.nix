@@ -57,9 +57,9 @@
       enable = true;
     };
 
-    appimage = {
-      enable = true;
-    };
+    #appimage = {
+    #  enable = true;
+    #};
   };
   security = {
     rtkit.enable = true; # Realtime pipewire
