@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=2h
   '';
@@ -10,7 +10,8 @@
     geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
   };
 
-  environment.systemPackages = with pkgs; [
-    gnome-network-displays
-  ];
+  #environment.systemPackages = with pkgs; [
+  # gnome-network-displays does not currently work with iwd
+  #  gnome-network-displays
+  #];
 }
