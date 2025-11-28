@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  flake,
+  ...
+}: {
+  imports = with flake.homeModules; [
+    spotify
+  ];
+
   home = {
     sessionVariables = {
       BROWSER = "firefox";
