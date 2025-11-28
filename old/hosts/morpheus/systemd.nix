@@ -8,21 +8,6 @@
     AllowSuspendThenHibernate=no
     AllowHybridSleep=no
   '';
-  network = {
-    networks = {
-      "10-enp7s0" = {
-        name = "enp7s0";
-        DHCP = "yes";
-        routes = [
-          {
-            Gateway = "_dhcp4";
-            InitialCongestionWindow = 30;
-            InitialAdvertisedReceiveWindow = 30;
-          }
-        ];
-      };
-    };
-  };
   services.garage = {
     serviceConfig = {
       User = "garage";
