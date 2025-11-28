@@ -26,7 +26,7 @@
     command-not-found.enable = false;
     bottom.enable = true;
     fzf.enable = true;
-    nix-index-database.comma = true;
+    nix-index-database.comma.enable = true;
     nix-index.enable = true;
 
     fish = {

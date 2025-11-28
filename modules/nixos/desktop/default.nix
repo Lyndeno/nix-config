@@ -3,6 +3,7 @@
   pkgs,
   perSystem,
   inputs,
+  ...
 }: {
   imports = [
     inputs.agenix.nixosModules.default

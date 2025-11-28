@@ -1,5 +1,5 @@
 {
-  devices = {
+  disko.devices = {
     disk = {
       nvme = {
         type = "disk";

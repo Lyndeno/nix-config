@@ -1,4 +1,4 @@
-{pkgs}: {
+{pkgs, ...}: {
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=2h
   '';

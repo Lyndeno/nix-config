@@ -7,41 +7,41 @@
     spotify
   ];
 
+  manual.html.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    profiles.lsanche = {
+      id = 0;
+      isDefault = true;
+      settings = {
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+      };
+    };
+  };
+
+  stylix = {
+    targets = {
+      swaylock = {
+        useWallpaper = false;
+        enable = true;
+      };
+      firefox.profileNames = ["lsanche"];
+      vscode.profileNames = ["default"];
+      waybar = {
+        font = "sansSerif";
+      };
+
+      # this has ifd
+      blender.enable = false;
+    };
+  };
+
   home = {
     sessionVariables = {
       BROWSER = "firefox";
       SSH_AUTH_SOCK = "\${SSH_AUTH_SOCK:-$HOME/.1password/agent.sock}";
       GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
-    };
-
-    manual.html.enable = true;
-
-    stylix = {
-      targets = {
-        swaylock = {
-          useWallpaper = false;
-          enable = true;
-        };
-        firefox.profileNames = ["lsanche"];
-        vscode.profileNames = ["default"];
-        waybar = {
-          font = "sansSerif";
-        };
-
-        # this has ifd
-        blender.enable = false;
-      };
-    };
-
-    programs.firefox = {
-      enable = true;
-      profiles.lsanche = {
-        id = 0;
-        isDefault = true;
-        settings = {
-          "widget.use-xdg-desktop-portal.file-picker" = 1;
-        };
-      };
     };
 
     packages = with pkgs; [
