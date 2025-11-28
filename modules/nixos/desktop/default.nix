@@ -75,6 +75,7 @@
     power-profiles-daemon.enable = true;
     pulseaudio.enable = false;
     resolved.enable = true;
+    tailscale.useRoutingFeatures = lib.mkDefault "client";
   };
 
   stylix = {

@@ -84,10 +84,6 @@ in {
     bluetooth.enable = true;
   };
 
-  services = {
-    tailscale.useRoutingFeatures = "client";
-  };
-
   systemd = {
     services.borgbackup-job-borgbase.unitConfig.ConditionACPower = true;
   };
