@@ -75,17 +75,7 @@
     binfmt.emulatedSystems = ["aarch64-linux"];
   };
 
-  networking = {
-    hostName = "neo";
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        General = {
-          AddressRandomization = "network";
-        };
-      };
-    };
-  };
+  networking.hostName = "neo";
 
   hardware = {
     enableRedistributableFirmware = true;
