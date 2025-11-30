@@ -1,3 +1,0 @@
-{
-  gdm.autoSuspend = false;
-}
