@@ -1,5 +1,5 @@
 {
-  devices = {
+  disko.devices = {
     disk = {
       mirror_a = {
         type = "disk";
