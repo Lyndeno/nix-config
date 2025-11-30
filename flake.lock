@@ -569,11 +569,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1755364900,
-        "narHash": "sha256-VGoN5sTM/YvIVSGHFLckjtOypb5GydhukZGxhuot+so=",
+        "lastModified": 1764509944,
+        "narHash": "sha256-2v7lnoQ68DaorMOubnE++IvyYYdAqyMfKuA6cvmqAsI=",
         "owner": "Lyndeno",
         "repo": "mujmap",
-        "rev": "b80aee7ae6f863a32e6235b30b4671af842e0311",
+        "rev": "883e5c8cb5c2ea2e2b3ebfe430d7cb0adfa38d5d",
         "type": "github"
       },
       "original": {
