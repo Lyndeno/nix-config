@@ -1,4 +1,0 @@
-{
-  group = "garage";
-  isSystemUser = true;
-}
