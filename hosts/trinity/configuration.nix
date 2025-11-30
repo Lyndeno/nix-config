@@ -37,6 +37,7 @@
   };
 
   networking.wireless.iwd.enable = true;
+  networking.hostName = "trinity";
   stylix.autoEnable = false;
   system.stateVersion = "22.05";
 
