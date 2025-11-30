@@ -23,6 +23,7 @@
     #fractal
     bzmenu
     iwmenu
+    pwmenu
     playerctl
   ];
 

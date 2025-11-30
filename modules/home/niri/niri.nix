@@ -417,6 +417,10 @@ with config.lib.stylix.colors.withHashtag;
         XF86AudioNext allow-when-locked=true { spawn "bash" "-c" "playerctl next"; }
         XF86AudioPlay allow-when-locked=true { spawn "bash" "-c" "playerctl play-pause"; }
 
+        Mod+N { spawn "iwmenu" "--launcher" "fuzzel"; }
+        Mod+B { spawn "bzmenu" "--launcher" "fuzzel"; }
+        Mod+P { spawn "pwmenu" "--launcher" "fuzzel"; }
+
         Mod+Q { close-window; }
 
         Mod+Left  { focus-column-left; }
