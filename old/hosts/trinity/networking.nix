@@ -1,3 +1,0 @@
-{
-  wireless.iwd.enable = true;
-}

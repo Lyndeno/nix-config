@@ -1,3 +1,0 @@
-{
-  autoEnable = false;
-}
