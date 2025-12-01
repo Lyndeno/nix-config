@@ -12,24 +12,6 @@ on:
     - master
 
 jobs:
-  check-flake:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            extra-platforms = aarch64-linux arm-linux i686-linux
-      - name: Install binfmt tools
-        run: |
-          DEBIAN_FRONTEND=noninteractive
-          sudo apt-get update -q -y && sudo apt-get install -q -y qemu-system-aarch64 binfmt-support qemu-user-static
-      - name: Check Nix Flake
-        run: nix flake check
-
   nix-matrix:
     runs-on: ubuntu-latest
 
@@ -39,8 +21,12 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+      - name: Clean up
+        uses: wimpysworld/nothing-but-nix@v6
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: DeterminateSystems/nix-installer-action@v21
+      - name: Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v0.1.6
       - id: set-matrix
         name: Check Nix Flake
         run: |
@@ -56,5 +42,10 @@ jobs:
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v31
+      - name: Clean up
+        uses: wimpysworld/nothing-but-nix@v6
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+      - name: Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v0.1.6
       - run: nix build -L '.#${{ matrix.attr }}'

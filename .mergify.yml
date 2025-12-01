@@ -3,14 +3,14 @@ pull_request_rules:
     conditions:
       - author=Lyndeno
       - title=Update flake.lock
-      - "check-success~=check-flake"
+      - "check-success~=nix-build"
     actions:
       merge:
         method: merge
   - name: Automatically merge dependabot updates
     conditions:
       - author=dependabot
-      - "check-success~=check-flake"
+      - "check-success~=nix-build"
     actions:
       merge:
         method: merge
