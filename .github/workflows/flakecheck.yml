@@ -26,7 +26,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
       - name: Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v0.1.6
+        uses: DeterminateSystems/magic-nix-cache-action@v13
       - id: set-matrix
         name: Check Nix Flake
         run: |
@@ -47,5 +47,5 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
       - name: Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v0.1.6
+        uses: DeterminateSystems/magic-nix-cache-action@v13
       - run: nix build -L '.#${{ matrix.attr }}'
