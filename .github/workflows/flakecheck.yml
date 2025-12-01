@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Clean up
-        if: ${{ runner.os == "Linux" }}
+        if: ${{ runner.os == 'Linux' }}
         uses: wimpysworld/nothing-but-nix@v6
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
