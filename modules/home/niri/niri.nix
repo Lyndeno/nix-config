@@ -576,7 +576,8 @@ with config.lib.stylix.colors.withHashtag;
         Mod+R { switch-preset-column-width; }
         Mod+Shift+R { switch-preset-window-height; }
         Mod+Ctrl+R { reset-window-height; }
-        Mod+F { maximize-column; }
+        Mod+F { maximize-window-to-edges; }
+        Mod+Alt+F { maximize-column; }
         Mod+Shift+F { fullscreen-window; }
 
         // Expand the focused column to space not taken up by other fully visible columns.
