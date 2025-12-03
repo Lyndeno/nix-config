@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Clean up
         uses: wimpysworld/nothing-but-nix@v6
       - name: Install Nix
@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Clean up
         if: ${{ runner.os == 'Linux' }}
         uses: wimpysworld/nothing-but-nix@v6
