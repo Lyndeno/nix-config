@@ -2,6 +2,8 @@
   pkgs,
   osConfig,
   flake,
+  perSystem,
+  lib,
   ...
 }: {
   imports = [
@@ -288,24 +290,24 @@
 
     swayidle = let
       lock = "${pkgs.swaylock}/bin/swaylock -fF";
-      runInShell = name: cmd: "${pkgs.writeShellScript "${name}" ''${cmd}''}";
-      screenTimeout = "${pkgs.niri}/bin/niri msg action power-off-monitors";
-      pgrep = "${pkgs.procps}/bin/pgrep";
-      cut = "${pkgs.coreutils-full}/bin/cut";
-      systemctl = "${pkgs.systemd}/bin/systemctl";
-      lockScreenTimeout = runInShell "swayidle-lockscreen-timeout" ''
-        if ${pgrep} swaylock
-        then
-          ${screenTimeout}
-        fi
-      '';
-      idleSleep = runInShell "swayidle-sleep-when-idle" ''
-        BAT_STATUS=$(${pkgs.acpi}/bin/acpi -a | ${cut} -d" " -f3 | ${cut} -d- -f1)
-        if [ "$BAT_STATUS" = "off" ]
-        then
-          ${systemctl} suspend-then-hibernate
-        fi
-      '';
+      screenTimeout = pkgs.writeShellScriptBin "screen-timeout" "${pkgs.niri}/bin/niri msg action power-off-monitors";
+
+      lockScreenTimeout = pkgs.writeShellApplication {
+        name = "lock-screen-timeout";
+
+        runtimeInputs = with pkgs; [
+          procps
+          niri
+          screenTimeout
+        ];
+
+        text = ''
+          if pgrep swaylock
+          then
+            screen-timeout
+          fi
+        '';
+      };
     in {
       enable = true;
       events = [
@@ -317,7 +319,7 @@
       timeouts = [
         {
           timeout = 5;
-          command = lockScreenTimeout;
+          command = lib.getExe lockScreenTimeout;
         }
         {
           timeout = 300;
@@ -325,11 +327,11 @@
         }
         {
           timeout = 305;
-          command = screenTimeout;
+          command = lib.getExe screenTimeout;
         }
         {
           timeout = 900;
-          command = idleSleep;
+          command = lib.getExe perSystem.self.sleep-on-battery;
         }
       ];
     };
