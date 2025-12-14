@@ -289,6 +289,15 @@
             proxy_pass http://localhost:8080;
           '';
         };
+        "lubelogger.lyndeno.ca" = {
+          enableACME = true;
+          acmeRoot = null;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://localhost:5000";
+          };
+        };
         "hydra.lyndeno.ca" = {
           enableACME = true;
           acmeRoot = null;
@@ -375,6 +384,7 @@
       trim.enable = true;
       autoScrub.enable = true;
     };
+    lubelogger.enable = true;
   };
 
   systemd.network.networks."10-ethernet".matchConfig.Name = "enp7s0";
