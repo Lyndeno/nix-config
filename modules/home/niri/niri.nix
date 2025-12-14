@@ -410,7 +410,10 @@ with config.lib.stylix.colors.withHashtag;
     		XF86MonBrightnessDown allow-when-locked=true { spawn "bash" "-c" "brightnessctl -n set 5%- | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
 
         // Gamma
-    		Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "bash" "-c" "systemctl --user kill --signal SIGUSR1 wlsunset.service"; }
+    		Mod+S hotkey-overlay-title="Cycle Night Shift Modes" allow-when-locked=true { spawn "bash" "-c" "systemctl --user kill --signal SIGUSR1 wlsunset.service"; }
+
+        // Email
+        Mod+E hotkey-overlay-title="Refresh Email" { spawn "systemctl" "--user" "start" "refresh-email.service"; }
 
         // Media
         XF86AudioPrev allow-when-locked=true { spawn "bash" "-c" "playerctl previous"; }
