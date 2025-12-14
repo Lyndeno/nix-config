@@ -298,6 +298,15 @@
             proxyPass = "http://localhost:5000";
           };
         };
+        "tasks.lyndeno.ca" = {
+          enableACME = true;
+          acmeRoot = null;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://localhost:${builtins.toString config.services.vikunja.port}";
+          };
+        };
         "hydra.lyndeno.ca" = {
           enableACME = true;
           acmeRoot = null;
@@ -352,9 +361,11 @@
     postgresql = let
       ff-user = config.services.firefly-iii.user;
       atticd-user = config.services.atticd.user;
+      vikunja-user = config.services.vikunja.database.user;
+      vikunja-db = config.services.vikunja.database.database;
     in {
       enable = true;
-      ensureDatabases = [ff-user atticd-user];
+      ensureDatabases = [ff-user atticd-user vikunja-user];
       package = pkgs.postgresql_16;
       ensureUsers = [
         {
@@ -363,6 +374,10 @@
         }
         {
           name = atticd-user;
+          ensureDBOwnership = true;
+        }
+        {
+          name = vikunja-db;
           ensureDBOwnership = true;
         }
       ];
@@ -385,6 +400,15 @@
       autoScrub.enable = true;
     };
     lubelogger.enable = true;
+    vikunja = {
+      enable = true;
+      database = {
+        type = "postgres";
+        host = "/run/postgresql";
+      };
+      frontendScheme = "http";
+      frontendHostname = "morpheus";
+    };
   };
 
   systemd.network.networks."10-ethernet".matchConfig.Name = "enp7s0";
