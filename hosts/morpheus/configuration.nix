@@ -25,7 +25,12 @@
   # Set your time zone.
   time.timeZone = "America/Edmonton";
   nixpkgs.hostPlatform = "x86_64-linux";
-  networking.hostName = "morpheus";
+  networking = {
+    hostName = "morpheus";
+    hostId = "a5d4421d";
+    firewall.logRefusedConnections = false;
+  };
+
   nix = {
     buildMachines = [
       {
@@ -86,8 +91,6 @@
   system.stateVersion = "23.05";
 
   environment.systemPackages = [pkgs.brasero];
-
-  networking.hostId = "a5d4421d";
 
   fileSystems = {
     "/" = {
