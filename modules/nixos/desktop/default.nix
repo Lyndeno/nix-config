@@ -119,6 +119,7 @@
         "10-ethernet" = {
           matchConfig.Type = "ether";
           DHCP = "yes";
+          networkConfig.MulticastDNS = true;
           dhcpV4Config = {
             RouteMetric = 100;
           };
@@ -136,6 +137,7 @@
         "20-wifi" = {
           matchConfig.Type = "wlan";
           DHCP = "yes";
+          networkConfig.MulticastDNS = true;
           dhcpV4Config = {
             RouteMetric = 600;
           };
