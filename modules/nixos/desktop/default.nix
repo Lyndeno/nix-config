@@ -148,4 +148,15 @@
   };
 
   xdg.portal.enable = true;
+
+  specialisation.troubleshoot = {
+    configuration = {
+      boot.kernelParams = [
+        "fsck.mode=force"
+        "debug"
+      ];
+      environment.etc."specialisation".text = "troubleshoot";
+      boot.plymouth.enable = lib.mkForce false;
+    };
+  };
 }
