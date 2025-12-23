@@ -405,6 +405,29 @@
         }
         {
           profile = {
+            name = "docked_triple";
+            outputs = [
+              {
+                criteria = main_screen;
+                scale = 1.25;
+                position = "384,0";
+              }
+              {
+                mode = "2560x1440@74.971";
+                criteria = lg_gaming;
+                scale = 1.0;
+                position = "1920,0";
+              }
+              {
+                criteria = small_dell;
+                scale = 1.00;
+                position = "4480,150";
+              }
+            ];
+          };
+        }
+        {
+          profile = {
             name = "office_desktop";
             outputs = [
               {

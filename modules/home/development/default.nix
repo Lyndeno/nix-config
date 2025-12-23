@@ -25,6 +25,7 @@
       rustfmt
       nix-output-monitor
       nixpkgs-review
+      caligula
     ];
   };
 
