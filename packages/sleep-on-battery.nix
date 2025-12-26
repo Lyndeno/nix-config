@@ -19,4 +19,6 @@ pkgs.writeShellApplication {
       systemctl suspend-then-hibernate
     fi
   '';
+
+  meta.platforms = pkgs.lib.platforms.linux;
 }
