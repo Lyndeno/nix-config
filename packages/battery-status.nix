@@ -21,6 +21,8 @@
       fi
     '';
 
+    meta.platforms = lib.platforms.linux;
+
     passthru.tests = {
       plugged-in = pkgs.testers.nixosTest {
         name = "battery-status-plugged-in";
@@ -41,7 +43,7 @@
             sys.exit(-1)
         '';
 
-        meta.platforms = lib.platforms.x86_64;
+        meta.platforms = ["x86_64-linux"];
       };
       unplugged = pkgs.testers.nixosTest {
         name = "battery-status-unplugged";
@@ -62,7 +64,7 @@
             sys.exit(-1)
         '';
 
-        meta.platforms = lib.platforms.x86_64;
+        meta.platforms = ["x86_64-linux"];
       };
       no-battery = pkgs.testers.nixosTest {
         name = "battery-status-no-battery";
@@ -81,7 +83,7 @@
             sys.exit(-1)
         '';
 
-        meta.platforms = lib.platforms.x86_64;
+        meta.platforms = ["x86_64-linux"];
       };
     };
   };
