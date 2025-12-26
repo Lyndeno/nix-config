@@ -2,6 +2,7 @@
   pkgs,
   pname,
 }: let
+  inherit (pkgs) lib;
   package = pkgs.writeShellApplication {
     name = pname;
 
@@ -39,6 +40,8 @@
           else:
             sys.exit(-1)
         '';
+
+        meta.platforms = lib.platforms.x86_64;
       };
       unplugged = pkgs.testers.nixosTest {
         name = "battery-status-unplugged";
@@ -58,6 +61,8 @@
           else:
             sys.exit(-1)
         '';
+
+        meta.platforms = lib.platforms.x86_64;
       };
       no-battery = pkgs.testers.nixosTest {
         name = "battery-status-no-battery";
@@ -75,6 +80,8 @@
           else:
             sys.exit(-1)
         '';
+
+        meta.platforms = lib.platforms.x86_64;
       };
     };
   };
