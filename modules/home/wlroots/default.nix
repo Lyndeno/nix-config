@@ -123,7 +123,13 @@
 
                 refreshState="$(${pkgs.systemd}/bin/systemctl --user is-active refresh-email.service)"
                 if [[ $refreshState == "active" ]]; then
-                  echo 󰑐 $count
+                  if [[ $count == "0" ]]; then
+                    echo 󰑐
+                  else
+                    echo 󰑐 $count
+                  fi
+                elif [[ $count == "0" ]]; then
+                  :
                 else
                   echo 󰇮 $count
                 fi
@@ -179,13 +185,16 @@
           "battery" = {
             interval = 5;
             states = {
+              "half" = 50;
               "warning" = 30;
               "critical" = 15;
             };
-            format-discharging = "{icon} {capacity}%";
+            format-discharging = "{icon}";
+            format-discharging-half = "{icon} {capacity}%";
             format-charging = "󰚥 {capacity}%";
             format-full = "";
             format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹"];
+            tooltip-format = "Charge: {capacity}%\n{timeTo}";
           };
 
           "clock" = {
@@ -215,8 +224,8 @@
           };
 
           "memory" = {
-            format = " {used:0.1f}G ({percentage}%)";
-            tooltip-format = "{used:0.1f} GiB / {total:0.1f} GiB\n{swapUsed:0.1f} GiB / {swapTotal:0.1f} GiB";
+            format = " {used:0.1f} GiB";
+            tooltip-format = "Memory {used:0.1f} GiB / {total:0.1f} GiB\nSwap: {swapUsed:0.1f} GiB / {swapTotal:0.1f} GiB";
             interval = 3;
             on-click = "${pkgs.resources}/bin/resources -t memory";
           };
