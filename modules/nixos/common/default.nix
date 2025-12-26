@@ -87,15 +87,6 @@
     };
   };
 
-  programs = {
-    dconf.enable = true;
-    command-not-found.enable = false;
-    fish = {
-      enable = true;
-      useBabelfish = true;
-    };
-  };
-
   services = {
     tailscale.enable = true;
     dbus.implementation = "broker";
@@ -138,7 +129,7 @@
         "plugdev"
         "uaccess"
       ];
-      shell = pkgs.fish;
+      shell = lib.mkIf config.programs.fish.enable config.programs.fish.package;
       openssh.authorizedKeys.keys = [
         (lib.mkIf (keys ? ${config.networking.hostName}) keys.${config.networking.hostName})
       ];

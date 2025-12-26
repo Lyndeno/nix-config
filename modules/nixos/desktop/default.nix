@@ -50,6 +50,11 @@
 
   programs = {
     adb.enable = true;
+    dconf.enable = true;
+    fish = {
+      enable = true;
+      useBabelfish = true;
+    };
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = ["lsanche"];
