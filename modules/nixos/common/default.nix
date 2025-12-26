@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  perSystem,
   inputs,
   lib,
   ...
@@ -12,10 +11,10 @@
   i18n.defaultLocale = "en_CA.UTF-8";
   boot.tmp.cleanOnBoot = true;
   environment.systemPackages = with pkgs; [
-    nh
+    #nh
     git
     screen
-    perSystem.ironfetch.default
+    #perSystem.ironfetch.default
   ];
   networking = {
     useDHCP = false;
@@ -29,8 +28,8 @@
   };
 
   nix = {
+    optimise.automatic = true;
     settings = {
-      auto-optimise-store = true;
       trusted-users = [
         "root"
         "@wheel"

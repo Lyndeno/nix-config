@@ -35,6 +35,8 @@
       #rustdesk-flutter
       perSystem.ppd.default
       man-pages
+      nh
+      perSystem.ironfetch.default
     ];
   };
 

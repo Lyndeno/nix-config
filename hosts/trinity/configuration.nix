@@ -1,24 +1,76 @@
 {
   inputs,
   flake,
+  modulesPath,
+  pkgs,
+  lib,
+  config,
   ...
-}: {
+}: let
+  inherit (pkgs.stdenv.hostPlatform) efiArch;
+in {
   imports = [
-    inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    #inputs.nixos-hardware.nixosModules.raspberry-pi-4
     flake.nixosModules.common
+    (modulesPath + "/image/repart.nix")
+    (modulesPath + "/profiles/minimal.nix")
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
+      device = "/dev/disk/by-partlabel/root";
       fsType = "ext4";
     };
-    "/data/borg" = {
-      device = "/dev/disk/by-label/omicron";
-      fsType = "btrfs";
-      options = ["noatime" "compress=zstd:6" "subvolid=256"];
+    "/boot" = {
+      device = "/dev/disk/by-partlabel/boot";
+      fsType = "vfat";
+    };
+    "/nix/store" = {
+      device = "/dev/disk/by-partlabel/nix-store";
+      fsType = "squashfs";
+    };
+  };
+
+  image.repart = {
+    name = "image";
+
+    partitions = {
+      esp = {
+        contents = {
+          "/EFI/BOOT/BOOT${lib.toUpper efiArch}.EFI".source = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi";
+
+          "/EFI/Linux/${config.system.boot.loader.ukiFile}".source = "${config.system.build.uki}/${config.system.boot.loader.ukiFile}";
+
+          "/firmware".source = "${inputs.rpi4-uefi}/firmware";
+          "/overlays".source = "${inputs.rpi4-uefi}/overlays";
+          "/bcm2711-rpi-4-b.dtb".source = "${inputs.rpi4-uefi}/bcm2711-rpi-4-b.dtb";
+          "/bcm2711-rpi-400.dtb".source = "${inputs.rpi4-uefi}/bcm2711-rpi-400.dtb";
+          "/bcm2711-rpi-cm4.dtb".source = "${inputs.rpi4-uefi}/bcm2711-rpi-cm4.dtb";
+          "/config.txt".source = "${inputs.rpi4-uefi}/config.txt";
+          "/fixup4.dat".source = "${inputs.rpi4-uefi}/fixup4.dat";
+          "/RPI_EFI.fd".source = "${inputs.rpi4-uefi}/RPI_EFI.fd";
+          "/start4.elf".source = "${inputs.rpi4-uefi}/start4.elf";
+        };
+        repartConfig = {
+          Format = "vfat";
+          Label = "boot";
+          SizeMinBytes = "200M";
+          Type = "esp";
+        };
+      };
+      nix-store = {
+        storePaths = [config.system.build.toplevel];
+        nixStorePrefix = "/";
+        repartConfig = {
+          Format = "squashfs";
+          Label = "nix-store";
+          Minimize = "guess";
+          ReadOnly = "yes";
+          Type = "linux-generic";
+        };
+      };
     };
   };
 
@@ -26,6 +78,8 @@
     tmp.useTmpfs = true;
     swraid.enable = false;
 
+    loader.grub.enable = false;
+    loader.systemd-boot.enable = true;
     initrd.systemd.enable = true;
 
     kernelParams = [

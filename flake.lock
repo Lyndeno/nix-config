@@ -655,9 +655,23 @@
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "ppd": "ppd",
+        "rpi4-uefi": "rpi4-uefi",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "wallpapers": "wallpapers"
+      }
+    },
+    "rpi4-uefi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1763722166,
+        "narHash": "sha256-g8046/Ox0hZgvU6u3ZfC6HMqoTME0Y7NsZD6NvUsp7w=",
+        "type": "tarball",
+        "url": "https://github.com/pftf/RPi4/releases/download/v1.50/RPi4_UEFI_Firmware_v1.50.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/pftf/RPi4/releases/download/v1.50/RPi4_UEFI_Firmware_v1.50.zip"
       }
     },
     "rust-overlay": {
