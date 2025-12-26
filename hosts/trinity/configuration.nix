@@ -88,6 +88,20 @@ in {
       "console=tty1"
       "cma=128M"
     ];
+
+    initrd.systemd.repart = {
+      enable = true;
+      device = "/dev/mmcblk0";
+    };
+  };
+
+  systemd.repart.partitions = {
+    root = {
+      Format = "xfs";
+      Label = "root";
+      Type = "root";
+      Weight = 1000;
+    };
   };
 
   networking.wireless.iwd.enable = true;
