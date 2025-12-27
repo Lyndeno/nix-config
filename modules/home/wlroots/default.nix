@@ -105,14 +105,14 @@
               '';
             interval = 3;
             format = "󰈐 {}";
-            hide-empty-test = true;
+            hide-empty-text = true;
           };
 
           "custom/ts" = {
             exec = "${pkgs.tailscale}/bin/tailscale status --peers --json | ${pkgs.jq}/bin/jq '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' | tr -d '\"'";
             interval = 3;
             format = "󰲐 {}";
-            hide-empty-test = true;
+            hide-empty-text = true;
           };
 
           "custom/email" = {
