@@ -116,24 +116,7 @@
           };
 
           "custom/email" = {
-            exec =
-              # bash
-              ''
-                count="$(${pkgs.notmuch}/bin/notmuch count tag:inbox and tag:unread)"
-
-                refreshState="$(${pkgs.systemd}/bin/systemctl --user is-active refresh-email.service)"
-                if [[ $refreshState == "active" ]]; then
-                  if [[ $count == "0" ]]; then
-                    echo 󰑐
-                  else
-                    echo 󰑐 $count
-                  fi
-                elif [[ $count == "0" ]]; then
-                  :
-                else
-                  echo 󰇮 $count
-                fi
-              '';
+            exec = lib.getExe perSystem.self.wb-email;
             interval = 5;
             format = "{}";
             on-click = "${pkgs.systemd}/bin/systemctl --user start refresh-email.service";
