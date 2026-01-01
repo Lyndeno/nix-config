@@ -13,6 +13,9 @@
   ];
 
   networking.hostName = "oracle";
+  nixpkgs.config.permittedInsecurePackages = [
+    "pangolin-1.10.3"
+  ];
 
   boot = {
     loader.grub = {
@@ -63,6 +66,13 @@
     #    forceSSL = true;
     #  };
     #};
+    pangolin = {
+      enable = true;
+      environmentFile = "/pangolin-secret";
+      openFirewall = true;
+      dashboardDomain = "auth.lyndeno.ca";
+      baseDomain = "lyndeno.ca";
+    };
     acme-dns = {
       enable = true;
       settings = {
