@@ -17,6 +17,7 @@ in {
 
   "neo/id_trinity_borg.age".publicKeys = [lsanche neo];
   "neo/pass_trinity_borg.age".publicKeys = [lsanche neo];
+  "neo/pangolin.age".publicKeys = [lsanche neo];
 
   "morpheus/pass_borgbase.age".publicKeys = [lsanche morpheus];
   "morpheus/id_trinity_borg.age".publicKeys = [lsanche morpheus];
