@@ -21,7 +21,7 @@ in {
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-partlabel/root";
-      fsType = "ext4";
+      fsType = "xfs";
     };
     "/boot" = {
       device = "/dev/disk/by-partlabel/boot";
