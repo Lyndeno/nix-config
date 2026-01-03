@@ -15,6 +15,7 @@ in {
     (modulesPath + "/image/repart.nix")
     (modulesPath + "/profiles/minimal.nix")
     (modulesPath + "/profiles/image-based-appliance.nix")
+    (modulesPath + "/profiles/perlless.nix")
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";

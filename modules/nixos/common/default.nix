@@ -12,7 +12,6 @@
   boot.tmp.cleanOnBoot = true;
   environment.systemPackages = with pkgs; [
     #nh
-    git
     screen
     #perSystem.ironfetch.default
   ];
