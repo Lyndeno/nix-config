@@ -69,6 +69,12 @@
           #power-profiles-daemon {
             padding: 0 5px;
           }
+          #battery.warning:not(.charging) {
+            color: @base0A;
+          }
+          #battery.critical:not(.charging) {
+            color: @base08;
+          }
         '';
       settings = {
         mainBar = {
@@ -174,6 +180,8 @@
             };
             format-discharging = "{icon}";
             format-discharging-half = "{icon} {capacity}%";
+            format-discharging-warning = "{icon} {capacity}%";
+            format-discharging-critical = "󰂃 {capacity}%";
             format-charging = "󰚥 {capacity}%";
             format-full = "";
             format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹"];
