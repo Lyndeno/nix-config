@@ -28,7 +28,7 @@
   };
 
   nix = {
-    optimise.automatic = true;
+    optimise.automatic = config.nix.enable;
     settings = {
       trusted-users = [
         "root"
@@ -43,7 +43,7 @@
       always-allow-substitutes = true;
     };
     gc = {
-      automatic = true;
+      automatic = config.nix.enable;
       dates = "weekly";
       options = "--delete-older-than 60d";
     };

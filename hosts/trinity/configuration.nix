@@ -14,6 +14,7 @@ in {
     flake.nixosModules.common
     (modulesPath + "/image/repart.nix")
     (modulesPath + "/profiles/minimal.nix")
+    (modulesPath + "/profiles/image-based-appliance.nix")
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
@@ -107,14 +108,7 @@ in {
   networking.wireless.iwd.enable = true;
   networking.hostName = "trinity";
   stylix.autoEnable = false;
-  system.stateVersion = "22.05";
-
-  system.autoUpgrade = {
-    enable = true;
-    flake = "github:Lyndeno/nix-config/master";
-    allowReboot = true;
-    dates = "Mon, 03:30";
-  };
+  system.stateVersion = "25.11";
 
   services = {
     borgbackup.repos = {
