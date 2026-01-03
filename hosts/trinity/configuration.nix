@@ -77,9 +77,6 @@ in {
   };
 
   boot = {
-    tmp.useTmpfs = true;
-    swraid.enable = false;
-
     loader.grub.enable = false;
     loader.systemd-boot.enable = true;
     initrd.systemd.enable = true;
@@ -130,6 +127,7 @@ in {
       "10-ethernet" = {
         matchConfig.Type = "ether";
         DHCP = "yes";
+        networkConfig.MulticastDNS = true;
         dhcpV4Config = {
           RouteMetric = 100;
         };
@@ -147,6 +145,7 @@ in {
       "20-wifi" = {
         matchConfig.Type = "wlan";
         DHCP = "yes";
+        networkConfig.MulticastDNS = true;
         dhcpV4Config = {
           RouteMetric = 600;
         };
