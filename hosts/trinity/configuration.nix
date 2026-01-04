@@ -37,6 +37,7 @@ in {
 
   image.repart = {
     name = "image";
+    compression.enable = true;
 
     partitions = {
       esp = {
@@ -54,6 +55,10 @@ in {
           "/fixup4.dat".source = "${inputs.rpi4-uefi}/fixup4.dat";
           "/RPI_EFI.fd".source = "${inputs.rpi4-uefi}/RPI_EFI.fd";
           "/start4.elf".source = "${inputs.rpi4-uefi}/start4.elf";
+
+          "/loader/loader.conf".source = builtins.toFile "loader.conf" ''
+            timeout 20
+          '';
         };
         repartConfig = {
           Format = "vfat";
@@ -79,7 +84,10 @@ in {
   boot = {
     loader.grub.enable = false;
     loader.systemd-boot.enable = true;
-    initrd.systemd.enable = true;
+    initrd.systemd = {
+      enable = true;
+      emergencyAccess = true;
+    };
 
     kernelParams = [
       "8250.nr_uarts=1"
@@ -90,7 +98,7 @@ in {
 
     initrd.systemd.repart = {
       enable = true;
-      device = "/dev/mmcblk0";
+      device = "/dev/mmcblk1";
     };
   };
 
