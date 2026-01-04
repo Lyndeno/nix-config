@@ -42,7 +42,7 @@ in {
 
   system = {
     image.id = "trinity";
-    image.version = "v1";
+    image.version = "v3";
     build.sysupdate-package = let
       inherit (config.system) build;
       inherit (config.system.image) version id;
@@ -165,7 +165,7 @@ in {
             };
 
           Target = {
-            InstanceMax = 2;
+            InstancesMax = 2;
 
             Path = "auto";
 
