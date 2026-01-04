@@ -18,6 +18,10 @@ in {
     (modulesPath + "/profiles/perlless.nix")
   ];
 
+  environment.systemPackages = with pkgs; [
+    bottom
+  ];
+
   nixpkgs.hostPlatform = "aarch64-linux";
 
   fileSystems = {
