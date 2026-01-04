@@ -8,6 +8,7 @@
   ...
 }: let
   inherit (pkgs.stdenv.hostPlatform) efiArch;
+  storeSize = "2G";
 in {
   imports = [
     #inputs.nixos-hardware.nixosModules.raspberry-pi-4
@@ -34,17 +35,34 @@ in {
       fsType = "vfat";
     };
     "/nix/store" = {
-      device = "/dev/disk/by-partlabel/nix-store";
+      device = "/dev/disk/by-partlabel/nix-store_${config.system.image.version}";
       fsType = "squashfs";
     };
   };
 
+  system = {
+    image.id = "trinity";
+    image.version = "v1";
+    build.sysupdate-package = let
+      inherit (config.system) build;
+      inherit (config.system.image) version id;
+    in
+      pkgs.runCommand "sysupdate-package-${version}" {} ''
+        mkdir $out
+        cp ${build.uki}/${config.system.boot.loader.ukiFile} $out/
+        cp ${build.image}/${id}_${version}.nix-store.raw.zst $out/
+        cd $out
+        sha256sum * > SHA256SUMS
+      '';
+  };
+
   image.repart = {
-    name = "image";
+    name = config.system.image.id;
     compression.enable = true;
+    split = true;
 
     partitions = {
-      esp = {
+      "10-esp" = {
         contents = {
           "/EFI/BOOT/BOOT${lib.toUpper efiArch}.EFI".source = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi";
 
@@ -61,7 +79,7 @@ in {
           "/start4.elf".source = "${inputs.rpi4-uefi}/start4.elf";
 
           "/loader/loader.conf".source = builtins.toFile "loader.conf" ''
-            timeout 20
+            timeout 5
           '';
         };
         repartConfig = {
@@ -69,21 +87,37 @@ in {
           Label = "boot";
           SizeMinBytes = "200M";
           Type = "esp";
+          SplitName = "-";
         };
       };
-      nix-store = {
+      "20-nix-store" = {
         storePaths = [config.system.build.toplevel];
         nixStorePrefix = "/";
         repartConfig = {
           Format = "squashfs";
-          Label = "nix-store";
-          Minimize = "guess";
+          Label = "nix-store_${config.system.image.version}";
+          Minimize = "off";
+          SizeMinBytes = storeSize;
+          SizeMaxBytes = storeSize;
           ReadOnly = "yes";
           Type = "linux-generic";
+          SplitName = "nix-store";
+        };
+      };
+      "30-empty" = {
+        repartConfig = {
+          Label = "_empty";
+          Minimize = "off";
+          SizeMinBytes = storeSize;
+          SizeMaxBytes = storeSize;
+          Type = "linux-generic";
+          SplitName = "-";
         };
       };
     };
   };
+
+  services.lighttpd.enable = true;
 
   boot = {
     loader.grub.enable = false;
@@ -106,12 +140,65 @@ in {
     };
   };
 
-  systemd.repart.partitions = {
-    root = {
-      Format = "xfs";
-      Label = "root";
-      Type = "root";
-      Weight = 1000;
+  systemd = {
+    repart.partitions = {
+      root = {
+        Format = "xfs";
+        Label = "root";
+        Type = "root";
+        Weight = 1000;
+      };
+    };
+    sysupdate = {
+      enable = true;
+      transfers = let
+        updateSource = {
+          Path = "http://localhost/";
+          Type = "url-file";
+        };
+      in {
+        "10-nix-store" = {
+          Source =
+            updateSource
+            // {
+              MatchPattern = ["${config.system.image.id}_@v.nix-store.raw.zst"];
+            };
+
+          Target = {
+            InstanceMax = 2;
+
+            Path = "auto";
+
+            MatchPattern = "nix-store_@v";
+            Type = "partition";
+            ReadOnly = "yes";
+          };
+
+          Transfer.Verify = "no";
+        };
+        "20-boot-image" = {
+          Source =
+            updateSource
+            // {
+              MatchPattern = ["${config.boot.uki.name}_@v.efi"];
+            };
+          Target = {
+            # only keep 2 kernel images in the ESP partition
+            InstancesMax = 2;
+            MatchPattern = ["${config.boot.uki.name}_@v.efi"];
+
+            Mode = "0444";
+            # new kernels will be added to this folder,
+            # old kernels removed
+            Path = "/EFI/Linux";
+            PathRelativeTo = "boot";
+
+            Type = "regular-file";
+          };
+
+          Transfer.Verify = "no";
+        };
+      };
     };
   };
 
