@@ -28,6 +28,26 @@ in {
         plugins = true;
       };
     };
+    autoCmd = [
+      {
+        #command = "setlocal textwidth=80";
+        callback = config.lib.nixvim.mkRaw ''
+          function()
+            vim.opt_local.textwidth = 80
+            vim.opt_local.spell = true
+            vim.opt_local.spelllang = {"en_ca"}
+          end
+        '';
+        pattern = [
+          "*.md"
+        ];
+        event = [
+          "BufEnter"
+          "BufRead"
+          "BufNewFile"
+        ];
+      }
+    ];
     opts = {
       number = true;
       signcolumn = "yes:1";
