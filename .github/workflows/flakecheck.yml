@@ -12,41 +12,15 @@ on:
     - master
 
 jobs:
-  nix-matrix:
-    runs-on: ubuntu-latest
-
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v6
-      - name: Clean up
-        uses: wimpysworld/nothing-but-nix@v6
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v21
-      - name: Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v13
-      - id: set-matrix
-        name: Check Nix Flake
-        run: |
-          set -Eeu
-          matrix="$(nix eval --json '.#githubActions.matrix')"
-          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
-
   nix-build:
-    name: ${{ matrix.name }} (${{ matrix.system }})
-    needs: nix-matrix
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
+    name: Nix Builds
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: Clean up
-        if: ${{ runner.os == 'Linux' }}
         uses: wimpysworld/nothing-but-nix@v6
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
       - name: Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
-      - run: nix build -L '.#${{ matrix.attr }}'
+      - run: nix run github:Mic92/nix-fast-build -- --no-nom --skip-cached
