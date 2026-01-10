@@ -58,7 +58,7 @@ in {
 
   image.repart = {
     name = config.system.image.id;
-    compression.enable = true;
+    #compression.enable = true;
     split = true;
 
     partitions = {
@@ -68,19 +68,10 @@ in {
 
           "/EFI/Linux/${config.system.boot.loader.ukiFile}".source = "${config.system.build.uki}/${config.system.boot.loader.ukiFile}";
 
-          "/firmware".source = "${inputs.rpi4-uefi}/firmware";
-          "/overlays".source = "${inputs.rpi4-uefi}/overlays";
-          "/bcm2711-rpi-4-b.dtb".source = "${inputs.rpi4-uefi}/bcm2711-rpi-4-b.dtb";
-          "/bcm2711-rpi-400.dtb".source = "${inputs.rpi4-uefi}/bcm2711-rpi-400.dtb";
-          "/bcm2711-rpi-cm4.dtb".source = "${inputs.rpi4-uefi}/bcm2711-rpi-cm4.dtb";
-          "/config.txt".source = "${inputs.rpi4-uefi}/config.txt";
-          "/fixup4.dat".source = "${inputs.rpi4-uefi}/fixup4.dat";
-          "/RPI_EFI.fd".source = "${inputs.rpi4-uefi}/RPI_EFI.fd";
-          "/start4.elf".source = "${inputs.rpi4-uefi}/start4.elf";
-
           "/loader/loader.conf".source = builtins.toFile "loader.conf" ''
             timeout 5
           '';
+          "/".source = inputs.rpi4-uefi;
         };
         repartConfig = {
           Format = "vfat";
@@ -166,9 +157,7 @@ in {
 
           Target = {
             InstancesMax = 2;
-
             Path = "auto";
-
             MatchPattern = "nix-store_@v";
             Type = "partition";
             ReadOnly = "yes";
@@ -186,13 +175,9 @@ in {
             # only keep 2 kernel images in the ESP partition
             InstancesMax = 2;
             MatchPattern = ["${config.boot.uki.name}_@v.efi"];
-
             Mode = "0444";
-            # new kernels will be added to this folder,
-            # old kernels removed
             Path = "/EFI/Linux";
             PathRelativeTo = "boot";
-
             Type = "regular-file";
           };
 
