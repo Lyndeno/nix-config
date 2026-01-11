@@ -6,7 +6,10 @@
     wdisplays
   ];
 
-  programs.regreet.enable = true;
+  programs.regreet = {
+    enable = true;
+    cageArgs = ["-s" "-d"];
+  };
 
   security.pam.services.swaylock.enable = true;
   services = {
