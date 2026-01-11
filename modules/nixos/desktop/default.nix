@@ -49,7 +49,6 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   programs = {
-    adb.enable = true;
     dconf.enable = true;
     fish = {
       enable = true;

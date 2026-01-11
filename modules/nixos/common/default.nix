@@ -121,7 +121,6 @@
       extraGroups = [
         "wheel"
         "media"
-        (lib.mkIf config.programs.adb.enable "adbusers")
         (lib.mkIf config.programs.wireshark.enable "wireshark")
         "libvirtd"
         "dialout"

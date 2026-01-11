@@ -10,8 +10,8 @@
     };
 
   inputs = {
-    nixpkgs.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
@@ -59,7 +59,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nur.follows = "";
@@ -83,7 +83,6 @@
       # Do not follow nixpkgs as it takes forever to build each time
       # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     mujmap = {
@@ -96,10 +95,9 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nuschtosSearch.follows = "";
       };
     };
 
