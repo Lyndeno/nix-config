@@ -28,7 +28,10 @@
   networking = {
     hostName = "morpheus";
     hostId = "a5d4421d";
-    firewall.logRefusedConnections = false;
+    firewall = {
+      logRefusedConnections = false;
+      allowedTCPPorts = [27607];
+    };
   };
 
   nix = {
