@@ -37,8 +37,6 @@
         "nix-command"
         "flakes"
       ];
-      keep-outputs = true;
-      keep-derivations = true;
       always-allow-substitutes = true;
     };
     gc = {
