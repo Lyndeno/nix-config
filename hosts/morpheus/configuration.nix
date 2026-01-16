@@ -19,6 +19,8 @@
     flake.nixosModules.desktop
     flake.nixosModules.niri
     flake.nixosModules.secureboot
+    flake.nixosModules.hydraCache
+    flake.nixosModules.attic-watch
     ./disko.nix
     ./borgbackup/borgbase.nix
   ];
@@ -185,18 +187,18 @@
 
   services = {
     atticd = {
-      #enable = true;
+      enable = true;
       environmentFile = config.age.secrets.attic-token.path;
       settings = {
         database = {
           url = "postgresql:///atticd?host=/run/postgresql";
         };
         storage = {
-          type = "s3";
-          region = "garage";
-          bucket = "attic";
-          endpoint = "http://morpheus:3900";
+          type = "local";
+          path = "/data/bigpool/services/attic";
         };
+        # ZFS handles this for us
+        compression.type = "none";
       };
     };
     firefly-iii = let
