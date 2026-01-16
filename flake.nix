@@ -4,6 +4,7 @@
   outputs = inputs:
     (inputs.blueprint {
       inherit inputs;
+      systems = ["x86_64-linux" "aarch64-linux"];
     })
     // {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (inputs.self) checks;};
@@ -132,6 +133,7 @@
     blueprint = {
       url = "github:numtide/blueprint";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "";
     };
 
     rpi4-uefi = {
