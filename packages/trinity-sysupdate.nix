@@ -1,15 +1,18 @@
 {
   flake,
   system,
+  pkgs,
   ...
-}:
-(flake.nixosConfigurations.trinity.extendModules {
-  modules = [
-    {
-      nixpkgs.buildPlatform = system;
-      nixpkgs.hostPlatform = "aarch64-linux";
-    }
-  ];
-}).config.system.build.sysupdate-package.overrideAttrs (_: _: {
-  meta.platforms = ["x86_64-linux"];
-})
+}: let
+  inherit (pkgs) lib;
+in
+  (flake.nixosConfigurations.trinity.extendModules {
+    modules = [
+      {
+        nixpkgs.buildPlatform = system;
+        nixpkgs.hostPlatform = "aarch64-linux";
+      }
+    ];
+  }).config.system.build.sysupdate-package.overrideAttrs (_: _: {
+    meta.platforms = lib.platforms.linux;
+  })
