@@ -64,6 +64,8 @@
       hunspellDicts.en_CA
 
       libreoffice
+
+      logseq
     ];
   };
   xdg = {
