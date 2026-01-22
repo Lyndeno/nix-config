@@ -26,6 +26,7 @@
       nix-output-monitor
       nixpkgs-review
       caligula
+      nix-fast-build
     ];
   };
 
