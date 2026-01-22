@@ -41,6 +41,7 @@
         gpf = "git push --force-with-lease";
         gca = "git commit --amend";
         gp = "git push";
+        nfb = "nix-fast-build";
       };
     };
 
