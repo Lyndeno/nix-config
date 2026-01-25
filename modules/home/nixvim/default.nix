@@ -260,6 +260,15 @@ in {
       };
       neo-tree = {
         enable = true;
+        settings = {
+          close_if_last_window = true;
+          filesystem = {
+            follow_current_file = {
+              enabled = true;
+              leave_dirs_open = true;
+            };
+          };
+        };
       };
       #markdown-preview = {
       #  enable = true;
@@ -314,6 +323,18 @@ in {
       guess-indent.enable = true;
       hmts.enable = true;
       illuminate.enable = true;
+      lensline.enable = true;
+      modicator.enable = true;
+      neogit.enable = true;
+      nerdy = {
+        enable = true;
+        enableTelescope = true;
+      };
+      numbertoggle.enable = true;
+      smear-cursor.enable = true;
+      timerly.enable = true;
+      twilight.enable = true;
+      zen-mode.enable = true;
       neotest = {
         #enable = true;
         settings.adapters = [
