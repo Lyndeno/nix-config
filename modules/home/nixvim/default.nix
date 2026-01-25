@@ -324,22 +324,36 @@ in {
       hmts.enable = true;
       illuminate.enable = true;
       lensline.enable = true;
-      modicator.enable = true;
       neogit.enable = true;
       nerdy = {
         enable = true;
         enableTelescope = true;
       };
       numbertoggle.enable = true;
-      smear-cursor.enable = true;
       timerly.enable = true;
       twilight.enable = true;
-      zen-mode.enable = true;
+      zen-mode = {
+        enable = true;
+        settings.plugins = {
+          options = {
+            enabled = true;
+            ruler = false;
+            showcmd = false;
+            number = false;
+            relativenumber = false;
+            signcolumn = "no";
+          };
+        };
+      };
       neotest = {
         #enable = true;
         settings.adapters = [
           "require('rustaceanvim.neotest')"
         ];
+      };
+      rainbow-delimiters.enable = true;
+      indent-blankline = {
+        enable = true;
       };
     };
   };
