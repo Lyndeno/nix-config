@@ -177,6 +177,9 @@
         idle-seeding-limit-enabled = true;
         ratio-limit = "3.0";
         ratio-limit-enabled = true;
+        download-queue-size = 50;
+        seed-queue-size = 50;
+        preallocation = 0;
       };
     };
 
