@@ -261,9 +261,9 @@ in {
       neo-tree = {
         enable = true;
       };
-      markdown-preview = {
-        enable = true;
-      };
+      #markdown-preview = {
+      #  enable = true;
+      #};
       nvim-autopairs = {
         enable = true;
         settings.check_ts = true;
@@ -311,6 +311,9 @@ in {
       actions-preview = {
         enable = true;
       };
+      guess-indent.enable = true;
+      hmts.enable = true;
+      illuminate.enable = true;
       neotest = {
         #enable = true;
         settings.adapters = [
