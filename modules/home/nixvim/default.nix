@@ -331,7 +331,10 @@ in {
       };
       numbertoggle.enable = true;
       timerly.enable = true;
-      twilight.enable = true;
+      twilight = {
+        enable = true;
+        settings.treesitter = true;
+      };
       zen-mode = {
         enable = true;
         settings.plugins = {
@@ -343,6 +346,10 @@ in {
             relativenumber = false;
             signcolumn = "no";
           };
+          alacritty = {
+            enabled = true;
+            font = "14";
+          };
         };
       };
       neotest = {
@@ -352,9 +359,9 @@ in {
         ];
       };
       rainbow-delimiters.enable = true;
-      indent-blankline = {
-        enable = true;
-      };
+      #indent-blankline = {
+      #  enable = true;
+      #};
     };
   };
 }
