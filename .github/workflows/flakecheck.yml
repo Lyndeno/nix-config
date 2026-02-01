@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Clean up
-        uses: wimpysworld/nothing-but-nix@v6
+        uses: wimpysworld/nothing-but-nix@v9
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
       - name: Nix Cache
