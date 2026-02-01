@@ -1,8 +1,6 @@
 {
   inputs,
   flake,
-  config,
-  lib,
   ...
 }: {
   imports = with flake.nixosModules; [
@@ -25,43 +23,6 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  services = {
-    munin-node.enable = true;
-    munin-cron = {
-      enable = true;
-      hosts = ''
-        [${config.networking.hostName}]
-        address localhost
-      '';
-    };
-    nginx = {
-      enable = true;
-      virtualHosts = {
-        "neo.lyndeno.ca" = {
-          locations = {
-            "/munin/static/" = {
-              alias = "/var/www/munin/static/";
-              extraConfig = ''
-                expires modified +1w;
-              '';
-            };
-            "/munin/" = {
-              alias = "/var/www/munin/";
-              extraConfig = ''
-                expires modified +310s;
-              '';
-            };
-            "/" = {
-              extraConfig = ''
-                rewrite ^/$ munin/ redirect; break;
-              '';
-            };
-          };
-        };
-      };
-    };
-  };
-
   age = {
     secrets = {
       id_borgbase.file = ../../secrets/id_borgbase.age;
@@ -72,15 +33,6 @@
 
       pangolin.file = ../../secrets/neo/pangolin.age;
     };
-  };
-
-  services.cockpit.enable = true;
-  services.cockpit.settings.WebService.Origins = lib.mkForce "http://localhost:9090 https://localhost:9090";
-
-  services.newt = {
-    enable = true;
-    environmentFile = config.age.secrets.pangolin.path;
-    settings.endpoint = "https://auth.lyndeno.ca";
   };
 
   boot = {
