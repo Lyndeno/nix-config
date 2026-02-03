@@ -104,7 +104,6 @@
       dataDir = "/home/lsanche";
       configDir = "/home/lsanche/.config/syncthing";
       openDefaultPorts = true;
-      guiAddress = "0.0.0.0:8384";
     };
   };
 
