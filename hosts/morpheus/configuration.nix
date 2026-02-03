@@ -136,6 +136,7 @@
         inherit (config.services.firefly-iii) group;
       };
       attic-token.file = ../../secrets/morpheus/attic_token.age;
+      pangolin.file = ../../secrets/morpheus/pangolin.age;
     };
   };
 
@@ -255,6 +256,11 @@
       database.enableVectors = false;
     };
     logind.settings.Login.HandlePowerKey = "ignore";
+    newt = {
+      enable = true;
+      environmentFile = config.age.secrets.pangolin.path;
+      settings.endpoint = "https://auth.lyndeno.ca";
+    };
     nginx = {
       enable = true;
       clientMaxBodySize = "50000M";

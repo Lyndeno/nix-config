@@ -101,7 +101,10 @@
       '';
     };
     syncthing.enable = lib.mkForce false;
-    tailscale.useRoutingFeatures = "server";
+    tailscale = {
+      enable = lib.mkForce false;
+      useRoutingFeatures = "server";
+    };
   };
   security = {
     acme = {

@@ -26,6 +26,7 @@ in {
   "morpheus/firefly_id.age".publicKeys = [lsanche morpheus];
   "morpheus/attic_token.age".publicKeys = [lsanche morpheus];
   "morpheus/garage.age".publicKeys = [lsanche morpheus];
+  "morpheus/pangolin.age".publicKeys = [lsanche morpheus];
 
   "oracle/nc_db.age".publicKeys = [lsanche oracle];
   "oracle/nc_root_pw.age".publicKeys = [lsanche oracle];
