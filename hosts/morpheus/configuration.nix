@@ -281,7 +281,21 @@
       database.enableVectors = false;
     };
     logind.settings.Login.HandlePowerKey = "ignore";
-    nginx = {
+    nginx = let
+      mkVirtualHost = {
+        port ? null,
+        extraConfig ? {},
+      }: {
+        useACMEHost = "lyndeno.ca";
+        acmeRoot = null;
+        forceSSL = true;
+        locations."/" =
+          {
+            proxyPass = lib.mkIf (port != null) "http://localhost:${toString port}";
+          }
+          // extraConfig;
+      };
+    in {
       enable = true;
       clientMaxBodySize = "50000M";
       proxyTimeout = "600s";
@@ -292,63 +306,25 @@
       recommendedOptimisation = lib.mkForce false;
 
       virtualHosts = {
-        "paperless.lyndeno.ca" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://localhost:${builtins.toString config.services.paperless.port}";
-
+        "paperless.lyndeno.ca" = mkVirtualHost {
+          inherit (config.services.paperless) port;
+          extraConfig = {
             proxyWebsockets = true;
             extraConfig = ''
               add_header Referrer-Policy "strict-origin-when-cross-origin";
             '';
           };
         };
-        "immich.lyndeno.ca" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://localhost:${builtins.toString config.services.immich.port}";
-
-            proxyWebsockets = true;
-          };
+        "immich.lyndeno.ca" = mkVirtualHost {
+          inherit (config.services.immich) port;
+          extraConfig.proxyWebsockets = true;
         };
-        "cache.lyndeno.ca" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-
-          locations."/".proxyPass = "http://localhost:8080";
-        };
-        "lubelogger.lyndeno.ca" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://localhost:5000";
-          };
-        };
-        "tasks.lyndeno.ca" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://localhost:${builtins.toString config.services.vikunja.port}";
-          };
-        };
-        "hydra.lyndeno.ca" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-
-          locations."/".extraConfig = ''
-            proxy_pass http://localhost:3000;
+        "cache.lyndeno.ca" = mkVirtualHost {port = 8080;};
+        "lubelogger.lyndeno.ca" = mkVirtualHost {port = 5000;};
+        "tasks.lyndeno.ca" = mkVirtualHost {inherit (config.services.vikunja) port;};
+        "hydra.lyndeno.ca" = mkVirtualHost {
+          port = 3000;
+          extraConfig.extraConfig = ''
             proxy_set_header Host $host;
             proxy_redirect http:// https://;
             proxy_set_header X-Real-IP $remote_addr;
@@ -358,11 +334,7 @@
             proxy_set_header Connection $connection_upgrade;
           '';
         };
-        "${config.services.firefly-iii.virtualHost}" = {
-          useACMEHost = "lyndeno.ca";
-          acmeRoot = null;
-          forceSSL = true;
-        };
+        "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
       };
     };
     ollama = {
