@@ -198,6 +198,7 @@
       enable = true;
       vpn.enable = true;
       peerPort = 27607;
+      extraAllowedIps = ["100.*"];
       extraSettings = {
         idle-seeding-limit = "600";
         idle-seeding-limit-enabled = true;
@@ -206,6 +207,8 @@
         download-queue-size = 50;
         seed-queue-size = 50;
         preallocation = 0;
+        rpc-host-whitelist-enabled = true;
+        rpc-host-whitelist = "transmission.lyndeno.ca";
       };
     };
 
@@ -283,6 +286,7 @@
     logind.settings.Login.HandlePowerKey = "ignore";
     nginx = let
       inherit (config.services) paperless vikunja immich hydra lubelogger;
+      inherit (config.nixarr) radarr sonarr prowlarr transmission;
       mkVirtualHost = {
         port ? null,
         extraConfig ? {},
@@ -338,6 +342,10 @@
               proxy_set_header Connection $connection_upgrade;
             '';
           };
+          "radarr" = {inherit (radarr) port;};
+          "sonarr" = {inherit (sonarr) port;};
+          "prowlarr" = {inherit (prowlarr) port;};
+          "transmission" = {port = transmission.uiPort;};
         })
         // {
           "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
