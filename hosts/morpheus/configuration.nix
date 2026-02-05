@@ -282,6 +282,7 @@
     };
     logind.settings.Login.HandlePowerKey = "ignore";
     nginx = let
+      inherit (config.services) paperless vikunja immich hydra lubelogger;
       mkVirtualHost = {
         port ? null,
         extraConfig ? {},
@@ -310,7 +311,7 @@
       virtualHosts =
         (mkVirtualHosts {
           "paperless" = {
-            inherit (config.services.paperless) port;
+            inherit (paperless) port;
             extraConfig = {
               proxyWebsockets = true;
               extraConfig = ''
@@ -319,14 +320,14 @@
             };
           };
           "immich" = {
-            inherit (config.services.immich) port;
+            inherit (immich) port;
             extraConfig.proxyWebsockets = true;
           };
           "cache" = {port = 8080;};
-          "lubelogger" = {port = 5000;};
-          "tasks" = {inherit (config.services.vikunja) port;};
+          "lubelogger" = {inherit (lubelogger) port;};
+          "tasks" = {inherit (vikunja) port;};
           "hydra" = {
-            port = 3000;
+            inherit (hydra) port;
             extraConfig.extraConfig = ''
               proxy_set_header Host $host;
               proxy_redirect http:// https://;
