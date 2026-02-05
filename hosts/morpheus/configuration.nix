@@ -111,6 +111,10 @@
         ACME_DNS_STORAGE_PATH=/var/lib/acme/.lego-acme-dns-accounts.json
       '';
     };
+    certs."lyndeno.ca" = {
+      inherit (config.services.nginx) group;
+      domain = "*.lyndeno.ca";
+    };
   };
 
   system.stateVersion = "23.05";
@@ -289,7 +293,7 @@
 
       virtualHosts = {
         "paperless.lyndeno.ca" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
 
@@ -303,7 +307,7 @@
           };
         };
         "immich.lyndeno.ca" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
 
@@ -314,7 +318,7 @@
           };
         };
         "cache.lyndeno.ca" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
 
@@ -323,7 +327,7 @@
           '';
         };
         "lubelogger.lyndeno.ca" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
 
@@ -332,7 +336,7 @@
           };
         };
         "tasks.lyndeno.ca" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
 
@@ -341,7 +345,7 @@
           };
         };
         "hydra.lyndeno.ca" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
 
@@ -357,7 +361,7 @@
           '';
         };
         "${config.services.firefly-iii.virtualHost}" = {
-          enableACME = true;
+          useACMEHost = "lyndeno.ca";
           acmeRoot = null;
           forceSSL = true;
         };
