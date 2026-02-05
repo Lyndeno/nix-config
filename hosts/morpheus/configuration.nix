@@ -286,7 +286,7 @@
     };
     logind.settings.Login.HandlePowerKey = "ignore";
     nginx = let
-      inherit (config.services) paperless vikunja immich hydra lubelogger;
+      inherit (config.services) paperless vikunja immich hydra lubelogger ollama open-webui;
       inherit (config.nixarr) radarr sonarr prowlarr transmission;
       mkVirtualHost = {
         port ? null,
@@ -347,6 +347,8 @@
           "sonarr" = {inherit (sonarr) port;};
           "prowlarr" = {inherit (prowlarr) port;};
           "transmission" = {port = transmission.uiPort;};
+          "ollama" = {inherit (ollama) port;};
+          "ai" = {inherit (open-webui) port;};
         })
         // {
           "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
@@ -365,7 +367,7 @@
       port = 8082;
       host = "0.0.0.0";
       environment = {
-        OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+        OLLAMA_API_BASE_URL = "http://127.0.0.1:${toString config.services.ollama.port}";
         # Disable authentication
         WEBUI_AUTH = "False";
       };
