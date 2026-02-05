@@ -29,6 +29,7 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   networking = {
     hostName = "morpheus";
+    domain = "lyndeno.ca";
     hostId = "a5d4421d";
     firewall = {
       logRefusedConnections = false;
@@ -111,9 +112,9 @@
         ACME_DNS_STORAGE_PATH=/var/lib/acme/.lego-acme-dns-accounts.json
       '';
     };
-    certs."lyndeno.ca" = {
+    certs."${config.networking.domain}" = {
       inherit (config.services.nginx) group;
-      domain = "*.lyndeno.ca";
+      domain = "*.${config.networking.domain}";
     };
   };
 
@@ -208,7 +209,7 @@
         seed-queue-size = 50;
         preallocation = 0;
         rpc-host-whitelist-enabled = true;
-        rpc-host-whitelist = "transmission.lyndeno.ca";
+        rpc-host-whitelist = "transmission.${config.networking.domain}";
       };
     };
 
@@ -237,7 +238,7 @@
       ff-user = config.services.firefly-iii.user;
     in {
       enable = true;
-      virtualHost = "firefly.lyndeno.ca";
+      virtualHost = "firefly.${config.networking.domain}";
       enableNginx = true;
       settings = {
         DB_USERNAME = ff-user;
@@ -271,7 +272,7 @@
     };
     hydra = {
       #enable = true;
-      hydraURL = "https://hydra.lyndeno.ca";
+      hydraURL = "https://hydra.${config.networking.domain}";
       notificationSender = "hydra@morpheus";
       useSubstitutes = true;
     };
@@ -291,7 +292,7 @@
         port ? null,
         extraConfig ? {},
       }: {
-        useACMEHost = "lyndeno.ca";
+        useACMEHost = config.networking.domain;
         acmeRoot = null;
         forceSSL = true;
         locations."/" =
@@ -301,7 +302,7 @@
           // extraConfig;
       };
 
-      mkVirtualHosts = hosts: lib.mapAttrs' (name: value: lib.nameValuePair "${name}.lyndeno.ca" (mkVirtualHost value)) hosts;
+      mkVirtualHosts = hosts: lib.mapAttrs' (name: value: lib.nameValuePair "${name}.${config.networking.domain}" (mkVirtualHost value)) hosts;
     in {
       enable = true;
       clientMaxBodySize = "50000M";
@@ -372,7 +373,7 @@
     paperless = {
       enable = true;
       database.createLocally = true;
-      settings.PAPERLESS_URL = "https://paperless.lyndeno.ca";
+      settings.PAPERLESS_URL = "https://paperless.${config.networking.domain}";
     };
     plex = {
       enable = true;
@@ -407,7 +408,7 @@
     smartd = {
       enable = true;
       notifications.mail = {
-        sender = "morpheus@lyndeno.ca";
+        sender = "morpheus@${config.networking.domain}";
         recipient = "lsanche@lyndeno.ca";
         enable = true;
       };
