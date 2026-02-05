@@ -322,9 +322,7 @@
           acmeRoot = null;
           forceSSL = true;
 
-          locations."/".extraConfig = ''
-            proxy_pass http://localhost:8080;
-          '';
+          locations."/".proxyPass = "http://localhost:8080";
         };
         "lubelogger.lyndeno.ca" = {
           useACMEHost = "lyndeno.ca";
