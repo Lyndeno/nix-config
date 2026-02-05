@@ -295,6 +295,8 @@
           }
           // extraConfig;
       };
+
+      mkVirtualHosts = hosts: lib.mapAttrs' (name: value: lib.nameValuePair "${name}.lyndeno.ca" (mkVirtualHost value)) hosts;
     in {
       enable = true;
       clientMaxBodySize = "50000M";
@@ -305,37 +307,40 @@
       recommendedGzipSettings = lib.mkForce false;
       recommendedOptimisation = lib.mkForce false;
 
-      virtualHosts = {
-        "paperless.lyndeno.ca" = mkVirtualHost {
-          inherit (config.services.paperless) port;
-          extraConfig = {
-            proxyWebsockets = true;
-            extraConfig = ''
-              add_header Referrer-Policy "strict-origin-when-cross-origin";
+      virtualHosts =
+        (mkVirtualHosts {
+          "paperless" = {
+            inherit (config.services.paperless) port;
+            extraConfig = {
+              proxyWebsockets = true;
+              extraConfig = ''
+                add_header Referrer-Policy "strict-origin-when-cross-origin";
+              '';
+            };
+          };
+          "immich" = {
+            inherit (config.services.immich) port;
+            extraConfig.proxyWebsockets = true;
+          };
+          "cache" = {port = 8080;};
+          "lubelogger" = {port = 5000;};
+          "tasks" = {inherit (config.services.vikunja) port;};
+          "hydra" = {
+            port = 3000;
+            extraConfig.extraConfig = ''
+              proxy_set_header Host $host;
+              proxy_redirect http:// https://;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection $connection_upgrade;
             '';
           };
+        })
+        // {
+          "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
         };
-        "immich.lyndeno.ca" = mkVirtualHost {
-          inherit (config.services.immich) port;
-          extraConfig.proxyWebsockets = true;
-        };
-        "cache.lyndeno.ca" = mkVirtualHost {port = 8080;};
-        "lubelogger.lyndeno.ca" = mkVirtualHost {port = 5000;};
-        "tasks.lyndeno.ca" = mkVirtualHost {inherit (config.services.vikunja) port;};
-        "hydra.lyndeno.ca" = mkVirtualHost {
-          port = 3000;
-          extraConfig.extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_redirect http:// https://;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection $connection_upgrade;
-          '';
-        };
-        "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
-      };
     };
     ollama = {
       enable = true;
