@@ -348,7 +348,10 @@
           "prowlarr" = {inherit (prowlarr) port;};
           "transmission" = {port = transmission.uiPort;};
           "ollama" = {inherit (ollama) port;};
-          "ai" = {inherit (open-webui) port;};
+          "ai" = {
+            inherit (open-webui) port;
+            extraConfig.proxyWebsockets = true;
+          };
         })
         // {
           "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
