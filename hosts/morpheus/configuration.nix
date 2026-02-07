@@ -271,7 +271,7 @@
       };
     };
     hydra = {
-      #enable = true;
+      enable = true;
       hydraURL = "https://hydra.${config.networking.domain}";
       notificationSender = "hydra@morpheus";
       useSubstitutes = true;
