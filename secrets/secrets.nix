@@ -28,6 +28,7 @@ in {
   "morpheus/garage.age".publicKeys = [lsanche morpheus];
   "morpheus/pangolin.age".publicKeys = [lsanche morpheus];
   "morpheus/immich.age".publicKeys = [lsanche morpheus];
+  "morpheus/hydra.age".publicKeys = [lsanche morpheus];
 
   "oracle/nc_db.age".publicKeys = [lsanche oracle];
   "oracle/nc_root_pw.age".publicKeys = [lsanche oracle];

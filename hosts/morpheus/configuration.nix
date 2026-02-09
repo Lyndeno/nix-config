@@ -163,6 +163,12 @@
       attic-token.file = ../../secrets/morpheus/attic_token.age;
       pangolin.file = ../../secrets/morpheus/pangolin.age;
       immich.file = ../../secrets/morpheus/immich.age;
+      hydra = {
+        file = ../../secrets/morpheus/hydra.age;
+        owner = "hydra-www";
+        group = "hydra";
+        mode = "0440";
+      };
     };
   };
 
@@ -275,6 +281,15 @@
       hydraURL = "https://hydra.${config.networking.domain}";
       notificationSender = "hydra@morpheus";
       useSubstitutes = true;
+      extraConfig = ''
+        Include ${config.age.secrets.hydra.path}
+
+        <githubstatus>
+          #jobs = test:pr:build
+          ## This example will match all jobs
+          jobs = .*
+        </githubstatus>
+      '';
     };
     immich = {
       enable = true;
