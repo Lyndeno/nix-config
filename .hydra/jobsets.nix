@@ -36,7 +36,7 @@
   desc =
     prJobsets
     // {
-      "main" = mkFlakeJobset "main" 100;
+      "master" = mkFlakeJobset "master" 100;
     };
 
   log = {
