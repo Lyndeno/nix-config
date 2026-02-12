@@ -13,6 +13,7 @@
     common-pc-ssd
     inputs.nixarr.nixosModules.default
     inputs.disko.nixosModules.default
+    inputs.hydra.nixosModules.hydra
     flake.nixosModules.common
     flake.nixosModules.virtualisation
     flake.nixosModules.zed
@@ -276,7 +277,7 @@
         default_config = {};
       };
     };
-    hydra = {
+    hydra-dev = {
       enable = true;
       hydraURL = "https://hydra.${config.networking.domain}";
       notificationSender = "hydra@morpheus";
@@ -301,7 +302,7 @@
     };
     logind.settings.Login.HandlePowerKey = "ignore";
     nginx = let
-      inherit (config.services) paperless vikunja immich hydra lubelogger ollama open-webui;
+      inherit (config.services) paperless vikunja immich hydra-dev lubelogger ollama open-webui;
       inherit (config.nixarr) radarr sonarr prowlarr transmission;
       mkVirtualHost = {
         port ? null,
@@ -347,7 +348,7 @@
           "lubelogger" = {inherit (lubelogger) port;};
           "tasks" = {inherit (vikunja) port;};
           "hydra" = {
-            inherit (hydra) port;
+            inherit (hydra-dev) port;
             extraConfig.extraConfig = ''
               proxy_set_header Host $host;
               proxy_redirect http:// https://;
