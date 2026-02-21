@@ -416,11 +416,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1770870755,
-        "narHash": "sha256-woTRYnqwAunQXILLBy8IOO9wheduE16/URljkBhaD1A=",
+        "lastModified": 1771713002,
+        "narHash": "sha256-ZwzZeI3XUhVoTCOpIohxCqcqWU4t4Yv84s1XGJ5+FPM=",
         "owner": "Lyndeno",
         "repo": "hydra",
-        "rev": "9a683e293627bbdb7dcc03c3e4ec15e7077708b1",
+        "rev": "1a276aff2aa1db7a8e11862bcb781002bfeb8564",
         "type": "github"
       },
       "original": {
