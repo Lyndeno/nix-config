@@ -3,7 +3,11 @@ pull_request_rules:
     conditions:
       - author=Lyndeno
       - title=Update flake.lock
-      - "check-success~=nix-build"
+      - "check-success=ci/hydra:nix-config:master:aarch64-linux.nixos-trinity"
+      - "check-success=ci/hydra:nix-config:master:x86_64-linux.nixos-morpheus"
+      - "check-success=ci/hydra:nix-config:master:x86_64-linux.nixos-neo"
+      - "check-success=ci/hydra:nix-config:master:x86_64-linux.nixos-oracle"
+      - "check-success=ci/hydra:nix-config:master:x86_64-linux.git-hooks"
     actions:
       merge:
         method: merge
