@@ -289,6 +289,8 @@
           #jobs = test:pr:build
           ## This example will match all jobs
           jobs = .*
+          excludeBuildFromContext = 1
+          useShortContext = 1
         </githubstatus>
       '';
     };
