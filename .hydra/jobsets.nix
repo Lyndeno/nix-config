@@ -23,7 +23,7 @@
   mkFlakeJobset = branch: schedulingshares: {
     inherit schedulingshares;
     description = "Build ${branch}";
-    checkinterval = "3600";
+    checkinterval = "300";
     enabled = "1";
     enableemail = false;
     emailoverride = "";
