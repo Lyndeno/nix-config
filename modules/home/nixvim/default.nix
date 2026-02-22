@@ -144,6 +144,7 @@ in {
         neocmake.enable = true;
         just.enable = true;
         jsonls.enable = true;
+        perlnavigator.enable = true;
       };
     };
     extraPlugins = [
