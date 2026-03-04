@@ -3,14 +3,17 @@
   pkgs,
   osConfig,
   perSystem,
+  lib,
   ...
 }: let
+  astroidPath = lib.getExe config.programs.astroid.package;
+
   updateScript = pkgs.writeShellScriptBin "update-email" ''
     echo "Display is $DISPLAY"
     echo "Wayland Display is $WAYLAND_DISPLAY"
     if [ "x$DISPLAY" != "x" ] || [ "w$WAYLAND_DISPLAY" != "w" ]; then
       echo "Telling Astroid we are polling"
-      ${pkgs.astroid}/bin/astroid --start-polling 2>&1 >/dev/null
+      ${astroidPath} --start-polling 2>&1 >/dev/null
       astroidCode=$?
     fi
 
@@ -21,10 +24,10 @@
 
       if [ $astroidCode != 0 ]; then
         echo "Astroid was not running previously, call refresh in case it has opened since then."
-        ${pkgs.astroid}/bin/astroid --refresh 0 2>&1 >/dev/null
+        ${astroidPath} --refresh 0 2>&1 >/dev/null
       else
         echo "Telling Astroid we are done polling"
-        ${pkgs.astroid}/bin/astroid --stop-polling 2>&1 >/dev/null
+        ${astroidPath} --stop-polling 2>&1 >/dev/null
       fi
     fi
 
@@ -43,6 +46,14 @@ in {
     astroid = {
       enable = true;
       externalEditor = "${config.programs.alacritty.package}/bin/alacritty --class hover -e ${config.programs.nixvim.build.package}/bin/nvim -c 'set ft=mail' '+set fileencoding=utf-8' '+set ff=unix' '+set enc=utf-8' '+set fo+=w' %1";
+      package = pkgs.astroid.overrideAttrs {
+        patches = [
+          (pkgs.fetchpatch {
+            url = "https://github.com/astroidmail/astroid/commit/b84962a7920aaa9b0cc4a85a0c9fd1802495b1bc.patch";
+            hash = "sha256-QO5hoWscSMcxWLjPn/NT2MaIKrgMvTJeutitm4GaKZY=";
+          })
+        ];
+      };
     };
   };
 
