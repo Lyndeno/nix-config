@@ -43,6 +43,14 @@ in {
     astroid = {
       enable = true;
       externalEditor = "${config.programs.alacritty.package}/bin/alacritty --class hover -e ${config.programs.nixvim.build.package}/bin/nvim -c 'set ft=mail' '+set fileencoding=utf-8' '+set ff=unix' '+set enc=utf-8' '+set fo+=w' %1";
+      package = pkgs.astroid.overrideAttrs {
+        patches = [
+          (pkgs.fetchpatch {
+            url = "https://github.com/astroidmail/astroid/commit/b84962a7920aaa9b0cc4a85a0c9fd1802495b1bc.patch";
+            hash = "sha256-QO5hoWscSMcxWLjPn/NT2MaIKrgMvTJeutitm4GaKZY=";
+          })
+        ];
+      };
     };
   };
 
