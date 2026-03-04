@@ -3,14 +3,17 @@
   pkgs,
   osConfig,
   perSystem,
+  lib,
   ...
 }: let
+  astroidPath = lib.getExe config.programs.astroid.package;
+
   updateScript = pkgs.writeShellScriptBin "update-email" ''
     echo "Display is $DISPLAY"
     echo "Wayland Display is $WAYLAND_DISPLAY"
     if [ "x$DISPLAY" != "x" ] || [ "w$WAYLAND_DISPLAY" != "w" ]; then
       echo "Telling Astroid we are polling"
-      ${pkgs.astroid}/bin/astroid --start-polling 2>&1 >/dev/null
+      ${astroidPath} --start-polling 2>&1 >/dev/null
       astroidCode=$?
     fi
 
@@ -21,10 +24,10 @@
 
       if [ $astroidCode != 0 ]; then
         echo "Astroid was not running previously, call refresh in case it has opened since then."
-        ${pkgs.astroid}/bin/astroid --refresh 0 2>&1 >/dev/null
+        ${astroidPath} --refresh 0 2>&1 >/dev/null
       else
         echo "Telling Astroid we are done polling"
-        ${pkgs.astroid}/bin/astroid --stop-polling 2>&1 >/dev/null
+        ${astroidPath} --stop-polling 2>&1 >/dev/null
       fi
     fi
 
