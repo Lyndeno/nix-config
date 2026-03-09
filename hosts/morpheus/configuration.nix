@@ -70,12 +70,12 @@
     settings.Manager = {
       RuntimeWatchdogSec = "60s";
     };
-    sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-      AllowSuspendThenHibernate=no
-      AllowHybridSleep=no
-    '';
+    sleep.settings.Sleep = {
+      AllowSuspend = false;
+      AllowHibernation = false;
+      AllowSuspendThenHibernate = false;
+      AllowHybridSleep = false;
+    };
     services = {
       immich-stack = {
         serviceConfig = {
