@@ -87,6 +87,10 @@
     pulseaudio.enable = false;
     resolved.enable = true;
     tailscale.useRoutingFeatures = lib.mkDefault "client";
+    printing = {
+      enable = true;
+      #drivers = [ pkgs.epson-escpr2 ];
+    };
   };
 
   stylix = {
@@ -118,6 +122,12 @@
     };
   };
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   systemd = {
     network = {
       wait-online.enable = false;
@@ -125,7 +135,6 @@
         "10-ethernet" = {
           matchConfig.Type = "ether";
           DHCP = "yes";
-          networkConfig.MulticastDNS = true;
           dhcpV4Config = {
             RouteMetric = 100;
           };
@@ -143,7 +152,6 @@
         "20-wifi" = {
           matchConfig.Type = "wlan";
           DHCP = "yes";
-          networkConfig.MulticastDNS = true;
           dhcpV4Config = {
             RouteMetric = 600;
           };
