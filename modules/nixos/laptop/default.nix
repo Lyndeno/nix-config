@@ -1,7 +1,7 @@
 {
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2h
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "2h";
+  };
 
   services = {
     upower.criticalPowerAction = "Hibernate";
