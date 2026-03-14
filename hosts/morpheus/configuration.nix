@@ -397,7 +397,29 @@
     paperless = {
       enable = true;
       database.createLocally = true;
-      settings.PAPERLESS_URL = "https://paperless.${config.networking.domain}";
+      settings = {
+        PAPERLESS_URL = "https://paperless.${config.networking.domain}";
+        PAPERLESS_CONSUMER_ENABLE_COLLATE_DOUBLE_SIDED = true;
+        PAPERLESS_CONSUMER_RECURSIVE = true;
+      };
+      consumptionDirIsPublic = true;
+    };
+    samba = {
+      enable = true;
+      securityType = "user";
+      openFirewall = true;
+      settings = {
+        paperless = {
+          path = config.services.paperless.consumptionDir;
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "paperless";
+          "force group" = "paperless";
+        };
+      };
     };
     plex = {
       enable = true;
