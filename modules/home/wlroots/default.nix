@@ -16,6 +16,12 @@
     zathura.enable = true;
   };
 
+  dconf.settings = {
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "appmenu:";
+    };
+  };
+
   home.packages = with pkgs; [
     wireplumber
     brightnessctl
