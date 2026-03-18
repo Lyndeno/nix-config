@@ -86,6 +86,14 @@
             };
             mountpoint = "/var/lib/private/ollama";
           };
+          "encrypt/services/plex" = {
+            type = "zfs_fs";
+            options = {
+              mountpoint = "legacy";
+              compression = "zstd";
+            };
+            mountpoint = "/var/lib/plex";
+          };
         };
       };
     };
