@@ -6,25 +6,17 @@
     wdisplays
   ];
 
-  programs.regreet = {
-    enable = true;
-    cageArgs = ["-s" "-d"];
-  };
+  security.soteria.enable = true;
 
   security.pam.services.swaylock.enable = true;
   services = {
+    displayManager.gdm.enable = true;
+    gnome.gcr-ssh-agent.enable = false;
     gvfs.enable = true;
     gnome = {
       glib-networking.enable = true;
       localsearch.enable = true;
     };
     upower.enable = true;
-    greetd.enable = true;
-  };
-
-  stylix = {
-    targets.regreet = {
-      useWallpaper = false;
-    };
   };
 }
