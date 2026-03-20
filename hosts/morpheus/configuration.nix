@@ -241,6 +241,7 @@
         compression.type = "none";
       };
     };
+    displayManager.gdm.autoSuspend = false;
     firefly-iii = let
       ff-user = config.services.firefly-iii.user;
     in {
