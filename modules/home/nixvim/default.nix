@@ -134,7 +134,6 @@ in {
         clangd.enable = true;
         texlab.enable = true;
         blueprint_ls.enable = true;
-        dockerls.enable = true;
         fish_lsp.enable = true;
         bashls.enable = true;
         gitlab_ci_ls.enable = true;
