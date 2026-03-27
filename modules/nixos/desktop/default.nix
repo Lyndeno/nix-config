@@ -40,6 +40,8 @@
       man-pages
       nh
       perSystem.ironfetch.default
+      ncdu
+      smartmontools
     ];
   };
 
