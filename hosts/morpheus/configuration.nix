@@ -410,9 +410,11 @@
     gotenberg.port = 3005;
     samba = {
       enable = true;
-      securityType = "user";
       openFirewall = true;
       settings = {
+        global = {
+          security = "user";
+        };
         paperless = {
           path = config.services.paperless.consumptionDir;
           browseable = "yes";
