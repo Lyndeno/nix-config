@@ -217,6 +217,8 @@
         preallocation = 0;
         rpc-host-whitelist-enabled = true;
         rpc-host-whitelist = "transmission.${config.networking.domain}";
+        peer-limit-global = 1000;
+        peer-limit-per-torrent = 500;
       };
     };
 
