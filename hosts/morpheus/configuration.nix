@@ -351,24 +351,8 @@
           inherit (open-webui) port;
           extraConfig.proxyWebsockets = true;
         };
+        firefly = {};
       };
-    };
-    nginx.virtualHosts = let
-      mkVirtualHost = {
-        port ? null,
-        extraConfig ? {},
-      }: {
-        useACMEHost = config.networking.domain;
-        acmeRoot = null;
-        forceSSL = true;
-        locations."/" =
-          {
-            proxyPass = lib.mkIf (port != null) "http://localhost:${toString port}";
-          }
-          // extraConfig;
-      };
-    in {
-      "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
     };
     ollama = {
       enable = true;
