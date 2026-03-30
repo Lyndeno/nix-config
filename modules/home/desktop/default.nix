@@ -20,6 +20,17 @@
     };
   };
 
+  programs.librewolf = {
+    enable = true;
+    profiles.lsanche = {
+      id = 0;
+      isDefault = true;
+      settings = {
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+      };
+    };
+  };
+
   stylix = {
     targets = {
       swaylock = {

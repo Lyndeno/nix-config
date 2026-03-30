@@ -22,6 +22,7 @@
     flake.nixosModules.secureboot
     flake.nixosModules.hydraCache
     flake.nixosModules.attic-watch
+    flake.nixosModules.localProxy
     ./disko.nix
     ./borgbackup/borgbase.nix
   ];
@@ -305,9 +306,54 @@
       host = "0.0.0.0";
     };
     logind.settings.Login.HandlePowerKey = "ignore";
-    nginx = let
+    localProxy = let
       inherit (config.services) paperless vikunja immich hydra-dev lubelogger ollama open-webui;
       inherit (config.nixarr) radarr sonarr prowlarr transmission;
+    in {
+      enable = true;
+
+      subDomains = {
+        "paperless" = {
+          inherit (paperless) port;
+          extraConfig = {
+            proxyWebsockets = true;
+            extraConfig = ''
+              add_header Referrer-Policy "strict-origin-when-cross-origin";
+            '';
+          };
+        };
+        "immich" = {
+          inherit (immich) port;
+          extraConfig.proxyWebsockets = true;
+        };
+        "cache" = {port = 8080;};
+        "lubelogger" = {inherit (lubelogger) port;};
+        "tasks" = {inherit (vikunja) port;};
+        "hydra" = {
+          inherit (hydra-dev) port;
+          extraConfig.extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_redirect http:// https://;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Port 443;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+          '';
+        };
+        "radarr" = {inherit (radarr) port;};
+        "sonarr" = {inherit (sonarr) port;};
+        "prowlarr" = {inherit (prowlarr) port;};
+        "transmission" = {port = transmission.uiPort;};
+        "ollama" = {inherit (ollama) port;};
+        "ai" = {
+          inherit (open-webui) port;
+          extraConfig.proxyWebsockets = true;
+        };
+      };
+    };
+    nginx.virtualHosts = let
       mkVirtualHost = {
         port ? null,
         extraConfig ? {},
@@ -321,62 +367,8 @@
           }
           // extraConfig;
       };
-
-      mkVirtualHosts = hosts: lib.mapAttrs' (name: value: lib.nameValuePair "${name}.${config.networking.domain}" (mkVirtualHost value)) hosts;
     in {
-      enable = true;
-      clientMaxBodySize = "50000M";
-      proxyTimeout = "600s";
-
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
-      recommendedGzipSettings = lib.mkForce false;
-      recommendedOptimisation = lib.mkForce false;
-
-      virtualHosts =
-        (mkVirtualHosts {
-          "paperless" = {
-            inherit (paperless) port;
-            extraConfig = {
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Referrer-Policy "strict-origin-when-cross-origin";
-              '';
-            };
-          };
-          "immich" = {
-            inherit (immich) port;
-            extraConfig.proxyWebsockets = true;
-          };
-          "cache" = {port = 8080;};
-          "lubelogger" = {inherit (lubelogger) port;};
-          "tasks" = {inherit (vikunja) port;};
-          "hydra" = {
-            inherit (hydra-dev) port;
-            extraConfig.extraConfig = ''
-              proxy_set_header Host $host;
-              proxy_redirect http:// https://;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto $scheme;
-              proxy_set_header X-Forwarded-Port 443;
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_set_header Connection $connection_upgrade;
-            '';
-          };
-          "radarr" = {inherit (radarr) port;};
-          "sonarr" = {inherit (sonarr) port;};
-          "prowlarr" = {inherit (prowlarr) port;};
-          "transmission" = {port = transmission.uiPort;};
-          "ollama" = {inherit (ollama) port;};
-          "ai" = {
-            inherit (open-webui) port;
-            extraConfig.proxyWebsockets = true;
-          };
-        })
-        // {
-          "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
-        };
+      "${config.services.firefly-iii.virtualHost}" = mkVirtualHost {};
     };
     ollama = {
       enable = true;
