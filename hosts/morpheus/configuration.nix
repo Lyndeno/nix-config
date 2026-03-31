@@ -313,7 +313,7 @@
       enable = true;
 
       subDomains = {
-        "paperless" = {
+        paperless = {
           extraConfig = {
             proxyWebsockets = true;
             extraConfig = ''
@@ -321,13 +321,13 @@
             '';
           };
         };
-        "immich" = {
+        immich = {
           extraConfig.proxyWebsockets = true;
         };
-        "cache" = {port = 8080;};
-        "lubelogger" = {};
-        "tasks" = {inherit (vikunja) port;};
-        "hydra" = {
+        cache = {port = 8080;};
+        lubelogger = {};
+        tasks = {inherit (vikunja) port;};
+        hydra = {
           inherit (hydra-dev) port;
           extraConfig.extraConfig = ''
             proxy_set_header Host $host;
@@ -340,12 +340,12 @@
             proxy_set_header Connection $connection_upgrade;
           '';
         };
-        "radarr" = {inherit (radarr) port;};
-        "sonarr" = {inherit (sonarr) port;};
-        "prowlarr" = {inherit (prowlarr) port;};
-        "transmission" = {port = transmission.uiPort;};
-        "ollama" = {};
-        "ai" = {
+        radarr = {inherit (radarr) port;};
+        sonarr = {inherit (sonarr) port;};
+        prowlarr = {inherit (prowlarr) port;};
+        transmission = {port = transmission.uiPort;};
+        ollama = {};
+        ai = {
           inherit (open-webui) port;
           extraConfig.proxyWebsockets = true;
         };
