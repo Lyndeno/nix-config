@@ -307,14 +307,13 @@
     };
     logind.settings.Login.HandlePowerKey = "ignore";
     localProxy = let
-      inherit (config.services) paperless vikunja immich hydra-dev lubelogger ollama open-webui;
+      inherit (config.services) vikunja hydra-dev open-webui;
       inherit (config.nixarr) radarr sonarr prowlarr transmission;
     in {
       enable = true;
 
       subDomains = {
         "paperless" = {
-          inherit (paperless) port;
           extraConfig = {
             proxyWebsockets = true;
             extraConfig = ''
@@ -323,11 +322,10 @@
           };
         };
         "immich" = {
-          inherit (immich) port;
           extraConfig.proxyWebsockets = true;
         };
         "cache" = {port = 8080;};
-        "lubelogger" = {inherit (lubelogger) port;};
+        "lubelogger" = {};
         "tasks" = {inherit (vikunja) port;};
         "hydra" = {
           inherit (hydra-dev) port;
@@ -346,12 +344,12 @@
         "sonarr" = {inherit (sonarr) port;};
         "prowlarr" = {inherit (prowlarr) port;};
         "transmission" = {port = transmission.uiPort;};
-        "ollama" = {inherit (ollama) port;};
+        "ollama" = {};
         "ai" = {
           inherit (open-webui) port;
           extraConfig.proxyWebsockets = true;
         };
-        firefly = {};
+        firefly = {port = null;};
       };
     };
     ollama = {

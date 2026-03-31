@@ -29,27 +29,30 @@ in {
         default = {};
         type = lib.types.attrsOf (
           lib.types.submodule (
-            {name, ...}: {
-              options = {
-                subDomain = lib.mkOption {
-                  description = "Subdomain to use";
-                  type = lib.types.str;
-                  default = name;
-                };
+            let
+              globalConfig = config;
+            in
+              {name, ...}: {
+                options = {
+                  subDomain = lib.mkOption {
+                    description = "Subdomain to use";
+                    type = lib.types.str;
+                    default = name;
+                  };
 
-                port = lib.mkOption {
-                  description = "Local port to proxy to";
-                  type = lib.types.nullOr lib.types.port;
-                  default = null;
-                };
+                  port = lib.mkOption {
+                    description = "Local port to proxy to";
+                    type = lib.types.nullOr lib.types.port;
+                    default = globalConfig.services.${name}.port;
+                  };
 
-                extraConfig = lib.mkOption {
-                  description = "Extra configuration to pass to nginx virtualhost";
-                  type = lib.types.attrs;
-                  default = {};
+                  extraConfig = lib.mkOption {
+                    description = "Extra configuration to pass to nginx virtualhost";
+                    type = lib.types.attrs;
+                    default = {};
+                  };
                 };
-              };
-            }
+              }
           )
         );
       };
