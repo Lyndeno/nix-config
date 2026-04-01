@@ -6,26 +6,31 @@
   lib,
   ...
 }: {
-  imports = with inputs.nixos-hardware.nixosModules; [
-    common-gpu-amd
-    common-cpu-amd
-    common-cpu-amd-pstate
-    common-pc-ssd
-    inputs.nixarr.nixosModules.default
-    inputs.disko.nixosModules.default
-    inputs.hydra.nixosModules.hydra
-    flake.nixosModules.common
-    flake.nixosModules.virtualisation
-    flake.nixosModules.zed
-    flake.nixosModules.desktop
-    flake.nixosModules.niri
-    flake.nixosModules.secureboot
-    flake.nixosModules.hydraCache
-    flake.nixosModules.attic-watch
-    flake.nixosModules.localProxy
-    ./disko.nix
-    ./borgbackup/borgbase.nix
-  ];
+  imports =
+    [
+      inputs.nixarr.nixosModules.default
+      inputs.disko.nixosModules.default
+      inputs.hydra.nixosModules.hydra
+      ./disko.nix
+      ./borgbackup/borgbase.nix
+    ]
+    ++ (with flake.nixosModules; [
+      common
+      virtualisation
+      zed
+      desktop
+      niri
+      secureboot
+      hydraCache
+      attic-watch
+      localProxy
+    ])
+    ++ (with inputs.nixos-hardware.nixosModules; [
+      common-gpu-amd
+      common-cpu-amd
+      common-cpu-amd-pstate
+      common-pc-ssd
+    ]);
   # Set your time zone.
   time.timeZone = "America/Edmonton";
   nixpkgs.hostPlatform = "x86_64-linux";
