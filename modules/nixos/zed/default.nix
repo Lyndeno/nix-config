@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
 }: {
   imports = [
@@ -22,10 +23,10 @@
       ZED_USE_ENCLOSURE_LEDS = true;
       ZED_SCRUB_AFTER_RESILVER = true;
       ZED_EMAIL_ADDR = ["lsanche@lyndeno.ca"];
-      ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+      ZED_EMAIL_PROG = "${lib.getExe pkgs.msmtp}";
       ZED_EMAIL_OPTS = "@ADDRESS@";
-      ZED_PUSHOVER_TOKEN = "$(${pkgs.busybox}/bin/cat ${config.age.secrets.zed_pushover.path})";
-      ZED_PUSHOVER_USER = "$(${pkgs.busybox}/bin/cat ${config.age.secrets.zed_user.path})";
+      ZED_PUSHOVER_TOKEN = "$(${lib.getExe' pkgs.busybox "cat"} ${config.age.secrets.zed_pushover.path})";
+      ZED_PUSHOVER_USER = "$(${lib.getExe' pkgs.busybox "cat"} ${config.age.secrets.zed_user.path})";
     };
 
     zfs.zed.enableMail = false;

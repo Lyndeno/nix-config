@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -22,7 +23,7 @@
     accounts = {
       default = {
         host = "smtp.fastmail.com";
-        passwordeval = "${pkgs.busybox}/bin/cat ${config.age.secrets.fastmail_pass.path}";
+        passwordeval = "${lib.getExe' pkgs.busybox "cat"} ${config.age.secrets.fastmail_pass.path}";
         user = "lsanche@fastmail.com";
         from = "${config.networking.hostName}@system.lyndeno.ca";
       };

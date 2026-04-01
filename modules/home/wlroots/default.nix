@@ -110,7 +110,7 @@
             exec =
               # bash
               ''
-                rpm="$(${pkgs.lm_sensors}/bin/sensors -j | ${pkgs.jq}/bin/jq ${fanQuery})"
+                rpm="$(${lib.getExe pkgs.lm_sensors} -j | ${lib.getExe pkgs.jq} ${fanQuery})"
                 if [[ $rpm != "0" ]]; then
                   echo $rpm
                 fi
@@ -121,7 +121,7 @@
           };
 
           "custom/ts" = {
-            exec = "${pkgs.tailscale}/bin/tailscale status --peers --json | ${pkgs.jq}/bin/jq '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' | tr -d '\"'";
+            exec = "${lib.getExe pkgs.tailscale} status --peers --json | ${lib.getExe pkgs.jq} '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' | tr -d '\"'";
             interval = 3;
             format = "󰲐 {}";
             hide-empty-text = true;
@@ -131,7 +131,7 @@
             exec = lib.getExe perSystem.self.wb-email;
             interval = 5;
             format = "{}";
-            on-click = "${pkgs.systemd}/bin/systemctl --user start refresh-email.service";
+            on-click = "${lib.getExe' pkgs.systemd "systemctl"} --user start refresh-email.service";
           };
 
           "group/group-clock" = {
@@ -152,7 +152,7 @@
             "format" = "{}°";
             "tooltip" = true;
             "interval" = 3600;
-            "exec" = "${pkgs.wttrbar}/bin/wttrbar";
+            "exec" = "${lib.getExe pkgs.wttrbar}";
             "return-type" = "json";
           };
 
@@ -217,14 +217,14 @@
             format = " {usage}%";
             tooltip = true;
             interval = 3;
-            on-click = "${pkgs.resources}/bin/resources -t cpu";
+            on-click = "${lib.getExe pkgs.resources} -t cpu";
           };
 
           "memory" = {
             format = " {used:0.1f} GiB";
             tooltip-format = "Memory {used:0.1f} GiB / {total:0.1f} GiB\nSwap: {swapUsed:0.1f} GiB / {swapTotal:0.1f} GiB";
             interval = 3;
-            on-click = "${pkgs.resources}/bin/resources -t memory";
+            on-click = "${lib.getExe pkgs.resources} -t memory";
           };
 
           "backlight" = {
@@ -242,7 +242,7 @@
             tooltip-format-wifi = "SSID: {essid}\nAddress: {ipaddr}\nBand {frequency} MHz\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\nStrength: {signalStrength}%\nGateway: {gwaddr}";
             tooltip-format-ethernet = "SSID: {essid}\nAddress: {ipaddr}\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\nGateway: {gwaddr}";
             interval = 2;
-            on-click-right = "${pkgs.iwmenu}/bin/iwmenu --launcher fuzzel";
+            on-click-right = "${lib.getExe pkgs.iwmenu} --launcher fuzzel";
             format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
           };
 
@@ -295,8 +295,8 @@
     };
 
     swayidle = let
-      lock = "${pkgs.swaylock}/bin/swaylock -fF";
-      screenTimeout = pkgs.writeShellScriptBin "screen-timeout" "${pkgs.niri}/bin/niri msg action power-off-monitors";
+      lock = "${lib.getExe pkgs.swaylock} -fF";
+      screenTimeout = pkgs.writeShellScriptBin "screen-timeout" "${lib.getExe pkgs.niri} msg action power-off-monitors";
 
       lockScreenTimeout = pkgs.writeShellApplication {
         name = "lock-screen-timeout";

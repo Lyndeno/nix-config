@@ -17,7 +17,7 @@
       astroidCode=$?
     fi
 
-    ${config.programs.mujmap.package}/bin/mujmap -C ${config.home.homeDirectory}/Maildir/fastmail sync
+    ${lib.getExe' config.programs.mujmap.package "mujmap"} -C ${config.home.homeDirectory}/Maildir/fastmail sync
     returnCode=$?
 
     if [ "x$DISPLAY" != "x" ] || [ "w$WAYLAND_DISPLAY" != "w" ]; then
@@ -45,7 +45,7 @@ in {
 
     astroid = {
       enable = true;
-      externalEditor = "${config.programs.alacritty.package}/bin/alacritty --class hover -e ${config.programs.nixvim.build.package}/bin/nvim -c 'set ft=mail' '+set fileencoding=utf-8' '+set ff=unix' '+set enc=utf-8' '+set fo+=w' %1";
+      externalEditor = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.nixvim.build.package} -c 'set ft=mail' '+set fileencoding=utf-8' '+set ff=unix' '+set enc=utf-8' '+set fo+=w' %1";
       package = pkgs.astroid.overrideAttrs {
         patches = [
           (pkgs.fetchpatch {
@@ -83,7 +83,7 @@ in {
       };
       astroid = {
         enable = true;
-        sendMailCommand = "${config.programs.mujmap.package}/bin/mujmap -C ${config.home.homeDirectory}/Maildir/fastmail send -i -t";
+        sendMailCommand = "${lib.getExe' config.programs.mujmap.package "mujmap"} -C ${config.home.homeDirectory}/Maildir/fastmail send -i -t";
       };
     };
   };
@@ -96,7 +96,7 @@ in {
             Description = "Refresh Emails";
           };
           Service = {
-            ExecStart = "${updateScript}/bin/update-email";
+            ExecStart = lib.getExe updateScript;
           };
         };
       };
