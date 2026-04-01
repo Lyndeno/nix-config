@@ -41,7 +41,7 @@
     hostId = "a5d4421d";
     firewall = {
       logRefusedConnections = false;
-      allowedTCPPorts = [27607];
+      allowedTCPPorts = [config.nixarr.transmission.peerPort];
     };
   };
 
