@@ -24,6 +24,7 @@
       hydraCache
       attic-watch
       localProxy
+      server
     ])
     ++ (with inputs.nixos-hardware.nixosModules; [
       common-gpu-amd
@@ -73,15 +74,6 @@
   };
 
   systemd = {
-    settings.Manager = {
-      RuntimeWatchdogSec = "60s";
-    };
-    sleep.settings.Sleep = {
-      AllowSuspend = false;
-      AllowHibernation = false;
-      AllowSuspendThenHibernate = false;
-      AllowHybridSleep = false;
-    };
     services = {
       immich-stack = {
         serviceConfig = {
@@ -249,7 +241,6 @@
         compression.type = "none";
       };
     };
-    displayManager.gdm.autoSuspend = false;
     firefly-iii = let
       ff-user = config.services.firefly-iii.user;
     in {
@@ -307,7 +298,6 @@
       enable = true;
       mediaLocation = "/data/bigpool/immich/data";
     };
-    logind.settings.Login.HandlePowerKey = "ignore";
     localProxy = let
       inherit (config.services) vikunja hydra-dev open-webui;
       inherit (config.nixarr) radarr sonarr prowlarr transmission;
@@ -431,17 +421,6 @@
       ];
     };
     postgresqlBackup.enable = true;
-    smartd = {
-      enable = true;
-      notifications.mail = {
-        sender = "morpheus@${config.networking.domain}";
-        recipient = "lsanche@lyndeno.ca";
-        enable = true;
-      };
-      # Short self test every week at 2AM
-      # Long self test every month on the 5th at 4AM
-      #defaults.monitored = "-a -o on -s (S/../../7/02|L/../05/../04)";
-    };
     tailscale.useRoutingFeatures = "both";
     zfs = {
       trim.enable = true;
