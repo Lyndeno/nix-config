@@ -18,6 +18,7 @@ in {
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    nixpkgs.config.allowUnfree = true;
     performance = {
       byteCompileLua = {
         enable = true;
@@ -150,6 +151,7 @@ in {
       cmp-notmuch
     ];
     plugins = {
+      claude-code.enable = true;
       otter.enable = true;
       lspconfig.enable = true;
       lsp-signature.enable = true;

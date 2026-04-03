@@ -31,6 +31,7 @@
   };
 
   programs = {
+    claude-code.enable = true;
     git = {
       enable = true;
       package = pkgs.gitFull;
