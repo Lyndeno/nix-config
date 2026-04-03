@@ -11,6 +11,8 @@
     };
   };
 
+  networking.firewall.logRefusedConnections = false;
+
   services = {
     # May not be on a server but just in case
     displayManager.gdm.autoSuspend = false;

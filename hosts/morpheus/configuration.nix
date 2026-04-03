@@ -48,7 +48,6 @@
     hostName = "morpheus";
     domain = "lyndeno.ca";
     hostId = "a5d4421d";
-    firewall.logRefusedConnections = false;
   };
 
   zramSwap = {
