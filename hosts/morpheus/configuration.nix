@@ -45,10 +45,7 @@
     hostId = "a5d4421d";
   };
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 25;
-  };
+  zramSwap.enable = true;
 
   system.stateVersion = "23.05";
 
