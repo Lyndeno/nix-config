@@ -101,7 +101,6 @@
   };
 
   services = {
-    tailscale.useRoutingFeatures = "both";
     zfs = {
       trim.enable = true;
       autoScrub.enable = true;
