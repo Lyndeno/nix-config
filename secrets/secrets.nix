@@ -15,18 +15,10 @@ in {
   "attic_auth.age".publicKeys = [lsanche neo morpheus];
   "vpn.age".publicKeys = [lsanche neo morpheus];
 
-  "neo/id_trinity_borg.age".publicKeys = [lsanche neo];
-  "neo/pass_trinity_borg.age".publicKeys = [lsanche neo];
-  "neo/pangolin.age".publicKeys = [lsanche neo];
-
   "morpheus/pass_borgbase.age".publicKeys = [lsanche morpheus];
-  "morpheus/id_trinity_borg.age".publicKeys = [lsanche morpheus];
-  "morpheus/pass_trinity_borg.age".publicKeys = [lsanche morpheus];
   "morpheus/webdav.age".publicKeys = [lsanche morpheus];
   "morpheus/firefly_id.age".publicKeys = [lsanche morpheus];
   "morpheus/attic_token.age".publicKeys = [lsanche morpheus];
-  "morpheus/garage.age".publicKeys = [lsanche morpheus];
-  "morpheus/pangolin.age".publicKeys = [lsanche morpheus];
   "morpheus/immich.age".publicKeys = [lsanche morpheus];
   "morpheus/hydra.age".publicKeys = [lsanche morpheus];
 
