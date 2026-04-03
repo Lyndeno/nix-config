@@ -44,6 +44,7 @@
         ".direnv/"
         ".envrc"
         ".vscode/"
+        ".claude/"
       ];
     };
     direnv = {
