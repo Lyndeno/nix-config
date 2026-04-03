@@ -33,6 +33,7 @@
       hydra-dev
       lubelogger
       asus-desktop
+      zfs
     ]);
 
   time.timeZone = "America/Edmonton";
