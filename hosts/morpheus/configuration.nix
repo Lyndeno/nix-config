@@ -3,14 +3,11 @@
   pkgs,
   inputs,
   flake,
-  lib,
   ...
 }: {
   imports =
     [
-      inputs.nixarr.nixosModules.default
       inputs.disko.nixosModules.default
-      inputs.hydra.nixosModules.hydra
       ./disko.nix
       ./borgbackup/borgbase.nix
     ]
@@ -25,6 +22,18 @@
       attic-watch
       localProxy
       server
+      postgresql
+      immich
+      nixarr
+      firefly
+      paperless
+      vikunja
+      atticd
+      ollama
+      home-assistant
+      plex
+      hydra-dev
+      lubelogger
     ])
     ++ (with inputs.nixos-hardware.nixosModules; [
       common-gpu-amd
@@ -32,17 +41,15 @@
       common-cpu-amd-pstate
       common-pc-ssd
     ]);
-  # Set your time zone.
+
   time.timeZone = "America/Edmonton";
   nixpkgs.hostPlatform = "x86_64-linux";
+
   networking = {
     hostName = "morpheus";
     domain = "lyndeno.ca";
     hostId = "a5d4421d";
-    firewall = {
-      logRefusedConnections = false;
-      allowedTCPPorts = [config.nixarr.transmission.peerPort];
-    };
+    firewall.logRefusedConnections = false;
   };
 
   nix = {
@@ -70,29 +77,6 @@
         "gccarch-znver3"
         "gccarch-skylake"
       ];
-    };
-  };
-
-  systemd = {
-    services = {
-      immich-stack = {
-        serviceConfig = {
-          EnvironmentFile = config.age.secrets.immich.path;
-        };
-        description = "Stacking Raw and JPG Photos in Immich";
-        script = ''
-          ${lib.getExe pkgs.immich-go} stack --server=http://localhost:${toString config.services.immich.port} --api-key="$IMMICH_API_KEY" --manage-raw-jpeg StackCoverJPG
-        '';
-      };
-    };
-    timers = {
-      immich-stack = {
-        wantedBy = ["timers.target"];
-        description = "Stack RAW and JPG Photos in Immich Daily";
-        timerConfig = {
-          OnCalendar = "daily";
-        };
-      };
     };
   };
 
@@ -126,7 +110,6 @@
       device = "/dev/disk/by-label/nixroot";
       fsType = "xfs";
     };
-
     "/boot" = {
       device = "/dev/disk/by-label/ESP";
       fsType = "vfat";
@@ -140,35 +123,12 @@
     };
   };
 
-  age = {
-    secrets = {
-      id_borgbase.file = ../../secrets/id_borgbase.age;
-      pass_borgbase.file = ../../secrets/morpheus/pass_borgbase.age;
-      vpn.file = ../../secrets/vpn.age;
-
-      id_trinity_borg.file = ../../secrets/morpheus/id_trinity_borg.age;
-      pass_trinity_borg.file = ../../secrets/morpheus/pass_trinity_borg.age;
-
-      #webdav = {
-      #  file = morpheus.webdav;
-      #  owner = config.services.webdav-server-rs.user;
-      #  inherit (config.services.webdav-server-rs) group;
-      #};
-      firefly-id = {
-        file = ../../secrets/morpheus/firefly_id.age;
-        owner = config.services.firefly-iii.user;
-        inherit (config.services.firefly-iii) group;
-      };
-      attic-token.file = ../../secrets/morpheus/attic_token.age;
-      pangolin.file = ../../secrets/morpheus/pangolin.age;
-      immich.file = ../../secrets/morpheus/immich.age;
-      hydra = {
-        file = ../../secrets/morpheus/hydra.age;
-        owner = "hydra-www";
-        group = "hydra";
-        mode = "0440";
-      };
-    };
+  age.secrets = {
+    id_borgbase.file = ../../secrets/id_borgbase.age;
+    pass_borgbase.file = ../../secrets/morpheus/pass_borgbase.age;
+    id_trinity_borg.file = ../../secrets/morpheus/id_trinity_borg.age;
+    pass_trinity_borg.file = ../../secrets/morpheus/pass_trinity_borg.age;
+    pangolin.file = ../../secrets/morpheus/pangolin.age;
   };
 
   boot = {
@@ -177,264 +137,22 @@
     swraid.enable = false;
     initrd = {
       systemd.enable = true;
-
       luks.devices."cryptroot" = {
         device = "/dev/disk/by-label/nixcrypt";
         bypassWorkqueues = true;
         allowDiscards = true;
       };
-
       availableKernelModules = ["nvme" "mpt3sas" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
     };
     supportedFilesystems = ["zfs"];
     zfs.extraPools = ["bigpool"];
   };
 
-  nixarr = {
-    enable = true;
-    mediaDir = "/data/bigpool/media/nixarr";
-    stateDir = "/data/bigpool/media/nixarr/.state/nixarr";
-
-    vpn = {
-      enable = true;
-      wgConf = config.age.secrets.vpn.path;
-    };
-
-    transmission = {
-      enable = true;
-      vpn.enable = true;
-      peerPort = 27607;
-      extraAllowedIps = ["100.*"];
-      extraSettings = {
-        idle-seeding-limit = "600";
-        idle-seeding-limit-enabled = true;
-        ratio-limit = "3.0";
-        ratio-limit-enabled = true;
-        download-queue-size = 50;
-        seed-queue-size = 50;
-        preallocation = 0;
-        rpc-host-whitelist-enabled = true;
-        rpc-host-whitelist = "transmission.${config.networking.domain}";
-        peer-limit-global = 1000;
-        peer-limit-per-torrent = 500;
-      };
-    };
-
-    radarr.enable = true;
-    sonarr.enable = true;
-    prowlarr.enable = true;
-  };
-
   services = {
-    atticd = {
-      enable = true;
-      environmentFile = config.age.secrets.attic-token.path;
-      settings = {
-        database = {
-          url = "postgresql:///atticd?host=/run/postgresql";
-        };
-        storage = {
-          type = "local";
-          path = "/data/bigpool/services/attic";
-        };
-        # ZFS handles this for us
-        compression.type = "none";
-      };
-    };
-    firefly-iii = let
-      ff-user = config.services.firefly-iii.user;
-    in {
-      enable = true;
-      virtualHost = "firefly.${config.networking.domain}";
-      enableNginx = true;
-      settings = {
-        DB_USERNAME = ff-user;
-        DB_CONNECTION = "pgsql";
-        DB_DATABASE = ff-user;
-        APP_KEY_FILE = config.age.secrets.firefly-id.path;
-      };
-    };
-    home-assistant = {
-      enable = true;
-      extraComponents = [
-        "esphome"
-        "met"
-        "radio_browser"
-        "cast"
-        "thread"
-        "ibeacon"
-        "upnp"
-        "google_translate"
-        "tplink"
-        "plex"
-        "spotify"
-        "webostv"
-        "vesync"
-        "tuya"
-        "fitbit"
-      ];
-      config = {
-        default_config = {};
-      };
-    };
-    hydra-dev = {
-      enable = true;
-      hydraURL = "https://hydra.${config.networking.domain}";
-      notificationSender = "hydra@morpheus";
-      useSubstitutes = true;
-      extraConfig = ''
-        Include ${config.age.secrets.hydra.path}
-
-        <githubstatus>
-          #jobs = test:pr:build
-          ## This example will match all jobs
-          jobs = .*
-          excludeBuildFromContext = 1
-          useShortContext = 1
-        </githubstatus>
-      '';
-    };
-    immich = {
-      enable = true;
-      mediaLocation = "/data/bigpool/immich/data";
-    };
-    localProxy = let
-      inherit (config.services) vikunja hydra-dev open-webui;
-      inherit (config.nixarr) radarr sonarr prowlarr transmission;
-    in {
-      enable = true;
-
-      subDomains = {
-        paperless = {
-          extraConfig = {
-            proxyWebsockets = true;
-            extraConfig = ''
-              add_header Referrer-Policy "strict-origin-when-cross-origin";
-            '';
-          };
-        };
-        immich = {
-          extraConfig.proxyWebsockets = true;
-        };
-        cache = {port = 8080;};
-        lubelogger = {};
-        tasks = {inherit (vikunja) port;};
-        hydra = {
-          inherit (hydra-dev) port;
-          extraConfig.extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_redirect http:// https://;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Forwarded-Port 443;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection $connection_upgrade;
-          '';
-        };
-        radarr = {inherit (radarr) port;};
-        sonarr = {inherit (sonarr) port;};
-        prowlarr = {inherit (prowlarr) port;};
-        transmission = {port = transmission.uiPort;};
-        ollama = {};
-        ai = {
-          inherit (open-webui) port;
-          extraConfig.proxyWebsockets = true;
-        };
-        firefly = {port = null;};
-      };
-    };
-    ollama = {
-      enable = true;
-      package = pkgs.ollama-rocm;
-      rocmOverrideGfx = "10.3.0";
-    };
-    open-webui = {
-      enable = true;
-      port = 8082;
-      environment = {
-        OLLAMA_API_BASE_URL = "http://127.0.0.1:${toString config.services.ollama.port}";
-        # Disable authentication
-        WEBUI_AUTH = "False";
-      };
-    };
-    paperless = {
-      enable = true;
-      database.createLocally = true;
-      settings = {
-        PAPERLESS_URL = "https://paperless.${config.networking.domain}";
-        PAPERLESS_CONSUMER_ENABLE_COLLATE_DOUBLE_SIDED = true;
-        PAPERLESS_CONSUMER_RECURSIVE = true;
-        PAPERLESS_CONSUMER_ENABLE_BARCODES = true;
-        PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://localhost:${toString config.services.gotenberg.port}";
-      };
-      consumptionDirIsPublic = true;
-      configureTika = true;
-    };
-    gotenberg.port = 3005;
-    samba = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        global = {
-          security = "user";
-        };
-        paperless = {
-          path = config.services.paperless.consumptionDir;
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "paperless";
-          "force group" = "paperless";
-        };
-      };
-    };
-    plex = {
-      enable = true;
-      openFirewall = true;
-      group = "media";
-    };
-    postgresql = let
-      ff-user = config.services.firefly-iii.user;
-      atticd-user = config.services.atticd.user;
-      vikunja-user = config.services.vikunja.database.user;
-      vikunja-db = config.services.vikunja.database.database;
-    in {
-      enable = true;
-      ensureDatabases = [ff-user atticd-user vikunja-user];
-      package = pkgs.postgresql_16;
-      ensureUsers = [
-        {
-          name = ff-user;
-          ensureDBOwnership = true;
-        }
-        {
-          name = atticd-user;
-          ensureDBOwnership = true;
-        }
-        {
-          name = vikunja-db;
-          ensureDBOwnership = true;
-        }
-      ];
-    };
-    postgresqlBackup.enable = true;
     tailscale.useRoutingFeatures = "both";
     zfs = {
       trim.enable = true;
       autoScrub.enable = true;
-    };
-    lubelogger.enable = true;
-    vikunja = {
-      enable = true;
-      database = {
-        type = "postgres";
-        host = "/run/postgresql";
-      };
-      frontendScheme = "http";
-      frontendHostname = "morpheus";
     };
   };
 

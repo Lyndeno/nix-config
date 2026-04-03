@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   mkVirtualHost = _: cfg: let
@@ -60,6 +61,22 @@ in {
   };
 
   config = {
+    security.acme = {
+      acceptTerms = true;
+      defaults = {
+        email = "lsanche@lyndeno.ca";
+        dnsProvider = "acme-dns";
+        environmentFile = pkgs.writeText "acme-env" ''
+          ACME_DNS_API_BASE=http://oracle:8080
+          ACME_DNS_STORAGE_PATH=/var/lib/acme/.lego-acme-dns-accounts.json
+        '';
+      };
+      certs."${config.networking.domain}" = {
+        inherit (config.services.nginx) group;
+        domain = "*.${config.networking.domain}";
+      };
+    };
+
     services.nginx = {
       enable = true;
       clientMaxBodySize = "50000M";
