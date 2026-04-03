@@ -1,6 +1,7 @@
 {
   pkgs,
   osConfig,
+  config,
   flake,
   perSystem,
   lib,
@@ -118,6 +119,7 @@
             interval = 3;
             format = "󰈐 {}";
             hide-empty-text = true;
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type temp -e";
           };
 
           "custom/ts" = {
@@ -217,14 +219,14 @@
             format = " {usage}%";
             tooltip = true;
             interval = 3;
-            on-click = "${lib.getExe pkgs.resources} -t cpu";
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type cpu -e";
           };
 
           "memory" = {
             format = " {used:0.1f} GiB";
             tooltip-format = "Memory {used:0.1f} GiB / {total:0.1f} GiB\nSwap: {swapUsed:0.1f} GiB / {swapTotal:0.1f} GiB";
             interval = 3;
-            on-click = "${lib.getExe pkgs.resources} -t memory";
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type mem -e";
           };
 
           "backlight" = {

@@ -1,4 +1,4 @@
-{config}: {
+{config, ...}: {
   systemd = {
     settings.Manager = {
       RuntimeWatchdogSec = "60s";
