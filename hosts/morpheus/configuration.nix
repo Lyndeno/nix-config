@@ -42,6 +42,7 @@
   networking = {
     hostName = "morpheus";
     domain = "lyndeno.ca";
+    # For ZFS
     hostId = "a5d4421d";
   };
 
@@ -65,13 +66,6 @@
     };
   };
 
-  hardware = {
-    amdgpu = {
-      initrd.enable = true;
-      opencl.enable = true;
-    };
-  };
-
   age.secrets = {
     id_borgbase.file = ../../secrets/id_borgbase.age;
     pass_borgbase.file = ../../secrets/morpheus/pass_borgbase.age;
@@ -79,7 +73,6 @@
 
   boot = {
     binfmt.emulatedSystems = ["aarch64-linux"];
-    kernelModules = ["kvm-amd" "jc42" "nct6775" "ddcci" "sg"];
     swraid.enable = false;
     initrd = {
       systemd.enable = true;
@@ -88,17 +81,8 @@
         bypassWorkqueues = true;
         allowDiscards = true;
       };
-      availableKernelModules = ["nvme" "mpt3sas" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
     };
-    supportedFilesystems = ["zfs"];
     zfs.extraPools = ["bigpool"];
-  };
-
-  services = {
-    zfs = {
-      trim.enable = true;
-      autoScrub.enable = true;
-    };
   };
 
   systemd.network.networks."10-ethernet".matchConfig.Name = "enp7s0";
