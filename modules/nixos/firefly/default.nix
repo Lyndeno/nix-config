@@ -8,7 +8,7 @@
   ];
 
   age.secrets.firefly-id = {
-    file = ../../../secrets/morpheus/firefly_id.age;
+    file = ../../../secrets/${config.networking.hostName}/firefly_id.age;
     owner = config.services.firefly-iii.user;
     inherit (config.services.firefly-iii) group;
   };

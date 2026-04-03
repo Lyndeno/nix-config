@@ -9,7 +9,7 @@
     inputs.agenix.nixosModules.default
   ];
 
-  age.secrets.immich.file = ../../../secrets/morpheus/immich.age;
+  age.secrets.immich.file = ../../../secrets/${config.networking.hostName}/immich.age;
 
   services = {
     immich = {

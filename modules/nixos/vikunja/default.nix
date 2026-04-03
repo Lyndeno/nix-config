@@ -7,7 +7,7 @@
         host = "/run/postgresql";
       };
       frontendScheme = "http";
-      frontendHostname = "morpheus";
+      frontendHostname = config.networking.hostName;
     };
 
     postgresql = let

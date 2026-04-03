@@ -7,7 +7,7 @@
     inputs.agenix.nixosModules.default
   ];
 
-  age.secrets.attic-token.file = ../../../secrets/morpheus/attic_token.age;
+  age.secrets.attic-token.file = ../../../secrets/${config.networking.hostName}/attic_token.age;
 
   services = {
     atticd = {

@@ -9,7 +9,7 @@
   ];
 
   age.secrets.hydra = {
-    file = ../../../secrets/morpheus/hydra.age;
+    file = ../../../secrets/${config.networking.hostName}/hydra.age;
     owner = "hydra-www";
     group = "hydra";
     mode = "0440";
@@ -47,7 +47,7 @@
     hydra-dev = {
       enable = true;
       hydraURL = "https://hydra.${config.networking.domain}";
-      notificationSender = "hydra@morpheus";
+      notificationSender = "hydra@${config.networking.hostName}";
       useSubstitutes = true;
       extraConfig = ''
         Include ${config.age.secrets.hydra.path}
