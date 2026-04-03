@@ -2,12 +2,9 @@
   description = "Lyndon's NixOS setup";
 
   outputs = inputs:
-    (inputs.blueprint {
+    inputs.blueprint {
       inherit inputs;
       systems = ["x86_64-linux" "aarch64-linux"];
-    })
-    // {
-      githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {inherit (inputs.self) checks;};
     };
 
   inputs = {
@@ -104,11 +101,6 @@
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-github-actions = {
-      url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
