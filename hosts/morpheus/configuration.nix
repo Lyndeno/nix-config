@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   inputs,
   flake,
@@ -52,53 +51,9 @@
     firewall.logRefusedConnections = false;
   };
 
-  nix = {
-    buildMachines = [
-      {
-        hostName = "localhost";
-        protocol = null;
-        systems = ["x86_64-linux" "aarch64-linux"];
-        supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "gccarch-znver3" "gccarch-skylake"];
-        maxJobs = 32;
-      }
-    ];
-    settings = {
-      allowed-uris = [
-        "github:"
-        "git+https://github.com/"
-        "git+ssh://github.com/"
-        "https://devimages-cdn.apple.com/"
-      ];
-      system-features = [
-        "kvm"
-        "nixos-test"
-        "big-parallel"
-        "benchmark"
-        "gccarch-znver3"
-        "gccarch-skylake"
-      ];
-    };
-  };
-
   zramSwap = {
     enable = true;
     memoryPercent = 25;
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      email = "lsanche@lyndeno.ca";
-      dnsProvider = "acme-dns";
-      environmentFile = pkgs.writeText "acme-env" ''
-        ACME_DNS_API_BASE=http://oracle:8080
-        ACME_DNS_STORAGE_PATH=/var/lib/acme/.lego-acme-dns-accounts.json
-      '';
-    };
-    certs."${config.networking.domain}" = {
-      inherit (config.services.nginx) group;
-      domain = "*.${config.networking.domain}";
-    };
   };
 
   system.stateVersion = "23.05";
@@ -126,9 +81,6 @@
   age.secrets = {
     id_borgbase.file = ../../secrets/id_borgbase.age;
     pass_borgbase.file = ../../secrets/morpheus/pass_borgbase.age;
-    id_trinity_borg.file = ../../secrets/morpheus/id_trinity_borg.age;
-    pass_trinity_borg.file = ../../secrets/morpheus/pass_trinity_borg.age;
-    pangolin.file = ../../secrets/morpheus/pangolin.age;
   };
 
   boot = {
