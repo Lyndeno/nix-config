@@ -1,5 +1,4 @@
 {
-  pkgs,
   inputs,
   flake,
   ...
@@ -52,8 +51,6 @@
   };
 
   system.stateVersion = "23.05";
-
-  environment.systemPackages = [pkgs.brasero];
 
   fileSystems = {
     "/" = {
