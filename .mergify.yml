@@ -13,8 +13,12 @@ pull_request_rules:
         method: merge
   - name: Automatically merge dependabot updates
     conditions:
-      - author=dependabot
-      - "check-success~=nix-build"
+      - author=dependabot[bot]
+      - "check-success*=ci/hydra:nix-config:*:aarch64-linux.nixos-trinity"
+      - "check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-morpheus"
+      - "check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-neo"
+      - "check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-oracle"
+      - "check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks"
     actions:
       merge:
         method: merge
