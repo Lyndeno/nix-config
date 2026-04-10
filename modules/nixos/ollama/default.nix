@@ -6,7 +6,7 @@
   services = {
     ollama = {
       enable = true;
-      package = pkgs.ollama-rocm;
+      package = pkgs.ollama-vulkan;
       rocmOverrideGfx = "10.3.0";
       host = "0.0.0.0";
     };
