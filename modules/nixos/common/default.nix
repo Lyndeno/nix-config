@@ -17,13 +17,6 @@
   ];
   networking = {
     useDHCP = false;
-    firewall = {
-      interfaces = {
-        "${config.services.tailscale.interfaceName}" = {
-          allowedTCPPorts = config.services.openssh.ports;
-        };
-      };
-    };
   };
 
   nix = {
@@ -96,7 +89,6 @@
         PasswordAuthentication = false;
         PermitRootLogin = "no";
       };
-      openFirewall = false;
     };
     syncthing = {
       enable = true;
