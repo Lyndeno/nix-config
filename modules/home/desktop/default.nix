@@ -38,6 +38,7 @@
         enable = true;
       };
       firefox.profileNames = ["lsanche"];
+      librewolf.profileNames = ["lsanche"];
       vscode.profileNames = ["default"];
       waybar = {
         font = "sansSerif";
@@ -83,6 +84,7 @@
     enable = true;
     userDirs = {
       enable = true;
+      setSessionVariables = false;
     };
     configFile."autostart/gnome-keyring-ssh.desktop" = {
       text = ''
