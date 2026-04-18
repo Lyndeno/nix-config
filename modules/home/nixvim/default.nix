@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   config,
+  perSystem,
   ...
 }: let
   cmp-notmuch = pkgs.vimUtils.buildVimPlugin {
@@ -323,7 +324,10 @@ in {
         enable = true;
       };
       guess-indent.enable = true;
-      hmts.enable = true;
+      hmts = {
+        enable = true;
+        package = perSystem.self.hmts;
+      };
       illuminate.enable = true;
       lensline.enable = true;
       neogit.enable = true;
