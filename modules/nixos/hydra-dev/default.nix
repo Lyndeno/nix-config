@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    inputs.hydra.nixosModules.hydra
     inputs.agenix.nixosModules.default
   ];
 
@@ -44,7 +43,7 @@
   };
 
   services = {
-    hydra-dev = {
+    hydra = {
       enable = true;
       hydraURL = "https://hydra.${config.networking.domain}";
       notificationSender = "hydra@${config.networking.hostName}";
@@ -63,7 +62,7 @@
     };
 
     localProxy.subDomains.hydra = {
-      inherit (config.services.hydra-dev) port;
+      inherit (config.services.hydra) port;
       extraConfig.extraConfig = ''
         proxy_set_header Host $host;
         proxy_redirect http:// https://;

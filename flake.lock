@@ -407,27 +407,6 @@
         "type": "github"
       }
     },
-    "hydra": {
-      "inputs": {
-        "nix": "nix",
-        "nix-eval-jobs": "nix-eval-jobs",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1771713002,
-        "narHash": "sha256-ZwzZeI3XUhVoTCOpIohxCqcqWU4t4Yv84s1XGJ5+FPM=",
-        "owner": "Lyndeno",
-        "repo": "hydra",
-        "rev": "1a276aff2aa1db7a8e11862bcb781002bfeb8564",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Lyndeno",
-        "ref": "githubstatusflake",
-        "repo": "hydra",
-        "type": "github"
-      }
-    },
     "ironfetch": {
       "inputs": {
         "crane": "crane",
@@ -498,40 +477,6 @@
       "original": {
         "owner": "Lyndeno",
         "repo": "mujmap",
-        "type": "github"
-      }
-    },
-    "nix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1768160797,
-        "narHash": "sha256-TVKn52SoKq8mMyW/x3NPPskGVurFdnGGV0DGvnL0gak=",
-        "owner": "NixOS",
-        "repo": "nix",
-        "rev": "fb562abba93fb15f66a71a9fc1d94bb1ea21a2d4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "2.33-maintenance",
-        "repo": "nix",
-        "type": "github"
-      }
-    },
-    "nix-eval-jobs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767025318,
-        "narHash": "sha256-i68miKHGdueWggcDAF+Kca9g6S3ipkW629XbMpQYfn0=",
-        "owner": "nix-community",
-        "repo": "nix-eval-jobs",
-        "rev": "79dd7adbb5f75b08fb4b9bddd712ebc52baa46bc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "v2.33.0",
-        "repo": "nix-eval-jobs",
         "type": "github"
       }
     },
@@ -609,22 +554,6 @@
       }
     },
     "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1768332487,
-        "narHash": "sha256-Q0bSMhDIhb/S7r+XRyuPy58kEXa0rmpw5j99ubJzovg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "6b0609442afc4ce51ff1466e7db555c2e2fc28d4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-25.11-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
       "locked": {
         "lastModified": 1775710090,
         "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
@@ -709,14 +638,13 @@
         "disko": "disko",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
-        "hydra": "hydra",
         "ironfetch": "ironfetch",
         "lanzaboote": "lanzaboote",
         "mujmap": "mujmap",
         "nix-index-database": "nix-index-database",
         "nixarr": "nixarr",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
         "ppd": "ppd",
         "rpi4-uefi": "rpi4-uefi",
