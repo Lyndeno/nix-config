@@ -30,7 +30,7 @@
       ollama
       home-assistant
       plex
-      hydra-dev
+      hydra
       lubelogger
       asus-desktop
       zfs
