@@ -36,6 +36,15 @@
       zfs
     ]);
 
+  age = {
+    secrets = {
+      fastmail-jmap = {
+        file = ../../secrets/fastmail_jmap.age;
+        owner = "lsanche";
+      };
+    };
+  };
+
   time.timeZone = "America/Edmonton";
   nixpkgs.hostPlatform = "x86_64-linux";
 

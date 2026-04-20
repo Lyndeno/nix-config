@@ -2,16 +2,8 @@
   lib,
   pkgs,
   perSystem,
-  inputs,
   ...
 }: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
-  age.secrets.fastmail-jmap = {
-    file = ../../../secrets/fastmail_jmap.age;
-    owner = "lsanche";
-  };
   boot = {
     plymouth.enable = true;
 
