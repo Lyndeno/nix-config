@@ -1,14 +1,18 @@
 {
-  pkgs,
+  flake,
   inputs,
+  ...
+}: {
+  pkgs,
   config,
-  perSystem,
   ...
 }: let
   cmp-notmuch = pkgs.vimUtils.buildVimPlugin {
     name = "cmp-notmuch";
     src = inputs.cmp-notmuch;
   };
+
+  inherit (pkgs.stdenv.hostPlatform) system;
 in {
   imports = [
     inputs.nixvim.homeModules.nixvim
@@ -326,7 +330,7 @@ in {
       guess-indent.enable = true;
       hmts = {
         enable = true;
-        package = perSystem.self.hmts;
+        package = flake.packages.${system}.hmts;
       };
       illuminate.enable = true;
       lensline.enable = true;

@@ -1,13 +1,10 @@
-{
-  flake,
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   lib,
   pkgs,
-  system,
   ...
-}: {
+}: let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in {
   boot = {
     plymouth.enable = true;
 
@@ -32,10 +29,10 @@
     systemPackages = with pkgs; [
       #kdiskmark
       #rustdesk-flutter
-      flake.packages.${system}.ppd.default
+      inputs.ppd.packages.${system}.default
       man-pages
       nh
-      flake.packages.${system}.ppd.default
+      inputs.ironfetch.packages.${system}.default
       ncdu
       smartmontools
     ];
