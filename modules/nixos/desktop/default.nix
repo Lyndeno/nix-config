@@ -1,7 +1,11 @@
 {
+  flake,
+  inputs,
+  ...
+}: {
   lib,
   pkgs,
-  perSystem,
+  system,
   ...
 }: {
   boot = {
@@ -28,10 +32,10 @@
     systemPackages = with pkgs; [
       #kdiskmark
       #rustdesk-flutter
-      perSystem.ppd.default
+      flake.packages.${system}.ppd.default
       man-pages
       nh
-      perSystem.ironfetch.default
+      flake.packages.${system}.ppd.default
       ncdu
       smartmontools
     ];
@@ -101,11 +105,11 @@
       cascadia = pkgs.nerd-fonts.caskaydia-cove;
     in {
       serif = {
-        package = perSystem.apple-fonts.sf-pro-nerd;
+        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
       sansSerif = {
-        package = perSystem.apple-fonts.sf-pro-nerd;
+        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
       monospace = {
