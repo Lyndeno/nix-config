@@ -614,11 +614,11 @@
         "utils": "utils_3"
       },
       "locked": {
-        "lastModified": 1768820450,
-        "narHash": "sha256-XqTIycRVth0a4y51+rJac8wR71tN/f1uELTrJ3+O4lA=",
+        "lastModified": 1776599582,
+        "narHash": "sha256-i9yKqhTOfWyyagN8PYz2xT/sB/8BvZ7glwZpl7n4DZk=",
         "owner": "Lyndeno",
         "repo": "ppd-rs",
-        "rev": "27466a84ec7528ebefab912cb5064cc39a04578c",
+        "rev": "3c67cd9c6f23a7543a5a259b8f2618f99f8e8606",
         "type": "github"
       },
       "original": {
