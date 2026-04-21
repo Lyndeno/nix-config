@@ -146,6 +146,7 @@ in {
         just.enable = true;
         jsonls.enable = true;
         perlnavigator.enable = true;
+        tinymist.enable = true;
       };
     };
     extraPlugins = [
