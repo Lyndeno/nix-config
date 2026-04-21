@@ -3,41 +3,10 @@ pull_request_rules:
     merge:
       method: merge
   conditions:
-  - author=Lyndeno
-  - title=Update flake.lock
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.devshell-default
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.git-hooks
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.nixos-trinity
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-battery-status
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-formatter
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-formatter-version
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-hmts
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-mergify
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-sleep-on-battery
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-email
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.devshell-default
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-morpheus
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-neo
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-oracle
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-battery-status
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-battery-status-no-battery
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-battery-status-plugged-in
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-battery-status-unplugged
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-formatter
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-formatter-version
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-hmts
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-mergify
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-sleep-on-battery
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-email
-  name: Automatically merge successful flake updates
-- actions:
-    merge:
-      method: merge
-  conditions:
   - author=dependabot[bot]
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.devshell-default
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.git-hooks
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.mergify
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.nixos-trinity
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-battery-status
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-formatter
@@ -48,6 +17,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-email
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.devshell-default
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.mergify
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-morpheus
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-neo
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-oracle
