@@ -191,6 +191,7 @@ in {
             format-discharging-warning = "{icon} {capacity}%";
             format-discharging-critical = "󰂃 {capacity}%";
             format-charging = "󰚥 {capacity}%";
+            format-plugged = "󰚥";
             format-full = "";
             format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹"];
             tooltip-format = "Charge: {capacity}%\n{timeTo}";
