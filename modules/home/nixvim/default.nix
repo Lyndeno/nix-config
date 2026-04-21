@@ -46,6 +46,8 @@ in {
         '';
         pattern = [
           "*.md"
+          "*.typ"
+          "*.txt"
         ];
         event = [
           "BufEnter"
