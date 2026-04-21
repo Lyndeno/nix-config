@@ -1,8 +1,4 @@
-{
-  pkgs,
-  flake,
-  ...
-}: {
+{flake, ...}: {pkgs, ...}: {
   imports = with flake.homeModules; [
     spotify
   ];

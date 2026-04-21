@@ -1,8 +1,4 @@
-{
-  config,
-  flake,
-  ...
-}: {
+{flake, ...}: {config, ...}: {
   imports = [
     flake.homeModules.wlroots
   ];

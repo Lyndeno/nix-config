@@ -1,17 +1,10 @@
-{
+{inputs, ...}: {
   lib,
   pkgs,
-  perSystem,
-  inputs,
   ...
-}: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
-  age.secrets.fastmail-jmap = {
-    file = ../../../secrets/fastmail_jmap.age;
-    owner = "lsanche";
-  };
+}: let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in {
   boot = {
     plymouth.enable = true;
 
@@ -36,10 +29,10 @@
     systemPackages = with pkgs; [
       #kdiskmark
       #rustdesk-flutter
-      perSystem.ppd.default
+      inputs.ppd.packages.${system}.default
       man-pages
       nh
-      perSystem.ironfetch.default
+      inputs.ironfetch.packages.${system}.default
       ncdu
       smartmontools
     ];
@@ -109,11 +102,11 @@
       cascadia = pkgs.nerd-fonts.caskaydia-cove;
     in {
       serif = {
-        package = perSystem.apple-fonts.sf-pro-nerd;
+        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
       sansSerif = {
-        package = perSystem.apple-fonts.sf-pro-nerd;
+        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
       monospace = {

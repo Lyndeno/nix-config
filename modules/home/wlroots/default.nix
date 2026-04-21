@@ -1,12 +1,12 @@
-{
+{flake, ...}: {
   pkgs,
   osConfig,
   config,
-  flake,
-  perSystem,
   lib,
   ...
-}: {
+}: let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in {
   imports = [
     flake.homeModules.alacritty
   ];
@@ -87,7 +87,7 @@
         mainBar = {
           height = 36;
           modules-left = ["niri/workspaces" "cava"];
-          modules-right = ["custom/ts" "systemd-failed-units" "custom/email" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = ["custom/ts" "systemd-failed-units" (lib.mkIf config.programs.notmuch.enable "custom/email") (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/fan") "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -129,8 +129,8 @@
             hide-empty-text = true;
           };
 
-          "custom/email" = {
-            exec = lib.getExe perSystem.self.wb-email;
+          "custom/email" = lib.mkIf config.programs.notmuch.enable {
+            exec = lib.getExe flake.packages.${system}.wb-email;
             interval = 5;
             format = "{}";
             on-click = "${lib.getExe' pkgs.systemd "systemctl"} --user start refresh-email.service";
@@ -334,7 +334,7 @@
         }
         {
           timeout = 900;
-          command = lib.getExe perSystem.self.sleep-on-battery;
+          command = lib.getExe flake.packages.${system}.sleep-on-battery;
         }
       ];
     };
