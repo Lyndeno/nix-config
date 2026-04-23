@@ -4,6 +4,8 @@
     fuzzel
     xwayland-satellite
     wdisplays
+    bluetui
+    wiremix
   ];
 
   security.soteria.enable = true;
