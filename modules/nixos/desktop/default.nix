@@ -5,6 +5,12 @@
 }: let
   inherit (pkgs.stdenv.hostPlatform) system;
 in {
+  imports = [
+    ./audio.nix
+    ./network.nix
+    ./stylix.nix
+  ];
+
   boot = {
     plymouth.enable = true;
 
@@ -66,7 +72,6 @@ in {
     #};
   };
   security = {
-    rtkit.enable = true; # Realtime pipewire
     pam.services = {
       login.u2fAuth = false;
       gdm.u2fAuth = false;
@@ -75,53 +80,12 @@ in {
 
   services = {
     fwupd.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
     power-profiles-daemon.enable = true;
-    pulseaudio.enable = false;
     resolved.enable = true;
     tailscale.useRoutingFeatures = lib.mkDefault "client";
     printing = {
       enable = true;
       #drivers = [ pkgs.epson-escpr2 ];
-    };
-  };
-
-  stylix = {
-    polarity = "dark";
-    cursor = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-      size = 24;
-    };
-    opacity = {
-      terminal = 0.85;
-      popups = 0.85;
-      desktop = 0.85;
-    };
-    fonts = let
-      cascadia = pkgs.nerd-fonts.caskaydia-cove;
-    in {
-      serif = {
-        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
-        name = "SFProDisplay Nerd Font";
-      };
-      sansSerif = {
-        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
-        name = "SFProDisplay Nerd Font";
-      };
-      monospace = {
-        package = cascadia;
-        name = "CaskaydiaCove Nerd Font Mono";
-      };
-      sizes = {
-        desktop = 11;
-        popups = 12;
-      };
     };
   };
 
@@ -140,45 +104,6 @@ in {
       rebootWindow = {
         lower = "01:00";
         upper = "05:00";
-      };
-    };
-  };
-
-  systemd = {
-    network = {
-      wait-online.enable = false;
-      networks = {
-        "05-virt" = {
-          matchConfig.Name = "vnet*";
-          linkConfig.Unmanaged = "yes";
-        };
-        "10-ethernet" = {
-          matchConfig.Type = "ether";
-          DHCP = "yes";
-          dhcpV4Config = {
-            RouteMetric = 100;
-          };
-          ipv6AcceptRAConfig = {
-            RouteMetric = 100;
-          };
-          routes = [
-            {
-              Gateway = "_dhcp4";
-              InitialCongestionWindow = 30;
-              InitialAdvertisedReceiveWindow = 30;
-            }
-          ];
-        };
-        "20-wifi" = {
-          matchConfig.Type = "wlan";
-          DHCP = "yes";
-          dhcpV4Config = {
-            RouteMetric = 600;
-          };
-          ipv6AcceptRAConfig = {
-            RouteMetric = 600;
-          };
-        };
       };
     };
   };

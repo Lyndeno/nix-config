@@ -1,4 +1,11 @@
-{config, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
+  imports = [
+    inputs.self.nixosModules.msmtp
+  ];
   systemd = {
     settings.Manager = {
       RuntimeWatchdogSec = "60s";
