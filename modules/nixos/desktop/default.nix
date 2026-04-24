@@ -143,6 +143,10 @@ in {
     network = {
       wait-online.enable = false;
       networks = {
+        "05-virt" = {
+          matchConfig.Name = "vnet*";
+          linkConfig.Unmanaged = "yes";
+        };
         "10-ethernet" = {
           matchConfig.Type = "ether";
           DHCP = "yes";
