@@ -98,6 +98,11 @@ in {
       name = "Adwaita";
       size = 24;
     };
+    opacity = {
+      terminal = 0.8;
+      popups = 0.8;
+      desktop = 0.8;
+    };
     fonts = let
       cascadia = pkgs.nerd-fonts.caskaydia-cove;
     in {
