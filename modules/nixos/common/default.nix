@@ -68,7 +68,6 @@
   stylix = {
     enable = true;
     image = "${inputs.wallpapers}/sedona.jpg";
-    overlays.enable = false;
     base16Scheme = "${inputs.base16-schemes}/base16/gruvbox-dark-hard.yaml";
     targets = {
       plymouth.enable = false;
