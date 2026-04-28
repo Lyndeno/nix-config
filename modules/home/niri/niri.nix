@@ -400,6 +400,25 @@ with config.lib.stylix.colors.withHashtag;
     }
 
     layer-rule {
+      match namespace="^waybar$"
+
+      background-effect {
+        blur true
+        xray false
+      }
+
+      popups {
+        geometry-corner-radius 6
+        opacity 0.85
+
+        background-effect {
+          blur true
+          xray false
+        }
+      }
+    }
+
+    layer-rule {
       match layer="top"
       match layer="overlay"
 
