@@ -29,6 +29,12 @@ in {
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    highlightOverride = {
+      NormalNC = {
+        bg = "none";
+        ctermbg = "none";
+      };
+    };
     nixpkgs.config.allowUnfree = true;
     performance = {
       byteCompileLua = {
