@@ -18,6 +18,12 @@ in {
     inputs.nixvim.homeModules.nixvim
   ];
 
+  stylix.targets.nixvim.transparentBackground = {
+    main = true;
+    signColumn = true;
+    numberLine = true;
+  };
+
   programs.nixvim = {
     enable = true;
     viAlias = true;

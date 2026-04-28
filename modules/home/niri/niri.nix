@@ -358,6 +358,24 @@ with config.lib.stylix.colors.withHashtag;
         default-window-height { proportion 0.8; }
         // 80% of the screen wide.
         default-column-width { proportion 0.8; }
+
+        draw-border-with-background false
+
+        background-effect {
+          blur true
+          xray false
+        }
+    }
+
+    window-rule {
+      match app-id="^Alacritty$"
+
+      draw-border-with-background false
+
+      background-effect {
+        blur true
+        xray false
+      }
     }
 
     // Block out mako notifications from screencasts.
@@ -365,6 +383,49 @@ with config.lib.stylix.colors.withHashtag;
         match namespace="^notifications$"
 
         block-out-from "screencast"
+
+        background-effect {
+          blur true
+          xray false
+        }
+    }
+
+    layer-rule {
+        match namespace="^launcher$"
+
+        background-effect {
+          blur true
+          xray false
+        }
+    }
+
+    layer-rule {
+      match namespace="^waybar$"
+
+      background-effect {
+        blur true
+        xray false
+      }
+
+      popups {
+        geometry-corner-radius 6
+        opacity 0.85
+
+        background-effect {
+          blur true
+          xray false
+        }
+      }
+    }
+
+    layer-rule {
+      match layer="top"
+      match layer="overlay"
+
+      background-effect {
+        blur true
+        xray false
+      }
     }
 
     // Example: enable rounded corners for all windows.
