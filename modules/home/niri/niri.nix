@@ -7,6 +7,11 @@ with config.lib.stylix.colors.withHashtag;
     // Check the wiki for a full description of the configuration:
     // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
+    blur {
+      passes 4
+      offset 4
+    }
+
     // Input device configuration.
     // Find the full list of options on the wiki:
     // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
