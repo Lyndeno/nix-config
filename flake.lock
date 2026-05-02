@@ -665,6 +665,31 @@
         "type": "github"
       }
     },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "stylix",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "stylix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777739292,
+        "narHash": "sha256-o22GEbQY1dBihsQglO6qWCnm7/Slp3C3HmrhUt7cfTs=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "df9d52afb40d1a83446d70853fa696a408690623",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "ny": {
       "flake": false,
       "locked": {
@@ -879,7 +904,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nur": [],
+        "nur": "nur",
         "systems": "systems_7",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",

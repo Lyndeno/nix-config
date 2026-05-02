@@ -10,6 +10,7 @@
     profiles.lsanche = {
       id = 0;
       isDefault = true;
+      extensions.force = true;
       settings = {
         "widget.use-xdg-desktop-portal.file-picker" = 1;
       };
@@ -21,6 +22,7 @@
     profiles.lsanche = {
       id = 0;
       isDefault = true;
+      extensions.force = true;
       settings = {
         "widget.use-xdg-desktop-portal.file-picker" = 1;
       };
@@ -33,8 +35,14 @@
         useWallpaper = false;
         enable = true;
       };
-      firefox.profileNames = ["lsanche"];
-      librewolf.profileNames = ["lsanche"];
+      firefox = {
+        profileNames = ["lsanche"];
+        colorTheme.enable = true;
+      };
+      librewolf = {
+        profileNames = ["lsanche"];
+        colorTheme.enable = true;
+      };
       vscode.profileNames = ["default"];
       waybar = {
         font = "sansSerif";
