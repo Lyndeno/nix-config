@@ -20,7 +20,6 @@
       device = "/dev/vda";
     };
     initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
-    swraid.enable = false;
   };
   # Set your time zone.
   time.timeZone = "America/Edmonton";

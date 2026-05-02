@@ -72,7 +72,6 @@
 
   boot = {
     binfmt.emulatedSystems = ["aarch64-linux"];
-    swraid.enable = false;
     initrd = {
       systemd.enable = true;
       luks.devices."cryptroot" = {
