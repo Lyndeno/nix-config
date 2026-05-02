@@ -35,7 +35,6 @@
   };
 
   boot = {
-    swraid.enable = false;
     initrd = {
       systemd = {
         enable = true;

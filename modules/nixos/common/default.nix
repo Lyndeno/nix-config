@@ -9,7 +9,10 @@
     inputs.stylix.nixosModules.stylix
   ];
   i18n.defaultLocale = "en_CA.UTF-8";
-  boot.tmp.cleanOnBoot = true;
+  boot = {
+    tmp.cleanOnBoot = true;
+    swraid.enable = false;
+  };
   environment.systemPackages = with pkgs; [
     #nh
     screen
