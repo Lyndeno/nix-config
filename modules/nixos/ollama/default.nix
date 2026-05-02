@@ -9,6 +9,9 @@
       package = pkgs.ollama-vulkan;
       rocmOverrideGfx = "10.3.0";
       host = "0.0.0.0";
+      environmentVariables = {
+        OLLAMA_CONTEXT_LENGTH = "256000";
+      };
     };
 
     open-webui = {

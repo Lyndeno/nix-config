@@ -32,6 +32,32 @@
 
   programs = {
     claude-code.enable = true;
+    opencode = {
+      enable = true;
+      settings = {
+        provider = {
+          laptop = {
+            name = "Morpheus";
+            npm = "@ai-sdk/openai-compatible";
+            options = {
+              baseURL = "https://ollama.lyndeno.ca/v1";
+              apiKey = "none";
+            };
+            models = {
+              "qwen3.5:2b" = {
+                name = "qwen3.5:2b";
+                tool_call = true;
+                temperature = true;
+                limit = {
+                  context = 256000;
+                  output = 16384;
+                };
+              };
+            };
+          };
+        };
+      };
+    };
     git = {
       enable = true;
       package = pkgs.gitFull;
