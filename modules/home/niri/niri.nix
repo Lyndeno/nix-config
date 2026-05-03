@@ -341,7 +341,7 @@ with config.lib.stylix.colors.withHashtag;
     window-rule {
         match app-id=r#"^org\.keepassxc\.KeePassXC$"#
         match app-id=r#"^org\.gnome\.World\.Secrets$"#
-        match app-id=r#"1Password$"#
+        match app-id=r#"1password$"#
 
         block-out-from "screen-capture"
 
