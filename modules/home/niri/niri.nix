@@ -653,7 +653,7 @@ with config.lib.stylix.colors.withHashtag;
         Mod+Ctrl+R { reset-window-height; }
         Mod+F { maximize-window-to-edges; }
         Mod+Alt+F { maximize-column; }
-        Mod+Shift+F { fullscreen-window; }
+        Mod+Shift+F { spawn "nfsm-cli"; }
 
         // Expand the focused column to space not taken up by other fully visible columns.
         // Makes the column "fill the rest of the space".

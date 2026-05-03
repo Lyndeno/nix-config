@@ -1,4 +1,8 @@
-{flake, ...}: {
+{
+  flake,
+  inputs,
+  ...
+}: {
   config,
   pkgs,
   lib,
@@ -6,14 +10,20 @@
 }: {
   imports = [
     flake.homeModules.wlroots
+    inputs.nfsm-flake.homeModules.default
   ];
   services.hyprpaper.enable = true;
   home.file.".config/niri/config.kdl" = {
     text = import ./niri.nix {inherit config;};
   };
 
-  services.awww = {
-    enable = true;
+  services = {
+    awww = {
+      enable = true;
+    };
+    nfsm = {
+      enable = true;
+    };
   };
 
   systemd.user.services.awww-client = let
