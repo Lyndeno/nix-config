@@ -18,7 +18,6 @@
         echo "$STATUS"
       else
         echo "n/a"
-        echo "Cool test"
       fi
     '';
 
