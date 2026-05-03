@@ -9,7 +9,7 @@ with config.lib.stylix.colors.withHashtag;
 
     blur {
       passes 4
-      offset 4
+      //offset 6
     }
 
     // Input device configuration.
