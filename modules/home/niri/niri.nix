@@ -492,6 +492,11 @@ with config.lib.stylix.colors.withHashtag;
         XF86AudioNext allow-when-locked=true { spawn "bash" "-c" "playerctl next"; }
         XF86AudioPlay allow-when-locked=true { spawn "bash" "-c" "playerctl play-pause"; }
 
+        // Dynamic Casting
+        Mod+M hotkey-overlay-title="Cast Focused Window" { set-dynamic-cast-window; }
+        Mod+Comma hotkey-overlay-title="Cast Focused Monitor" { set-dynamic-cast-monitor; }
+        Mod+Period hotkey-overlay-title="Clear Dynamic Cast" { clear-dynamic-cast-target; }
+
         Mod+N { spawn "iwmenu" "--launcher" "fuzzel"; }
         Mod+B { spawn "bzmenu" "--launcher" "fuzzel"; }
         Mod+P { spawn "pwmenu" "--launcher" "fuzzel"; }
@@ -644,9 +649,9 @@ with config.lib.stylix.colors.withHashtag;
         Mod+BracketRight { consume-or-expel-window-right; }
 
         // Consume one window from the right to the bottom of the focused column.
-        Mod+Comma  { consume-window-into-column; }
+        //Mod+Comma  { consume-window-into-column; }
         // Expel the bottom window from the focused column to the right.
-        Mod+Period { expel-window-from-column; }
+        //Mod+Period { expel-window-from-column; }
 
         Mod+R { switch-preset-column-width; }
         Mod+Shift+R { switch-preset-window-height; }
