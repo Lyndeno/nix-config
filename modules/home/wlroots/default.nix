@@ -87,7 +87,7 @@ in {
         mainBar = {
           height = 36;
           modules-left = ["niri/workspaces" "cava"];
-          modules-right = ["custom/ts" "systemd-failed-units" (lib.mkIf config.programs.notmuch.enable "custom/email") (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/fan") "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = ["custom/ts" "systemd-failed-units" "privacy" (lib.mkIf config.programs.notmuch.enable "custom/email") (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/fan") "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -276,6 +276,26 @@ in {
               "balanced" = "";
               "power-saver" = "";
             };
+          };
+
+          "privacy" = {
+            icon-size = 16;
+            modules = [
+              {
+                type = "screenshare";
+                icon-name = "display-projector-symbolic";
+              }
+              {
+                type = "audio-in";
+                icon-name = "microphone-sensitivity-high-symbolic";
+              }
+            ];
+            ignore = [
+              {
+                type = "audio-in";
+                name = "cava";
+              }
+            ];
           };
         };
       };
