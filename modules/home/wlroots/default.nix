@@ -87,7 +87,7 @@ in {
         mainBar = {
           height = 36;
           modules-left = ["niri/workspaces" "cava"];
-          modules-right = ["custom/ts" "systemd-failed-units" "privacy" (lib.mkIf config.programs.notmuch.enable "custom/email") (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/fan") "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = ["custom/ts" "systemd-failed-units" "privacy" (lib.mkIf config.programs.notmuch.enable "custom/email") "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
