@@ -365,6 +365,10 @@ with config.lib.stylix.colors.withHashtag;
         default-column-width { proportion 0.8; }
 
         draw-border-with-background false
+
+        background-effect {
+          blur true
+        }
     }
 
     window-rule {
