@@ -365,11 +365,14 @@ with config.lib.stylix.colors.withHashtag;
         default-column-width { proportion 0.8; }
 
         draw-border-with-background false
+    }
 
-        background-effect {
-          blur true
-          xray false
-        }
+    window-rule {
+      match is-floating=true
+
+      background-effect {
+        xray false
+      }
     }
 
     window-rule {
@@ -379,7 +382,6 @@ with config.lib.stylix.colors.withHashtag;
 
       background-effect {
         blur true
-        xray false
       }
     }
 
@@ -415,7 +417,6 @@ with config.lib.stylix.colors.withHashtag;
 
       background-effect {
         blur true
-        xray false
       }
 
       popups {
