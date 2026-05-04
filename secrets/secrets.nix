@@ -14,6 +14,7 @@ in {
   "fastmail_jmap.age".publicKeys = allUsers ++ allSystems;
   "attic_auth.age".publicKeys = [lsanche neo morpheus];
   "vpn.age".publicKeys = [lsanche neo morpheus];
+  "builder.age".publicKeys = [lsanche neo morpheus];
 
   "morpheus/pass_borgbase.age".publicKeys = [lsanche morpheus];
   "morpheus/webdav.age".publicKeys = [lsanche morpheus];

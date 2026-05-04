@@ -55,6 +55,15 @@
     hostId = "a5d4421d";
   };
 
+  users.users.builder = {
+    isSystemUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+/C/kSJUTqvnRXdq86551K1k1x1YG57Oc68b9nDsED"
+    ];
+  };
+
+  nix.settings.trusted-users = ["builder"];
+
   zramSwap.enable = true;
 
   system.stateVersion = "23.05";
