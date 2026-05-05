@@ -82,7 +82,7 @@ in {
         mainBar = {
           height = 36;
           modules-left = ["niri/workspaces" "cava"];
-          modules-right = ["custom/ts" "systemd-failed-units" "privacy" (lib.mkIf config.programs.notmuch.enable "custom/email") "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") "systemd-failed-units" "privacy" (lib.mkIf config.programs.notmuch.enable "custom/email") "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -115,7 +115,7 @@ in {
             on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type temp -e";
           };
 
-          "custom/ts" = {
+          "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
             exec = "${lib.getExe pkgs.tailscale} status --peers --json | ${lib.getExe pkgs.jq} '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' | tr -d '\"'";
             interval = 3;
             format = "󰲐 {}";
