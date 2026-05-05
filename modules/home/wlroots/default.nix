@@ -39,7 +39,6 @@ in {
   programs = {
     waybar = let
       inherit (osConfig.networking) hostName;
-      fanQuery = "'[to_entries[] | {controller: .key} as $entry | .value | to_entries[] | select(.key | test(\"(?i)fan\")) as $sensor_type | .value | to_entries[] | select(.key | test(\"_input$\")) | {controller: $entry.controller, sensor: $sensor_type.key, name: (.key | gsub(\"_input$\"; \"\")), value: .value}] | ([.[].value] | map(select(. > 0))) as $nonzero | if ($nonzero | length) > 0 then {text: \"󰈐 \\(($nonzero | add / length) | floor)\", tooltip: ([.[] | \"\\(.controller) \\(.sensor) \\(.name): \\(.value | floor) RPM\"] | join(\"\\n\"))} else empty end'";
 
       sensitivity =
         if hostName == "neo"
@@ -103,11 +102,7 @@ in {
           };
 
           "custom/fan" = {
-            exec =
-              # bash
-              ''
-                ${lib.getExe pkgs.lm_sensors} -j | ${lib.getExe pkgs.jq} --unbuffered -c ${fanQuery}
-              '';
+            exec = lib.getExe flake.packages.${system}.wb-fan;
             interval = 3;
             format = "{}";
             return-type = "json";
