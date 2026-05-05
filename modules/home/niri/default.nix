@@ -6,16 +6,29 @@
   config,
   pkgs,
   lib,
+  osConfig,
   ...
-}: {
+}: let
+  niriConfig = pkgs.writeTextFile {
+    name = "niri-config";
+    text = import ./niri.nix {inherit config;};
+  };
+in {
   imports = [
     flake.homeModules.wlroots
     inputs.nfsm-flake.homeModules.default
   ];
   services.hyprpaper.enable = true;
   home.file.".config/niri/config.kdl" = {
-    text = import ./niri.nix {inherit config;};
+    source = niriConfig;
   };
+
+  home.checks = [
+    (pkgs.runCommand "niri-validate" {} ''
+      ${lib.getExe osConfig.programs.niri.package} validate -c ${niriConfig}
+      touch $out
+    '')
+  ];
 
   services = {
     awww = {
