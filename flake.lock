@@ -174,11 +174,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1777149905,
-        "narHash": "sha256-WMC5ktOHtCyJL/jtlf46P+I4Vhw938+oLlSpM8gwQwU=",
+        "lastModified": 1777830388,
+        "narHash": "sha256-2uoQAqUk2H0ijQtGiWAyNeQYGYc6yfAcRRLlJAz4Gp8=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "60c829383710f7e26454e6677c4d3adbc56dd3b8",
+        "rev": "d459c1350e96ce1a7e3859c513ef5e9869d67d6f",
         "type": "github"
       },
       "original": {
@@ -439,11 +439,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1777260263,
-        "narHash": "sha256-HuTVN/XeRuZedyC3o+dhpJRvD7/TswbKciz53D0xoSU=",
+        "lastModified": 1777833098,
+        "narHash": "sha256-whu6S1dFKHwN0Et6JxFtVPIgu9LHAyA43u1VF6VdRMI=",
         "owner": "Lyndeno",
         "repo": "ironfetch",
-        "rev": "af270c3def46d85de2bb355a01f04bce976013c6",
+        "rev": "11b17e931802d9d75feaa8540878586d556a5442",
         "type": "github"
       },
       "original": {
