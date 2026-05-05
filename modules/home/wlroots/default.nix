@@ -39,12 +39,7 @@ in {
   programs = {
     waybar = let
       inherit (osConfig.networking) hostName;
-      fanQuery =
-        if hostName == "neo"
-        then "'to_entries[] | select(.key|startswith(\"dell\"))| .\"value\".\"fan1\".\"fan1_input\" | floor'"
-        else if hostName == "morpheus"
-        then "'.\"nct6798-isa-0290\".\"fan1\".\"fan1_input\" | floor'"
-        else "";
+      fanQuery = "'[to_entries[] | {controller: .key} as $entry | .value | to_entries[] | select(.key | test(\"(?i)fan\")) as $sensor_type | .value | to_entries[] | select(.key | test(\"_input$\")) | {controller: $entry.controller, sensor: $sensor_type.key, name: (.key | gsub(\"_input$\"; \"\")), value: .value}] | ([.[].value] | map(select(. > 0))) as $nonzero | if ($nonzero | length) > 0 then {text: \"󰈐 \\(($nonzero | add / length) | floor)\", tooltip: ([.[] | \"\\(.controller) \\(.sensor) \\(.name): \\(.value | floor) RPM\"] | join(\"\\n\"))} else empty end'";
 
       sensitivity =
         if hostName == "neo"
@@ -111,13 +106,11 @@ in {
             exec =
               # bash
               ''
-                rpm="$(${lib.getExe pkgs.lm_sensors} -j | ${lib.getExe pkgs.jq} ${fanQuery})"
-                if [[ $rpm != "0" ]]; then
-                  echo $rpm
-                fi
+                ${lib.getExe pkgs.lm_sensors} -j | ${lib.getExe pkgs.jq} --unbuffered -c ${fanQuery}
               '';
             interval = 3;
-            format = "󰈐 {}";
+            format = "{}";
+            return-type = "json";
             hide-empty-text = true;
             on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type temp -e";
           };
