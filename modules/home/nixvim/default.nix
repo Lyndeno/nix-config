@@ -29,6 +29,7 @@ in {
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    highlight.LspInlayHint.link = "Comment";
     highlightOverride = {
       NormalNC = {
         bg = "none";
