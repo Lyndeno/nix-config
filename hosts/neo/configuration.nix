@@ -36,18 +36,22 @@
     };
   };
 
-  nix.buildMachines = [
-    {
-      hostName = "ssh-ng";
-      protocol = "morpheus";
-      systems = ["x86_64-linux" "aarch64-linux"];
-      supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "gccarch-znver3" "gccarch-skylake"];
-      maxJobs = 32;
-      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtKd29tOXdrY2N0MUVjQmlMZ2EyMmU0bEplUTJBaHpOeUNDR2dqcmVVZC8gcm9vdEBtb3JwaGV1cwo=";
-      sshUser = "builder";
-      sshKey = config.age.secrets.builder.path;
-    }
-  ];
+  nix = {
+    buildMachines = [
+      {
+        hostName = "morpheus";
+        protocol = "ssh-ng";
+        systems = ["x86_64-linux" "aarch64-linux"];
+        supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "gccarch-znver3" "gccarch-skylake"];
+        maxJobs = 32;
+        speedFactor = 4;
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtKd29tOXdrY2N0MUVjQmlMZ2EyMmU0bEplUTJBaHpOeUNDR2dqcmVVZC8gcm9vdEBtb3JwaGV1cwo=";
+        sshUser = "builder";
+        sshKey = config.age.secrets.builder.path;
+      }
+    ];
+    settings.builders-use-substitutes = true;
+  };
 
   boot = {
     initrd = {
