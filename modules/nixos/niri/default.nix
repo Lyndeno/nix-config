@@ -1,4 +1,11 @@
-{inputs, ...}: {pkgs, ...}: {
+{inputs, ...}: {
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [
+    inputs.niri-autoselect-portal.nixosModules.default
+  ];
   programs.niri = {
     enable = true;
     package = inputs.niri-flake.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
@@ -23,5 +30,9 @@
       localsearch.enable = true;
     };
     upower.enable = true;
+    niri-autoselect-portal.enable = true;
   };
+
+  # Override what nixpkgs does
+  xdg.portal.config.niri.default = lib.mkForce ["gtk" "gnome"];
 }

@@ -3,7 +3,10 @@
     enable = true;
     settings = {
       window.hide_decoration = true;
-      tabs.show = "multiple";
+      tabs = {
+        show = "switching";
+        position = "left";
+      };
     };
   };
 }

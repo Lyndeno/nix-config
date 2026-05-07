@@ -141,5 +141,10 @@
       url = "github:gvolpe/nfsm";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri-autoselect-portal = {
+      url = "git+https://codeberg.org/debugloop/niri-autoselect-portal.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

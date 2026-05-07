@@ -1,6 +1,7 @@
 {flake, ...}: {pkgs, ...}: {
   imports = with flake.homeModules; [
     spotify
+    qutebrowser
   ];
 
   manual.html.enable = true;
