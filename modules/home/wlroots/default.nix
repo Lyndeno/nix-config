@@ -52,7 +52,6 @@ in {
     in {
       enable = true;
       systemd.enable = true;
-      package = pkgs.waybar.override {withMediaPlayer = true;};
       style =
         # css
         ''
@@ -67,9 +66,8 @@ in {
           }
           #privacy {
             padding: 0 5px;
-          }
-          #custom-media {
-            padding: 0 5px;
+            background-color: @base08;
+            border-radius: 10px;
           }
           #systemd-failed-units {
             padding: 0 5px;
@@ -88,7 +86,7 @@ in {
         mainBar = {
           height = 36;
           modules-left = ["niri/workspaces" "cava"];
-          modules-center = ["custom/media"];
+          modules-center = ["mpris"];
           modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") "systemd-failed-units" "privacy" (lib.mkIf config.programs.notmuch.enable "custom/email") "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
@@ -294,18 +292,21 @@ in {
             ];
           };
 
-          "custom/media" = {
-            exec = "${config.programs.waybar.package}/bin/waybar-mediaplayer.py";
-            format = "{icon} {text}";
-            return-type = "json";
-            max-length = 60;
-            format-icons = {
+          "mpris" = {
+            format = "{player_icon} {dynamic}";
+            format-paused = "{status_icon} <i>{dynamic}</i>";
+            player-icons = {
               "spotify" = "󰓇";
               "default" = "";
               "firefox" = "󰈹";
             };
-            escape = true;
-            on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
+            dynamic-order = [
+              "artist"
+              "title"
+            ];
+            status-icons = {
+              paused = "󰏦";
+            };
           };
         };
       };
