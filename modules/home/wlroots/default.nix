@@ -13,7 +13,16 @@ in {
   programs = {
     fuzzel.enable = true;
     imv.enable = true;
-    swaylock.enable = true;
+    swaylock = let
+      old = config.stylix.image;
+
+      blurred = pkgs.runCommand "blurred-wallpaper" {} ''
+        ${pkgs.imagemagick}/bin/magick ${old} -blur 0x50 -modulate 40 $out
+      '';
+    in {
+      enable = true;
+      settings.image = blurred;
+    };
     zathura.enable = true;
   };
 
