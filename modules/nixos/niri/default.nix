@@ -34,5 +34,5 @@
   };
 
   # Override what nixpkgs does
-  xdg.portal.config.niri.default = lib.mkForce ["gtk" "gnome"];
+  xdg.portal.config.niri.default = lib.mkForce ["gnome" "gtk"];
 }
