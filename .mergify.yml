@@ -15,6 +15,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-mergify
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-sleep-on-battery
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-email
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-fan
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.devshell-default
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.mergify
@@ -31,4 +32,5 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-mergify
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-sleep-on-battery
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-email
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-fan
   name: Automatically merge dependabot updates
