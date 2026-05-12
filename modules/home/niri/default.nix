@@ -11,8 +11,12 @@
 }: let
   niriConfig = pkgs.writeTextFile {
     name = "niri-config";
-    text = import ./niri.nix {inherit config;};
+    text = import ./niri.nix {
+      inherit config;
+      vim-niri-nav = lib.getExe inputs.vim-niri-nav.packages.${system}.vim-niri-nav;
+    };
   };
+  inherit (pkgs.stdenv.hostPlatform) system;
 in {
   imports = [
     flake.homeModules.wlroots

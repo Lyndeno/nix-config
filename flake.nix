@@ -146,5 +146,10 @@
       url = "git+https://codeberg.org/debugloop/niri-autoselect-portal.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vim-niri-nav = {
+      url = "github:Lyndeno/vim-niri-nav-rs/feat/rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
