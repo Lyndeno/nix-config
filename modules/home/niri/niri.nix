@@ -1,4 +1,7 @@
-{config}:
+{
+  config,
+  vim-niri-nav,
+}:
 with config.lib.stylix.colors.withHashtag;
 # kdl
   ''
@@ -508,14 +511,14 @@ with config.lib.stylix.colors.withHashtag;
 
         Mod+Q { close-window; }
 
-        Mod+Left  { focus-column-left; }
-        Mod+Down  { focus-window-down; }
-        Mod+Up    { focus-window-up; }
-        Mod+Right { focus-column-right; }
-        Mod+H     { focus-column-left; }
-        Mod+J     { focus-window-down; }
-        Mod+K     { focus-window-up; }
-        Mod+L     { focus-column-right; }
+        Mod+Left  { spawn "${vim-niri-nav}" "left"; }
+        Mod+Down  { spawn "${vim-niri-nav}" "down"; }
+        Mod+Up    { spawn "${vim-niri-nav}" "up"; }
+        Mod+Right { spawn "${vim-niri-nav}" "right"; }
+        Mod+H     { spawn "${vim-niri-nav}" "left"; }
+        Mod+J     { spawn "${vim-niri-nav}" "down"; }
+        Mod+K     { spawn "${vim-niri-nav}" "up"; }
+        Mod+L     { spawn "${vim-niri-nav}" "right"; }
 
         Mod+Ctrl+Left  { move-column-left; }
         Mod+Ctrl+Down  { move-window-down; }

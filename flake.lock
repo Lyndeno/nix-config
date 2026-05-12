@@ -232,6 +232,21 @@
         "type": "github"
       }
     },
+    "crane_5": {
+      "locked": {
+        "lastModified": 1778106249,
+        "narHash": "sha256-cM/AuKy5tMhwOOQIbha8ZRRMHVfNf7cv2aljIw+qoCg=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "6d015ea29630b7ad2402841386da2cb617a470a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -332,6 +347,24 @@
           "nfsm-flake",
           "systems"
         ]
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_9"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -891,6 +924,7 @@
         "rpi4-uefi": "rpi4-uefi",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
+        "vim-niri-nav": "vim-niri-nav",
         "wallpapers": "wallpapers"
       }
     },
@@ -1186,6 +1220,21 @@
         "type": "github"
       }
     },
+    "systems_9": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "tinted-kitty": {
       "flake": false,
       "locked": {
@@ -1322,6 +1371,29 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vim-niri-nav": {
+      "inputs": {
+        "crane": "crane_5",
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778545215,
+        "narHash": "sha256-6RP/5pksz3NjJllwwjAVhOCQk3/iWvM4yCAJslm2j5M=",
+        "owner": "Lyndeno",
+        "repo": "vim-niri-nav-rs",
+        "rev": "75c256aa151fe926729b75a2e55ff5f82160ec33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lyndeno",
+        "ref": "feat/rust",
+        "repo": "vim-niri-nav-rs",
         "type": "github"
       }
     },
