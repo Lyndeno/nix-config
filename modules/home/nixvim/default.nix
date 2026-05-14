@@ -159,7 +159,7 @@ in {
         bashls.enable = true;
         gitlab_ci_ls.enable = true;
         ruff.enable = true;
-        #systemd_ls.enable = true;
+        systemd_lsp.enable = true;
         gopls.enable = true;
         neocmake.enable = true;
         just.enable = true;
