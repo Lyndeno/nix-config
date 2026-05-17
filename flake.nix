@@ -148,7 +148,7 @@
     };
 
     vim-niri-nav = {
-      url = "github:Lyndeno/vim-niri-nav-rs/feat/rust";
+      url = "github:Lyndeno/vim-niri-nav-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

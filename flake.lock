@@ -299,6 +299,22 @@
         "type": "github"
       }
     },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -444,6 +460,28 @@
         "nixpkgs": [
           "niri-autoselect-portal",
           "pre-commit-hooks",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709087332,
+        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
+    "gitignore_3": {
+      "inputs": {
+        "nixpkgs": [
+          "vim-niri-nav",
+          "pre-commit-hooks-nix",
           "nixpkgs"
         ]
       },
@@ -896,6 +934,29 @@
       "original": {
         "owner": "cachix",
         "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "pre-commit-hooks-nix": {
+      "inputs": {
+        "flake-compat": "flake-compat_2",
+        "gitignore": "gitignore_3",
+        "nixpkgs": [
+          "vim-niri-nav",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778507602,
+        "narHash": "sha256-kTwur1wV+01SdqskVMSo6JMEpg71ps3HpbFY2GsflKs=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "61ab0e80d9c7ab14c256b5b453d8b3fb0189ba0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
         "type": "github"
       }
     },
@@ -1380,19 +1441,19 @@
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "pre-commit-hooks-nix": "pre-commit-hooks-nix"
       },
       "locked": {
-        "lastModified": 1778545215,
-        "narHash": "sha256-6RP/5pksz3NjJllwwjAVhOCQk3/iWvM4yCAJslm2j5M=",
+        "lastModified": 1778992610,
+        "narHash": "sha256-uD1Zb8vnKHyqT/CUkVZvt665Ea53AqtCwawAo8CB0yE=",
         "owner": "Lyndeno",
         "repo": "vim-niri-nav-rs",
-        "rev": "75c256aa151fe926729b75a2e55ff5f82160ec33",
+        "rev": "53209e061b28273eff44bbf376429bec182adfff",
         "type": "github"
       },
       "original": {
         "owner": "Lyndeno",
-        "ref": "feat/rust",
         "repo": "vim-niri-nav-rs",
         "type": "github"
       }
