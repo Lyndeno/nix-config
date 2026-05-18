@@ -619,15 +619,16 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1767882499,
-        "narHash": "sha256-vH7ILtO2y7wesmbgzi4XiDVjiq2rvLEt4s8sW2t5IpY=",
-        "owner": "gvolpe",
+        "lastModified": 1779067425,
+        "narHash": "sha256-TtoS/R/WJ5ilwJp0eM8yH2mmuAvjkUiKKN8TRwcuDqk=",
+        "owner": "Lyndeno",
         "repo": "nfsm",
-        "rev": "c55e5e6bcb5f221f2f032fcf4ec7b06ea34af6b4",
+        "rev": "c20545b8c9881b2a73352afb94f95d9ae961f48b",
         "type": "github"
       },
       "original": {
-        "owner": "gvolpe",
+        "owner": "Lyndeno",
+        "ref": "feat/maximize-window-to-edges",
         "repo": "nfsm",
         "type": "github"
       }

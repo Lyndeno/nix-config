@@ -664,7 +664,7 @@ with config.lib.stylix.colors.withHashtag;
         Mod+R { switch-preset-column-width; }
         Mod+Shift+R { switch-preset-window-height; }
         Mod+Ctrl+R { reset-window-height; }
-        Mod+F { maximize-window-to-edges; }
+        Mod+F { spawn "nfsm-cli" "maximize"; }
         Mod+Alt+F { maximize-column; }
         Mod+Shift+F { spawn "nfsm-cli"; }
 

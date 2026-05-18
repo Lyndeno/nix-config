@@ -138,7 +138,7 @@
     };
 
     nfsm-flake = {
-      url = "github:gvolpe/nfsm";
+      url = "github:Lyndeno/nfsm/feat/maximize-window-to-edges";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
