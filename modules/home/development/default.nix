@@ -27,6 +27,8 @@
       nixpkgs-review
       caligula
       nix-fast-build
+      dix
+      git-filter-repo
     ];
   };
 
@@ -63,6 +65,7 @@
       package = pkgs.gitFull;
       settings = {
         pull.rebase = false;
+        push.autoSetupRemote = true;
       };
       ignores = [
         "result"
@@ -72,6 +75,14 @@
         ".vscode/"
         ".claude/"
       ];
+    };
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        side-by-side = true;
+        line-numbers = true;
+      };
     };
     direnv = {
       enable = true;
