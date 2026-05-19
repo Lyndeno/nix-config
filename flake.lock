@@ -619,11 +619,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1779067425,
-        "narHash": "sha256-TtoS/R/WJ5ilwJp0eM8yH2mmuAvjkUiKKN8TRwcuDqk=",
+        "lastModified": 1779069429,
+        "narHash": "sha256-RnjrNx/+TI7VpIpsAih9OD5/i2DIFzB3tt3aWHYbJvg=",
         "owner": "Lyndeno",
         "repo": "nfsm",
-        "rev": "c20545b8c9881b2a73352afb94f95d9ae961f48b",
+        "rev": "af3ffcb0608aea2e0eb05ca3464ccfec8f5a671a",
         "type": "github"
       },
       "original": {
