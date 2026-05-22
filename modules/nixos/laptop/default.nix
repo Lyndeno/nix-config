@@ -15,6 +15,10 @@
     tlp = {
       enable = true;
       pd.enable = true;
+      settings = {
+        PCIE_ASPM_ON_AC = "default";
+        PCIE_ASPM_ON_BAT = "powersave";
+      };
     };
   };
 
