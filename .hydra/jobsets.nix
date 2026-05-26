@@ -45,13 +45,7 @@
   };
 in {
   jobsets = pkgs.runCommand "spec-jobsets.json" {} ''
-    cat >$out <<EOF
-    ${builtins.toJSON desc}
-    EOF
-    # This is to get nice .jobsets build logs on Hydra
-    cat >tmp <<EOF
-    ${builtins.toJSON log}
-    EOF
-    ${pkgs.jq}/bin/jq . tmp
+    cp ${pkgs.writeText "jobsets.json" (builtins.toJSON desc)} $out
+    ${pkgs.jq}/bin/jq . ${pkgs.writeText "jobsets-log.json" (builtins.toJSON log)}
   '';
 }
