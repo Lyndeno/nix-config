@@ -95,19 +95,6 @@ in {
     openFirewall = true;
   };
 
-  system = {
-    autoUpgrade = {
-      enable = true;
-      flake = "github:Lyndeno/nix-config/master";
-      allowReboot = true;
-      dates = "03:00";
-      rebootWindow = {
-        lower = "01:00";
-        upper = "05:00";
-      };
-    };
-  };
-
   xdg.portal.enable = true;
 
   specialisation.troubleshoot = {
