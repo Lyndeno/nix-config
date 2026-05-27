@@ -1,36 +1,13 @@
 {
   pkgs,
-  flake,
   pname,
+  flake,
+  inputs,
   ...
-}: let
-  inherit (pkgs) lib;
-
+}:
+inputs.ci.lib.mkMergifyConfig {
+  inherit pkgs;
+  inherit (flake) checks;
+  name = pname;
   projectName = "nix-config";
-
-  checkConditions = lib.concatLists (
-    lib.mapAttrsToList (
-      system: checks:
-        lib.mapAttrsToList (
-          name: _: "check-success*=ci/hydra:${projectName}:*:${system}.${name}"
-        )
-        checks
-    )
-    flake.checks
-  );
-
-  mergifyConfig = {
-    pull_request_rules = [
-      {
-        name = "Automatically merge dependabot updates";
-        conditions =
-          [
-            "author=dependabot[bot]"
-          ]
-          ++ checkConditions;
-        actions.merge.method = "merge";
-      }
-    ];
-  };
-in
-  (pkgs.formats.yaml {}).generate pname mergifyConfig
+}

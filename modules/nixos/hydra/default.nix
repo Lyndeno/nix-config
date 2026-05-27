@@ -2,7 +2,9 @@
   config,
   inputs,
   ...
-}: {
+}: let
+  narCache = "/var/cache/hydra/nar-cache";
+in {
   imports = [
     inputs.agenix.nixosModules.default
   ];
@@ -42,6 +44,11 @@
     };
   };
 
+  systemd.tmpfiles.rules = [
+    "d /var/cache/hydra 0755 hydra-www hydra - -"
+    "d ${narCache} 0755 hydra-www hydra 1d -"
+  ];
+
   services = {
     hydra = {
       enable = true;
@@ -50,6 +57,9 @@
       useSubstitutes = true;
       extraConfig = ''
         Include ${config.age.secrets.hydra.path}
+
+        server_store_uri = https://cache.lyndeno.ca/main?local-nar-cache=${narCache}
+        binary_cache_public_uri = https://cache.lyndeno.ca/main
 
         <githubstatus>
           #jobs = test:pr:build
