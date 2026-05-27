@@ -1,6 +1,8 @@
 {
   nixpkgs,
   pulls,
+  owner,
+  repo,
   ...
 }: let
   pkgs = import nixpkgs {};
@@ -17,9 +19,10 @@
       emailoverride = "";
       keepnr = 1;
       type = 1;
-      flake = "github:Lyndeno/nix-config/pull/${num}/head";
+      flake = "github:${owner}/${repo}/pull/${num}/head";
     })
     prs;
+
   mkFlakeJobset = branch: schedulingshares: {
     inherit schedulingshares;
     description = "Build ${branch}";
@@ -30,7 +33,7 @@
     keepnr = 1;
     hidden = false;
     type = 1;
-    flake = "github:Lyndeno/nix-config/${branch}";
+    flake = "github:${owner}/${repo}/${branch}";
   };
 
   desc =
