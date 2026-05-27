@@ -9,7 +9,7 @@
     "nixexpr": {
       "emailresponsible": false,
       "type": "git",
-      "value": "https://github.com/Lyndeno/nix-config master"
+      "value": "https://github.com/Lyndeno/ci master"
     },
     "nixpkgs": {
       "emailresponsible": false,
@@ -39,7 +39,7 @@
   },
   "keepnr": 1,
   "nixexprinput": "nixexpr",
-  "nixexprpath": ".hydra/jobsets.nix",
+  "nixexprpath": "hydra/jobsets.nix",
   "schedulingshares": 100,
   "type": 0
 }

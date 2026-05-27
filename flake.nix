@@ -127,6 +127,12 @@
       inputs.systems.follows = "";
     };
 
+    # Local path for development; change to github:Lyndeno/ci once published.
+    ci = {
+      url = "github:Lyndeno/ci";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     rpi4-uefi = {
       url = "https://github.com/pftf/RPi4/releases/download/v1.50/RPi4_UEFI_Firmware_v1.50.zip";
       flake = false;
