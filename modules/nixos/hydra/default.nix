@@ -9,11 +9,16 @@ in {
     inputs.agenix.nixosModules.default
   ];
 
-  age.secrets.hydra = {
-    file = ../../../secrets/${config.networking.hostName}/hydra.age;
-    owner = "hydra-www";
-    group = "hydra";
-    mode = "0440";
+  age.secrets = {
+    hydra = {
+      file = ../../../secrets/${config.networking.hostName}/hydra.age;
+      owner = "hydra-www";
+      group = "hydra";
+      mode = "0440";
+    };
+    nix-tokens = {
+      file = ../../../secrets/${config.networking.hostName}/nix_tokens.age;
+    };
   };
 
   nix = {
@@ -42,6 +47,9 @@ in {
         "gccarch-skylake"
       ];
     };
+    extraOptions = ''
+      include ${config.age.secrets.nix-tokens.path};
+    '';
   };
 
   systemd.tmpfiles.rules = [
