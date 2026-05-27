@@ -138,11 +138,6 @@
       flake = false;
     };
 
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nfsm-flake = {
       url = "github:Lyndeno/nfsm/feat/maximize-window-to-edges";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -12,7 +12,7 @@
   niriConfig = pkgs.writeTextFile {
     name = "niri-config";
     text = import ./niri.nix {
-      inherit config;
+      inherit config pkgs;
       vim-niri-nav = lib.getExe inputs.vim-niri-nav.packages.${system}.vim-niri-nav;
     };
   };

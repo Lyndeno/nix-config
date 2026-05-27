@@ -8,7 +8,6 @@
   ];
   programs.niri = {
     enable = true;
-    package = inputs.niri-flake.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable;
   };
   environment.systemPackages = with pkgs; [
     fuzzel
@@ -22,7 +21,7 @@
 
   security.pam.services.swaylock.enable = true;
   services = {
-    displayManager.gdm.enable = true;
+    displayManager.cosmic-greeter.enable = true;
     gnome.gcr-ssh-agent.enable = false;
     gvfs.enable = true;
     gnome = {

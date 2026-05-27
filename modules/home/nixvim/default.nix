@@ -36,7 +36,9 @@ in {
         ctermbg = "none";
       };
     };
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs = {
+      inherit pkgs;
+    };
     performance = {
       byteCompileLua = {
         enable = true;
