@@ -15,7 +15,6 @@
     secureboot
     laptop
     hydraCache
-    attic-watch
     ./borgbackup/borgbase.nix
     ./disko.nix
   ];
