@@ -44,8 +44,8 @@
     };
     gc = {
       automatic = config.nix.enable;
-      dates = "weekly";
-      options = "--delete-older-than 60d";
+      dates = lib.mkDefault "weekly";
+      options = lib.mkDefault "--delete-older-than 60d";
     };
     registry.nixpkgs.flake = inputs.nixpkgs;
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];

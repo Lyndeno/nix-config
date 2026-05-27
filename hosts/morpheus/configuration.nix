@@ -46,6 +46,13 @@
     };
   };
 
+  nix.gc = let
+    maxFreed = 200; # GB
+  in {
+    dates = "daily";
+    options = "--delete-older-than 14d --max-freed \"$((${toString maxFreed} * 1024**3 - 1024 * $(df --output=avail /nix/store | tail -n 1)))\"";
+  };
+
   time.timeZone = "America/Edmonton";
   nixpkgs.hostPlatform = "x86_64-linux";
 
