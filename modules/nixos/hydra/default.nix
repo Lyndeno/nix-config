@@ -16,9 +16,6 @@ in {
       group = "hydra";
       mode = "0440";
     };
-    nix-tokens = {
-      file = ../../../secrets/${config.networking.hostName}/nix_tokens.age;
-    };
   };
 
   nix = {
@@ -47,9 +44,6 @@ in {
         "gccarch-skylake"
       ];
     };
-    extraOptions = ''
-      include ${config.age.secrets.nix-tokens.path};
-    '';
   };
 
   systemd.tmpfiles.rules = [
