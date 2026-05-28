@@ -115,4 +115,6 @@
   };
 
   systemd.network.networks."10-ethernet".matchConfig.Name = "enp7s0";
+
+  system.stateVersion = "23.05";
 }
