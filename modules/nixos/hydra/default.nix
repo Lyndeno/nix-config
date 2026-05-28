@@ -60,7 +60,8 @@ in {
       extraConfig = ''
         Include ${config.age.secrets.hydra.path}
 
-        server_store_uri = https://cache.lyndeno.ca/main?local-nar-cache=${narCache}
+        #Disable this until we figure out jobset race condition
+        #server_store_uri = https://cache.lyndeno.ca/main?local-nar-cache=${narCache}
         binary_cache_public_uri = https://cache.lyndeno.ca/main
 
         <githubstatus>
