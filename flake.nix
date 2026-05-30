@@ -8,8 +8,8 @@
     };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
 
@@ -33,7 +33,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "";
-        nix-github-actions.follows = "";
       };
     };
 
@@ -92,7 +91,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
