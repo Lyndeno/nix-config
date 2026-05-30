@@ -18,17 +18,17 @@
     };
   };
 
-  programs.librewolf = {
-    enable = true;
-    profiles.lsanche = {
-      id = 0;
-      isDefault = true;
-      extensions.force = true;
-      settings = {
-        "widget.use-xdg-desktop-portal.file-picker" = 1;
-      };
-    };
-  };
+  #programs.librewolf = {
+  #  enable = true;
+  #  profiles.lsanche = {
+  #    id = 0;
+  #    isDefault = true;
+  #    extensions.force = true;
+  #    settings = {
+  #      "widget.use-xdg-desktop-portal.file-picker" = 1;
+  #    };
+  #  };
+  #};
 
   stylix = {
     targets = {
@@ -63,7 +63,7 @@
 
     packages = with pkgs; [
       # Communication
-      slack
+      #slack
 
       #wally-cli # for moonlander
       wl-clipboard
@@ -76,13 +76,14 @@
       # Office
       #kicad
       #octaveFull
-      joplin-desktop
+      #joplin-desktop
 
       hunspellDicts.en_CA
 
       libreoffice
 
-      logseq
+      # logseq depends on electron-39 which is EOL and marked insecure in nixpkgs
+      #logseq
     ];
   };
   xdg = {
