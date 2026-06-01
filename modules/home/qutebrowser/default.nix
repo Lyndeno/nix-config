@@ -10,6 +10,18 @@
         position = "left";
       };
     };
+    perDomainSettings =
+      {
+        "outlook.cloud.microsoft" = {
+          content.notifications.enabled = true;
+        };
+      }
+      // (lib.genAttrs [
+          "outlook.cloud.microsoft"
+          "teams.microsoft.com"
+        ] (_: {
+          content.notifications.enabled = true;
+        }));
     keyBindings = {
       normal = {
         "<Ctrl-e>" = lib.mkMerge [
