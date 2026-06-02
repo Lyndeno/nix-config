@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: let
+{inputs, ...}: {pkgs, ...}: let
   inherit (pkgs.stdenv.hostPlatform) system;
 in {
   stylix = {
