@@ -99,12 +99,16 @@ in {
 
   specialisation.troubleshoot = {
     configuration = {
-      boot.kernelParams = [
-        "fsck.mode=force"
-        "debug"
-      ];
+      boot = {
+        kernelParams = [
+          "fsck.mode=force"
+          "debug"
+        ];
+
+        plymouth.enable = lib.mkForce false;
+        zfs.forceImportRoot = lib.mkForce true;
+      };
       environment.etc."specialisation".text = "troubleshoot";
-      boot.plymouth.enable = lib.mkForce false;
     };
   };
 }

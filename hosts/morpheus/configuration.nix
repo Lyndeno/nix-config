@@ -111,7 +111,10 @@
         allowDiscards = true;
       };
     };
-    zfs.extraPools = ["bigpool"];
+    zfs = {
+      forceImportRoot = false;
+      extraPools = ["bigpool"];
+    };
   };
 
   systemd.network.networks."10-ethernet".matchConfig.Name = "enp7s0";
