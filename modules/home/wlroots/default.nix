@@ -171,7 +171,7 @@ in {
 
               text = ''
                 curl https://wttr.in
-                read -p "Press Any Key to Continue"
+                read -r -p "Press Any Key to Continue"
               '';
             };
           in {
