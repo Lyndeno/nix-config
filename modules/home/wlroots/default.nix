@@ -164,9 +164,10 @@ in {
           "custom/weather" = {
             "format" = "{}°";
             "tooltip" = true;
-            "interval" = 3600;
-            "exec" = "${lib.getExe pkgs.wttrbar}";
+            "interval" = 600;
+            "exec" = "${lib.getExe pkgs.wttrbar} --nerd";
             "return-type" = "json";
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe pkgs.curl} https://wttr.in";
           };
 
           "cava" = {
