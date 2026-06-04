@@ -9,19 +9,26 @@
         show = "switching";
         position = "left";
       };
+      colors.webpage.darkmode.enabled = true;
+      # Temporary fix for video not working
+      qt.args = ["disable-features=AcceleratedVideoDecodeLinuxGL"];
+    };
+    searchEngines = rec {
+      ddg = "https://duckduckgo.com/?q={}";
+      g = "https://google.com/search?hl=en&q={}";
+      np = "https://search.nixos.org/packages?channel=unstable&query={}";
+      no = "https://search.nixos.org/options?channel=unstable&query={}";
+      DEFAULT = ddg;
     };
     perDomainSettings =
-      {
-        "outlook.cloud.microsoft" = {
-          content.notifications.enabled = true;
-        };
-      }
-      // (lib.genAttrs [
-          "outlook.cloud.microsoft"
-          "teams.microsoft.com"
-        ] (_: {
-          content.notifications.enabled = true;
-        }));
+      lib.genAttrs [
+        "outlook.cloud.microsoft"
+        "teams.microsoft.com"
+        "gitlab.com"
+        "discourse.nixos.org"
+      ] (_: {
+        content.notifications.enabled = true;
+      });
     keyBindings = {
       normal = {
         "<Ctrl-e>" = lib.mkMerge [
