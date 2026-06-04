@@ -162,7 +162,7 @@ in {
           };
 
           "custom/weather" = let
-            script = lib.writeShellApplication {
+            script = pkgs.writeShellApplication {
               name = "terminal-weather";
 
               runtimeInputs = [
