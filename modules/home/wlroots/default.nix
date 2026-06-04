@@ -161,13 +161,26 @@ in {
             ];
           };
 
-          "custom/weather" = {
+          "custom/weather" = let
+            script = lib.writeShellApplication {
+              name = "terminal-weather";
+
+              runtimeInputs = [
+                pkgs.curl
+              ];
+
+              text = ''
+                curl https://wttr.in
+                read -p "Press Any Key to Continue"
+              '';
+            };
+          in {
             "format" = "{}°";
             "tooltip" = true;
             "interval" = 600;
             "exec" = "${lib.getExe pkgs.wttrbar} --nerd";
             "return-type" = "json";
-            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe pkgs.curl} https://wttr.in";
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe script}";
           };
 
           "cava" = {
