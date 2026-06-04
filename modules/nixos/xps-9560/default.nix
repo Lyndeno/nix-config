@@ -40,5 +40,9 @@ in {
     kernelModules = [
       "coretemp" # sensors-detect for Intel temperature
     ];
+    extraModprobeConfig = ''
+      options iwlwifi power_save=1
+      options iwlmvm power_scheme=3
+    '';
   };
 }
