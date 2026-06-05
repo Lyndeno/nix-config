@@ -37,7 +37,6 @@ in {
     brightnessctl
     nautilus
     gnome-clocks
-    mpv
     #fractal
     bzmenu
     iwmenu
@@ -46,6 +45,28 @@ in {
   ];
 
   programs = {
+    mpv = {
+      enable = true;
+      config = {
+        osc = "no";
+        cache = "yes";
+        cache-secs = 600;
+        hwdec = "vaapi,auto-safe";
+        vo = "dmabuf-wayland";
+        watch-later-options-remove = "sub-pos";
+      };
+      scripts = with pkgs.mpvScripts; [
+        mpris
+        modernz
+        thumbfast
+      ];
+      scriptOpts = {
+        thumbfast = {
+          network = "yes";
+          hwdec = "yes";
+        };
+      };
+    };
     waybar = let
       inherit (osConfig.networking) hostName;
 

@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   programs.qutebrowser = {
     enable = true;
     settings = {
@@ -36,6 +40,7 @@
           "config-cycle statusbar.show in-mode always"
           "config-cycle scrolling.bar never overlay"
         ];
+        "<Ctrl-/>" = "hint links spawn --detach ${lib.getExe config.programs.mpv.finalPackage} {hint-url}";
       };
     };
   };
