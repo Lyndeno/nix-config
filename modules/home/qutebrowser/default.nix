@@ -20,8 +20,12 @@
     searchEngines = rec {
       ddg = "https://duckduckgo.com/?q={}";
       g = "https://google.com/search?hl=en&q={}";
+      gh = "https://github.com/search?q={}";
       np = "https://search.nixos.org/packages?channel=unstable&query={}";
       no = "https://search.nixos.org/options?channel=unstable&query={}";
+      nd = "https://discourse.nixos.org/search?q={}";
+      ng = "https://noogle.dev/q/?term={}";
+      yt = "https://www.youtube.com/results?search_query={}";
       DEFAULT = ddg;
     };
     perDomainSettings =
@@ -40,7 +44,16 @@
           "config-cycle statusbar.show in-mode always"
           "config-cycle scrolling.bar never overlay"
         ];
-        "<Ctrl-/>" = "hint links spawn --detach ${lib.getExe config.programs.mpv.finalPackage} {hint-url}";
+        "<Ctrl-d>" = "config-cycle colors.webpage.darkmode.enabled true false";
+        "<Ctrl-,>" = lib.mkMerge [
+          "hint links spawn --detach ${lib.getExe config.programs.mpv.finalPackage} {hint-url}"
+          "message-info 'Opening hinted link in MPV...'"
+        ];
+        "<Ctrl-m>" = lib.mkMerge [
+          "spawn --detach ${lib.getExe config.programs.mpv.finalPackage} {url}"
+          "jseval -q document.querySelectorAll('video,audio').forEach(m => m.pause())"
+          "message-info 'Opening current URL in MPV and pausing page media...'"
+        ];
       };
     };
   };
