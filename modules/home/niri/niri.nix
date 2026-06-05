@@ -476,6 +476,7 @@ in
           Mod+T { spawn "alacritty"; }
           Mod+D { spawn "fuzzel"; }
           Super+Alt+L { spawn "swaylock"; }
+          Mod+Slash { spawn "1password" "--quick-access"; }
 
           // You can also use a shell. Do this if you need pipes, multiple commands, etc.
           // Note: the entire command goes as a single argument in the end.
