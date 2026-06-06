@@ -85,7 +85,6 @@
       };
     };
     resolved.settings.Resolve.DNSStubListener = false;
-    syncthing.enable = lib.mkForce false;
     tailscale = {
       useRoutingFeatures = "server";
     };
