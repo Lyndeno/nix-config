@@ -5,7 +5,6 @@
 }: {
   imports = [
     inputs.nixarr.nixosModules.default
-    inputs.agenix.nixosModules.default
   ];
 
   age.secrets.vpn.file = ../../../secrets/vpn.age;
