@@ -112,18 +112,30 @@ sub postStatus {
 #     source_eval_id => integer — eval whose builds were used (may differ
 #                       from the input eval if it was cached) )
 sub computeRollup {
-    my ($eval) = @_;
+    my ($self, $eval) = @_;
 
     # Eval errors: both whole-eval and per-job are concatenated into the
     # same errormsg by hydra-eval-jobset. Treat any non-empty errormsg as
     # a failure signal that survives even if all builds pass.
-    my $errRecord = $eval->evaluationerror;
-    my $errMsg = defined $errRecord ? ($errRecord->errormsg // "") : "";
+    #
+    # We bypass $eval->evaluationerror because DBIx caches the related row
+    # at the state it had when first fetched. EvaluationErrors is created
+    # OUTSIDE the txn with errormsg="" and UPDATEd inside the txn — if the
+    # relation was first read pre-update, the cached row remains empty.
+    # Direct find() via the FK always issues a fresh SELECT.
+    my $errId = $eval->get_column('evaluationerror_id');
+    my $errMsg = "";
+    if (defined $errId) {
+        my $row = $self->{db}->resultset('EvaluationErrors')->find($errId);
+        if (defined $row) {
+            $row->discard_changes;
+            $errMsg = $row->errormsg // "";
+        }
+    }
     my $hasErr = length($errMsg) > 0;
 
     print STDERR "GithubRollupStatus: eval ", $eval->id,
-                 " evaluationerror_id=", ($eval->get_column('evaluationerror_id') // 'NULL'),
-                 " errRecord=", (defined $errRecord ? $errRecord->id : 'undef'),
+                 " evaluationerror_id=", ($errId // 'NULL'),
                  " errMsgLen=", length($errMsg),
                  " hasnewbuilds=", $eval->hasnewbuilds,
                  "\n";
@@ -220,7 +232,7 @@ sub reconcile {
             next unless $jobsetName =~ /^$conf->{jobsets}$/;
         }
 
-        my ($state, $desc, $sourceId) = computeRollup($eval);
+        my ($state, $desc, $sourceId) = computeRollup($self, $eval);
         $desc = $conf->{description} if defined $conf->{description};
 
         my $context = $conf->{context} // "ci/hydra:rollup";
@@ -248,6 +260,8 @@ sub reconcile {
 
 sub evalAdded {
     my ($self, $trace_id, $jobset_id, $eval_id) = @_;
+    print STDERR "GithubRollupStatus: HOOK evalAdded eval=", ($eval_id // 'undef'), "\n";
+    return unless defined $eval_id && $eval_id =~ /^\d+$/;
     my $eval = $self->{db}->resultset('JobsetEvals')->find($eval_id);
     return unless defined $eval;
     reconcile($self, $eval);
@@ -255,6 +269,7 @@ sub evalAdded {
 
 sub buildFinished {
     my ($self, $build, $dependents) = @_;
+    print STDERR "GithubRollupStatus: HOOK buildFinished build=", $build->id, "\n";
     my $evals = $build->jobsetevals;
     while (my $eval = $evals->next) {
         reconcile($self, $eval);
@@ -263,6 +278,7 @@ sub buildFinished {
 
 sub cachedBuildFinished {
     my ($self, $evaluation, $build) = @_;
+    print STDERR "GithubRollupStatus: HOOK cachedBuildFinished eval=", $evaluation->id, " build=", $build->id, "\n";
     reconcile($self, $evaluation);
 }
 
@@ -270,6 +286,7 @@ sub cachedBuildFinished {
 # is idempotent — GitHub silently no-ops when posting an identical status.
 sub buildStarted {
     my ($self, $build) = @_;
+    print STDERR "GithubRollupStatus: HOOK buildStarted build=", $build->id, "\n";
     my $evals = $build->jobsetevals;
     while (my $eval = $evals->next) {
         reconcile($self, $eval);
