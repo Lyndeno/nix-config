@@ -8,6 +8,7 @@
 
   programs.firefox = {
     enable = true;
+    configPath = ".mozilla/firefox";
     profiles.lsanche = {
       id = 0;
       isDefault = true;
