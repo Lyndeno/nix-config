@@ -1,12 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
-
+{config, ...}: {
   age.secrets.attic-token.file = ../../../secrets/${config.networking.hostName}/attic_token.age;
 
   services = {

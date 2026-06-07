@@ -5,8 +5,7 @@
   ...
 }: {
   imports = with flake.nixosModules; [
-    inputs.agenix.nixosModules.default
-    inputs.disko.nixosModules.disko
+    inputs.disko.nixosModules.default
     xps-9560
     common
     syncthing

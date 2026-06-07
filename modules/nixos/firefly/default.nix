@@ -1,12 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
-
+{config, ...}: {
   age.secrets.firefly-id = {
     file = ../../../secrets/${config.networking.hostName}/firefly_id.age;
     owner = config.services.firefly-iii.user;
