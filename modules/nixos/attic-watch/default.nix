@@ -1,12 +1,8 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
   age.secrets.attic-auth.file = ../../../secrets/attic_auth.age;
   systemd.services.attic-watch-store = {
     wantedBy = ["multi-user.target"];

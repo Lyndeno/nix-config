@@ -190,6 +190,7 @@ in {
   networking.wireless.iwd.enable = true;
   networking.hostName = "trinity";
   stylix.autoEnable = false;
+  # Do not change. See `man configuration.nix` — pins stateful defaults to NixOS version at install time.
   system.stateVersion = "25.11";
 
   services = {

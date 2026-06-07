@@ -5,10 +5,10 @@
   ...
 }: {
   imports = with flake.nixosModules; [
-    inputs.agenix.nixosModules.default
-    inputs.disko.nixosModules.disko
+    inputs.disko.nixosModules.default
     xps-9560
     common
+    syncthing
     virtualisation
     desktop
     niri
@@ -19,6 +19,7 @@
     ./disko.nix
   ];
 
+  # Do not change. See `man configuration.nix` — pins stateful defaults to NixOS version at install time.
   system.stateVersion = "21.11";
 
   nixpkgs.hostPlatform = "x86_64-linux";

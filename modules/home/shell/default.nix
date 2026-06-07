@@ -111,7 +111,7 @@
         };
 
         cmake = {
-          format = "[$symbol]($version)]($style) ";
+          format = "[$symbol$version]($style) ";
           style = "bold cyan";
         };
 

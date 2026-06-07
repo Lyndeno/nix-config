@@ -85,7 +85,6 @@
       };
     };
     resolved.settings.Resolve.DNSStubListener = false;
-    syncthing.enable = lib.mkForce false;
     tailscale = {
       useRoutingFeatures = "server";
     };
@@ -106,6 +105,7 @@
       allowReboot = true;
       dates = "03:00";
     };
+    # Do not change. See `man configuration.nix` — pins stateful defaults to NixOS version at install time.
     stateVersion = "21.11";
   };
   systemd = {

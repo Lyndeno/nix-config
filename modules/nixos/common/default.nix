@@ -6,6 +6,7 @@
 }: {
   imports = [
     inputs.stylix.nixosModules.stylix
+    inputs.agenix.nixosModules.default
   ];
   i18n.defaultLocale = "en_CA.UTF-8";
   boot = {
@@ -98,13 +99,6 @@
         PermitRootLogin = "no";
       };
       openFirewall = false;
-    };
-    syncthing = {
-      enable = true;
-      user = "lsanche";
-      dataDir = "/home/lsanche";
-      configDir = "/home/lsanche/.config/syncthing";
-      openDefaultPorts = true;
     };
   };
 

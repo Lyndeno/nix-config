@@ -6,7 +6,6 @@
   ...
 }: {
   imports = [
-    inputs.agenix.nixosModules.default
     inputs.self.nixosModules.msmtp
   ];
   age.secrets = {

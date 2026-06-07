@@ -1,14 +1,6 @@
-{
-  config,
-  inputs,
-  ...
-}: let
+{config, ...}: let
   narCache = "/var/cache/hydra/nar-cache";
 in {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
-
   age.secrets = {
     hydra = {
       file = ../../../secrets/${config.networking.hostName}/hydra.age;

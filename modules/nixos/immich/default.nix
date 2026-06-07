@@ -2,13 +2,8 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
-
   age.secrets.immich.file = ../../../secrets/${config.networking.hostName}/immich.age;
 
   services = {

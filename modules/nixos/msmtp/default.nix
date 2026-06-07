@@ -1,13 +1,9 @@
 {
   pkgs,
   config,
-  inputs,
   lib,
   ...
 }: {
-  imports = [
-    inputs.agenix.nixosModules.default
-  ];
   age.secrets.fastmail_pass.file = ../../../secrets/fastmail.age;
   programs.msmtp = {
     enable = true;
