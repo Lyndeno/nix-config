@@ -15,7 +15,10 @@
       };
       colors.webpage.darkmode.enabled = true;
       # Temporary fix for video not working
-      qt.args = ["disable-features=AcceleratedVideoDecodeLinuxGL"];
+      qt.args = [
+        "disable-features=AcceleratedVideoDecodeLinuxGL"
+        "enable-features=AcceleratedVideoEncoder"
+      ];
     };
     searchEngines = rec {
       ddg = "https://duckduckgo.com/?q={}";
