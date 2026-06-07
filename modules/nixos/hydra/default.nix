@@ -1,9 +1,15 @@
 {
   config,
+  pkgs,
   inputs,
   ...
 }: let
   narCache = "/var/cache/hydra/nar-cache";
+  hydraPlugins = pkgs.runCommand "hydra-plugins" {} ''
+    mkdir -p $out/Hydra/Plugin
+    cp ${./GithubRollupStatus.pm} $out/Hydra/Plugin/GithubRollupStatus.pm
+  '';
+  pluginEnv = {PERL5LIB = "${hydraPlugins}";};
 in {
   imports = [
     inputs.agenix.nixosModules.default
@@ -80,6 +86,12 @@ in {
           excludeBuildFromContext = 1
           useShortContext = 1
         </githubstatus>
+
+        <githubrollup>
+          jobsets = .*
+          context = ci/hydra:nix-config
+          inputs = src
+        </githubrollup>
       '';
     };
 
@@ -96,5 +108,15 @@ in {
         proxy_set_header Connection $connection_upgrade;
       '';
     };
+  };
+
+  # Sideload the GithubRollupStatus plugin via PERL5LIB on every Hydra service
+  # that may dispatch its hooks (notify handles evalAdded + buildFinished;
+  # queue-runner handles buildStarted; server is defensive).
+  systemd.services = {
+    hydra-server.environment = pluginEnv;
+    hydra-queue-runner.environment = pluginEnv;
+    hydra-evaluator.environment = pluginEnv;
+    hydra-notify.environment = pluginEnv;
   };
 }
