@@ -126,11 +126,14 @@ sub computeRollup {
     my $errId = $eval->get_column('evaluationerror_id');
     my $errMsg = "";
     if (defined $errId) {
-        my $row = $self->{db}->resultset('EvaluationErrors')->find($errId);
-        if (defined $row) {
-            $row->discard_changes;
-            $errMsg = $row->errormsg // "";
-        }
+        # Raw DBI to bypass any DBIx::Class caching. Reconnect first to
+        # invalidate any prepared statements.
+        my $dbh = $self->{db}->storage->dbh;
+        my $sth = $dbh->prepare("SELECT errormsg FROM evaluationerrors WHERE id = ?");
+        $sth->execute($errId);
+        my ($raw) = $sth->fetchrow_array;
+        $sth->finish;
+        $errMsg = $raw // "";
     }
     my $hasErr = length($errMsg) > 0;
 
@@ -259,11 +262,9 @@ sub reconcile {
 # --- Hooks ----------------------------------------------------------------
 
 sub evalAdded {
-    my ($self, $trace_id, $jobset_id, $eval_id) = @_;
-    print STDERR "GithubRollupStatus: HOOK evalAdded eval=", ($eval_id // 'undef'), "\n";
-    return unless defined $eval_id && $eval_id =~ /^\d+$/;
-    my $eval = $self->{db}->resultset('JobsetEvals')->find($eval_id);
+    my ($self, $trace_id, $jobset, $eval) = @_;
     return unless defined $eval;
+    print STDERR "GithubRollupStatus: HOOK evalAdded eval=", $eval->id, "\n";
     reconcile($self, $eval);
 }
 
