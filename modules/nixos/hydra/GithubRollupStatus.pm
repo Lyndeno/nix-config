@@ -119,7 +119,14 @@ sub computeRollup {
     # a failure signal that survives even if all builds pass.
     my $errRecord = $eval->evaluationerror;
     my $errMsg = defined $errRecord ? ($errRecord->errormsg // "") : "";
-    my $hasErr = length $errMsg > 0;
+    my $hasErr = length($errMsg) > 0;
+
+    print STDERR "GithubRollupStatus: eval ", $eval->id,
+                 " evaluationerror_id=", ($eval->get_column('evaluationerror_id') // 'NULL'),
+                 " errRecord=", (defined $errRecord ? $errRecord->id : 'undef'),
+                 " errMsgLen=", length($errMsg),
+                 " hasnewbuilds=", $eval->hasnewbuilds,
+                 "\n";
 
     # Cached evals (hasnewbuilds = 0) don't create jobsetevalmembers — see
     # hydra-eval-jobset around line 835. Their `builds` relation is empty.
