@@ -106,7 +106,7 @@ in {
             Description = "Refresh Emails";
           };
           Timer = {
-            OnCalendar = "*:0/5";
+            OnCalendar = "*:0/20";
           };
           Install = {
             WantedBy = ["timers.target"];
