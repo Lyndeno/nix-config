@@ -12,6 +12,7 @@
     ]
     ++ (with flake.nixosModules; [
       common
+      syncthing
       virtualisation
       zed
       desktop

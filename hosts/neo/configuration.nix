@@ -9,6 +9,7 @@
     inputs.disko.nixosModules.disko
     xps-9560
     common
+    syncthing
     virtualisation
     desktop
     niri
