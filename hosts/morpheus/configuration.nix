@@ -70,7 +70,7 @@
     group = "builder";
     shell = pkgs.bashInteractive;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+/C/kSJUTqvnRXdq86551K1k1x1YG57Oc68b9nDsED"
+      (import ../../pubKeys.nix).builders.morpheus
     ];
   };
 

@@ -2,6 +2,7 @@
   inputs,
   flake,
   config,
+  pkgs,
   ...
 }: {
   imports = with flake.nixosModules; [
@@ -45,7 +46,9 @@
         supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "gccarch-znver3" "gccarch-skylake"];
         maxJobs = 32;
         speedFactor = 4;
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtKd29tOXdrY2N0MUVjQmlMZ2EyMmU0bEplUTJBaHpOeUNDR2dqcmVVZC8gcm9vdEBtb3JwaGV1cwo=";
+        publicHostKey = builtins.readFile (pkgs.runCommand "morpheus-host-key-b64" {} ''
+          printf '%s\n' "${(import ../../pubKeys.nix).hostKeys.morpheus}" | base64 -w0 > $out
+        '');
         sshUser = "builder";
         sshKey = config.age.secrets.builder.path;
       }
