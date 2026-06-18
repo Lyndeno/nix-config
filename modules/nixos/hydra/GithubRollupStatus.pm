@@ -137,12 +137,6 @@ sub computeRollup {
     }
     my $hasErr = length($errMsg) > 0;
 
-    print STDERR "GithubRollupStatus: eval ", $eval->id,
-                 " evaluationerror_id=", ($errId // 'NULL'),
-                 " errMsgLen=", length($errMsg),
-                 " hasnewbuilds=", $eval->hasnewbuilds,
-                 "\n";
-
     # Cached evals (hasnewbuilds = 0) don't create jobsetevalmembers — see
     # hydra-eval-jobset around line 835. Their `builds` relation is empty.
     # Fall back to the most recent fresh eval (hasnewbuilds = 1) for the
@@ -264,13 +258,11 @@ sub reconcile {
 sub evalAdded {
     my ($self, $trace_id, $jobset, $eval) = @_;
     return unless defined $eval;
-    print STDERR "GithubRollupStatus: HOOK evalAdded eval=", $eval->id, "\n";
     reconcile($self, $eval);
 }
 
 sub buildFinished {
     my ($self, $build, $dependents) = @_;
-    print STDERR "GithubRollupStatus: HOOK buildFinished build=", $build->id, "\n";
     my $evals = $build->jobsetevals;
     while (my $eval = $evals->next) {
         reconcile($self, $eval);
@@ -279,7 +271,6 @@ sub buildFinished {
 
 sub cachedBuildFinished {
     my ($self, $evaluation, $build) = @_;
-    print STDERR "GithubRollupStatus: HOOK cachedBuildFinished eval=", $evaluation->id, " build=", $build->id, "\n";
     reconcile($self, $evaluation);
 }
 
@@ -287,7 +278,6 @@ sub cachedBuildFinished {
 # is idempotent — GitHub silently no-ops when posting an identical status.
 sub buildStarted {
     my ($self, $build) = @_;
-    print STDERR "GithubRollupStatus: HOOK buildStarted build=", $build->id, "\n";
     my $evals = $build->jobsetevals;
     while (my $eval = $evals->next) {
         reconcile($self, $eval);
