@@ -36,6 +36,7 @@ in {
     wireplumber
     brightnessctl
     nautilus
+    xdg-user-dirs-gtk
     gnome-clocks
     #fractal
     bzmenu
