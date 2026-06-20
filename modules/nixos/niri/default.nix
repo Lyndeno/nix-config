@@ -21,7 +21,10 @@
 
   security.pam.services.swaylock.enable = true;
   services = {
-    displayManager.cosmic-greeter.enable = true;
+    displayManager = {
+      gdm.enable = true;
+      defaultSession = "niri";
+    };
     gnome.gcr-ssh-agent.enable = false;
     gvfs.enable = true;
     gnome = {
