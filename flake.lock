@@ -1024,11 +1024,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1781552624,
-        "narHash": "sha256-pw0CF7bPLLD7mX4U9HnrqyeXhNX4lTvJSsVdzhYunQY=",
+        "lastModified": 1781971008,
+        "narHash": "sha256-T2u2RQZWKvD1J+TgcxjiJr8IymBr/PrUNeAGhMZFZU4=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "a8b820bc72602fe4e7556cc29d2b8a01b37fa63c",
+        "rev": "7afca458f064f166d3a9c98db3b41a984fe46492",
         "type": "github"
       },
       "original": {
