@@ -1,4 +1,4 @@
-{lib, ...}: {
+{
   systemd.sleep.settings.Sleep = {
     HibernateDelaySec = "2h";
   };
@@ -8,18 +8,6 @@
     logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
     automatic-timezoned.enable = true;
     geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
-  };
-
-  services = {
-    power-profiles-daemon.enable = lib.mkForce false;
-    tlp = {
-      enable = true;
-      pd.enable = true;
-      settings = {
-        PCIE_ASPM_ON_AC = "default";
-        PCIE_ASPM_ON_BAT = "powersave";
-      };
-    };
   };
 
   networking = {
