@@ -1086,11 +1086,11 @@
         "utils": "utils_3"
       },
       "locked": {
-        "lastModified": 1781168427,
-        "narHash": "sha256-bqfD1EzboyQQJcctHJr7/z4LDgoDs261HzFhE4fq7wM=",
+        "lastModified": 1781773031,
+        "narHash": "sha256-suPH7ZCps0Puw1hk9Yoz4uJbpA0+KYrNwgEMDF0vSLY=",
         "owner": "Lyndeno",
         "repo": "ppd-rs",
-        "rev": "fc245bfa7765087322ccfe78f84db988bd607631",
+        "rev": "6f45dcae22d666e436ac3f8d7e31744576d78c7d",
         "type": "github"
       },
       "original": {
