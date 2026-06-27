@@ -211,6 +211,30 @@
       "inputs": {
         "nixpkgs": [
           "ironfetch",
+          "nixpkgs"
+        ],
+        "systems": [
+          "ironfetch"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776249299,
+        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
+        "owner": "numtide",
+        "repo": "blueprint",
+        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "blueprint",
+        "type": "github"
+      }
+    },
+    "blueprint_5": {
+      "inputs": {
+        "nixpkgs": [
+          "ironfetch",
           "ci",
           "nixpkgs"
         ],
@@ -233,7 +257,7 @@
         "type": "github"
       }
     },
-    "blueprint_5": {
+    "blueprint_6": {
       "inputs": {
         "nixpkgs": [
           "ppd",
@@ -259,7 +283,7 @@
         "type": "github"
       }
     },
-    "blueprint_6": {
+    "blueprint_7": {
       "inputs": {
         "nixpkgs": [
           "vim-niri-nav",
@@ -330,7 +354,7 @@
     },
     "ci_3": {
       "inputs": {
-        "blueprint": "blueprint_4",
+        "blueprint": "blueprint_5",
         "nixpkgs": [
           "ironfetch",
           "nixpkgs"
@@ -352,7 +376,7 @@
     },
     "ci_4": {
       "inputs": {
-        "blueprint": "blueprint_5",
+        "blueprint": "blueprint_6",
         "nixpkgs": [
           "ppd",
           "nixpkgs"
@@ -374,7 +398,7 @@
     },
     "ci_5": {
       "inputs": {
-        "blueprint": "blueprint_6",
+        "blueprint": "blueprint_7",
         "nixpkgs": [
           "vim-niri-nav",
           "nixpkgs"
@@ -412,11 +436,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1780532242,
-        "narHash": "sha256-D+BsdpxmtUwtqGoY0IXPhHgTlmqgcZKCEo1oMyn7ep0=",
+        "lastModified": 1781825982,
+        "narHash": "sha256-SlXKwIRIhrOSAcTjCB3ftPLzJWZStQIPS7J1FlZPnKk=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "59a82a1222dd3b2080b5cc52a1a2e8d5f1b77f37",
+        "rev": "469fd08d0bcf6926321fa973c6777fbc87785dd7",
         "type": "github"
       },
       "original": {
@@ -777,9 +801,9 @@
     },
     "ironfetch": {
       "inputs": {
+        "blueprint": "blueprint_4",
         "ci": "ci_3",
         "crane": "crane",
-        "nix-github-actions": [],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -787,11 +811,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1781771139,
-        "narHash": "sha256-aLyqdfTIJJmDzqrNeyT3UzeT/7V2YA9wF0s7i0trk6M=",
+        "lastModified": 1782586353,
+        "narHash": "sha256-ZjDB7OdvZi9GJqN9hp6RmfnidQIglNq1e3sHFLMxjOw=",
         "owner": "Lyndeno",
         "repo": "ironfetch",
-        "rev": "f510b25def76d5ed15992ef630de94fdd2abc425",
+        "rev": "920903bd1e606d636c6f6cf94f0bac5a612ed450",
         "type": "github"
       },
       "original": {

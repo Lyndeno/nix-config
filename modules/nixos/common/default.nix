@@ -16,7 +16,6 @@
   environment.systemPackages = with pkgs; [
     #nh
     screen
-    #perSystem.ironfetch.default
   ];
   networking = {
     useDHCP = false;
@@ -50,8 +49,6 @@
     registry.nixpkgs.flake = inputs.nixpkgs;
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   };
-
-  nixpkgs.config.allowUnfree = true;
 
   security = {
     sudo = {

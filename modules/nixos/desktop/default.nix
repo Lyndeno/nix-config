@@ -38,7 +38,7 @@ in {
       inputs.ppd.packages.${system}.default
       man-pages
       nh
-      inputs.ironfetch.packages.${system}.default
+      ironfetch.ironfetch
       ncdu
       smartmontools
     ];

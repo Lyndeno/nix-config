@@ -5,6 +5,10 @@
     inputs.blueprint {
       inherit inputs;
       systems = ["x86_64-linux" "aarch64-linux"];
+      nixpkgs = {
+        overlays = [inputs.ironfetch.overlays.default];
+        config.allowUnfree = true;
+      };
     };
 
   inputs = {
@@ -24,7 +28,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "";
-        nix-github-actions.follows = "";
       };
     };
 
