@@ -85,6 +85,7 @@
       # Do not follow nixpkgs as it takes forever to build each time
       # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     mujmap = {
