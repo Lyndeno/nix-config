@@ -10,6 +10,7 @@
           ironfetch.overlays.default
           apple-fonts.overlays.default
           ppd.overlays.default
+          agenix.overlays.default
         ];
         config.allowUnfree = true;
       };
