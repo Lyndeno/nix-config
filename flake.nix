@@ -9,6 +9,7 @@
         overlays = with inputs; [
           ironfetch.overlays.default
           apple-fonts.overlays.default
+          ppd.overlays.default
         ];
         config.allowUnfree = true;
       };

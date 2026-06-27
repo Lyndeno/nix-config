@@ -1,10 +1,8 @@
-{inputs, ...}: {
+{
   lib,
   pkgs,
   ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) system;
-in {
+}: {
   imports = [
     ./audio.nix
     ./network.nix
@@ -35,7 +33,7 @@ in {
     systemPackages = with pkgs; [
       #kdiskmark
       #rustdesk-flutter
-      inputs.ppd.packages.${system}.default
+      ppd
       man-pages
       nh
       ironfetch

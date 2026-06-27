@@ -263,6 +263,30 @@
       "inputs": {
         "nixpkgs": [
           "ppd",
+          "nixpkgs"
+        ],
+        "systems": [
+          "ppd"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776249299,
+        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
+        "owner": "numtide",
+        "repo": "blueprint",
+        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "blueprint",
+        "type": "github"
+      }
+    },
+    "blueprint_7": {
+      "inputs": {
+        "nixpkgs": [
+          "ppd",
           "ci",
           "nixpkgs"
         ],
@@ -285,7 +309,7 @@
         "type": "github"
       }
     },
-    "blueprint_7": {
+    "blueprint_8": {
       "inputs": {
         "nixpkgs": [
           "vim-niri-nav",
@@ -378,7 +402,7 @@
     },
     "ci_4": {
       "inputs": {
-        "blueprint": "blueprint_6",
+        "blueprint": "blueprint_7",
         "nixpkgs": [
           "ppd",
           "nixpkgs"
@@ -400,7 +424,7 @@
     },
     "ci_5": {
       "inputs": {
-        "blueprint": "blueprint_7",
+        "blueprint": "blueprint_8",
         "nixpkgs": [
           "vim-niri-nav",
           "nixpkgs"
@@ -483,11 +507,11 @@
     },
     "crane_4": {
       "locked": {
-        "lastModified": 1780532242,
-        "narHash": "sha256-D+BsdpxmtUwtqGoY0IXPhHgTlmqgcZKCEo1oMyn7ep0=",
+        "lastModified": 1781825982,
+        "narHash": "sha256-SlXKwIRIhrOSAcTjCB3ftPLzJWZStQIPS7J1FlZPnKk=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "59a82a1222dd3b2080b5cc52a1a2e8d5f1b77f37",
+        "rev": "469fd08d0bcf6926321fa973c6777fbc87785dd7",
         "type": "github"
       },
       "original": {
@@ -644,7 +668,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_9"
+        "systems": "systems_8"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -1087,20 +1111,20 @@
     },
     "ppd": {
       "inputs": {
+        "blueprint": "blueprint_6",
         "ci": "ci_4",
         "crane": "crane_4",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "pre-commit-hooks-nix": [],
-        "utils": "utils_3"
+        "pre-commit-hooks-nix": []
       },
       "locked": {
-        "lastModified": 1781773031,
-        "narHash": "sha256-suPH7ZCps0Puw1hk9Yoz4uJbpA0+KYrNwgEMDF0vSLY=",
+        "lastModified": 1782588981,
+        "narHash": "sha256-qyX6F0G+HxSgHNzkSmFEn9Q2QPd1QBuruWvFB8+g1CY=",
         "owner": "Lyndeno",
         "repo": "ppd-rs",
-        "rev": "6f45dcae22d666e436ac3f8d7e31744576d78c7d",
+        "rev": "e6fe6a993e8dc500218441d61da117d4a4c946a2",
         "type": "github"
       },
       "original": {
@@ -1305,7 +1329,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_7"
+        "systems": "systems_6"
       },
       "locked": {
         "lastModified": 1782031037,
@@ -1334,7 +1358,7 @@
           "nixpkgs"
         ],
         "nur": "nur",
-        "systems": "systems_8",
+        "systems": "systems_7",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
         "tinted-tmux": "tinted-tmux",
@@ -1475,21 +1499,6 @@
         "type": "github"
       }
     },
-    "systems_9": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "tinted-kitty": {
       "flake": false,
       "locked": {
@@ -1596,24 +1605,6 @@
     "utils_2": {
       "inputs": {
         "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "utils_3": {
-      "inputs": {
-        "systems": "systems_6"
       },
       "locked": {
         "lastModified": 1731533236,
