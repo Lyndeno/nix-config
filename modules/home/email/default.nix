@@ -2,7 +2,6 @@
   config,
   pkgs,
   osConfig,
-  perSystem,
   lib,
   ...
 }: let
@@ -40,7 +39,6 @@ in {
 
     mujmap = {
       enable = true;
-      package = perSystem.mujmap.default;
     };
 
     astroid = {

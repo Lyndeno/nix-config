@@ -11,6 +11,7 @@
           apple-fonts.overlays.default
           ppd.overlays.default
           agenix.overlays.default
+          mujmap.overlays.default
         ];
         config.allowUnfree = true;
       };
@@ -95,7 +96,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "";
-        nix-github-actions.follows = "";
       };
     };
 
