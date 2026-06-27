@@ -34,10 +34,6 @@
       53
     ];
   };
-  # TODO: Split stylix into own module so we do not need to do this
-  stylix = {
-    autoEnable = false;
-  };
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/e225c673-1c1a-4954-a822-78bf5097e646";

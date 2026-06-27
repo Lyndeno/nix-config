@@ -167,6 +167,7 @@
     vim-niri-nav = {
       url = "github:Lyndeno/vim-niri-nav-rs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks-nix.follows = "";
     };
   };
 }

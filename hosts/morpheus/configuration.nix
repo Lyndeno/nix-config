@@ -12,6 +12,7 @@
     ]
     ++ (with flake.nixosModules; [
       common
+      stylix
       syncthing
       virtualisation
       zed

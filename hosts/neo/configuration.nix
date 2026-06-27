@@ -8,6 +8,7 @@
     inputs.disko.nixosModules.default
     xps-9560
     common
+    stylix
     syncthing
     virtualisation
     desktop
