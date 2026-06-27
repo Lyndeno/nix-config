@@ -1,20 +1,26 @@
 {
   description = "Lyndon's NixOS setup";
 
-  outputs = inputs:
-    inputs.blueprint {
+  outputs = inputs: let
+    overlays = with inputs; [
+      ironfetch.overlays.default
+      apple-fonts.overlays.default
+      ppd.overlays.default
+      agenix.overlays.default
+      mujmap.overlays.default
+    ];
+    bp = inputs.blueprint {
       inherit inputs;
       systems = ["x86_64-linux" "aarch64-linux"];
       nixpkgs = {
-        overlays = with inputs; [
-          ironfetch.overlays.default
-          apple-fonts.overlays.default
-          ppd.overlays.default
-          agenix.overlays.default
-          mujmap.overlays.default
-        ];
         config.allowUnfree = true;
+        inherit overlays;
       };
+    };
+  in
+    bp
+    // {
+      overlays.default = inputs.nixpkgs.lib.composeManyExtensions overlays;
     };
 
   inputs = {
