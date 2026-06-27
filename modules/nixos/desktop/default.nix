@@ -1,4 +1,4 @@
-{inputs, ...} @ blueprintArgs: {
+{inputs, ...}: {
   lib,
   pkgs,
   ...
@@ -8,7 +8,7 @@ in {
   imports = [
     ./audio.nix
     ./network.nix
-    (import ./stylix.nix blueprintArgs)
+    ./stylix.nix
   ];
 
   boot = {

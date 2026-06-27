@@ -6,7 +6,10 @@
       inherit inputs;
       systems = ["x86_64-linux" "aarch64-linux"];
       nixpkgs = {
-        overlays = [inputs.ironfetch.overlays.default];
+        overlays = with inputs; [
+          ironfetch.overlays.default
+          apple-fonts.overlays.default
+        ];
         config.allowUnfree = true;
       };
     };

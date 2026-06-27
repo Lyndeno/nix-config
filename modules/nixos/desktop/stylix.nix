@@ -1,6 +1,4 @@
-{inputs, ...}: {pkgs, ...}: let
-  inherit (pkgs.stdenv.hostPlatform) system;
-in {
+{pkgs, ...}: {
   stylix = {
     polarity = "dark";
     cursor = {
@@ -17,11 +15,11 @@ in {
       cascadia = pkgs.nerd-fonts.caskaydia-cove;
     in {
       serif = {
-        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
+        package = pkgs.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
       sansSerif = {
-        package = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
+        package = pkgs.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
       monospace = {
