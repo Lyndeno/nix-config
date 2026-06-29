@@ -24,45 +24,41 @@
     matchBlocks = let
       keys = (import ../../../pubKeys.nix).lsanche;
       gitKeys = import ./gitKeys.nix;
+      mkPubkeyFile = name: key: pkgs.writeText "${name}.pub" "${key}\n";
+      mkGitForge = {
+        hostname,
+        keyName,
+        key,
+      }: {
+        inherit hostname;
+        port = 443;
+        user = "git";
+        identitiesOnly = true;
+        identityFile = "${mkPubkeyFile keyName key}";
+      };
     in
       (builtins.mapAttrs (name: value: {
           hostname = name;
-          identityFile = "${(pkgs.writeText "lsanche-${name}.pub" ''
-            ${value}
-          '')}";
+          identityFile = "${mkPubkeyFile "lsanche-${name}" value}";
           identitiesOnly = true;
           forwardAgent = true;
         })
         keys)
       // {
-        "github.com" = {
+        "github.com" = mkGitForge {
           hostname = "ssh.github.com";
-          port = 443;
-          user = "git";
-          identitiesOnly = true;
-          identityFile = "${(pkgs.writeText "github.pub" ''
-            ${gitKeys.github}
-          '')}";
+          keyName = "github";
+          key = gitKeys.github;
         };
-
-        "gitlab.com" = {
+        "gitlab.com" = mkGitForge {
           hostname = "altssh.gitlab.com";
-          port = 443;
-          user = "git";
-          identitiesOnly = true;
-          identityFile = "${(pkgs.writeText "gitlab.pub" ''
-            ${gitKeys.gitlab}
-          '')}";
+          keyName = "gitlab";
+          key = gitKeys.gitlab;
         };
-
-        "gitlabalt" = {
+        "gitlabalt" = mkGitForge {
           hostname = "altssh.gitlab.com";
-          port = 443;
-          user = "git";
-          identitiesOnly = true;
-          identityFile = "${(pkgs.writeText "gitlab.pub" ''
-            ${gitKeys.gitlabalt}
-          '')}";
+          keyName = "gitlabalt";
+          key = gitKeys.gitlabalt;
         };
       };
   };
