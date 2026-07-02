@@ -39,7 +39,7 @@
     name = "niri-config";
     text =
       includeStatements
-      + (import ./niri.nix {inherit config;});
+      + import ./niri.nix;
   };
 in {
   options.programs.niri.includeFiles = lib.mkOption {
@@ -58,7 +58,12 @@ in {
   ];
 
   config = {
-    programs.niri.includeFiles = [./includes/keybinds.nix];
+    programs.niri.includeFiles = [
+      ./includes/input.kdl
+      ./includes/layout.nix
+      ./includes/window-rules.kdl
+      ./includes/keybinds.nix
+    ];
 
     services.hyprpaper.enable = true;
     home.file.".config/niri/config.kdl" = {
