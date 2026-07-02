@@ -37,9 +37,7 @@
 
   niriConfig = pkgs.writeTextFile {
     name = "niri-config";
-    text =
-      includeStatements
-      + import ./niri.nix;
+    text = includeStatements;
   };
 in {
   options.programs.niri.includeFiles = lib.mkOption {
@@ -59,6 +57,7 @@ in {
 
   config = {
     programs.niri.includeFiles = [
+      ./includes/base.kdl
       ./includes/input.kdl
       ./includes/layout.nix
       ./includes/window-rules.kdl
