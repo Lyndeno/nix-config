@@ -142,6 +142,11 @@
       inputs.systems.follows = "";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Local path for development; change to github:Lyndeno/ci once published.
     ci = {
       url = "github:Lyndeno/ci";

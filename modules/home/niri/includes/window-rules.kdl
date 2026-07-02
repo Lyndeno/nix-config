@@ -1,159 +1,132 @@
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
     // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
+    match app-id="^org\\.wezfurlong\\.wezterm$"
+    default-column-width {
 
+    }
+}
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="firefox$" title="^Picture-in-Picture$"
     open-floating true
-		default-floating-position x=32 y=32 relative-to="bottom-left"
+    default-floating-position x=32 y=32 relative-to="bottom-left"
 }
-
 // Indicate screencasted windows with red colors.
 window-rule {
     match is-window-cast-target=true
-
     focus-ring {
         active-color "#f38ba8"
         inactive-color "#7d0d2d"
     }
-
     border {
         inactive-color "#7d0d2d"
     }
-
     shadow {
         color "#7d0d2d70"
         spread 20
     }
-
     tab-indicator {
         active-color "#f38ba8"
         inactive-color "#7d0d2d"
     }
 }
-
 // Example: block out two password managers from screen capture.
 window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^org\.gnome\.World\.Secrets$"#
-    match app-id=r#"1password$"#
-
+    match app-id="^org\\.keepassxc\\.KeePassXC$"
+    match app-id="^org\\.gnome\\.World\\.Secrets$"
+    match app-id="1password$"
     block-out-from "screen-capture"
-
-    // Use this instead if you want them visible on third-party screenshot tools.
+ // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
 }
-
 window-rule {
     // Match by "dropdown" app ID.
     // You need to set this app ID when running your terminal, e.g.:
     // spawn "alacritty" "--class" "dropdown"
     match app-id="^hover$"
-
     // Open it as floating.
     open-floating true
     // Anchor to the top edge of the screen.
     // default-floating-position x=0 y=0 relative-to="top"
     // Half of the screen high.
-    default-window-height { proportion 0.8; }
+    default-window-height {
+        proportion 0.8
+    }
     // 80% of the screen wide.
-    default-column-width { proportion 0.8; }
-
+    default-column-width {
+        proportion 0.8
+    }
     draw-border-with-background false
-
     background-effect {
-      blur true
+        blur true
     }
 }
-
 window-rule {
-  match is-floating=true
-
-  background-effect {
-    xray false
-  }
+    match is-floating=true
+    background-effect {
+        xray false
+    }
 }
-
 window-rule {
-  match app-id="^Alacritty$"
-
-  draw-border-with-background false
-
-  background-effect {
-    blur true
-  }
+    match app-id="^Alacritty$"
+    draw-border-with-background false
+    background-effect {
+        blur true
+    }
 }
-
 // Block out mako notifications from screencasts.
 layer-rule {
     match namespace="^notifications$"
-
     block-out-from "screencast"
-
     background-effect {
-      blur true
-      xray false
+        blur true
+        xray false
     }
 }
-
 layer-rule {
     match namespace="^launcher$"
-
     background-effect {
-      blur true
-      xray false
+        blur true
+        xray false
     }
 }
-
 layer-rule {
-  match namespace="^awww-daemon$"
-
-  place-within-backdrop true
+    match namespace="^awww-daemon$"
+    place-within-backdrop true
 }
-
 layer-rule {
-  match namespace="^waybar$"
-
-  background-effect {
-    blur true
-  }
-
-  popups {
-    geometry-corner-radius 6
-    opacity 0.85
-
+    match namespace="^waybar$"
     background-effect {
-      blur true
-      xray false
+        blur true
     }
-  }
+    popups {
+        geometry-corner-radius 6
+        opacity 0.85
+        background-effect {
+            blur true
+            xray false
+        }
+    }
 }
-
 layer-rule {
-  match layer="top"
-  match layer="overlay"
-
-  background-effect {
-    blur true
-    xray false
-  }
+    match layer="top"
+    match layer="overlay"
+    background-effect {
+        blur true
+        xray false
+    }
 }
-
-// Example: enable rounded corners for all windows.
+ // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
     geometry-corner-radius 12
