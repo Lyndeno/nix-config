@@ -27,6 +27,8 @@ with config.lib.stylix.colors.withHashtag;
         //   together with the previously focused column.
         center-focused-column "never"
 
+        always-center-single-column
+
         // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
         preset-column-widths {
             // Proportion sets the width as a fraction of the output width, taking gaps into account.
