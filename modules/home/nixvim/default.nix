@@ -78,6 +78,9 @@
       scrolloff = 8;
       clipboard = "unnamedplus";
       termguicolors = true;
+      timeoutlen = 300;
+      splitright = true;
+      splitbelow = true;
     };
     diagnostic.settings = {
       virtual_text = true;
@@ -340,6 +343,7 @@
       actions-preview = {
         enable = true;
       };
+      which-key.enable = true;
       guess-indent.enable = true;
       hmts = {
         enable = true;
