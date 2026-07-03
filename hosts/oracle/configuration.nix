@@ -9,7 +9,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     (modulesPath + "/profiles/minimal.nix")
     flake.nixosModules.common
-    #flake.nixosModules.hydraCache
+    flake.nixosModules.hydraCache
   ];
 
   networking.hostName = "oracle";
