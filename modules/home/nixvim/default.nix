@@ -94,6 +94,18 @@
         "%.gitlab%-ci%.ya?ml" = "yaml.gitlab";
       };
     };
+    keymaps = [
+      {
+        key = "j";
+        action = "gj";
+        mode = ["n" "v"];
+      }
+      {
+        key = "k";
+        action = "gk";
+        mode = ["n" "v"];
+      }
+    ];
     lsp = {
       inlayHints.enable = true;
       keymaps = [
