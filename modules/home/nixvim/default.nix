@@ -1,19 +1,8 @@
-{
-  flake,
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   pkgs,
   config,
   ...
-}: let
-  cmp-notmuch = pkgs.vimUtils.buildVimPlugin {
-    name = "cmp-notmuch";
-    src = inputs.cmp-notmuch;
-  };
-
-  inherit (pkgs.stdenv.hostPlatform) system;
-in {
+}: {
   imports = [
     inputs.nixvim.homeModules.nixvim
   ];
@@ -171,7 +160,7 @@ in {
       };
     };
     extraPlugins = [
-      cmp-notmuch
+      pkgs.cmp-notmuch
       pkgs.vim-niri-nav
     ];
     plugins = {
@@ -349,7 +338,7 @@ in {
       guess-indent.enable = true;
       hmts = {
         enable = true;
-        package = flake.packages.${system}.hmts;
+        package = pkgs.hmts;
       };
       illuminate.enable = true;
       lensline.enable = true;

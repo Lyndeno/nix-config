@@ -2,6 +2,7 @@
   description = "Lyndon's NixOS setup";
 
   outputs = inputs: let
+    localOverlay = final: _prev: bp.mkPackagesFor final;
     overlays = with inputs; [
       ironfetch.overlays.default
       apple-fonts.overlays.default
@@ -9,6 +10,7 @@
       agenix.overlays.default
       mujmap.overlays.default
       vim-niri-nav.overlays.default
+      localOverlay
     ];
     bp = inputs.blueprint {
       inherit inputs;

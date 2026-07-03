@@ -4,9 +4,7 @@
   config,
   lib,
   ...
-}: let
-  inherit (pkgs.stdenv.hostPlatform) system;
-in {
+}: {
   imports = [
     flake.homeModules.alacritty
   ];
@@ -139,7 +137,7 @@ in {
           };
 
           "custom/cast" = {
-            exec = lib.getExe flake.packages.${system}.wb-cast;
+            exec = lib.getExe pkgs.wb-cast;
             restart-interval = 5;
             format = "󰐮 {}";
             return-type = "json";
@@ -147,7 +145,7 @@ in {
           };
 
           "custom/fan" = {
-            exec = lib.getExe flake.packages.${system}.wb-fan;
+            exec = lib.getExe pkgs.wb-fan;
             interval = 3;
             format = "{}";
             return-type = "json";
@@ -163,7 +161,7 @@ in {
           };
 
           "custom/email" = lib.mkIf config.programs.notmuch.enable {
-            exec = lib.getExe flake.packages.${system}.wb-email;
+            exec = lib.getExe pkgs.wb-email;
             interval = 5;
             format = "{}";
             on-click = "${lib.getExe' pkgs.systemd "systemctl"} --user start refresh-email.service";
@@ -419,7 +417,7 @@ in {
         }
         {
           timeout = 900;
-          command = lib.getExe flake.packages.${system}.sleep-on-battery;
+          command = lib.getExe pkgs.sleep-on-battery;
         }
       ];
     };
