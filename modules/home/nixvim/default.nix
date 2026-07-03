@@ -23,6 +23,10 @@
         bg = "none";
         ctermbg = "none";
       };
+      WinSeparator = {
+        bg = "none";
+        fg = "none";
+      };
       LineNr.link = "Comment";
       LineNrAbove.link = "Comment";
       LineNrBelow.link = "Comment";
@@ -84,6 +88,7 @@
       linebreak = true;
       breakindent = true;
       showbreak = "↪ ";
+      fillchars = {vert = "│";};
     };
     diagnostic.settings = {
       virtual_text = true;
