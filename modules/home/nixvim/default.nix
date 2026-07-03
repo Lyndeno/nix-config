@@ -81,6 +81,9 @@
       timeoutlen = 300;
       splitright = true;
       splitbelow = true;
+      linebreak = true;
+      breakindent = true;
+      showbreak = "↪ ";
     };
     diagnostic.settings = {
       virtual_text = true;
@@ -182,6 +185,11 @@
       gitmessenger.enable = true;
       telescope = {
         enable = true;
+        keymaps = {
+          "<leader>ff" = "find_files";
+          "<leader>fg" = "live_grep";
+          "<leader>fb" = "buffers";
+        };
       };
       treesitter = {
         enable = true;
@@ -380,7 +388,7 @@
         };
       };
       neotest = {
-        #enable = true;
+        enable = true;
         settings.adapters = [
           "require('rustaceanvim.neotest')"
         ];
