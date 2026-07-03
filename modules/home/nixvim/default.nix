@@ -10,7 +10,6 @@
   stylix.targets.nixvim.transparentBackground = {
     main = true;
     signColumn = true;
-    numberLine = true;
   };
 
   programs.nixvim = {
@@ -24,6 +23,9 @@
         bg = "none";
         ctermbg = "none";
       };
+      LineNr.link = "Comment";
+      LineNrAbove.link = "Comment";
+      LineNrBelow.link = "Comment";
     };
     nixpkgs = {
       inherit pkgs;
