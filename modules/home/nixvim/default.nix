@@ -73,6 +73,9 @@
       showcmd = false;
       tabstop = 2;
       ignorecase = true;
+      smartcase = true;
+      undofile = true;
+      scrolloff = 8;
       clipboard = "unnamedplus";
       termguicolors = true;
     };
