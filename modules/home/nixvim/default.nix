@@ -172,7 +172,7 @@ in {
     };
     extraPlugins = [
       cmp-notmuch
-      inputs.vim-niri-nav.packages.${system}.vim-niri-nav
+      pkgs.vim-niri-nav
     ];
     plugins = {
       claude-code.enable = true;

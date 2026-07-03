@@ -8,6 +8,7 @@
       ppd.overlays.default
       agenix.overlays.default
       mujmap.overlays.default
+      vim-niri-nav.overlays.default
     ];
     bp = inputs.blueprint {
       inherit inputs;
