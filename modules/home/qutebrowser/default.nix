@@ -12,8 +12,20 @@
       tabs = {
         show = "switching";
         position = "left";
+        last_close = "close";
       };
       colors.webpage.darkmode.enabled = true;
+      editor.command = ["alacritty" "--class" "hover" "-e" "nvim" "+startinsert" "{}"];
+      session.lazy_restore = true;
+      content.dns_prefetch = true;
+      auto_save = {
+        session = true;
+        interval = 15000;
+      };
+      content.blocking = {
+        enabled = true;
+        method = "both";
+      };
       # Temporary fix for video not working
       qt.args = [
         "disable-features=AcceleratedVideoDecodeLinuxGL"

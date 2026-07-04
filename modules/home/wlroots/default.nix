@@ -8,6 +8,10 @@
   imports = [
     flake.homeModules.alacritty
   ];
+  xdg.mimeApps.defaultApplications = {
+    "application/pdf" = "org.pwmt.zathura.desktop";
+  };
+
   programs = {
     fuzzel.enable = true;
     imv.enable = true;
