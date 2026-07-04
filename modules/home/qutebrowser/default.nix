@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   programs.qutebrowser = {
@@ -21,6 +22,12 @@
       auto_save = {
         session = true;
         interval = 15000;
+      };
+      fileselect = {
+        handler = "external";
+        single_file.command = ["${lib.getExe pkgs.zenity}" "--file-selection"];
+        multiple_files.command = ["${lib.getExe pkgs.zenity}" "--file-selection" "--multiple"];
+        folder.command = ["${lib.getExe pkgs.zenity}" "--file-selection" "--directory"];
       };
       content.blocking = {
         enabled = true;
