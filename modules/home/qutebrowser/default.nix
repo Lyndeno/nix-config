@@ -18,6 +18,7 @@
       colors.webpage.darkmode.enabled = true;
       editor.command = ["alacritty" "--class" "hover" "-e" "nvim" "+startinsert" "{}"];
       session.lazy_restore = true;
+      completion.shrink = true;
       content.dns_prefetch = true;
       auto_save = {
         session = true;
