@@ -126,9 +126,9 @@ layer-rule {
         xray false
     }
 }
- // Example: enable rounded corners for all windows.
+// Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
-/-window-rule {
+window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }

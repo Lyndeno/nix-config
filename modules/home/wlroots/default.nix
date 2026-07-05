@@ -380,6 +380,7 @@
       enable = true;
       settings = {
         default-timeout = 30 * 1000;
+        border-radius = 12;
       };
     };
 
