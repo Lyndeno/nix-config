@@ -1040,11 +1040,11 @@
         "pre-commit-hooks-nix": []
       },
       "locked": {
-        "lastModified": 1782588981,
-        "narHash": "sha256-qyX6F0G+HxSgHNzkSmFEn9Q2QPd1QBuruWvFB8+g1CY=",
+        "lastModified": 1782983677,
+        "narHash": "sha256-z30S5Rye0t0iiBDkoAY3IYb1PawzDiit948w9k66qVU=",
         "owner": "Lyndeno",
         "repo": "ppd-rs",
-        "rev": "e6fe6a993e8dc500218441d61da117d4a4c946a2",
+        "rev": "7ee49d8abdcb54005a877e08729177c5e08e8617",
         "type": "github"
       },
       "original": {
