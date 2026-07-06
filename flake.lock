@@ -877,11 +877,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1774615085,
-        "narHash": "sha256-MoLQKyK7wHL9ffTQ+V7Xxkj2SYMSUwQXYRlCZ9ZQ/lM=",
+        "lastModified": 1783168812,
+        "narHash": "sha256-MIbPzNH0ZjQVrpmhvfp6+VHIoGx4/SFJ4C8OYDrzWIQ=",
         "ref": "refs/heads/main",
-        "rev": "8347adf30aa1c7c43bc0abbc2bee7d3bb49ccd95",
-        "revCount": 6,
+        "rev": "0b3ca2661ecdb36f9b61499d94e80b8f47b528ca",
+        "revCount": 8,
         "type": "git",
         "url": "https://codeberg.org/debugloop/niri-autoselect-portal.git"
       },
