@@ -2,8 +2,11 @@
   osConfig,
   lib,
   pkgs,
+  config,
   ...
-}: {
+}: let
+  fmCfg = config.accounts.email.accounts.fastmail;
+in {
   programs = {
     msmtp.enable = true;
     aerc = {
@@ -38,7 +41,7 @@
           source-cred-cmd = "cat ${osConfig.age.secrets.fastmail-jmap.path}";
           outgoing = "jmap://";
           default = "Inbox";
-          from = "Lyndon Sanche <lsanche@lyndeno.ca>";
+          from = "${fmCfg.realName} <${fmCfg.address}>";
           aliases = "\"Lyndon Sanche\" <*@lyndeno.ca>";
           use-labels = true;
           cache-state = true;
