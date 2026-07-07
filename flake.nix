@@ -8,7 +8,6 @@
       apple-fonts.overlays.default
       ppd.overlays.default
       agenix.overlays.default
-      mujmap.overlays.default
       vim-niri-nav.overlays.default
       localOverlay
     ];
@@ -99,14 +98,6 @@
       # Does not matter anyway, it's just fonts
       url = "github:Lyndeno/apple-fonts.nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    mujmap = {
-      url = "github:Lyndeno/mujmap";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks-nix.follows = "";
-      };
     };
 
     nixvim = {

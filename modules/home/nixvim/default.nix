@@ -188,7 +188,6 @@
       };
     };
     extraPlugins = [
-      pkgs.cmp-notmuch
       pkgs.vim-niri-nav
     ];
     plugins = {
@@ -253,14 +252,6 @@
             }
             {
               name = "git";
-              priority = 250;
-            }
-            {
-              name = "nixpkgs_maintainers";
-              priority = 250;
-            }
-            {
-              name = "notmuch";
               priority = 250;
             }
           ];

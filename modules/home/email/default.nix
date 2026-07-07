@@ -1,116 +1,61 @@
 {
-  config,
-  pkgs,
   osConfig,
   lib,
+  pkgs,
   ...
-}: let
-  astroidPath = lib.getExe config.programs.astroid.package;
-
-  updateScript = pkgs.writeShellScriptBin "update-email" ''
-    echo "Display is $DISPLAY"
-    echo "Wayland Display is $WAYLAND_DISPLAY"
-    if [ "x$DISPLAY" != "x" ] || [ "w$WAYLAND_DISPLAY" != "w" ]; then
-      echo "Telling Astroid we are polling"
-      ${astroidPath} --start-polling 2>&1 >/dev/null
-      astroidCode=$?
-    fi
-
-    ${lib.getExe' config.programs.mujmap.package "mujmap"} -C ${config.home.homeDirectory}/Maildir/fastmail sync
-    returnCode=$?
-
-    if [ "x$DISPLAY" != "x" ] || [ "w$WAYLAND_DISPLAY" != "w" ]; then
-
-      if [ $astroidCode != 0 ]; then
-        echo "Astroid was not running previously, call refresh in case it has opened since then."
-        ${astroidPath} --refresh 0 2>&1 >/dev/null
-      else
-        echo "Telling Astroid we are done polling"
-        ${astroidPath} --stop-polling 2>&1 >/dev/null
-      fi
-    fi
-
-    exit "$returnCode"
-  '';
-in {
+}: {
   programs = {
-    msmtp.enable = true;
-    notmuch.enable = true;
-
-    mujmap = {
+    aerc = {
       enable = true;
-    };
-
-    astroid = {
-      enable = true;
-      externalEditor = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.nixvim.build.package} -c 'set ft=mail' '+set fileencoding=utf-8' '+set ff=unix' '+set enc=utf-8' '+set fo+=w' %1";
-      package = pkgs.astroid.overrideAttrs {
-        patches = [
-          (pkgs.fetchpatch {
-            url = "https://github.com/astroidmail/astroid/commit/b84962a7920aaa9b0cc4a85a0c9fd1802495b1bc.patch";
-            hash = "sha256-QO5hoWscSMcxWLjPn/NT2MaIKrgMvTJeutitm4GaKZY=";
-          })
-        ];
+      extraConfig = {
+        general.unsafe-accounts-conf = true;
+        filters = {
+          "text/plain" = "colorize";
+          "text/calendar" = "calendar";
+          "message/delivery-status" = "colorize";
+          "message/rfc822" = "colorize";
+          "text/html" = "! html";
+        };
+        openers = {
+          "x-scheme-handler/http*" = "qutebrowser --target window {}";
+          "text/html" = "qutebrowser --target window {}";
+        };
+        ui = {
+          index-columns = "flags:4,name<20%,labels<20%,subject,date>=";
+          "column-labels" = "{{map .Labels (exclude .Folder) | join \" \"}}";
+        };
+        hooks = {
+          "mail-received" = "${lib.getExe pkgs.libnotify} -a aerc \"New mail from $AERC_FROM_NAME\" \"$AERC_SUBJECT\"";
+        };
+        compose = {
+          "file-picker-cmd" = "${lib.getExe pkgs.zenity} --file-selection --multiple --separator=$'\\n'";
+        };
+      };
+      extraAccounts = {
+        Fastmail = {
+          source = "jmap+oauthbearer://api.fastmail.com/.well-known/jmap";
+          source-cred-cmd = "cat ${osConfig.age.secrets.fastmail-jmap.path}";
+          outgoing = "jmap://";
+          default = "Inbox";
+          from = "Lyndon Sanche <lsanche@lyndeno.ca>";
+          aliases = "\"Lyndon Sanche\" <*@lyndeno.ca>";
+          use-labels = true;
+          cache-state = true;
+          cache-blobs = true;
+          folders-sort = "Inbox";
+        };
       };
     };
   };
 
-  accounts = {
-    email.accounts.fastmail = {
-      primary = true;
-      realName = "Lyndon Sanche";
-      userName = "lsanche@fastmail.com";
-      address = "lsanche@lyndeno.ca";
-      msmtp.enable = true;
-      smtp = {
-        host = "smtp.fastmail.com";
-        port = 465;
-        tls.enable = true;
-      };
-      jmap = {
-        sessionUrl = "https://api.fastmail.com/jmap/session";
-      };
-      notmuch = {
-        enable = true;
-      };
-      mujmap = {
-        enable = true;
-        settings = {
-          password_command = "cat ${osConfig.age.secrets.fastmail-jmap.path}";
-        };
-      };
-      astroid = {
-        enable = true;
-        sendMailCommand = "${lib.getExe' config.programs.mujmap.package "mujmap"} -C ${config.home.homeDirectory}/Maildir/fastmail send -i -t";
-      };
+  xdg = {
+    desktopEntries.aerc-mailto = {
+      name = "aerc";
+      exec = "${lib.getExe pkgs.alacritty} --class hover -e aerc %u";
+      mimeType = ["x-scheme-handler/mailto"];
+      type = "Application";
+      noDisplay = true;
     };
-  };
-
-  systemd = {
-    user = {
-      services = {
-        refresh-email = {
-          Unit = {
-            Description = "Refresh Emails";
-          };
-          Service = {
-            ExecStart = lib.getExe updateScript;
-          };
-        };
-      };
-      timers = {
-        refresh-email = {
-          Unit = {
-            Description = "Refresh Emails";
-          };
-          Timer = {
-            OnCalendar = "*:0/20";
-          };
-          Install = {
-            WantedBy = ["timers.target"];
-          };
-        };
-      };
-    };
+    mimeApps.defaultApplications."x-scheme-handler/mailto" = "aerc-mailto.desktop";
   };
 }

@@ -59,7 +59,10 @@
         "discourse.nixos.org"
       ] (_: {
         content.notifications.enabled = true;
-      });
+      })
+      // {
+        "file:///tmp/aerc-*".content.local_content_can_access_remote_urls = true;
+      };
     keyBindings = {
       normal = {
         "<Ctrl-e>" = lib.mkMerge [
