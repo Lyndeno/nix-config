@@ -362,6 +362,11 @@
   };
 
   services = {
+    cliphist = {
+      enable = true;
+      allowImages = true;
+    };
+
     wlsunset = {
       enable = true;
       latitude = "53.6";

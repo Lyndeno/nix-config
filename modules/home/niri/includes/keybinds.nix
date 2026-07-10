@@ -48,6 +48,9 @@
       // Email
       Mod+E hotkey-overlay-title="Open Email" { spawn "alacritty" "--class" "hover" "-e" "aerc"; }
 
+      // Clipboard
+      Mod+Y hotkey-overlay-title="Clipboard History" { spawn "${lib.getExe' pkgs.cliphist "cliphist-fuzzel-img"}"; }
+
       // Media
       XF86AudioPrev allow-when-locked=true { spawn "bash" "-c" "playerctl previous"; }
       XF86AudioNext allow-when-locked=true { spawn "bash" "-c" "playerctl next"; }
