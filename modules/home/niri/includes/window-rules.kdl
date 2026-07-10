@@ -12,6 +12,20 @@ window-rule {
 
     }
 }
+// Open aerc HTML email previews in qutebrowser as floating.
+window-rule {
+    match app-id="^qutebrowser-aerc$"
+    open-floating true
+    default-window-height {
+        proportion 0.7
+    }
+    default-column-width {
+        proportion 0.7
+    }
+    focus-ring {
+        active-color "#ffffff"
+    }
+}
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
