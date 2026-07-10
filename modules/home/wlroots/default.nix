@@ -25,7 +25,10 @@
       enable = true;
       settings.image = blurred;
     };
-    zathura.enable = true;
+    zathura = {
+      enable = true;
+      options.selection-clipboard = "clipboard";
+    };
   };
 
   dconf.settings = {
