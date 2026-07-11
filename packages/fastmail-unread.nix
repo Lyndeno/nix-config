@@ -20,12 +20,19 @@ in
       printf 'header = "Authorization: Bearer %s"\n' "$TOKEN" > "$CURL_CONFIG"
       trap 'rm -f "$CURL_CONFIG"' EXIT
 
-      SESSION=$(curl -sfL --config "$CURL_CONFIG" \
-        https://api.fastmail.com/.well-known/jmap)
+      CACHE="$XDG_RUNTIME_DIR/fastmail-unread.cache"
 
-      API_URL=$(printf '%s' "$SESSION" | jq -r '.apiUrl')
-      ACCOUNT_ID=$(printf '%s' "$SESSION" \
-        | jq -r '.primaryAccounts["urn:ietf:params:jmap:mail"]')
+      if [ ! -f "$CACHE" ]; then
+        SESSION=$(curl -sfL --config "$CURL_CONFIG" \
+          https://api.fastmail.com/.well-known/jmap)
+        printf '%s\n%s\n' \
+          "$(printf '%s' "$SESSION" | jq -r '.apiUrl')" \
+          "$(printf '%s' "$SESSION" | jq -r '.primaryAccounts["urn:ietf:params:jmap:mail"]')" \
+          > "$CACHE"
+      fi
+
+      API_URL=$(sed -n '1p' "$CACHE")
+      ACCOUNT_ID=$(sed -n '2p' "$CACHE")
 
       UNREAD=$(curl -sfL \
         --config "$CURL_CONFIG" \
