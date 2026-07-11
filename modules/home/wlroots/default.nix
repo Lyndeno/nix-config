@@ -148,7 +148,7 @@
 
           "custom/email" = {
             exec = "${lib.getExe pkgs.fastmail-unread} ${osConfig.age.secrets.fastmail-jmap.path}";
-            interval = 60;
+            restart-interval = 5;
             return-type = "json";
             format = "󰇮 {}";
             hide-empty-text = true;
