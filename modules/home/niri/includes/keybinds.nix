@@ -267,6 +267,8 @@
       Print { screenshot; }
       Ctrl+Print { screenshot-screen; }
       Alt+Print { screenshot-window; }
+      Mod+Print hotkey-overlay-title="Screenshot + Annotate" { spawn "${lib.getExe pkgs.screenshot-annotate}"; }
+      Mod+Shift+Print hotkey-overlay-title="Screenshot OCR to Clipboard" { spawn "${lib.getExe pkgs.screenshot-ocr}"; }
 
       // Applications such as remote-desktop clients and software KVM switches may
       // request that niri stops processing the keyboard shortcuts defined here

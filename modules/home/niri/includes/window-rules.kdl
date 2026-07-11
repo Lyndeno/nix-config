@@ -12,6 +12,10 @@ window-rule {
 
     }
 }
+window-rule {
+    match app-id="^com\\.gabm\\.satty$"
+    open-floating true
+}
 // Open aerc HTML email previews in qutebrowser as floating.
 window-rule {
     match app-id="^qutebrowser-aerc$"
@@ -137,6 +141,13 @@ layer-rule {
     match layer="overlay"
     background-effect {
         blur true
+        xray false
+    }
+}
+layer-rule {
+    match namespace="^selection$"
+    background-effect {
+        blur false
         xray false
     }
 }
