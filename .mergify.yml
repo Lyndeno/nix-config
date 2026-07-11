@@ -11,6 +11,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.nixos-trinity
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-battery-status
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-cmp-notmuch
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-fastmail-unread
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-formatter
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-hmts
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-hydra-spec
@@ -31,6 +32,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-battery-status-plugged-in
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-battery-status-unplugged
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-cmp-notmuch
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-fastmail-unread
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-formatter
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-hmts
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-hydra-spec

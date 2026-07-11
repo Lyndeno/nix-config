@@ -126,7 +126,7 @@
           height = 36;
           modules-left = ["niri/workspaces" (lib.mkIf (hostName != "neo") "cava")];
           modules-center = ["mpris" "custom/cast"];
-          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") "custom/email" "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -144,6 +144,15 @@
           "systemd-failed-units" = {
             hide-on-ok = true;
             format = "󰋼 {nr_failed}";
+          };
+
+          "custom/email" = {
+            exec = "${lib.getExe pkgs.fastmail-unread} ${osConfig.age.secrets.fastmail-jmap.path}";
+            interval = 60;
+            return-type = "json";
+            format = "󰇮 {}";
+            hide-empty-text = true;
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e aerc";
           };
 
           "custom/cast" = {
