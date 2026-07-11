@@ -15,49 +15,36 @@ in
     text = ''
       TOKEN=$(cat "$1")
 
-      SESSION=$(curl -sfL -H "Authorization: Bearer $TOKEN" \
+      CURL_CONFIG=$(mktemp)
+      chmod 600 "$CURL_CONFIG"
+      printf 'header = "Authorization: Bearer %s"\n' "$TOKEN" > "$CURL_CONFIG"
+      trap 'rm -f "$CURL_CONFIG"' EXIT
+
+      SESSION=$(curl -sfL --config "$CURL_CONFIG" \
         https://api.fastmail.com/.well-known/jmap)
 
       API_URL=$(printf '%s' "$SESSION" | jq -r '.apiUrl')
       ACCOUNT_ID=$(printf '%s' "$SESSION" \
         | jq -r '.primaryAccounts["urn:ietf:params:jmap:mail"]')
-      EVENT_URL=$(printf '%s' "$SESSION" | jq -r '.eventSourceUrl' \
-        | sed 's/{types}/Mailbox/; s/{closeafter}/no/; s/{ping}/120/')
 
-      get_unread() {
-        local unread
-        unread=$(curl -sfL \
-          -H "Authorization: Bearer $TOKEN" \
-          -H "Content-Type: application/json" \
-          -d "$(jq -n --arg id "$ACCOUNT_ID" '{
-                using: ["urn:ietf:params:jmap:core","urn:ietf:params:jmap:mail"],
-                methodCalls: [
-                  ["Mailbox/query",{"accountId":$id,"filter":{"role":"inbox"}},"q"],
-                  ["Mailbox/get",{"accountId":$id,"#ids":{"resultOf":"q","name":"Mailbox/query","path":"/ids"}},"g"]
-                ]
-              }')" "$API_URL" \
-          | jq '.methodResponses[1][1].list[0].unreadEmails // 0')
+      UNREAD=$(curl -sfL \
+        --config "$CURL_CONFIG" \
+        -H "Content-Type: application/json" \
+        -d "$(jq -n --arg id "$ACCOUNT_ID" '{
+              using: ["urn:ietf:params:jmap:core","urn:ietf:params:jmap:mail"],
+              methodCalls: [
+                ["Mailbox/query",{"accountId":$id,"filter":{"role":"inbox"}},"q"],
+                ["Mailbox/get",{"accountId":$id,"#ids":{"resultOf":"q","name":"Mailbox/query","path":"/ids"}},"g"]
+              ]
+            }')" "$API_URL" \
+        | jq '.methodResponses[1][1].list[0].unreadEmails // 0')
 
-        if [ "$unread" -gt 0 ]; then
-          printf '{"text":"%s","tooltip":"%s unread in inbox","class":"unread"}\n' \
-            "$unread" "$unread"
-        else
-          printf '{"text":"","tooltip":"Inbox clear"}\n'
-        fi
-      }
-
-      get_unread
-
-      curl -sfLN \
-        -H "Authorization: Bearer $TOKEN" \
-        -H "Accept: text/event-stream" \
-        "$EVENT_URL" | while IFS= read -r line; do
-        case "$line" in
-          data:*Mailbox*)
-            get_unread || true
-            ;;
-        esac
-      done
+      if [ "$UNREAD" -gt 0 ]; then
+        printf '{"text":"%s","tooltip":"%s unread in inbox","class":"unread"}\n' \
+          "$UNREAD" "$UNREAD"
+      else
+        printf '{"text":"","tooltip":"Inbox clear"}\n'
+      fi
     '';
 
     meta.platforms = lib.platforms.linux;

@@ -148,7 +148,7 @@
 
           "custom/email" = lib.mkIf config.programs.aerc.enable {
             exec = "${lib.getExe pkgs.fastmail-unread} ${osConfig.age.secrets.fastmail-jmap.path}";
-            restart-interval = 5;
+            interval = 60;
             return-type = "json";
             format = "󰇮 {}";
             hide-empty-text = true;
