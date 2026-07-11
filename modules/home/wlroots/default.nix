@@ -126,7 +126,7 @@
           height = 36;
           modules-left = ["niri/workspaces" (lib.mkIf (hostName != "neo") "cava")];
           modules-center = ["mpris" "custom/cast"];
-          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") "custom/email" "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") (lib.mkIf config.programs.aerc.enable "custom/email") "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -146,7 +146,7 @@
             format = "󰋼 {nr_failed}";
           };
 
-          "custom/email" = {
+          "custom/email" = lib.mkIf config.programs.aerc.enable {
             exec = "${lib.getExe pkgs.fastmail-unread} ${osConfig.age.secrets.fastmail-jmap.path}";
             restart-interval = 5;
             return-type = "json";
