@@ -11,6 +11,7 @@
         DHCP = "yes";
         dhcpV4Config = {
           RouteMetric = 100;
+          UseDomains = true;
         };
         ipv6AcceptRAConfig = {
           RouteMetric = 100;
@@ -28,6 +29,7 @@
         DHCP = "yes";
         dhcpV4Config = {
           RouteMetric = 600;
+          UseDomains = true;
         };
         ipv6AcceptRAConfig = {
           RouteMetric = 600;
