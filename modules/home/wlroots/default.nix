@@ -55,7 +55,9 @@
   ];
 
   programs = {
-    mpv = {
+    mpv = let
+      inherit (osConfig.networking) hostName;
+    in {
       enable = true;
       config = {
         osc = "no";
@@ -64,6 +66,10 @@
         hwdec = "vaapi,auto-safe";
         vo = "dmabuf-wayland";
         watch-later-options-remove = "sub-pos";
+        ytdl-format =
+          if hostName == "neo"
+          then "bestvideo[height>=?1440][vcodec^=vp9]+bestaudio/bestvideo+bestaudio/best"
+          else "bestvideo[height>=?1440][vcodec^=av01]+bestaudio/bestvideo[height<=?1440][vcodec^=vp9]+bestaudio/bestvideo+bestaudio/best";
       };
       scripts = with pkgs.mpvScripts; [
         mpris
