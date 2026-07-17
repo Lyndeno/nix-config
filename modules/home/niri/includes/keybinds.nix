@@ -64,6 +64,7 @@
       Mod+N hotkey-overlay-title="WiFi Menu" { spawn "iwmenu" "--launcher" "fuzzel"; }
       Mod+B hotkey-overlay-title="Bluetooth Menu" { spawn "bzmenu" "--launcher" "fuzzel"; }
       Mod+P hotkey-overlay-title="Sound Menu" { spawn "pwmenu" "--launcher" "fuzzel"; }
+      Mod+A hotkey-overlay-title="Webcam Picker" { spawn "webcam-picker"; }
 
       Mod+O repeat=false hotkey-overlay-title="Cast Current Output to Window" { spawn-sh "${lib.getExe pkgs.wl-mirror} $(niri msg --json focused-output | ${lib.getExe pkgs.jq} -r .name)"; }
 

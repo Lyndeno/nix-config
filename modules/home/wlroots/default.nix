@@ -51,6 +51,7 @@
     iwmenu
     pwmenu
     playerctl
+    webcam-picker
   ];
 
   programs = {
