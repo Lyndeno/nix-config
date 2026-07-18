@@ -7,6 +7,8 @@
   imports = [
     inputs.agenix.nixosModules.default
   ];
+  home-manager.backupFileExtension = "bak";
+
   i18n.defaultLocale = "en_CA.UTF-8";
   boot = {
     tmp.cleanOnBoot = true;

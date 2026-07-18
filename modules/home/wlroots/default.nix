@@ -8,11 +8,53 @@
   imports = [
     flake.homeModules.alacritty
   ];
-  xdg.mimeApps.defaultApplications = {
-    "application/pdf" = "org.pwmt.zathura.desktop";
-    "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
-    "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
-    "text/html" = "org.qutebrowser.qutebrowser.desktop";
+  xdg.mimeApps = let
+    imageTypes = [
+      "image/jpeg"
+      "image/png"
+      "image/gif"
+      "image/webp"
+      "image/tiff"
+      "image/bmp"
+      "image/svg+xml"
+      "image/svg+xml-compressed"
+      "image/avif"
+      "image/heic"
+      "image/jxl"
+      "image/x-tga"
+      "image/vnd-ms.dds"
+      "image/x-dds"
+      "image/vnd.microsoft.icon"
+      "image/vnd.radiance"
+      "image/x-exr"
+      "image/x-portable-bitmap"
+      "image/x-portable-graymap"
+      "image/x-portable-pixmap"
+      "image/x-portable-anymap"
+      "image/x-qoi"
+    ];
+    browserTypes = [
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+      "x-scheme-handler/chrome"
+      "x-scheme-handler/about"
+      "x-scheme-handler/unknown"
+      "text/html"
+      "application/xhtml+xml"
+      "application/x-extension-htm"
+      "application/x-extension-html"
+      "application/x-extension-shtml"
+      "application/x-extension-xhtml"
+      "application/x-extension-xht"
+    ];
+  in {
+    enable = true;
+    defaultApplications =
+      lib.genAttrs imageTypes (_: "imv.desktop")
+      // lib.genAttrs browserTypes (_: "org.qutebrowser.qutebrowser.desktop")
+      // {
+        "application/pdf" = "org.pwmt.zathura.desktop";
+      };
   };
 
   programs = {
