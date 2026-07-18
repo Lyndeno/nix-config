@@ -44,13 +44,15 @@
     radarr.enable = true;
     sonarr.enable = true;
     prowlarr.enable = true;
+    seerr.enable = true;
   };
 
   services.localProxy.subDomains = let
-    inherit (config.nixarr) radarr sonarr prowlarr transmission;
+    inherit (config.nixarr) radarr sonarr seerr prowlarr transmission;
   in {
     radarr = {inherit (radarr) port;};
     sonarr = {inherit (sonarr) port;};
+    seerr = {inherit (seerr) port;};
     prowlarr = {inherit (prowlarr) port;};
     transmission = {port = transmission.uiPort;};
   };
