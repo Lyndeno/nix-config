@@ -55,6 +55,10 @@
       enable = false;
       execWheelOnly = true;
     };
+    run0 = {
+      enableSudoAlias = true;
+      wheelNeedsPassword = false;
+    };
     pam = {
       u2f = {
         enable = true;
