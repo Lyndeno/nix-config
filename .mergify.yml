@@ -22,6 +22,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-cast
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-email
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-fan
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-webcam-picker
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.devshell-default
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.hydra-spec
@@ -45,4 +46,5 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-cast
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-email
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-fan
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-webcam-picker
   name: Automatically merge dependabot updates
