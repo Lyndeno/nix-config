@@ -1,10 +1,14 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.stylix.nixosModules.stylix
   ];
   stylix = {
     enable = true;
-    image = "${inputs.wallpapers}/sedona.jpg";
+    image = pkgs.wallpaper;
     base16Scheme = "${inputs.base16-schemes}/base16/gruvbox-dark-hard.yaml";
     targets = {
       plymouth.enable = false;
