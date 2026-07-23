@@ -87,12 +87,6 @@ in {
 
     systemd.user.services.awww-client = let
       awwwCfg = config.services.awww;
-
-      old = config.stylix.image;
-
-      blurred = pkgs.runCommand "blurred-wallpaper" {} ''
-        ${pkgs.imagemagick}/bin/magick ${old} -blur 0x50 -modulate 40 $out
-      '';
     in {
       Install = {
         WantedBy = [config.wayland.systemd.target];
@@ -112,7 +106,7 @@ in {
           ]
           ++ [
             "img"
-            blurred
+            pkgs.wallpaper.blurred.darken
           ]
         );
         Environment = [
