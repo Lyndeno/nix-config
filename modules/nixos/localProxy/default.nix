@@ -42,9 +42,15 @@ in {
                   };
 
                   port = lib.mkOption {
-                    description = "Local port to proxy to";
+                    description = ''
+                      Local port to proxy to. Defaults to `services.<name>.port`
+                      when that option exists; otherwise null (no proxyPass).
+                    '';
                     type = lib.types.nullOr lib.types.port;
-                    default = globalConfig.services.${name}.port;
+                    default =
+                      if (globalConfig.services ? ${name} && globalConfig.services.${name} ? port)
+                      then globalConfig.services.${name}.port
+                      else null;
                   };
 
                   extraConfig = lib.mkOption {
