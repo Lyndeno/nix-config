@@ -5,9 +5,15 @@
 pkgs.writeShellApplication {
   name = pname;
 
-  runtimeInputs = [pkgs.imagemagick];
+  runtimeInputs = [pkgs.vips];
 
   text = ''
-    magick "$1" -modulate 40 "$2"
+    name=$(basename "$1")
+    ext="''${name##*.}"
+    [[ "$ext" == "$name" ]] && ext="jpg"
+    tmp=$(mktemp --suffix=".$ext")
+    trap 'rm -f "$tmp"' EXIT
+    vips linear "$1" "$tmp" 0.4 0 2>/dev/null
+    mv "$tmp" "$2"
   '';
 }

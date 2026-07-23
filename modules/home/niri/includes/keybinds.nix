@@ -24,7 +24,7 @@
       // Suggested binds for running programs: terminal, app launcher, screen locker.
       Mod+T { spawn "alacritty"; }
       Mod+D { spawn "fuzzel"; }
-      Super+Alt+L { spawn "swaylock"; }
+      Super+Alt+L { spawn "lock-screen"; }
       Mod+Slash { spawn "1password" "--quick-access"; }
 
       // You can also use a shell. Do this if you need pipes, multiple commands, etc.

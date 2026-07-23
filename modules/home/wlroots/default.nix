@@ -88,6 +88,7 @@
     pwmenu
     playerctl
     webcam-picker
+    lock-screen
   ];
 
   programs = {
@@ -441,7 +442,7 @@
     };
 
     swayidle = let
-      lock = "${lib.getExe pkgs.swaylock} -fF";
+      lock = lib.getExe pkgs.lock-screen;
       screenTimeout = pkgs.writeShellScriptBin "screen-timeout" "${lib.getExe pkgs.niri} msg action power-off-monitors";
 
       lockScreenTimeout = pkgs.writeShellApplication {
