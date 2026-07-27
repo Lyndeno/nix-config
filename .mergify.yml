@@ -22,6 +22,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screenshot-annotate
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screenshot-ocr
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-sleep-on-battery
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-update-system
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wallpaper
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-cast
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-email
@@ -50,6 +51,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screenshot-annotate
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screenshot-ocr
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-sleep-on-battery
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-update-system
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wallpaper
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-cast
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-email
