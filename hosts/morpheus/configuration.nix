@@ -21,6 +21,7 @@
       secureboot
       hydraCache
       attic-watch
+      acme
       localProxy
       server
       postgresql
@@ -38,6 +39,8 @@
       asus-desktop
       zfs
     ]);
+
+  services.lyndenoAcme.enable = true;
 
   age = {
     secrets = {
