@@ -144,6 +144,15 @@
           #custom-email {
             padding: 0 5px;
           }
+          #custom-update {
+            padding: 0 5px;
+          }
+          #custom-update.update-available {
+            color: @base0A;
+          }
+          #custom-update.error {
+            color: @base08;
+          }
           #custom-ts {
             padding: 0 5px;
           }
@@ -170,7 +179,7 @@
           height = 36;
           modules-left = ["niri/workspaces" (lib.mkIf (hostName != "neo") "cava")];
           modules-center = ["mpris" "custom/cast"];
-          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") (lib.mkIf config.programs.aerc.enable "custom/email") "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") (lib.mkIf config.programs.aerc.enable "custom/email") "custom/update" "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -197,6 +206,19 @@
             format = "󰇮 {}";
             hide-empty-text = true;
             on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e aerc";
+          };
+
+          "custom/update" = {
+            exec = lib.getExe pkgs.update-available;
+            interval = 300;
+            return-type = "json";
+            format = "{icon}";
+            format-icons = {
+              "update-available" = "󰚰";
+              "up-to-date" = "";
+              "error" = "";
+            };
+            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe pkgs.update-system} switch";
           };
 
           "custom/cast" = {
