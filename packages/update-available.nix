@@ -9,9 +9,8 @@ in
 
     runtimeInputs = with pkgs; [
       coreutils
-      curl
       jq
-      nix
+      hydra-latest
     ];
 
     text = ''
@@ -26,15 +25,11 @@ in
       #   "custom/update": {
       #     "exec": "update-available",
       #     "return-type": "json",
-      #     "interval": 3600,
+      #     "interval": 300,
       #     "format": "{icon}",
       #     "format-icons": {"update-available": "󰚰", "up-to-date": "", "error": ""},
       #     "on-click": "update-system switch"
       #   }
-
-      HYDRA_URL="''${HYDRA_URL:-https://hydra.lyndeno.ca}"
-      HYDRA_PROJECT="''${HYDRA_PROJECT:-nix-config}"
-      HYDRA_JOBSET="''${HYDRA_JOBSET:-master}"
 
       # Print waybar JSON: state, text, tooltip
       emit() {
@@ -42,28 +37,11 @@ in
           '{text: $text, alt: $alt, tooltip: $tooltip, class: $alt}'
       }
 
-      HOST="$(uname -n)"
-      SYSTEM="$(nix eval --raw --impure --expr builtins.currentSystem)"
-      JOB="''${SYSTEM}.nixos-''${HOST}"
-
-      BUILD="$(curl -sfL -H "Accept: application/json" \
-        "''${HYDRA_URL}/job/''${HYDRA_PROJECT}/''${HYDRA_JOBSET}/''${JOB}/latest-finished")" || {
-        emit error "" "Could not query Hydra for ''${JOB}"
-        exit 0
-      }
-
-      STATUS="$(jq -r '.buildstatus' <<<"$BUILD")"
-      BUILD_ID="$(jq -r '.id' <<<"$BUILD")"
-      if [ "$STATUS" != "0" ]; then
-        emit error "" "Latest finished build #''${BUILD_ID} did not succeed (buildstatus=''${STATUS})"
+      if ! INFO="$(hydra-latest 2>/dev/null)"; then
+        emit error "" "Could not resolve latest Hydra build for this host"
         exit 0
       fi
-
-      LATEST="$(jq -r '.buildoutputs.out.path' <<<"$BUILD")"
-      if [ -z "$LATEST" ] || [ "$LATEST" = "null" ]; then
-        emit error "" "Could not determine store path from build #''${BUILD_ID}"
-        exit 0
-      fi
+      read -r BUILD_ID LATEST <<<"$INFO"
 
       CURRENT="$(readlink -f /run/current-system)"
 

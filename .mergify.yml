@@ -14,6 +14,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-fastmail-unread
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-formatter
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-hmts
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-hydra-latest
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-hydra-spec
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-img-blur
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-img-darken
@@ -44,6 +45,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-fastmail-unread
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-formatter
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-hmts
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-hydra-latest
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-hydra-spec
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-img-blur
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-img-darken
