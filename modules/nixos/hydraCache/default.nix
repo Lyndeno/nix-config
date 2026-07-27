@@ -1,4 +1,7 @@
-{
+{pkgs, ...}: {
+  environment.systemPackages = [
+    pkgs.update-system
+  ];
   nix = {
     settings = {
       substituters = [
