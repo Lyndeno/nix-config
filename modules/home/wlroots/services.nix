@@ -26,29 +26,13 @@
 
     swayidle = let
       lock = lib.getExe pkgs.lock-screen;
-
-      lockScreenTimeout = pkgs.writeShellApplication {
-        name = "lock-screen-timeout";
-
-        runtimeInputs = [
-          pkgs.procps
-          pkgs.screen-timeout
-        ];
-
-        text = ''
-          if pgrep swaylock
-          then
-            screen-timeout
-          fi
-        '';
-      };
     in {
       enable = true;
       events.before-sleep = lock;
       timeouts = [
         {
           timeout = 5;
-          command = lib.getExe lockScreenTimeout;
+          command = lib.getExe pkgs.lock-screen-timeout;
         }
         {
           timeout = 300;
