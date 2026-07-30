@@ -6,18 +6,6 @@
   ...
 }: let
   fmCfg = config.accounts.email.accounts.fastmail;
-  qutebrowser-aerc-config = pkgs.writeText "qutebrowser-aerc-config.py" ''
-    config.source("${config.xdg.configHome}/qutebrowser/config.py")
-    config.bind("q", "tab-close")
-  '';
-  qutebrowser-aerc = pkgs.writeShellScriptBin "qutebrowser-aerc" ''
-    exec ${lib.getExe pkgs.qutebrowser} \
-      --desktop-file-name qutebrowser-aerc \
-      --basedir "/tmp/qutebrowser-aerc-''${UID}" \
-      --config-py "${qutebrowser-aerc-config}" \
-      --target window \
-      "$@"
-  '';
 in {
   programs = {
     msmtp.enable = true;
@@ -33,8 +21,8 @@ in {
           "text/html" = "! html";
         };
         openers = {
-          "x-scheme-handler/http*" = "${lib.getExe qutebrowser-aerc} {}";
-          "text/html" = "${lib.getExe qutebrowser-aerc} {}";
+          "x-scheme-handler/http*" = "${lib.getExe pkgs.qutebrowser-aerc} {}";
+          "text/html" = "${lib.getExe pkgs.qutebrowser-aerc} {}";
         };
         ui = {
           index-columns = "flags:4,name<20%,labels<20%,subject,date>=";
