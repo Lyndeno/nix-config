@@ -115,3 +115,24 @@ Stylix is used globally for theming. Base color scheme is Gruvbox Dark Hard with
 2. Add host SSH key to `pubKeys.nix`
 3. Add the key to relevant secrets in `secrets/secrets.nix`
 4. Re-key secrets: `agenix -r`
+
+### Adding or Removing a Package (regenerate `.mergify.yml`)
+
+Packages live in `packages/<name>.nix` and checks in `checks/<name>.nix`; Blueprint exposes
+them as `pkgs.<name>` and flake checks. The CI merge-queue config `.mergify.yml` is **generated**
+from `packages/mergify.nix` (off `flake.checks`) and validated by `checks/mergify.nix`.
+
+**IMPORTANT:** Whenever you add or remove a file in `packages/` or `checks/`, or change the
+`passthru.tests` of any of them (each test becomes its own check), you MUST regenerate
+`.mergify.yml` in the same commit — otherwise the `mergify` CI check fails and the merge queue
+blocks. Regenerate and verify with:
+
+```bash
+# Regenerate the committed config from the generator package
+install -m 644 "$(nix build --no-link --print-out-paths .#mergify)" .mergify.yml
+
+# Verify it matches (this is exactly what CI runs; adjust arch if needed)
+nix build .#checks.x86_64-linux.mergify
+```
+
+Commit the updated `.mergify.yml` alongside the package/check change.
