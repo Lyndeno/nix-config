@@ -130,7 +130,7 @@
           };
 
           "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
-            exec = "${lib.getExe pkgs.tailscale} status --peers --json | ${lib.getExe pkgs.jq} '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' | tr -d '\"'";
+            exec = lib.getExe pkgs.wb-ts;
             interval = 3;
             format = "󰲐 {}";
             hide-empty-text = true;
