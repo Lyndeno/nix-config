@@ -26,15 +26,13 @@
 
     swayidle = let
       lock = lib.getExe pkgs.lock-screen;
-      screenTimeout = pkgs.writeShellScriptBin "screen-timeout" "${lib.getExe pkgs.niri} msg action power-off-monitors";
 
       lockScreenTimeout = pkgs.writeShellApplication {
         name = "lock-screen-timeout";
 
-        runtimeInputs = with pkgs; [
-          procps
-          niri
-          screenTimeout
+        runtimeInputs = [
+          pkgs.procps
+          pkgs.screen-timeout
         ];
 
         text = ''
@@ -58,7 +56,7 @@
         }
         {
           timeout = 305;
-          command = lib.getExe screenTimeout;
+          command = lib.getExe pkgs.screen-timeout;
         }
         {
           timeout = 900;
