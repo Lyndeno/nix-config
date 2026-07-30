@@ -97,16 +97,7 @@
             on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e aerc";
           };
 
-          "custom/update" = let
-            switch = pkgs.writeShellApplication {
-              name = "update-system-hold";
-              runtimeInputs = [pkgs.update-system];
-              text = ''
-                update-system switch || true
-                read -n1 -rsp $'\nPress any key to close...\n'
-              '';
-            };
-          in {
+          "custom/update" = {
             exec = lib.getExe pkgs.update-available;
             interval = 300;
             return-type = "json";
@@ -118,7 +109,7 @@
             };
             # Launch as a transient unit so it lives in its own cgroup and
             # survives waybar restarts (which would otherwise kill children).
-            on-click = "${pkgs.systemd}/bin/systemd-run --user --quiet --collect -- ${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe switch}";
+            on-click = "${pkgs.systemd}/bin/systemd-run --user --quiet --collect -- ${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe pkgs.update-system-hold}";
           };
 
           "custom/cast" = {
