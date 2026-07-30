@@ -33,14 +33,14 @@
 
       // Example volume keys mappings for PipeWire & WirePlumber.
       // The allow-when-locked=true property makes them work even when the session is locked.
-      XF86AudioRaiseVolume allow-when-locked=true { spawn "bash" "-c" "(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $XDG_RUNTIME_DIR/wob.sock) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock)"; }
-      XF86AudioLowerVolume allow-when-locked=true { spawn "bash" "-c" "(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $XDG_RUNTIME_DIR/wob.sock) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock)"; }
-      XF86AudioMute        allow-when-locked=true { spawn "bash" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $XDG_RUNTIME_DIR/wob.sock) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $XDG_RUNTIME_DIR/wob.sock"; }
-      XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+      XF86AudioRaiseVolume allow-when-locked=true { spawn "${lib.getExe pkgs.wob-volume}" "up"; }
+      XF86AudioLowerVolume allow-when-locked=true { spawn "${lib.getExe pkgs.wob-volume}" "down"; }
+      XF86AudioMute        allow-when-locked=true { spawn "${lib.getExe pkgs.wob-volume}" "mute"; }
+      XF86AudioMicMute     allow-when-locked=true { spawn "${lib.getExe pkgs.wob-volume}" "mic-mute"; }
 
   		// Brightness
-  		XF86MonBrightnessUp allow-when-locked=true { spawn "bash" "-c" "brightnessctl set +5% | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
-  		XF86MonBrightnessDown allow-when-locked=true { spawn "bash" "-c" "brightnessctl -n set 5%- | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > $XDG_RUNTIME_DIR/wob.sock"; }
+  		XF86MonBrightnessUp allow-when-locked=true { spawn "${lib.getExe pkgs.wob-brightness}" "up"; }
+  		XF86MonBrightnessDown allow-when-locked=true { spawn "${lib.getExe pkgs.wob-brightness}" "down"; }
 
       // Gamma
   		Mod+S hotkey-overlay-title="Cycle Night Shift Modes" allow-when-locked=true { spawn "bash" "-c" "systemctl --user kill --signal SIGUSR1 wlsunset.service"; }
@@ -52,9 +52,9 @@
       Mod+Y hotkey-overlay-title="Clipboard History" { spawn "${lib.getExe' pkgs.cliphist "cliphist-fuzzel-img"}"; }
 
       // Media
-      XF86AudioPrev allow-when-locked=true { spawn "bash" "-c" "playerctl previous"; }
-      XF86AudioNext allow-when-locked=true { spawn "bash" "-c" "playerctl next"; }
-      XF86AudioPlay allow-when-locked=true { spawn "bash" "-c" "playerctl play-pause"; }
+      XF86AudioPrev allow-when-locked=true { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
+      XF86AudioNext allow-when-locked=true { spawn "${lib.getExe pkgs.playerctl}" "next"; }
+      XF86AudioPlay allow-when-locked=true { spawn "${lib.getExe pkgs.playerctl}" "play-pause"; }
 
       // Dynamic Casting
       Mod+M hotkey-overlay-title="Cast Focused Window" { set-dynamic-cast-window; }
