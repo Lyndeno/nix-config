@@ -5,7 +5,7 @@
 pkgs.writeShellApplication {
   name = pname;
 
-  runtimeInputs = [pkgs.vips];
+  runtimeInputs = with pkgs; [coreutils vips];
 
   text = ''
     name=$(basename "$1")

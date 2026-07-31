@@ -8,6 +8,7 @@ in
     name = pname;
 
     runtimeInputs = with pkgs; [
+      coreutils
       tailscale
       jq
     ];

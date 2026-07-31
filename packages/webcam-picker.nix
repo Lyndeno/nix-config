@@ -7,7 +7,7 @@ in
   pkgs.writeShellApplication {
     name = pname;
 
-    runtimeInputs = with pkgs; [v4l-utils fuzzel];
+    runtimeInputs = with pkgs; [coreutils v4l-utils fuzzel];
 
     text = ''
       declare -A cam_to_dev=()
