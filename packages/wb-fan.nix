@@ -3,8 +3,8 @@
   pname,
 }: let
   inherit (pkgs) lib;
-in
-  pkgs.writeShellApplication {
+
+  package = pkgs.writeShellApplication {
     name = pname;
 
     runtimeInputs = with pkgs; [
@@ -15,7 +15,10 @@ in
     bashOptions = [];
 
     text = ''
-      sensors -j | jq --unbuffered -c '
+      # sensors is overridable so the jq filter can be tested with a stub.
+      sensors="''${SENSORS:-sensors}"
+
+      "$sensors" -j | jq --unbuffered -c '
         [to_entries[]
           | {controller: .key} as $entry
           | .value | to_entries[]
@@ -41,4 +44,19 @@ in
     '';
 
     meta.platforms = lib.platforms.linux;
-  }
+
+    passthru.tests = {
+      # Two fans at 1000 and 2000 RPM should report the floored average (1500).
+      average = pkgs.runCommandLocal "${pname}-average" {} ''
+        export SENSORS=${pkgs.writeShellScript "sensors-stub" ''
+          echo '{"nct6798-isa-0290":{"fan1":{"fan1_input":1000.0},"fan2":{"fan2_input":2000.0}}}'
+        ''}
+        got=$(${lib.getExe package})
+        echo "$got" | grep -q 'fan1: 1000 RPM' || { echo "bad tooltip: $got" >&2; exit 1; }
+        echo "$got" | grep -q '1500' || { echo "wrong average: $got" >&2; exit 1; }
+        touch "$out"
+      '';
+    };
+  };
+in
+  package
