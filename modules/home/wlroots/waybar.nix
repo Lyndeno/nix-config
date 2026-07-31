@@ -18,6 +18,11 @@
         if hostName == "morpheus"
         then 144
         else 60;
+
+      # Run a command in a floating "hover" terminal (waybar on-click).
+      hover = cmd: "${lib.getExe config.programs.alacritty.package} --class hover -e ${cmd}";
+      # Open bottom on a given default widget in a hover terminal.
+      btm = widget: hover "${lib.getExe config.programs.bottom.package} --default_widget_type ${widget} -e";
     in {
       enable = true;
       systemd.enable = true;
@@ -94,7 +99,7 @@
             return-type = "json";
             format = "󰇮 {}";
             hide-empty-text = true;
-            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e aerc";
+            on-click = hover "aerc";
           };
 
           "custom/update" = {
@@ -109,7 +114,7 @@
             };
             # Launch as a transient unit so it lives in its own cgroup and
             # survives waybar restarts (which would otherwise kill children).
-            on-click = "${pkgs.systemd}/bin/systemd-run --user --quiet --collect -- ${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe pkgs.update-system-hold}";
+            on-click = "${pkgs.systemd}/bin/systemd-run --user --quiet --collect -- ${hover "${lib.getExe pkgs.update-system-hold}"}";
           };
 
           "custom/cast" = {
@@ -126,7 +131,7 @@
             format = "{}";
             return-type = "json";
             hide-empty-text = true;
-            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type temp -e";
+            on-click = btm "temp";
           };
 
           "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
@@ -156,7 +161,7 @@
             "interval" = 600;
             "exec" = "${lib.getExe pkgs.wttrbar} --nerd";
             "return-type" = "json";
-            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe pkgs.terminal-weather}";
+            on-click = hover "${lib.getExe pkgs.terminal-weather}";
           };
 
           "cava" = {
@@ -221,14 +226,14 @@
             format = " {usage}%";
             tooltip = true;
             interval = 3;
-            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type cpu -e";
+            on-click = btm "cpu";
           };
 
           "memory" = {
             format = " {used:0.1f} GiB";
             tooltip-format = "Memory {used:0.1f} GiB / {total:0.1f} GiB\nSwap: {swapUsed:0.1f} GiB / {swapTotal:0.1f} GiB";
             interval = 3;
-            on-click = "${lib.getExe config.programs.alacritty.package} --class hover -e ${lib.getExe config.programs.bottom.package} --default_widget_type mem -e";
+            on-click = btm "mem";
           };
 
           "backlight" = {
