@@ -34,10 +34,14 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-cast
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-email
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-fan
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-fan-average
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wb-ts
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-webcam-picker
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wob-brightness
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wob-brightness-percent
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wob-volume
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wob-volume-level
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-wob-volume-muted
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.devshell-default
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.hydra-spec
@@ -73,8 +77,12 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-cast
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-email
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-fan
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-fan-average
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wb-ts
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-webcam-picker
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-brightness
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-brightness-percent
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-volume
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-volume-level
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-volume-muted
   name: Automatically merge dependabot updates
