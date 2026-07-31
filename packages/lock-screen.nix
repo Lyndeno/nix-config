@@ -18,7 +18,9 @@ in
     ];
 
     text = ''
-      trap "swaylock -fF" ERR INT
+      # Fall back to a plain lock if screenshot/blur setup fails, but log it
+      # first so the failure is visible in the journal instead of silent.
+      trap 'echo "lock-screen: screenshot setup failed, falling back to plain lock" >&2; swaylock -fF' ERR INT
 
       scratch=$(mktemp -d -t lockscreenshot.XXX)
       trap 'rm -rf "''${scratch}"' EXIT
