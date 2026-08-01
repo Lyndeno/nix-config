@@ -31,5 +31,6 @@ in
       fi
     '';
 
+    meta.description = "Waybar module showing the unread email count";
     meta.platforms = lib.platforms.linux;
   }

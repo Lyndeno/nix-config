@@ -8,6 +8,6 @@ pkgs.vimUtils.buildVimPlugin {
     rev = "15afe9503a2884395f00d88ea697c88aadee8619";
     sha256 = "sha256-7Wnb0UxhSwWxPgabmlQlc8JlDD4alF0PBlhM9oM7pTc=";
   };
-  meta.homepage = "https://github.com/calops/hmts.nvim/";
+  meta.description = "Tree-sitter highlighting for embedded code in Home Manager files (hmts.nvim)";
   meta.hydraPlatforms = [];
 }

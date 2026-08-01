@@ -43,6 +43,7 @@
       '
     '';
 
+    meta.description = "Waybar module showing fan speed";
     meta.platforms = lib.platforms.linux;
 
     passthru.tests = {

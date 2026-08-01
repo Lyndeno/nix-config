@@ -1,3 +1,4 @@
+# meta.description = "Immich photo library with a daily RAW/JPG stacking job"
 {
   config,
   pkgs,

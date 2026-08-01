@@ -1,3 +1,4 @@
+# meta.description = "ACME wildcard certificates via acme-dns DNS-01 challenges"
 {
   config,
   lib,

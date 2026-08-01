@@ -14,6 +14,15 @@
 
   networking.hostName = "oracle";
 
+  hostMeta = {
+    description = "VPS.";
+    specs = ''
+      - Tailscale exit node
+      - acme-dns for auth.lyndeno.ca
+      - Auto-upgrades nightly from GitHub
+    '';
+  };
+
   boot = {
     loader.grub = {
       enable = true;

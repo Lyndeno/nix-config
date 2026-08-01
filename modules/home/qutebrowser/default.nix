@@ -1,3 +1,4 @@
+# meta.description = "qutebrowser keyboard-driven web browser"
 {
   lib,
   config,

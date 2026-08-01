@@ -1,3 +1,4 @@
+# meta.description = "Alacritty terminal emulator"
 {
   programs.alacritty = {
     enable = true;

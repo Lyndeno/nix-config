@@ -20,5 +20,6 @@ in
         | tr -d '"'
     '';
 
+    meta.description = "Waybar module showing the active Tailscale exit node";
     meta.platforms = lib.platforms.linux;
   }

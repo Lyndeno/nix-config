@@ -20,5 +20,6 @@ pkgs.writeShellApplication {
     fi
   '';
 
+  meta.description = "Powers off monitors on idle, but only while the screen is locked";
   meta.platforms = pkgs.lib.platforms.linux;
 }

@@ -1,3 +1,4 @@
+# meta.description = "Firefly III personal finance manager"
 {config, ...}: {
   age.secrets.firefly-id = {
     file = ../../../secrets/${config.networking.hostName}/firefly_id.age;

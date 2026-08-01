@@ -1,3 +1,4 @@
+# meta.description = "ASUS desktop hardware configuration"
 {inputs, ...}: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-gpu-amd

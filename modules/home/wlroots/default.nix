@@ -1,3 +1,4 @@
+# meta.description = "Shared Wayland user services: waybar, mako, swayidle, kanshi, wob"
 {flake, ...}: {
   pkgs,
   osConfig,

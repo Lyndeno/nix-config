@@ -16,5 +16,6 @@ pkgs.writeShellApplication {
     read -n1 -rsp $'\nPress any key to close...\n'
   '';
 
+  meta.description = "Runs update-system, then holds the terminal open";
   meta.platforms = pkgs.lib.platforms.linux;
 }

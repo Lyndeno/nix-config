@@ -1,3 +1,4 @@
+# meta.description = "Developer tooling and language servers"
 {
   config,
   pkgs,

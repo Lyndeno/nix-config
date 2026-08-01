@@ -1,3 +1,4 @@
+# meta.description = "nginx reverse proxy exposing local services on subdomains"
 {
   config,
   lib,

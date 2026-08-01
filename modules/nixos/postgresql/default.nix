@@ -1,3 +1,4 @@
+# meta.description = "PostgreSQL database server"
 {pkgs, ...}: {
   services = {
     postgresql = {

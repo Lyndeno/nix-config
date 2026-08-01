@@ -1,3 +1,4 @@
+# meta.description = "Substitutes builds from the lyndeno Attic cache"
 {pkgs, ...}: {
   environment.systemPackages = [
     pkgs.update-system

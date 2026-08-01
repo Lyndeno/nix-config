@@ -1,3 +1,4 @@
+# meta.description = "System-wide Stylix theming (Gruvbox Dark Hard, Sedona wallpaper)"
 {inputs, ...}: {pkgs, ...}: {
   imports = [
     inputs.stylix.nixosModules.stylix

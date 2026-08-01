@@ -16,4 +16,6 @@ pkgs.writeShellApplication {
     vips linear "$1" "$tmp" 0.4 0 2>/dev/null
     mv "$tmp" "$2"
   '';
+
+  meta.description = "Writes a darkened copy of an image (wallpaper helper)";
 }

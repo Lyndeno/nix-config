@@ -37,5 +37,6 @@ in
       '
     '';
 
+    meta.description = "Waybar module showing the current niri screencast target";
     meta.platforms = lib.platforms.linux;
   }

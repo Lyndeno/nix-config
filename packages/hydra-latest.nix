@@ -54,5 +54,6 @@ in
       printf '%s %s\n' "$BUILD_ID" "$STORE_PATH"
     '';
 
+    meta.description = "Resolves the latest successful Hydra build for a host to its store path";
     meta.platforms = lib.platforms.linux;
   }

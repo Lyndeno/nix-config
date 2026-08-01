@@ -1,3 +1,4 @@
+# meta.description = "Server hardening: watchdog, no suspend, headless smartd mail alerts"
 {
   config,
   inputs,

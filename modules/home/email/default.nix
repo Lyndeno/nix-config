@@ -1,3 +1,4 @@
+# meta.description = "aerc email client with Fastmail JMAP"
 {
   osConfig,
   lib,

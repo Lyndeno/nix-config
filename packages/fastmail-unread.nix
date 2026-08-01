@@ -55,5 +55,6 @@ in
       fi
     '';
 
+    meta.description = "Prints the Fastmail unread message count via JMAP";
     meta.platforms = lib.platforms.linux;
   }

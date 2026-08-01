@@ -15,7 +15,7 @@
       };
     });
 
-  base = pkgs.runCommand "wallpaper" {} ''
+  base = pkgs.runCommand "wallpaper" {meta.description = "The desktop wallpaper (Sedona), with blurred and darkened variants";} ''
     ln -s ${inputs.wallpapers}/sedona.jpg $out
   '';
 in

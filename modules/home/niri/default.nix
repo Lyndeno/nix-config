@@ -1,3 +1,4 @@
+# meta.description = "Niri compositor user config (keybinds, layout)"
 {
   flake,
   inputs,

@@ -25,5 +25,6 @@ in
         "$@"
     '';
 
+    meta.description = "Throwaway qutebrowser instance for opening links from aerc";
     meta.platforms = lib.platforms.linux;
   }

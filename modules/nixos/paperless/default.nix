@@ -1,3 +1,4 @@
+# meta.description = "Paperless-ngx document management with a Samba consumption share"
 {config, ...}: {
   services = {
     paperless = {
