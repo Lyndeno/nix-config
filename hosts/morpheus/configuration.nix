@@ -82,6 +82,25 @@
 
   zramSwap.enable = true;
 
+  # systemd-oomd: on this build/service host a runaway nix build can drive the
+  # machine into swap thrash before the kernel OOM killer reacts. Let oomd act
+  # first, based on cgroup pressure/swap, so it kills the offending cgroup
+  # cleanly. Monitor the root slice (swap exhaustion, incl. zram above) plus
+  # the system and user slices (sustained memory pressure). Tradeoff: under
+  # heavy pressure oomd may kill a well-behaved service in system.slice, not
+  # just the build — acceptable here since everything is restartable.
+  systemd.oomd = {
+    enable = true;
+    enableRootSlice = true;
+    enableSystemSlice = true;
+    enableUserSlices = true;
+    extraConfig = {
+      # Require pressure to persist before acting, to avoid twitchy kills
+      # during normal build spikes.
+      DefaultMemoryPressureDurationSec = "20s";
+    };
+  };
+
   system = {
     autoUpgrade = {
       enable = true;
