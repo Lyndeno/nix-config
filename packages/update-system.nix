@@ -57,5 +57,6 @@ in
       run0 "''${STORE_PATH}/bin/switch-to-configuration" "$ACTION"
     '';
 
+    meta.description = "Activates the latest Hydra-built system closure fetched from the cache";
     meta.platforms = lib.platforms.linux;
   }

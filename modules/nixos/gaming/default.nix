@@ -1,3 +1,4 @@
+# meta.description = "Steam, Gamescope and gaming applications"
 {pkgs}: {
   environment.systemPackages = with pkgs; [
     gamescope

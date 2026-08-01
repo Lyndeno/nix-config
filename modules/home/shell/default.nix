@@ -1,3 +1,4 @@
+# meta.description = "Fish shell with Starship, Atuin, Bat, Eza and FZF"
 {inputs, ...}: {
   pkgs,
   lib,

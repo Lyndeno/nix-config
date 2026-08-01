@@ -21,6 +21,7 @@
       fi
     '';
 
+    meta.description = "Reports AC adapter state as on/off/n/a";
     meta.platforms = lib.platforms.linux;
 
     passthru.tests = {

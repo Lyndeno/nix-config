@@ -1,3 +1,4 @@
+# meta.description = "Laptop power management: suspend-then-hibernate, iwd, geolocated timezone"
 {
   systemd = {
     sleep.settings.Sleep = {

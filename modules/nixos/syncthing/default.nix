@@ -1,3 +1,4 @@
+# meta.description = "Syncthing file synchronisation"
 {
   services.syncthing = {
     enable = true;

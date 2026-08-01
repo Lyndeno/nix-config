@@ -12,5 +12,6 @@ pkgs.writeShellApplication {
     niri msg action power-off-monitors
   '';
 
+  meta.description = "Powers off all monitors via niri";
   meta.platforms = pkgs.lib.platforms.linux;
 }

@@ -1,3 +1,4 @@
+# meta.description = "ZFS Event Daemon notifications via Pushover"
 {
   inputs,
   pkgs,

@@ -20,5 +20,6 @@ pkgs.writeShellApplication {
     fi
   '';
 
+  meta.description = "Suspend-then-hibernate when running on battery";
   meta.platforms = pkgs.lib.platforms.linux;
 }

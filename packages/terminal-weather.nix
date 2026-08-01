@@ -13,5 +13,6 @@ pkgs.writeShellApplication {
     read -r -p "Press Any Key to Continue"
   '';
 
+  meta.description = "Shows the weather in a terminal and waits for a keypress";
   meta.platforms = pkgs.lib.platforms.linux;
 }

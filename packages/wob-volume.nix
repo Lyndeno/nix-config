@@ -55,6 +55,7 @@
       esac
     '';
 
+    meta.description = "Adjusts volume/mute with a wob overlay bar";
     meta.platforms = lib.platforms.linux;
 
     passthru.tests = let

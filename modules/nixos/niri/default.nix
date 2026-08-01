@@ -1,3 +1,4 @@
+# meta.description = "Niri scrolling Wayland compositor"
 {inputs, ...}: {
   pkgs,
   lib,

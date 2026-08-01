@@ -1,3 +1,4 @@
+# meta.description = "spotifyd headless Spotify daemon"
 {
   programs.spotifyd = {
     enable = true;

@@ -1,3 +1,4 @@
+# meta.description = "Dell XPS 15 9560 hardware support"
 {inputs, ...}: let
   intelModule = "${inputs.nixos-hardware}/dell/xps/15-9560/intel";
 in {

@@ -41,6 +41,7 @@
       esac
     '';
 
+    meta.description = "Adjusts screen brightness with a wob overlay bar";
     meta.platforms = lib.platforms.linux;
 
     passthru.tests = {

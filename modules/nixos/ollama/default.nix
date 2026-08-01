@@ -1,3 +1,4 @@
+# meta.description = "Ollama local LLM inference server"
 {pkgs, ...}: {
   services = {
     ollama = {

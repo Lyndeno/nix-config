@@ -22,5 +22,6 @@ in
       tesseract "$TMPFILE" stdout | wl-copy
     '';
 
+    meta.description = "OCRs a screenshot region to the clipboard (tesseract)";
     meta.platforms = lib.platforms.linux;
   }

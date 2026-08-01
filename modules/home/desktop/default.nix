@@ -1,3 +1,4 @@
+# meta.description = "Desktop user apps (Firefox, Spotify, qutebrowser)"
 {flake, ...}: {pkgs, ...}: {
   imports = with flake.homeModules; [
     spotify

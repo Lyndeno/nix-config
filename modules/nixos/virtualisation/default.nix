@@ -1,3 +1,4 @@
+# meta.description = "libvirt/QEMU virtual machines with virt-manager"
 {
   pkgs,
   lib,

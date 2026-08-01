@@ -21,5 +21,6 @@ in
         --brush-smooth-history-size 5
     '';
 
+    meta.description = "Region screenshot with annotation (grim/slurp + satty)";
     meta.platforms = lib.platforms.linux;
   }

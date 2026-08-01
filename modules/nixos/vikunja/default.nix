@@ -1,3 +1,4 @@
+# meta.description = "Vikunja task and to-do manager"
 {config, ...}: {
   services = {
     vikunja = {

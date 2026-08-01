@@ -1,3 +1,4 @@
+# meta.description = "Base user config: Git and SSH keys"
 {pkgs, ...}: {
   programs.git = {
     signing = {

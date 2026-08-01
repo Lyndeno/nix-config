@@ -25,6 +25,11 @@ in {
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
+  hostMeta = {
+    description = "BorgBackup repository host for morpheus and neo.";
+    specs = "Raspberry Pi 4B (4 GB) + 2 TB USB HDD. Image-based, A/B-updatable NixOS (systemd-repart + systemd-sysupdate).";
+  };
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-partlabel/root";

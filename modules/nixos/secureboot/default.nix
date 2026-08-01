@@ -1,3 +1,4 @@
+# meta.description = "Secure Boot via lanzaboote"
 {
   pkgs,
   lib,

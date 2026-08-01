@@ -1,3 +1,4 @@
+# meta.description = "Desktop base: Wayland session, PipeWire audio, printing, firmware updates, mDNS"
 {
   lib,
   pkgs,

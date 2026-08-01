@@ -22,6 +22,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-lock-screen-timeout
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-mergify
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-qutebrowser-aerc
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-readme
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screen-timeout
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screenshot-annotate
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screenshot-ocr
@@ -66,6 +67,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-lock-screen-timeout
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-mergify
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-qutebrowser-aerc
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-readme
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screen-timeout
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screenshot-annotate
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screenshot-ocr
@@ -86,4 +88,5 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-volume
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-volume-level
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-wob-volume-muted
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.readme
   name: Automatically merge dependabot updates

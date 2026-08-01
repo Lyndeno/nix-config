@@ -1,3 +1,4 @@
+# meta.description = "Base system shared by all hosts: Nix, security, systemd-networkd, Tailscale, hostMeta"
 {inputs, ...}: {
   config,
   pkgs,
@@ -6,6 +7,7 @@
 }: {
   imports = [
     inputs.agenix.nixosModules.default
+    inputs.self.nixosModules.host-meta
   ];
 
   i18n.defaultLocale = "en_CA.UTF-8";

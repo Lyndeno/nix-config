@@ -1,3 +1,4 @@
+# meta.description = "Neovim configured via nixvim (LSP, completion, plugins)"
 {inputs, ...}: {
   pkgs,
   config,

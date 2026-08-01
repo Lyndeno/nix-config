@@ -16,4 +16,6 @@ pkgs.writeShellApplication {
     vips gaussblur "$1" "$tmp" 60 2>/dev/null
     mv "$tmp" "$2"
   '';
+
+  meta.description = "Writes a Gaussian-blurred copy of an image (wallpaper helper)";
 }

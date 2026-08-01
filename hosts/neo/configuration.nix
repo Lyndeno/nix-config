@@ -25,6 +25,11 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  hostMeta = {
+    description = "Development laptop; occasional gaming.";
+    specs = "Dell XPS 15 9560 — Intel i7-7700HQ, 64 GB RAM, 1 TB NVMe. BorgBackup to trinity (AC power only), Secure Boot via lanzaboote.";
+  };
+
   age = {
     secrets = {
       id_borgbase.file = ../../secrets/id_borgbase.age;

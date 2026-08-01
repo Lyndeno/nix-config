@@ -1,3 +1,4 @@
+# meta.description = "Media automation stack (Sonarr/Radarr/Prowlarr/Transmission) behind a VPN"
 {
   config,
   inputs,

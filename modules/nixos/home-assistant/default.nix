@@ -1,3 +1,4 @@
+# meta.description = "Home Assistant home automation"
 {
   services.home-assistant = {
     enable = true;

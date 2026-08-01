@@ -43,5 +43,6 @@ in
       exec swaylock "''${args[@]}"
     '';
 
+    meta.description = "Locks the screen (swaylock) with a blurred wallpaper, falling back to a plain lock";
     meta.platforms = lib.platforms.linux;
   }

@@ -1,3 +1,4 @@
+# meta.description = "Visual Studio Code"
 {pkgs, ...}: {
   programs.vscode = {
     enable = true;

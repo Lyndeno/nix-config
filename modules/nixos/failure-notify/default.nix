@@ -1,3 +1,4 @@
+# meta.description = "E-mails a report when a systemd unit enters the failed state"
 {
   config,
   lib,

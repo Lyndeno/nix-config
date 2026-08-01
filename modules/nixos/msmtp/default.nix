@@ -1,3 +1,4 @@
+# meta.description = "System mail relay via msmtp (Fastmail)"
 {
   pkgs,
   config,

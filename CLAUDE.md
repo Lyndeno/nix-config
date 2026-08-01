@@ -112,9 +112,55 @@ Stylix is used globally for theming. Base color scheme is Gruvbox Dark Hard with
 ### Adding a New Host
 
 1. Create `hosts/<name>/configuration.nix` (and optionally `disko.nix`, `README.md`)
-2. Add host SSH key to `pubKeys.nix`
-3. Add the key to relevant secrets in `secrets/secrets.nix`
-4. Re-key secrets: `agenix -r`
+2. Set `hostMeta.description` and `hostMeta.specs` in the host config (used by the generated README)
+3. Add host SSH key to `pubKeys.nix`
+4. Add the key to relevant secrets in `secrets/secrets.nix`
+5. Re-key secrets: `agenix -r`
+6. Regenerate `README.md` (see "Generated README" below)
+
+### Generated README (regenerate `README.md`)
+
+The **Hosts / NixOS Modules / Home Manager Modules / Packages** sections of `README.md`
+are **generated** from the config by `packages/readme.nix` and validated by `checks/readme.nix`
+(same generate-and-drift-check pattern as `.mergify.yml`). Content outside the
+`<!-- BEGIN/END GENERATED:* -->` markers is hand-written and preserved.
+
+The generator sources each description from:
+- **Hosts** — the `hostMeta.{description,specs}` option (set per host).
+- **Modules** — a top-of-file `# meta.description = "..."` comment in each `default.nix`.
+- **Packages** — the package's `meta.description` attribute (x86_64 set; config-generators
+  `readme`/`mergify`/`hydra-spec` are excluded).
+
+It **fails to build** if any listed host/module/package is missing its description, so a new one
+can't merge undocumented. Whenever you add a host/module/package — or edit any of these
+descriptions — regenerate and verify:
+
+```bash
+install -m 644 "$(nix build --no-link --print-out-paths .#readme)" README.md
+nix build .#checks.x86_64-linux.readme
+```
+
+### Adding or Removing a Package (regenerate `.mergify.yml`)
+
+Packages live in `packages/<name>.nix` and checks in `checks/<name>.nix`; Blueprint exposes
+them as `pkgs.<name>` and flake checks. Every package needs a `meta.description` (for the
+generated README). The CI merge-queue config `.mergify.yml` is **generated**
+from `packages/mergify.nix` (off `flake.checks`) and validated by `checks/mergify.nix`.
+
+**IMPORTANT:** Whenever you add or remove a file in `packages/` or `checks/`, or change the
+`passthru.tests` of any of them (each test becomes its own check), you MUST regenerate
+`.mergify.yml` in the same commit — otherwise the `mergify` CI check fails and the merge queue
+blocks. Regenerate and verify with:
+
+```bash
+# Regenerate the committed config from the generator package
+install -m 644 "$(nix build --no-link --print-out-paths .#mergify)" .mergify.yml
+
+# Verify it matches (this is exactly what CI runs; adjust arch if needed)
+nix build .#checks.x86_64-linux.mergify
+```
+
+Commit the updated `.mergify.yml` alongside the package/check change.
 
 ### Adding or Removing a Package (regenerate `.mergify.yml`)
 

@@ -55,5 +55,6 @@ in
           "$BUILD_ID" "$CURRENT" "$LATEST")"
     '';
 
+    meta.description = "Waybar module reporting whether a newer Hydra build is available";
     meta.platforms = lib.platforms.linux;
   }

@@ -77,5 +77,6 @@ in
           --wayland-app-id=hover
     '';
 
+    meta.description = "Picks a webcam via fuzzel and launches a viewer";
     meta.platforms = lib.platforms.linux;
   }

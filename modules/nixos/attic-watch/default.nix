@@ -1,3 +1,4 @@
+# meta.description = "Pushes the local Nix store to the Attic cache"
 {
   config,
   pkgs,

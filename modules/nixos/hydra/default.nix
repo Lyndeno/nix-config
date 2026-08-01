@@ -1,3 +1,4 @@
+# meta.description = "Hydra continuous-integration server"
 {
   config,
   pkgs,
