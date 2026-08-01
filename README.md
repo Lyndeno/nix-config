@@ -25,7 +25,10 @@ Main workstation and home server — programming, gaming, multimedia, and self-h
 
 Development laptop; occasional gaming.
 
-Dell XPS 15 9560 — Intel i7-7700HQ, 64 GB RAM, 1 TB NVMe. BorgBackup to trinity (AC power only), Secure Boot via lanzaboote.
+- Dell XPS 15 9560 — CPU: Intel i7-7700HQ — RAM: 64 GB
+- Storage: 1 TB NVMe
+- LUKS-encrypted root, Secure Boot via lanzaboote
+- BorgBackup to trinity (AC power only)
 
 ### oracle (`x86_64-linux`, 21.11)
 
