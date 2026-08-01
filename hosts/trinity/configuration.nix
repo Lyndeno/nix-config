@@ -27,7 +27,10 @@ in {
 
   hostMeta = {
     description = "BorgBackup repository host for morpheus and neo.";
-    specs = "Raspberry Pi 4B (4 GB) + 2 TB USB HDD. Image-based, A/B-updatable NixOS (systemd-repart + systemd-sysupdate).";
+    specs = ''
+      - Raspberry Pi 4B (4 GB) + 2 TB USB HDD
+      - Image-based, A/B-updatable NixOS (systemd-repart + systemd-sysupdate)
+    '';
   };
 
   fileSystems = {

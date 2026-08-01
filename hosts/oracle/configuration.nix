@@ -16,7 +16,11 @@
 
   hostMeta = {
     description = "VPS.";
-    specs = "Tailscale exit node; acme-dns for auth.lyndeno.ca. Auto-upgrades nightly from GitHub.";
+    specs = ''
+      - Tailscale exit node
+      - acme-dns for auth.lyndeno.ca
+      - Auto-upgrades nightly from GitHub
+    '';
   };
 
   boot = {

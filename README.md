@@ -34,13 +34,16 @@ Development laptop; occasional gaming.
 
 VPS.
 
-Tailscale exit node; acme-dns for auth.lyndeno.ca. Auto-upgrades nightly from GitHub.
+- Tailscale exit node
+- acme-dns for auth.lyndeno.ca
+- Auto-upgrades nightly from GitHub
 
 ### trinity (`aarch64-linux`, 25.11)
 
 BorgBackup repository host for morpheus and neo.
 
-Raspberry Pi 4B (4 GB) + 2 TB USB HDD. Image-based, A/B-updatable NixOS (systemd-repart + systemd-sysupdate).
+- Raspberry Pi 4B (4 GB) + 2 TB USB HDD
+- Image-based, A/B-updatable NixOS (systemd-repart + systemd-sysupdate)
 <!-- END GENERATED:hosts -->
 
 ---
