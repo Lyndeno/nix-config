@@ -38,9 +38,20 @@
       lubelogger
       asus-desktop
       zfs
+      failure-notify
     ]);
 
   services.lyndenoAcme.enable = true;
+
+  services.failureNotify = {
+    enable = true;
+    units = [
+      "borgbackup-job-borgbase"
+      "immich-stack"
+      "nix-gc"
+      "nixos-upgrade"
+    ];
+  };
 
   age = {
     secrets = {
