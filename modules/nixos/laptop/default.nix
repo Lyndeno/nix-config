@@ -1,6 +1,15 @@
 {
-  systemd.sleep.settings.Sleep = {
-    HibernateDelaySec = "2h";
+  systemd = {
+    sleep.settings.Sleep = {
+      HibernateDelaySec = "2h";
+    };
+
+    # Skip unattended nix maintenance while on battery; the timers will run
+    # the next time the job fires on AC. (Borg already gates on AC per-host.)
+    services = {
+      nix-gc.unitConfig.ConditionACPower = true;
+      nix-optimise.unitConfig.ConditionACPower = true;
+    };
   };
 
   services = {
