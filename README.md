@@ -12,7 +12,7 @@ My personal NixOS configuration, managed as a Nix flake using the [Blueprint](ht
 ## Hosts
 
 <!-- BEGIN GENERATED:hosts -->
-### morpheus (`x86_64-linux`, 23.05)
+### morpheus (`x86_64-linux`)
 
 Main workstation and home server — programming, gaming, multimedia, and self-hosted services.
 
@@ -21,7 +21,7 @@ Main workstation and home server — programming, gaming, multimedia, and self-h
 - LUKS-encrypted root, Secure Boot via lanzaboote
 - Services: Immich, Plex, Paperless-ngx, Firefly III, Vikunja, Home Assistant, Attic, Hydra, Nixarr, LubeLogger, Ollama
 
-### neo (`x86_64-linux`, 21.11)
+### neo (`x86_64-linux`)
 
 Development laptop; occasional gaming.
 
@@ -30,7 +30,7 @@ Development laptop; occasional gaming.
 - LUKS-encrypted root, Secure Boot via lanzaboote
 - BorgBackup to trinity (AC power only)
 
-### oracle (`x86_64-linux`, 21.11)
+### oracle (`x86_64-linux`)
 
 VPS.
 
@@ -38,7 +38,7 @@ VPS.
 - acme-dns for auth.lyndeno.ca
 - Auto-upgrades nightly from GitHub
 
-### trinity (`aarch64-linux`, 25.11)
+### trinity (`aarch64-linux`)
 
 BorgBackup repository host for morpheus and neo.
 

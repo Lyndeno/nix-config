@@ -80,7 +80,7 @@
     then throw "host ${name} is missing hostMeta.description (set it in hosts/${name}/configuration.nix)"
     else
       lib.concatStringsSep "\n" (
-        ["### ${name} (`${arch}`, ${cfg.system.stateVersion})" "" desc]
+        ["### ${name} (`${arch}`)" "" desc]
         ++ lib.optionals (specs != "") ["" specs]
       );
 
