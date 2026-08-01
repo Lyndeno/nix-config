@@ -6,12 +6,16 @@
 }: let
   cfg = config.services.failureNotify;
 
+  # Default delivery: hand the full RFC5322 message to msmtp on stdin and let
+  # it read the recipients from the headers (-t).
+  defaultSendmail = "${lib.getExe pkgs.msmtp} -t";
+
   # Instanced handler: `notify-email@<failed-unit>` mails a short report about
   # the unit that failed. Triggered via OnFailure= on the units below.
   notifyScript = pkgs.writeShellScript "notify-email" ''
     set -eu
     unit="$1"
-    ${lib.getExe pkgs.msmtp} -t <<EOF
+    ${cfg.sendmailCommand} <<EOF
     To: ${cfg.recipient}
     From: systemd <${cfg.from}>
     Subject: [${config.networking.hostName}] Unit failed: $unit
@@ -52,13 +56,25 @@ in {
         the host.
       '';
     };
+
+    sendmailCommand = lib.mkOption {
+      type = lib.types.str;
+      default = defaultSendmail;
+      defaultText = lib.literalExpression ''"''${lib.getExe pkgs.msmtp} -t"'';
+      description = ''
+        Command handed the full message on stdin. Defaults to msmtp; override
+        it to deliver the message elsewhere (e.g. capture it to a file in a
+        test).
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = config.programs.msmtp.enable;
-        message = "services.failureNotify requires programs.msmtp to send mail.";
+        # Only the default delivery path needs msmtp.
+        assertion = cfg.sendmailCommand != defaultSendmail || config.programs.msmtp.enable;
+        message = "services.failureNotify requires programs.msmtp to send mail (or a custom sendmailCommand).";
       }
     ];
 
