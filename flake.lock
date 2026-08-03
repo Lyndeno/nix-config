@@ -1411,11 +1411,11 @@
         "pre-commit-hooks-nix": []
       },
       "locked": {
-        "lastModified": 1784879671,
-        "narHash": "sha256-+soKZVS1L5NFOheNtjNkx1daCfayl00Q44bWeyipG90=",
+        "lastModified": 1785483855,
+        "narHash": "sha256-2YSAH6yLEyZjGvVMXzkHdbLQ4dsTzTRAbBaPozCyqkE=",
         "owner": "Lyndeno",
         "repo": "vim-niri-nav-rs",
-        "rev": "4032eb0d45c7fc3b073f5b57c64c7230983126af",
+        "rev": "59296b56ecb02137721b03c45432b93a33a1ca42",
         "type": "github"
       },
       "original": {
