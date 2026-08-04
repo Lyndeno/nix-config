@@ -9,7 +9,6 @@
         PAPERLESS_CONSUMER_ENABLE_COLLATE_DOUBLE_SIDED = true;
         PAPERLESS_CONSUMER_RECURSIVE = true;
         PAPERLESS_CONSUMER_ENABLE_BARCODES = true;
-        PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://localhost:${toString config.services.gotenberg.port}";
       };
       consumptionDirIsPublic = true;
       configureTika = true;
