@@ -7,18 +7,27 @@
 
   manual.html.enable = true;
 
-  programs.firefox = {
+  programs.chromium = {
     enable = true;
-    configPath = ".mozilla/firefox";
-    profiles.lsanche = {
-      id = 0;
-      isDefault = true;
-      extensions.force = true;
-      settings = {
-        "widget.use-xdg-desktop-portal.file-picker" = 1;
-      };
-    };
+    extensions = [
+      {
+        id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
+      }
+    ];
   };
+
+  #programs.firefox = {
+  #  enable = true;
+  #  configPath = ".mozilla/firefox";
+  #  profiles.lsanche = {
+  #    id = 0;
+  #    isDefault = true;
+  #    extensions.force = true;
+  #    settings = {
+  #      "widget.use-xdg-desktop-portal.file-picker" = 1;
+  #    };
+  #  };
+  #};
 
   #programs.librewolf = {
   #  enable = true;
