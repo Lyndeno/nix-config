@@ -20,6 +20,11 @@
     geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
   };
 
+  programs.captive-browser = {
+    enable = true;
+    interface = "wlan0";
+  };
+
   networking = {
     wireless.iwd = {
       enable = true;
