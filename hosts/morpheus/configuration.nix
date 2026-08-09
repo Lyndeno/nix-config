@@ -36,6 +36,7 @@
       plex
       hydra
       lubelogger
+      calibre-web
       asus-desktop
       zfs
       failure-notify

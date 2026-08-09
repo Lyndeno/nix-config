@@ -74,6 +74,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `asus-desktop` | ASUS desktop hardware configuration |
 | `attic-watch` | Pushes the local Nix store to the Attic cache |
 | `atticd` | Attic binary cache server (atticd) |
+| `calibre-web` | Calibre-Web ebook library server |
 | `common` | Base system shared by all hosts: Nix, security, systemd-networkd, Tailscale, hostMeta |
 | `desktop` | Desktop base: Wayland session, PipeWire audio, printing, firmware updates, mDNS |
 | `failure-notify` | E-mails a report when a systemd unit enters the failed state |
