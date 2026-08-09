@@ -21,5 +21,6 @@
     "/home/*/.cache"
     "/home/*/.mozilla"
     "/home/*/Downloads"
+    "/home/*/.cargo"
   ];
 }
