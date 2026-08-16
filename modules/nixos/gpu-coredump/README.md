@@ -134,12 +134,31 @@ signature is evidence the bug is in Mesa (26.1.5 at time of writing, on kernel
 names, which is what distinguishes the two readings described above: a client's
 own shader, or a compositing one.
 
-Also worth recording is whether ollama was running inference at the time. It
-uses ROCm with `rocmOverrideGfx = "10.3.0"` — the card is gfx1031, so compute
-kernels are built for a different chip, which is a plausible source of exactly
-this kind of out-of-bounds read. It did not correlate with the first two events
-(the nearest inference was hours earlier, with no model resident), but it is
-cheap to check and would be a strong lead if it ever lines up.
+Also worth recording is whether ollama was running inference at the time, and
+if so how much VRAM it held.
+
+Note that ollama does **not** use ROCm here despite `rocmOverrideGfx =
+"10.3.0"` being set in its module. It runs on Vulkan, so that override is
+inert:
+
+```
+llama_prepare_model_devices: using device Vulkan0 (AMD Radeon RX 6700 XT (RADV NAVI22))
+```
+
+That makes it more relevant to this bug rather than less. RADV is Mesa's AMD
+Vulkan driver, so ollama is a heavy client of the same AMD-specific userspace
+stack already under suspicion — and it is one of the things neo, which never
+reproduces this, does not run at all.
+
+VRAM pressure is the specific thing to look at. A loaded model takes roughly
+8.7 GB of the card's 12 GB, leaving under 2 GB for everything else, and buffer
+eviction under that kind of pressure is a plausible route to a texture read
+landing on an unmapped page.
+
+It did not correlate with the first two events: the nearest inference was
+3h17m and 7h37m earlier respectively. Be aware that ollama does not log model
+unloads at the default log level, so residency has to be inferred from the
+keep-alive rather than read directly.
 
 ## Options
 
