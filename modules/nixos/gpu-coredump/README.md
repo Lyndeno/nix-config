@@ -37,9 +37,39 @@ context is lost. This context is innocent.` If the soft per-ring reset succeeded
 you would see a brief stutter and nothing more; the escalation to a full MODE1
 device reset is what loses VRAM and every GPU context on the system.
 
-The faulting process has differed each time (`python3.13`, then `alacritty`),
+The faulting process has differed each time — qutebrowser, then alacritty —
 which points at the userspace driver rather than any one application. Confirming
 that, and filing anything actionable upstream, needs the coredump.
+
+Note that qutebrowser appears in these logs as `python3.13`. Its wrapper execs
+the interpreter directly, so the kernel only ever sees the interpreter's name,
+and Mesa's submission thread inherits it as `python3.13:cs0`. Anything named
+`python3.13` in a GPU fault on this host is almost certainly qutebrowser; check
+`coredumpctl info <pid>` for the command line to be sure.
+
+That the two clients have so little in common is itself the useful signal.
+qutebrowser is Qt6 WebEngine running Chromium through ANGLE; alacritty is a
+small direct-OpenGL terminal. What they share is radeonsi underneath — and a
+machine running the same niri, alacritty and Mesa on Intel graphics (neo) has
+never reproduced this, which rules out the compositor and the applications and
+leaves the AMD-specific stack.
+
+### A hypothesis the dumps can test
+
+Three things are constant across both events: the faulting client is `TCP` (the
+texture cache), `RW` is `0x0` (a read), and the ring that actually times out
+belongs to niri rather than to the client that faulted.
+
+That fits a fault while *sampling a client buffer during compositing* better
+than it fits either client's own rendering — both applications hand dmabufs to
+niri to be textured onto the screen, and a modifier or mapping bug on that
+import path would produce this signature across otherwise unrelated clients.
+
+The simpler reading is that the client's own shader faults and niri's ring is
+collateral once the GPU is wedged. Fault attribution cannot separate the two,
+especially with `MORE_FAULTS: 0x1` indicating a storm. The coredump can: it
+names the shader. If that turns out to be a compositing or blit shader rather
+than anything belonging to the client, the import path is the place to look.
 
 ## The problem this module solves
 
@@ -97,10 +127,19 @@ grep -E 'Process|ring .* timeout|reset' /var/lib/gpu-coredumps/<timestamp>-devcd
 zcat /var/lib/gpu-coredumps/<timestamp>-devcd0.dump.gz | less
 ```
 
-The thing to watch across several captures is whether the faulting process keeps
-changing. Different applications hitting an identical fault signature is evidence
-the bug is in Mesa (26.1.5 at time of writing, on kernel 6.18.43) rather than in
-any particular application.
+Two things are worth watching across several captures. Whether the faulting
+process keeps changing — different applications hitting an identical fault
+signature is evidence the bug is in Mesa (26.1.5 at time of writing, on kernel
+6.18.43) rather than in any particular application. And which shader the dump
+names, which is what distinguishes the two readings described above: a client's
+own shader, or a compositing one.
+
+Also worth recording is whether ollama was running inference at the time. It
+uses ROCm with `rocmOverrideGfx = "10.3.0"` — the card is gfx1031, so compute
+kernels are built for a different chip, which is a plausible source of exactly
+this kind of out-of-bounds read. It did not correlate with the first two events
+(the nearest inference was hours earlier, with no model resident), but it is
+cheap to check and would be a strong lead if it ever lines up.
 
 ## Options
 
