@@ -80,6 +80,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `failure-notify` | E-mails a report when a systemd unit enters the failed state |
 | `firefly` | Firefly III personal finance manager |
 | `gaming` | Steam, Gamescope and gaming applications |
+| `gpu-coredump` | Saves DRM/amdgpu device coredumps before the kernel expires them |
 | `home-assistant` | Home Assistant home automation |
 | `host-meta` | Declares the hostMeta options consumed by the README generator |
 | `hydra` | Hydra continuous-integration server |

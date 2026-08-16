@@ -40,9 +40,27 @@
       asus-desktop
       zfs
       failure-notify
+      gpu-coredump
     ]);
 
-  services.lyndenoAcme.enable = true;
+  services = {
+    lyndenoAcme.enable = true;
+
+    # The RX 6700 XT intermittently hangs the graphics ring and takes the
+    # session with it; the kernel deletes its coredump minutes later, so grab
+    # it on sight.
+    gpuCoredump.enable = true;
+
+    failureNotify = {
+      enable = true;
+      units = [
+        "borgbackup-job-borgbase"
+        "immich-stack"
+        "nix-gc"
+        "nixos-upgrade"
+      ];
+    };
+  };
 
   hostMeta = {
     description = "Main workstation and home server — programming, gaming, multimedia, and self-hosted services.";
@@ -52,16 +70,6 @@
       - LUKS-encrypted root, Secure Boot via lanzaboote
       - Services: Immich, Plex, Paperless-ngx, Firefly III, Vikunja, Home Assistant, Attic, Hydra, Nixarr, LubeLogger, Ollama
     '';
-  };
-
-  services.failureNotify = {
-    enable = true;
-    units = [
-      "borgbackup-job-borgbase"
-      "immich-stack"
-      "nix-gc"
-      "nixos-upgrade"
-    ];
   };
 
   age = {
