@@ -956,11 +956,11 @@
         "pre-commit-hooks-nix": []
       },
       "locked": {
-        "lastModified": 1786008793,
-        "narHash": "sha256-o4tUam0dcFzx6BaB5Wj28hGS4iL60zgjLxBIf7qcU1c=",
+        "lastModified": 1786614959,
+        "narHash": "sha256-413usLKrb/OXfvtp3zn4PewPH0j+/rM56LAw6fyZKTc=",
         "owner": "Lyndeno",
         "repo": "ppd-rs",
-        "rev": "ae7f667f2a1c2aa549f3f6268160f3a322fcf377",
+        "rev": "7fe1054f669efbc9dd20b7e242b963740f49ee1f",
         "type": "github"
       },
       "original": {
