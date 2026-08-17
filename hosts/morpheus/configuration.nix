@@ -57,7 +57,6 @@
         "borgbackup-job-borgbase"
         "immich-stack"
         "nix-gc"
-        "nixos-upgrade"
       ];
     };
   };
@@ -111,19 +110,6 @@
   nix.settings.trusted-users = ["builder"];
 
   zramSwap.enable = true;
-
-  system = {
-    autoUpgrade = {
-      enable = true;
-      flake = "github:Lyndeno/nix-config/master";
-      allowReboot = true;
-      dates = "03:00";
-      rebootWindow = {
-        lower = "01:00";
-        upper = "05:00";
-      };
-    };
-  };
 
   fileSystems = {
     "/" = {
