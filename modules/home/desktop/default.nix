@@ -75,6 +75,7 @@
     packages = with pkgs; [
       # Communication
       #slack
+      fractal
 
       #wally-cli # for moonlander
       wl-clipboard
