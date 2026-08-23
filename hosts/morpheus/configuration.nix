@@ -20,6 +20,7 @@
       niri
       secureboot
       hydraCache
+      modprobed-db
       attic-watch
       acme
       localProxy
@@ -45,6 +46,10 @@
 
   services = {
     lyndenoAcme.enable = true;
+
+    # Accumulating toward a localmodconfig-derived kernel; this host's module
+    # set only shows up in full once every disk, VM, and service has run.
+    modprobedDb.enable = true;
 
     # The RX 6700 XT intermittently hangs the graphics ring and takes the
     # session with it; the kernel deletes its coredump minutes later, so grab

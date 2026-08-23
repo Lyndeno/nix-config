@@ -16,6 +16,7 @@
     secureboot
     laptop
     hydraCache
+    modprobed-db
     ./borgbackup/borgbase.nix
     ./disko.nix
   ];
@@ -24,6 +25,10 @@
   system.stateVersion = "21.11";
 
   nixpkgs.hostPlatform = "x86_64-linux";
+
+  # Accumulating toward a localmodconfig-derived kernel; the laptop's real
+  # module set only appears once every dock, peripheral, and suspend has run.
+  services.modprobedDb.enable = true;
 
   hostMeta = {
     description = "Development laptop; occasional gaming.";
