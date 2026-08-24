@@ -89,6 +89,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `laptop` | Laptop power management: suspend-then-hibernate, iwd, geolocated timezone |
 | `localProxy` | nginx reverse proxy exposing local services on subdomains |
 | `lubelogger` | LubeLogger vehicle maintenance tracker |
+| `modprobed-db` | Records every kernel module ever loaded, for `make localmodconfig` |
 | `msmtp` | System mail relay via msmtp (Fastmail) |
 | `niri` | Niri scrolling Wayland compositor |
 | `nixarr` | Media automation stack (Sonarr/Radarr/Prowlarr/Transmission) behind a VPN |
