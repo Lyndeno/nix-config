@@ -34,6 +34,7 @@ in {
         };
         compose = {
           "file-picker-cmd" = "${lib.getExe pkgs.zenity} --file-selection --multiple --separator=$'\\n'";
+          "reply-to-self" = false;
         };
       };
       extraAccounts = {
