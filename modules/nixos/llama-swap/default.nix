@@ -8,6 +8,10 @@
   # Vulkan backend drives the RX 6700 XT without the ROCm gfx-override dance.
   llama-cpp = pkgs.llama-cpp.override {vulkanSupport = true;};
   llama-server = lib.getExe' llama-cpp "llama-server";
+  # llama-swap tokenises cmd on spaces only, so it must be a single line
+  # (a multi-line string leaves embedded newlines that mangle argv and the
+  # child exits before it can even print). \${PORT} is filled in by llama-swap.
+  mkCmd = args: lib.concatStringsSep " " ([llama-server "--port" "\${PORT}"] ++ args);
 in {
   services = {
     llama-swap = {
@@ -25,17 +29,14 @@ in {
           # cache + flash attention -> 64K ctx fits the card (~9 GB used).
           # ttl frees the card an hour after the last request (long enough not
           # to reload mid coding session).
-          # (cmd is whitespace/newline-tokenised by llama-swap; no shell.)
           "ornith-1.0-9b" = {
-            cmd = ''
-              ${llama-server}
-              --port ''${PORT}
-              --hf-repo ornith-ai/Ornith-1.0-9B-GGUF
-              --hf-file ornith-1.0-9b-Q5_K_M.gguf
-              -ngl 99 -fa on
-              --cache-type-k q8_0 --cache-type-v q8_0
-              -c 65536 --no-webui
-            '';
+            cmd = mkCmd [
+              "--hf-repo ornith-ai/Ornith-1.0-9B-GGUF"
+              "--hf-file ornith-1.0-9b-Q5_K_M.gguf"
+              "-ngl 99 -fa on"
+              "--cache-type-k q8_0 --cache-type-v q8_0"
+              "-c 65536 --no-webui"
+            ];
             ttl = 3600;
           };
 
@@ -43,14 +44,12 @@ in {
           # Gemma 4 has no dense 4B; E4B is the ~4B-effective edge variant.
           # ttl unloads it after 5 min idle so it hands VRAM back to Ornith.
           "gemma-4-e4b" = {
-            cmd = ''
-              ${llama-server}
-              --port ''${PORT}
-              --hf-repo unsloth/gemma-4-E4B-it-qat-GGUF
-              --hf-file gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf
-              -ngl 99 -fa on
-              -c 16384 --no-webui
-            '';
+            cmd = mkCmd [
+              "--hf-repo unsloth/gemma-4-E4B-it-qat-GGUF"
+              "--hf-file gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf"
+              "-ngl 99 -fa on"
+              "-c 16384 --no-webui"
+            ];
             ttl = 300;
           };
         };
