@@ -8,7 +8,7 @@
     [
       inputs.disko.nixosModules.default
       ./disko.nix
-      ./borgbackup/borgbase.nix
+      ./borgbackup
     ]
     ++ (with flake.nixosModules; [
       common
@@ -42,6 +42,7 @@
       zfs
       failure-notify
       gpu-coredump
+      borgmatic
     ]);
 
   services = {
@@ -59,7 +60,7 @@
     failureNotify = {
       enable = true;
       units = [
-        "borgbackup-job-borgbase"
+        "borgmatic"
         "immich-stack"
         "nix-gc"
       ];

@@ -1,10 +1,7 @@
 # meta.description = "PostgreSQL database server"
 {pkgs, ...}: {
-  services = {
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql_16;
-    };
-    postgresqlBackup.enable = true;
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_16;
   };
 }
