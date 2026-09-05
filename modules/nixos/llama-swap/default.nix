@@ -23,16 +23,21 @@ in {
         models = {
           # Agentic coding model (Qwen 3.5 based), Q5_K_M (~6.5 GB). q8_0 KV
           # cache + flash attention -> 64K ctx fits the card (~9 GB used).
+          # ttl frees the card an hour after the last request (long enough not
+          # to reload mid coding session).
           # (cmd is whitespace/newline-tokenised by llama-swap; no shell.)
-          "ornith-1.0-9b".cmd = ''
-            ${llama-server}
-            --port ''${PORT}
-            --hf-repo ornith-ai/Ornith-1.0-9B-GGUF
-            --hf-file ornith-1.0-9b-Q5_K_M.gguf
-            -ngl 99 -fa on
-            --cache-type-k q8_0 --cache-type-v q8_0
-            -c 65536 --no-webui
-          '';
+          "ornith-1.0-9b" = {
+            cmd = ''
+              ${llama-server}
+              --port ''${PORT}
+              --hf-repo ornith-ai/Ornith-1.0-9B-GGUF
+              --hf-file ornith-1.0-9b-Q5_K_M.gguf
+              -ngl 99 -fa on
+              --cache-type-k q8_0 --cache-type-v q8_0
+              -c 65536 --no-webui
+            '';
+            ttl = 3600;
+          };
 
           # Small summariser for the phone (Gemma 4 E4B, QAT Q4_K_XL, ~4.2 GB).
           # Gemma 4 has no dense 4B; E4B is the ~4B-effective edge variant.
