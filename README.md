@@ -23,7 +23,7 @@ Main workstation and home server — programming, gaming, multimedia, and self-h
 - CPU: AMD Ryzen 5950X — RAM: 128 GB — GPU: AMD RX 6700 XT
 - Storage: 1× 512 GB NVMe (root), 2× 2 TB NVMe (system), 2× 4 TB HDD (BTRFS mirror), 6× 4 TB IronWolf via LSI HBA (ZFS RAIDZ2)
 - LUKS-encrypted root, Secure Boot via lanzaboote
-- Services: Immich, Plex, Paperless-ngx, Firefly III, Vikunja, Home Assistant, Attic, Hydra, Nixarr, LubeLogger, Ollama
+- Services: Immich, Plex, Paperless-ngx, Firefly III, Vikunja, Home Assistant, Attic, Hydra, Nixarr, LubeLogger, llama.cpp
 
 ### neo (`x86_64-linux`)
 
@@ -88,13 +88,13 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `hydraCache` | Substitutes builds from the lyndeno Attic cache |
 | `immich` | Immich photo library with a daily RAW/JPG stacking job |
 | `laptop` | Laptop power management: suspend-then-hibernate, iwd, geolocated timezone |
+| `llama-cpp` | llama.cpp local LLM inference server (Vulkan) |
 | `localProxy` | nginx reverse proxy exposing local services on subdomains |
 | `lubelogger` | LubeLogger vehicle maintenance tracker |
 | `modprobed-db` | Records every kernel module ever loaded, for `make localmodconfig` |
 | `msmtp` | System mail relay via msmtp (Fastmail) |
 | `niri` | Niri scrolling Wayland compositor |
 | `nixarr` | Media automation stack (Sonarr/Radarr/Prowlarr/Transmission) behind a VPN |
-| `ollama` | Ollama local LLM inference server |
 | `paperless` | Paperless-ngx document management with a Samba consumption share |
 | `plex` | Plex Media Server |
 | `postgresql` | PostgreSQL database server |
