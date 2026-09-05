@@ -32,7 +32,7 @@
       paperless
       vikunja
       atticd
-      llama-cpp
+      llama-swap
       home-assistant
       plex
       hydra

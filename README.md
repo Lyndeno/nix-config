@@ -88,7 +88,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `hydraCache` | Substitutes builds from the lyndeno Attic cache |
 | `immich` | Immich photo library with a daily RAW/JPG stacking job |
 | `laptop` | Laptop power management: suspend-then-hibernate, iwd, geolocated timezone |
-| `llama-cpp` | llama.cpp local LLM inference server (Vulkan) |
+| `llama-swap` | llama-swap: on-demand model swapping in front of llama.cpp (Vulkan) |
 | `localProxy` | nginx reverse proxy exposing local services on subdomains |
 | `lubelogger` | LubeLogger vehicle maintenance tracker |
 | `modprobed-db` | Records every kernel module ever loaded, for `make localmodconfig` |
