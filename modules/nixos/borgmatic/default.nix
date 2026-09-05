@@ -144,6 +144,8 @@ in {
           keep_weekly = 4;
           keep_monthly = -1;
           inherit (cfg) checks;
+        }
+        // lib.optionalAttrs (cfg.postgresqlDatabases != []) {
           postgresql_databases = map withPgCommands cfg.postgresqlDatabases;
         }
         // lib.optionalAttrs (cfg.healthchecksUrl != null) {
