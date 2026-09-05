@@ -45,16 +45,16 @@
             name = "Morpheus";
             npm = "@ai-sdk/openai-compatible";
             options = {
-              baseURL = "https://ollama.lyndeno.ca/v1";
+              baseURL = "https://llama.lyndeno.ca/v1";
               apiKey = "none";
             };
             models = {
-              "qwen3.5:2b" = {
-                name = "qwen3.5:2b";
+              "ornith-1.0-9b" = {
+                name = "ornith-1.0-9b";
                 tool_call = true;
                 temperature = true;
                 limit = {
-                  context = 256000;
+                  context = 65536;
                   output = 16384;
                 };
               };

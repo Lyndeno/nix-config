@@ -26,7 +26,7 @@ with config.age.secrets; {
       # on-disk data dir would only be a torn, unrestorable copy.
       "/var/lib/postgresql"
       # Re-downloadable LLM weights, gigabytes each.
-      "/var/lib/ollama"
+      "/var/lib/llama-swap"
     ];
 
     # Dump the whole cluster via pg_dumpall (fail-safe: new databases are

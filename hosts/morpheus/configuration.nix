@@ -32,7 +32,7 @@
       paperless
       vikunja
       atticd
-      ollama
+      llama-swap
       home-assistant
       plex
       hydra
@@ -73,7 +73,7 @@
       - CPU: AMD Ryzen 5950X — RAM: 128 GB — GPU: AMD RX 6700 XT
       - Storage: 1× 512 GB NVMe (root), 2× 2 TB NVMe (system), 2× 4 TB HDD (BTRFS mirror), 6× 4 TB IronWolf via LSI HBA (ZFS RAIDZ2)
       - LUKS-encrypted root, Secure Boot via lanzaboote
-      - Services: Immich, Plex, Paperless-ngx, Firefly III, Vikunja, Home Assistant, Attic, Hydra, Nixarr, LubeLogger, Ollama
+      - Services: Immich, Plex, Paperless-ngx, Firefly III, Vikunja, Home Assistant, Attic, Hydra, Nixarr, LubeLogger, llama.cpp
     '';
   };
 

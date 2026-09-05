@@ -78,13 +78,15 @@
           #  };
           #  mountpoint = "/var/lib/postgresql/16";
           #};
+          # Dataset name kept as-is to avoid an on-disk `zfs rename`; only the
+          # mountpoint moved from the old ollama path to llama-swap's state dir.
           "encrypt/services/ollama" = {
             type = "zfs_fs";
             options = {
               mountpoint = "legacy";
               compression = "zstd";
             };
-            mountpoint = "/var/lib/private/ollama";
+            mountpoint = "/var/lib/private/llama-swap";
           };
           "encrypt/services/plex" = {
             type = "zfs_fs";
