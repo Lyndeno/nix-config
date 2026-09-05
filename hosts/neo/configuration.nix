@@ -17,7 +17,8 @@
     laptop
     hydraCache
     modprobed-db
-    ./borgbackup/borgbase.nix
+    borgmatic
+    ./borgbackup
     ./disko.nix
   ];
 
@@ -79,8 +80,4 @@
   };
 
   networking.hostName = "neo";
-
-  systemd = {
-    services.borgbackup-job-borgbase.unitConfig.ConditionACPower = true;
-  };
 }
