@@ -1,4 +1,8 @@
 {
+  networking = {
+    useNetworkd = true;
+    dhcpcd.enable = false;
+  };
   systemd.network = {
     wait-online.enable = false;
     networks = {
