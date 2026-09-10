@@ -77,6 +77,12 @@
           #battery.critical:not(.charging) {
             color: @base08;
           }
+          #custom-phone-battery.warning:not(.charging) {
+            color: @base0A;
+          }
+          #custom-phone-battery.critical:not(.charging) {
+            color: @base08;
+          }
         '';
       settings = {
         mainBar = {
