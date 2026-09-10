@@ -10,6 +10,7 @@
       agenix.overlays.default
       vim-niri-nav.overlays.default
       localOverlay
+      llm-agents.overlays.shared-nixpkgs
     ];
     bp = inputs.blueprint {
       inherit inputs;
@@ -167,6 +168,11 @@
       url = "github:Lyndeno/vim-niri-nav-rs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.pre-commit-hooks-nix.follows = "";
+    };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }
