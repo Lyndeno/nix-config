@@ -156,6 +156,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `wb-cast` | Waybar module showing the current niri screencast target |
 | `wb-email` | Waybar module showing the unread email count |
 | `wb-fan` | Waybar module showing fan speed |
+| `wb-phone-battery` | Waybar module showing phone battery status via BatteryInfoServer |
 | `wb-ts` | Waybar module showing the active Tailscale exit node |
 | `webcam-picker` | Picks a webcam via fuzzel and launches a viewer |
 | `wob-brightness` | Adjusts screen brightness with a wob overlay bar |

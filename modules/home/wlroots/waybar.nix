@@ -54,6 +54,9 @@
           #custom-cast {
             padding: 0 5px;
           }
+          #custom-phone-battery {
+            padding: 0 5px;
+          }
           #privacy {
             padding: 0 5px;
             background-color: @base08;
@@ -92,6 +95,7 @@
             "network"
             (lib.mkIf tailscale.enable "custom/ts")
             "battery"
+            (lib.mkIf tailscale.enable "custom/phone-battery")
             "pulseaudio"
             "group/group-clock"
           ];
@@ -160,6 +164,15 @@
             interval = 3;
             return-type = "json";
             format = "󰲐 {}";
+            tooltip = true;
+            hide-empty-text = true;
+          };
+
+          "custom/phone-battery" = lib.mkIf tailscale.enable {
+            exec = lib.getExe pkgs.wb-phone-battery;
+            interval = 60;
+            return-type = "json";
+            format = "{}";
             tooltip = true;
             hide-empty-text = true;
           };
