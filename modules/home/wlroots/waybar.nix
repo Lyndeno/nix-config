@@ -74,7 +74,6 @@
           modules-left = ["niri/workspaces" (lib.mkIf (hostName != "neo") "cava")];
           modules-center = ["mpris" "custom/cast"];
           modules-right = [
-            (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts")
             (lib.mkIf config.programs.aerc.enable "custom/email")
             "custom/update"
             "systemd-failed-units"
@@ -84,6 +83,7 @@
             "cpu"
             "memory"
             "network"
+            (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts")
             "battery"
             "pulseaudio"
             "group/group-clock"
