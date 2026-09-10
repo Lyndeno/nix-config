@@ -137,7 +137,9 @@
           "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
             exec = lib.getExe pkgs.wb-ts;
             interval = 3;
+            return-type = "json";
             format = "󰲐 {}";
+            tooltip = true;
             hide-empty-text = true;
           };
 
