@@ -8,6 +8,7 @@
   programs = {
     waybar = let
       inherit (osConfig.networking) hostName;
+      inherit (osConfig.services) tailscale;
 
       sensitivity =
         if hostName == "neo"
@@ -50,6 +51,12 @@
           #custom-ts {
             padding: 0 5px;
           }
+          #custom-cast {
+            padding: 0 5px;
+          }
+          #custom-phone-battery {
+            padding: 0 5px;
+          }
           #privacy {
             padding: 0 5px;
             background-color: @base08;
@@ -61,10 +68,19 @@
           #power-profiles-daemon {
             padding: 0 5px;
           }
+          #mpris {
+            padding: 0 5px;
+          }
           #battery.warning:not(.charging) {
             color: @base0A;
           }
           #battery.critical:not(.charging) {
+            color: @base08;
+          }
+          #custom-phone-battery.warning:not(.charging) {
+            color: @base0A;
+          }
+          #custom-phone-battery.critical:not(.charging) {
             color: @base08;
           }
         '';
@@ -73,7 +89,22 @@
           height = 36;
           modules-left = ["niri/workspaces" (lib.mkIf (hostName != "neo") "cava")];
           modules-center = ["mpris" "custom/cast"];
-          modules-right = [(lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts") (lib.mkIf config.programs.aerc.enable "custom/email") "custom/update" "systemd-failed-units" "privacy" "custom/fan" "disk#root" "cpu" "memory" "network" "battery" "pulseaudio" "group/group-clock"];
+          modules-right = [
+            (lib.mkIf config.programs.aerc.enable "custom/email")
+            "custom/update"
+            "systemd-failed-units"
+            "privacy"
+            "custom/fan"
+            "disk#root"
+            "cpu"
+            "memory"
+            "network"
+            (lib.mkIf tailscale.enable "custom/ts")
+            "battery"
+            (lib.mkIf tailscale.enable "custom/phone-battery")
+            "pulseaudio"
+            "group/group-clock"
+          ];
           "disk#root" = {
             interval = 30;
             format = "";
@@ -137,7 +168,18 @@
           "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
             exec = lib.getExe pkgs.wb-ts;
             interval = 3;
+            return-type = "json";
             format = "󰲐 {}";
+            tooltip = true;
+            hide-empty-text = true;
+          };
+
+          "custom/phone-battery" = lib.mkIf tailscale.enable {
+            exec = lib.getExe pkgs.wb-phone-battery;
+            interval = 60;
+            return-type = "json";
+            format = "{}";
+            tooltip = true;
             hide-empty-text = true;
           };
 

@@ -13,11 +13,28 @@ in
       jq
     ];
 
-    # Print the hostname of the active Tailscale exit node (empty if none).
+    # Print the active Tailscale exit node's hostname as waybar text, with a
+    # tooltip listing every available exit node's hostname, IP, and selection.
     text = ''
-      tailscale status --peers --json \
-        | jq '.ExitNodeStatus.ID as $node_id | .Peer[] | select(.ID==$node_id) | .HostName' \
-        | tr -d '"'
+      tailscale status --peers --json | jq -c '
+        [.Peer[] | select(.ExitNodeOption == true)] as $exit_nodes
+        | (($exit_nodes[] | select(.ExitNode) | .HostName) // "") as $active
+        | ($exit_nodes | map(.HostName | length) | max // 0) as $width
+        | {
+            text: $active,
+            tooltip: (
+              if ($exit_nodes | length) == 0
+              then "No exit nodes available"
+              else $exit_nodes
+                | map(
+                    (.HostName + (" " * ($width - (.HostName | length))) + " (" + (.TailscaleIPs[0] // "?") + ")") as $line
+                    | if .ExitNode then "<b><i>" + $line + "</i></b>" else $line end
+                  )
+                | join("\n")
+              end
+            )
+          }
+      '
     '';
 
     meta.description = "Waybar module showing the active Tailscale exit node";
