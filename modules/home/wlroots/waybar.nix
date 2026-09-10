@@ -8,6 +8,7 @@
   programs = {
     waybar = let
       inherit (osConfig.networking) hostName;
+      inherit (osConfig.services) tailscale;
 
       sensitivity =
         if hostName == "neo"
@@ -89,7 +90,7 @@
             "cpu"
             "memory"
             "network"
-            (lib.mkIf (hostName == "neo" || hostName == "morpheus") "custom/ts")
+            (lib.mkIf tailscale.enable "custom/ts")
             "battery"
             "pulseaudio"
             "group/group-clock"
