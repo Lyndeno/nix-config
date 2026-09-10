@@ -50,6 +50,9 @@
           #custom-ts {
             padding: 0 5px;
           }
+          #custom-cast {
+            padding: 0 5px;
+          }
           #privacy {
             padding: 0 5px;
             background-color: @base08;
@@ -59,6 +62,9 @@
             padding: 0 5px;
           }
           #power-profiles-daemon {
+            padding: 0 5px;
+          }
+          #mpris {
             padding: 0 5px;
           }
           #battery.warning:not(.charging) {
