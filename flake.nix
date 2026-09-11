@@ -3,6 +3,13 @@
 
   outputs = inputs: let
     localOverlay = final: _prev: bp.mkPackagesFor final;
+    # Background blur for notifications via ext-background-effect-v1, backported from
+    # https://github.com/tpmajer/mako/compare/master...tpmajer:mako:flake
+    makoOverlay = _final: prev: {
+      mako = prev.mako.overrideAttrs (old: {
+        patches = (old.patches or []) ++ [./packages/mako-background-blur.patch];
+      });
+    };
     overlays = with inputs; [
       ironfetch.overlays.default
       apple-fonts.overlays.default
@@ -10,6 +17,7 @@
       agenix.overlays.default
       vim-niri-nav.overlays.default
       localOverlay
+      makoOverlay
       llm-agents.overlays.shared-nixpkgs
     ];
     bp = inputs.blueprint {
