@@ -117,6 +117,7 @@
             "cpu"
             "memory"
             "network"
+            (lib.mkIf tailscale.enable "custom/cell")
             (lib.mkIf tailscale.enable "custom/ts")
             "battery"
             (lib.mkIf tailscale.enable "custom/phone-battery")
@@ -181,6 +182,15 @@
             return-type = "json";
             hide-empty-text = true;
             on-click = btm "temp";
+          };
+
+          "custom/cell" = lib.mkIf tailscale.enable {
+            exec = lib.getExe pkgs.wb-cell;
+            interval = 15;
+            return-type = "json";
+            format = "{}";
+            tooltip = true;
+            hide-empty-text = true;
           };
 
           "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
