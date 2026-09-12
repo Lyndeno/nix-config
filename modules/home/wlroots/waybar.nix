@@ -33,12 +33,27 @@
         lib.mkAfter
         # css
         ''
-          #custom-fan {
+          #custom-fan,
+          #custom-email,
+          #custom-update,
+          #custom-ts,
+          #custom-cast,
+          #custom-phone-battery,
+          #custom-cell,
+          #privacy,
+          #systemd-failed-units,
+          #power-profiles-daemon,
+          #mpris {
             padding: 0 5px;
           }
-          #custom-email {
-            padding: 0 5px;
+
+          #custom-update,
+          #custom-ts {
+            background-color: @base05;
+            color: @base00;
+            border-radius: 9999px;
           }
+
           @keyframes update-pulse {
             from {
               opacity: 1;
@@ -51,10 +66,6 @@
             }
           }
           #custom-update {
-            padding: 0 5px;
-            background-color: @base05;
-            color: @base00;
-            border-radius: 9999px;
             animation: update-pulse 3s ease-in-out infinite;
           }
           #custom-update.update-available {
@@ -63,44 +74,17 @@
           #custom-update.error {
             background-color: @base08;
           }
-          #custom-ts {
-            padding: 0 5px;
-            background-color: @base05;
-            color: @base00;
-            border-radius: 9999px;
-          }
-          #custom-cast {
-            padding: 0 5px;
-          }
-          #custom-phone-battery {
-            padding: 0 5px;
-          }
-          #custom-cell {
-            padding: 0 5px;
-          }
+
           #privacy {
-            padding: 0 5px;
             background-color: @base08;
             border-radius: 10px;
           }
-          #systemd-failed-units {
-            padding: 0 5px;
-          }
-          #power-profiles-daemon {
-            padding: 0 5px;
-          }
-          #mpris {
-            padding: 0 5px;
-          }
-          #battery.warning:not(.charging) {
-            color: @base0A;
-          }
-          #battery.critical:not(.charging) {
-            color: @base08;
-          }
+
+          #battery.warning:not(.charging),
           #custom-phone-battery.warning:not(.charging) {
             color: @base0A;
           }
+          #battery.critical:not(.charging),
           #custom-phone-battery.critical:not(.charging) {
             color: @base08;
           }
