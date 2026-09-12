@@ -75,6 +75,9 @@
           #custom-phone-battery {
             padding: 0 5px;
           }
+          #custom-cell {
+            padding: 0 5px;
+          }
           #privacy {
             padding: 0 5px;
             background-color: @base08;
