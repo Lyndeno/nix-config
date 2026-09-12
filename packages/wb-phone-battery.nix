@@ -27,7 +27,12 @@ in
           | ["󰠒","󰠈","󰠉","󰠊","󰠋","󰠌","󰠍","󰠎","󰠏","󰠐","󰠇"][$idx] as $level_icon
           | (if $s.is_charging then "󰠇" elif $s.level <= 15 then "󰠑" else $level_icon end) as $icon
           | {
-              text: ($icon + " " + ($s.level | tostring) + "%"),
+              text: (
+                $icon
+                + (if $s.is_charging or $s.level < 50
+                   then " " + ($s.level | tostring) + "%"
+                   else "" end)
+              ),
               tooltip: (
                 $d.model
                 + "\nBattery: " + ($s.level | tostring) + "% (" + $s.health + ")"
