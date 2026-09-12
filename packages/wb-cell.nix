@@ -49,7 +49,7 @@ in
           | (["󰣾","󰣴","󰣶","󰣸","󰣺"][$level]) as $icon
           | ($e.cellular_network_type // "unknown") as $type
           | {
-              text: ($type + " " + $icon),
+              text: ($icon + " " + $type),
               tooltip: ("Cellular: " + $type + "\nSignal: " + ($level | tostring) + "/4")
             }
         '
