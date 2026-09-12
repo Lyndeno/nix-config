@@ -39,14 +39,29 @@
           #custom-email {
             padding: 0 5px;
           }
+          @keyframes update-pulse {
+            from {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+            to {
+              opacity: 1;
+            }
+          }
           #custom-update {
             padding: 0 5px;
+            background-color: @base05;
+            color: @base00;
+            border-radius: 9999px;
+            animation: update-pulse 3s ease-in-out infinite;
           }
           #custom-update.update-available {
-            color: @base0A;
+            background-color: @base0A;
           }
           #custom-update.error {
-            color: @base08;
+            background-color: @base08;
           }
           #custom-ts {
             padding: 0 5px;
