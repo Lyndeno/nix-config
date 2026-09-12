@@ -33,17 +33,10 @@
         lib.mkAfter
         # css
         ''
-          #custom-fan,
-          #custom-email,
-          #custom-update,
-          #custom-ts,
-          #custom-cast,
-          #custom-phone-battery,
-          #custom-cell,
-          #privacy,
-          #systemd-failed-units,
-          #power-profiles-daemon,
-          #mpris {
+          /* Waybar tags every module widget with .module; Stylix's base CSS
+             only covers its own known built-ins by #id, so this picks up
+             everything else (including future custom modules) for free. */
+          .module {
             padding: 0 5px;
           }
 
@@ -75,7 +68,9 @@
             background-color: @base08;
           }
 
+          /* Privacy is an AModule, not an ALabel, so it doesn't get .module. */
           #privacy {
+            padding: 0 5px;
             background-color: @base08;
             border-radius: 10px;
           }
