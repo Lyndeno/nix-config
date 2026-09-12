@@ -50,6 +50,9 @@
           }
           #custom-ts {
             padding: 0 5px;
+            background-color: @base05;
+            color: @base00;
+            border-radius: 9999px;
           }
           #custom-cast {
             padding: 0 5px;
