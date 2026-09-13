@@ -33,12 +33,20 @@
         lib.mkAfter
         # css
         ''
-          #custom-fan {
+          /* Waybar tags every module widget with .module; Stylix's base CSS
+             only covers its own known built-ins by #id, so this picks up
+             everything else (including future custom modules) for free. */
+          .module {
             padding: 0 5px;
           }
-          #custom-email {
-            padding: 0 5px;
+
+          #custom-update,
+          #custom-ts {
+            background-color: @base05;
+            color: @base00;
+            border-radius: 9999px;
           }
+
           @keyframes update-pulse {
             from {
               opacity: 1;
@@ -51,10 +59,6 @@
             }
           }
           #custom-update {
-            padding: 0 5px;
-            background-color: @base05;
-            color: @base00;
-            border-radius: 9999px;
             animation: update-pulse 3s ease-in-out infinite;
           }
           #custom-update.update-available {
@@ -63,41 +67,19 @@
           #custom-update.error {
             background-color: @base08;
           }
-          #custom-ts {
-            padding: 0 5px;
-            background-color: @base05;
-            color: @base00;
-            border-radius: 9999px;
-          }
-          #custom-cast {
-            padding: 0 5px;
-          }
-          #custom-phone-battery {
-            padding: 0 5px;
-          }
+
+          /* Privacy is an AModule, not an ALabel, so it doesn't get .module. */
           #privacy {
             padding: 0 5px;
             background-color: @base08;
             border-radius: 10px;
           }
-          #systemd-failed-units {
-            padding: 0 5px;
-          }
-          #power-profiles-daemon {
-            padding: 0 5px;
-          }
-          #mpris {
-            padding: 0 5px;
-          }
-          #battery.warning:not(.charging) {
-            color: @base0A;
-          }
-          #battery.critical:not(.charging) {
-            color: @base08;
-          }
+
+          #battery.warning:not(.charging),
           #custom-phone-battery.warning:not(.charging) {
             color: @base0A;
           }
+          #battery.critical:not(.charging),
           #custom-phone-battery.critical:not(.charging) {
             color: @base08;
           }
@@ -117,6 +99,7 @@
             "cpu"
             "memory"
             "network"
+            (lib.mkIf tailscale.enable "custom/cell")
             (lib.mkIf tailscale.enable "custom/ts")
             "battery"
             (lib.mkIf tailscale.enable "custom/phone-battery")
@@ -181,6 +164,15 @@
             return-type = "json";
             hide-empty-text = true;
             on-click = btm "temp";
+          };
+
+          "custom/cell" = lib.mkIf tailscale.enable {
+            exec = lib.getExe pkgs.wb-cell;
+            interval = 15;
+            return-type = "json";
+            format = "{}";
+            tooltip = true;
+            hide-empty-text = true;
           };
 
           "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {

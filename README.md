@@ -154,6 +154,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `update-system-hold` | Runs update-system, then holds the terminal open |
 | `wallpaper` | The desktop wallpaper (Sedona), with blurred and darkened variants |
 | `wb-cast` | Waybar module showing the current niri screencast target |
+| `wb-cell` | Waybar module showing phone cellular signal/type via BatteryInfoServer |
 | `wb-email` | Waybar module showing the unread email count |
 | `wb-fan` | Waybar module showing fan speed |
 | `wb-phone-battery` | Waybar module showing phone battery status via BatteryInfoServer |
