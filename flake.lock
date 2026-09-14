@@ -541,11 +541,11 @@
     },
     "crane_4": {
       "locked": {
-        "lastModified": 1787326676,
-        "narHash": "sha256-lWhBbBvC05/xwivKBBiM2YNizpmgqCgyOIzomvRuwxs=",
+        "lastModified": 1788465171,
+        "narHash": "sha256-Y1/TTVXjYXGF068IThQH9fPSZ0SIE74PABlUxnWTUH0=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "692f7e9ef2ece8125b466f66f2af532b3edaed0d",
+        "rev": "eb35abda9f232cc6610b1d1e3200d15c49b7ac54",
         "type": "github"
       },
       "original": {
@@ -1527,11 +1527,11 @@
         "pre-commit-hooks-nix": []
       },
       "locked": {
-        "lastModified": 1788507506,
-        "narHash": "sha256-frb+Nl2C7+J6QZjhTOKkKs42HtsWR+kYKOu+0Uyk930=",
+        "lastModified": 1789112657,
+        "narHash": "sha256-THbIvcBdHfu7ZJxSUkIwrP3ws5UbJ29BP4OkTqddzIU=",
         "owner": "Lyndeno",
         "repo": "vim-niri-nav-rs",
-        "rev": "8e7e936ffc03784138d9d4f39deb2d30a5435e68",
+        "rev": "81912e50c25c03df48accb90112f345bc7035012",
         "type": "github"
       },
       "original": {
