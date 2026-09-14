@@ -220,11 +220,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776249299,
-        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
+        "lastModified": 1788342924,
+        "narHash": "sha256-Sfyygt2dL88+160d014gaXMlWTGIL2HGxlIzLGsGPvE=",
         "owner": "numtide",
         "repo": "blueprint",
-        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
+        "rev": "8be75245e274a789b87cc4df542abbcd8c5e7f93",
         "type": "github"
       },
       "original": {
@@ -496,11 +496,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1787326676,
-        "narHash": "sha256-lWhBbBvC05/xwivKBBiM2YNizpmgqCgyOIzomvRuwxs=",
+        "lastModified": 1788465171,
+        "narHash": "sha256-Y1/TTVXjYXGF068IThQH9fPSZ0SIE74PABlUxnWTUH0=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "692f7e9ef2ece8125b466f66f2af532b3edaed0d",
+        "rev": "eb35abda9f232cc6610b1d1e3200d15c49b7ac54",
         "type": "github"
       },
       "original": {
@@ -779,11 +779,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1788425607,
-        "narHash": "sha256-oCTS/o6qTlJQOieyGNl7h1mYvH+1Wy3bROQ2SUpI+iU=",
+        "lastModified": 1789031041,
+        "narHash": "sha256-9G4lEGnCWNuVXk8cGL5jtwlhZ38oDxgBH3F1/4ikybE=",
         "owner": "Lyndeno",
         "repo": "ironfetch",
-        "rev": "c1a81f687d48cef6d04c875ff719396937b32287",
+        "rev": "45a9721a78f1692655f43c6f8c120484cb7ca145",
         "type": "github"
       },
       "original": {
