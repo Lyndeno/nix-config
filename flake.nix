@@ -10,6 +10,13 @@
         patches = (old.patches or []) ++ [./packages/mako-background-blur.patch];
       });
     };
+
+    unstableOverlay = final: _: {
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (final.stdenv.hostPlatform) system;
+        inherit (final) config;
+      };
+    };
     overlays = with inputs; [
       ironfetch.overlays.default
       apple-fonts.overlays.default
@@ -19,6 +26,7 @@
       localOverlay
       makoOverlay
       llm-agents.overlays.shared-nixpkgs
+      unstableOverlay
     ];
     bp = inputs.blueprint {
       inherit inputs;
@@ -36,6 +44,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "nixos-hardware/master";
