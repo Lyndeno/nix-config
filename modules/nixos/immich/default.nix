@@ -3,13 +3,17 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
+  disabledModules = ["services/web-apps/immich.nix"];
+  imports = ["${inputs.nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix"];
   age.secrets.immich.file = ../../../secrets/${config.networking.hostName}/immich.age;
 
   services = {
     immich = {
       enable = true;
+      package = pkgs.unstable.immich;
       mediaLocation = "/data/bigpool/immich/data";
     };
     localProxy.subDomains.immich = {
