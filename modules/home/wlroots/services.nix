@@ -1,8 +1,37 @@
 {
+  config,
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.lib.stylix) colors;
+  inherit (config.stylix) opacity;
+
+  # Hex alpha suffix for wob's popup, matching stylix's opacity.popups (0-1).
+  wobOpacity = lib.fixedWidthString 2 "0" (
+    lib.toHexString (builtins.floor (opacity.popups * 255 + 0.5))
+  );
+
+  wobBorderColor = colors.base05 + wobOpacity;
+  wobBackgroundColor = colors.base00 + wobOpacity;
+in {
+  # stylix's own wob target doesn't yet support opacity; themed manually until it does.
+  stylix.targets.wob.enable = false;
+
+  assertions = [
+    {
+      assertion = lib.versionOlder lib.trivial.release "26.11";
+      message = ''
+        modules/home/wlroots/services.nix manually themes wob with opacity
+        because stylix's release-26.05 wob target doesn't support it yet.
+        nixpkgs is now ${lib.trivial.release}, so stylix's wob target has
+        likely gained opacity support upstream: remove this manual
+        workaround (wobOpacity/wobBorderColor/wobBackgroundColor and the
+        `stylix.targets.wob.enable = false` line) and re-enable the target.
+      '';
+    }
+  ];
+
   services = {
     cliphist = {
       enable = true;
@@ -54,6 +83,12 @@
       settings."" = {
         anchor = "bottom";
         margin = 60;
+        border_color = wobBorderColor;
+        background_color = wobBackgroundColor;
+        bar_color = colors.base0A;
+        overflow_bar_color = colors.base08;
+        overflow_background_color = wobBackgroundColor;
+        overflow_border_color = wobBorderColor;
       };
     };
 
