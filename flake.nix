@@ -7,7 +7,7 @@
     # https://github.com/tpmajer/mako/compare/master...tpmajer:mako:flake
     makoOverlay = _final: prev: {
       mako = prev.mako.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [./packages/mako-background-blur.patch];
+        patches = (old.patches or []) ++ [./patches/mako.patch];
       });
     };
 
