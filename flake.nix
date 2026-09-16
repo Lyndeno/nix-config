@@ -2,14 +2,47 @@
   description = "Lyndon's NixOS setup";
 
   outputs = inputs: let
+    lib = inputs.nixpkgs.lib;
     localOverlay = final: _prev: bp.mkPackagesFor final;
-    # Background blur for notifications via ext-background-effect-v1, backported from
-    # https://github.com/tpmajer/mako/compare/master...tpmajer:mako:flake
-    makoOverlay = _final: prev: {
-      mako = prev.mako.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [./patches/mako.patch];
-      });
-    };
+
+    # Auto-discovered nixpkgs patches. Each ./patches/<pkg>.patch, or each
+    # *.patch file inside ./patches/<pkg>/, is applied to nixpkgs.<pkg>.
+    patchesDir = ./patches;
+    isPatchFile = name: type: type == "regular" && lib.hasSuffix ".patch" name;
+    patchList =
+      lib.concatLists
+      (lib.mapAttrsToList (
+          name: type:
+            if isPatchFile name type
+            then [
+              {
+                pkg = lib.removeSuffix ".patch" name;
+                path = patchesDir + "/${name}";
+              }
+            ]
+            else if type == "directory"
+            then
+              map (file: {
+                pkg = name;
+                path = patchesDir + "/${name}/${file}";
+              })
+              (lib.attrNames (lib.filterAttrs isPatchFile (builtins.readDir (patchesDir + "/${name}"))))
+            else []
+        )
+        (builtins.readDir patchesDir));
+    groupedPatches =
+      lib.foldl'
+      (acc: entry: acc // {${entry.pkg} = (acc.${entry.pkg} or []) ++ [entry.path];})
+      {}
+      patchList;
+    patchOverlay = _final: prev:
+      lib.mapAttrs (
+        pkg: patches:
+          prev.${pkg}.overrideAttrs (old: {
+            patches = (old.patches or []) ++ patches;
+          })
+      )
+      groupedPatches;
 
     unstableOverlay = final: _: {
       unstable = import inputs.nixpkgs-unstable {
@@ -24,7 +57,7 @@
       agenix.overlays.default
       vim-niri-nav.overlays.default
       localOverlay
-      makoOverlay
+      patchOverlay
       llm-agents.overlays.shared-nixpkgs
       unstableOverlay
     ];

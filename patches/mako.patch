@@ -1,3 +1,5 @@
+# Background blur for notifications via ext-background-effect-v1, backported from
+# https://github.com/tpmajer/mako/compare/master...tpmajer:mako:flake
 diff --git a/include/mako.h b/include/mako.h
 index dc2c372a..cd9634d5 100644
 --- a/include/mako.h
