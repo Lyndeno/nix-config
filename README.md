@@ -61,6 +61,7 @@ hosts/<name>/configuration.nix    # per-host config
 modules/nixos/<name>/default.nix  # → flake.nixosModules.<name>
 modules/home/<name>/default.nix   # → flake.homeModules.<name>
 packages/<name>.nix               # → flake.packages.<system>.<name>
+patches/<pkg>.{patch,nix}         # auto-applied to nixpkgs.<pkg> (see Patches)
 secrets/                          # age-encrypted secrets
 pubKeys.nix                       # SSH/Age public keys for hosts and users
 ```
@@ -165,6 +166,17 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 <!-- END GENERATED:packages -->
 
 Packages include NixOS VM tests, run via `nix flake check`.
+
+## Patches
+
+Nixpkgs patches are auto-discovered from `patches/` and applied to the matching package by name — no per-package overlay needed:
+
+```
+patches/<pkg>.patch    # vendored patch file, used as-is
+patches/<pkg>.nix      # { url, hash, ... } passed to fetchpatch; name defaults to the filename
+patches/<pkg>/*.patch  # multiple patches/specs for one package
+patches/<pkg>/*.nix
+```
 
 ## Theming
 
