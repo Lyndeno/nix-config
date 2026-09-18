@@ -71,4 +71,23 @@
       groupedPatches;
   in
     patchOverlay;
+
+  # Auto-discovered overlays: every overlays/*.nix file is imported and used as
+  # an overlay. If its outer argument is an attrset pattern requiring `inputs`
+  # (e.g. `{inputs}: final: prev: ...`), it's called with `{inherit inputs;}`
+  # first; otherwise the imported value is used directly as the `final: prev:`
+  # overlay.
+  overlaysFromDir = overlaysDir: let
+    inherit (inputs.nixpkgs) lib;
+    isOverlayFile = name: type: type == "regular" && lib.hasSuffix ".nix" name;
+
+    toOverlay = name: _type: let
+      imported = import (overlaysDir + "/${name}");
+    in
+      if builtins.functionArgs imported ? inputs
+      then imported {inherit inputs;}
+      else imported;
+  in
+    lib.mapAttrsToList toOverlay
+    (lib.filterAttrs isOverlayFile (builtins.readDir overlaysDir));
 }
