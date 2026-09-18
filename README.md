@@ -62,6 +62,7 @@ modules/nixos/<name>/default.nix  # → flake.nixosModules.<name>
 modules/home/<name>/default.nix   # → flake.homeModules.<name>
 packages/<name>.nix               # → flake.packages.<system>.<name>
 patches/<pkg>.{patch,nix}         # auto-applied to nixpkgs.<pkg> (see Patches)
+overlays/<name>.nix               # auto-applied overlay (see Overlays)
 secrets/                          # age-encrypted secrets
 pubKeys.nix                       # SSH/Age public keys for hosts and users
 ```
@@ -177,6 +178,10 @@ patches/<pkg>.nix      # { url, hash, ... } passed to fetchpatch; name defaults 
 patches/<pkg>/*.patch  # multiple patches/specs for one package
 patches/<pkg>/*.nix
 ```
+
+## Overlays
+
+Every `overlays/*.nix` file is auto-discovered and applied as an overlay — no need to list it in `flake.nix`. A file is imported and, if it takes an `{inputs, ...}`-style argument, called with `{inherit inputs;}` first; otherwise it's used directly as the `final: prev: ...` overlay.
 
 ## Theming
 

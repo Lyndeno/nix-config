@@ -2,28 +2,10 @@
   description = "Lyndon's NixOS setup";
 
   outputs = inputs: let
-    inherit (inputs.self.lib) patchOverlayFromDir;
+    inherit (inputs.self.lib) overlaysFromDir;
     localOverlay = final: _prev: bp.mkPackagesFor final;
 
-    patchOverlay = patchOverlayFromDir ./patches;
-
-    unstableOverlay = final: _: {
-      unstable = import inputs.nixpkgs-unstable {
-        inherit (final.stdenv.hostPlatform) system;
-        inherit (final) config;
-      };
-    };
-    overlays = with inputs; [
-      ironfetch.overlays.default
-      apple-fonts.overlays.default
-      ppd.overlays.default
-      agenix.overlays.default
-      vim-niri-nav.overlays.default
-      localOverlay
-      patchOverlay
-      llm-agents.overlays.shared-nixpkgs
-      unstableOverlay
-    ];
+    overlays = overlaysFromDir ./overlays ++ [localOverlay];
     bp = inputs.blueprint {
       inherit inputs;
       systems = ["x86_64-linux" "aarch64-linux"];
