@@ -157,10 +157,11 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
-// Nautilus draws a translucent sidebar (see modules/home/wlroots/gtk.nix);
+// These apps draw a translucent sidebar (see modules/home/wlroots/gtk.nix);
 // blur what shows through it.
 window-rule {
     match app-id="^org\\.gnome\\.Nautilus$"
+    match app-id="^org\\.gnome\\.Fractal$"
     draw-border-with-background false
     background-effect {
         blur true
