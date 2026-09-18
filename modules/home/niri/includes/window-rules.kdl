@@ -157,11 +157,13 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
-// These apps draw a translucent sidebar (see modules/home/wlroots/gtk.nix);
-// blur what shows through it.
+// These apps draw a translucent sidebar or tab bar (see modules/home/wlroots/gtk.nix
+// and modules/home/qutebrowser/default.nix); blur what shows through it.
 window-rule {
     match app-id="^org\\.gnome\\.Nautilus$"
     match app-id="^org\\.gnome\\.Fractal$"
+    // Matches the aerc preview windows (app-id "qutebrowser-aerc") too.
+    match app-id="qutebrowser"
     draw-border-with-background false
     background-effect {
         blur true

@@ -4,10 +4,24 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.lib.stylix) colors;
+  inherit (config.stylix) opacity;
+
+  # qutebrowser's colours take rgba() with the alpha as a 0-255 value or a
+  # percentage, so stylix's 0-1 opacities become percentages here.
+  translucent = alpha: color: let
+    channel = c: colors."${color}-rgb-${c}";
+  in "rgba(${channel "r"}, ${channel "g"}, ${channel "b"}, ${toString (builtins.floor (alpha * 100 + 0.5))}%)";
+in {
   programs.qutebrowser = {
     enable = true;
     settings = {
+      # Let the tab bar show the desktop through, the way the GTK sidebars do
+      # (see modules/home/wlroots/gtk.nix); niri blurs what comes through it.
+      # The web view paints its own background, so only the bar goes see-through.
+      # Stylix owns these colours, hence the overrides.
+      window.transparent = true;
       window.hide_decoration = true;
       statusbar.show = "in-mode";
       scrolling.bar = "never";
@@ -17,6 +31,19 @@
         last_close = "close";
       };
       colors.webpage.darkmode.enabled = true;
+      colors.tabs = let
+        selected = lib.mkForce (translucent 0.5 "base00");
+      in {
+        # The bar carries the tint and unselected tabs sit transparent on top of
+        # it, so the two do not stack into near-opacity. The selected tab is a
+        # darker tint at half alpha, which composites with the bar to about
+        # 0.93 -- still see-through, but clearly picked out against base01.
+        bar.bg = lib.mkForce (translucent opacity.desktop "base01");
+        odd.bg = lib.mkForce "transparent";
+        even.bg = lib.mkForce "transparent";
+        selected.odd.bg = selected;
+        selected.even.bg = selected;
+      };
       editor.command = ["alacritty" "--class" "hover" "-e" "nvim" "+startinsert" "{}"];
       session.lazy_restore = true;
       completion.shrink = true;
