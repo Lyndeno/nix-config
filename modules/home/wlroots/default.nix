@@ -9,6 +9,7 @@
     flake.homeModules.alacritty
     ./waybar.nix
     ./services.nix
+    ./gtk.nix
   ];
   xdg.mimeApps = let
     imageTypes = [

@@ -157,3 +157,21 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
+// Nautilus draws a translucent sidebar (see modules/home/wlroots/gtk.nix);
+// blur what shows through it.
+window-rule {
+    match app-id="^org\\.gnome\\.Nautilus$"
+    draw-border-with-background false
+    background-effect {
+        blur true
+    }
+    // Menus are separate surfaces, so niri can blur what is under them.
+    // The radius matches libadwaita's $popover_radius so the blur follows the
+    // menu's own rounded corners instead of squaring them off.
+    popups {
+        geometry-corner-radius 15
+        background-effect {
+            blur true
+        }
+    }
+}
