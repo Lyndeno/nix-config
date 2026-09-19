@@ -38,12 +38,12 @@
       XF86AudioMute        allow-when-locked=true { spawn "${lib.getExe pkgs.wob-volume}" "mute"; }
       XF86AudioMicMute     allow-when-locked=true { spawn "${lib.getExe pkgs.wob-volume}" "mic-mute"; }
 
-  		// Brightness
-  		XF86MonBrightnessUp allow-when-locked=true { spawn "${lib.getExe pkgs.wob-brightness}" "up"; }
-  		XF86MonBrightnessDown allow-when-locked=true { spawn "${lib.getExe pkgs.wob-brightness}" "down"; }
+      // Brightness
+      XF86MonBrightnessUp allow-when-locked=true { spawn "${lib.getExe pkgs.wob-brightness}" "up"; }
+      XF86MonBrightnessDown allow-when-locked=true { spawn "${lib.getExe pkgs.wob-brightness}" "down"; }
 
       // Gamma
-  		Mod+S hotkey-overlay-title="Cycle Night Shift Modes" allow-when-locked=true { spawn "bash" "-c" "systemctl --user kill --signal SIGUSR1 wlsunset.service"; }
+      Mod+S hotkey-overlay-title="Cycle Night Shift Modes" allow-when-locked=true { spawn "bash" "-c" "systemctl --user kill --signal SIGUSR1 wlsunset.service"; }
 
       // Email
       Mod+E hotkey-overlay-title="Open Email" { spawn "alacritty" "--class" "hover" "-e" "aerc"; }
