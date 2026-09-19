@@ -3,10 +3,6 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
-window-rule {
-    match app-id="^com\\.gabm\\.satty$"
-    open-floating true
-}
 // Open aerc HTML email previews in qutebrowser as floating.
 window-rule {
     match app-id="^qutebrowser-aerc$"
@@ -97,13 +93,10 @@ window-rule {
 layer-rule {
     match namespace="^notifications$"
     block-out-from "screencast"
-    background-effect {
-        blur true
-        xray false
-    }
 }
 layer-rule {
     match namespace="^launcher$"
+    match namespace="^notifications$"
     background-effect {
         blur true
         xray false
