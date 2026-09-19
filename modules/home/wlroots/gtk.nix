@@ -80,7 +80,7 @@ in {
     }
 
     ${selectors [sidebarPane]} {
-      background-color: ${translucent opacity.desktop colors.base01};
+      background-color: ${translucent opacity.desktop colors.base00};
     }
 
     ${selectors [collapsedSidebarPane]} {
@@ -94,7 +94,7 @@ in {
     /* Menus are their own surfaces, so niri blurs what sits under them
        (see the popups blocks in the niri window rules). */
     ${selectors ["popover > arrow" "popover > contents"]} {
-      background-color: ${translucent opacity.popups colors.base01};
+      background-color: ${translucent opacity.popups colors.base00};
     }
   '';
 }
