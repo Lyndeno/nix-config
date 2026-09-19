@@ -27,6 +27,18 @@
         bg = "none";
         ctermbg = "none";
       };
+      Floaterm = {
+        bg = "none";
+        ctermbg = "none";
+      };
+      FloatermNC = {
+        bg = "none";
+        ctermbg = "none";
+      };
+      FloatermBorder = {
+        bg = "none";
+        ctermbg = "none";
+      };
       WinSeparator = {
         bg = "none";
         fg = "none";
