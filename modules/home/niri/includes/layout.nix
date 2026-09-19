@@ -3,12 +3,12 @@ with config.lib.stylix.colors.withHashtag;
 # kdl
   ''
     blur {
-      passes 4
-      //offset 6
+        passes 4
+        //offset 6
     }
 
     overview {
-      backdrop-color "${base01}"
+        backdrop-color "${base01}"
     }
 
     // Settings that influence how windows are positioned and sized.
