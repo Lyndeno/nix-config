@@ -38,7 +38,7 @@ in {
         # it, so the two do not stack into near-opacity. The selected tab is a
         # darker tint at half alpha, which composites with the bar to about
         # 0.93 -- still see-through, but clearly picked out against base01.
-        bar.bg = lib.mkForce (translucent opacity.desktop "base01");
+        bar.bg = lib.mkForce (translucent opacity.desktop "base00");
         odd.bg = lib.mkForce "transparent";
         even.bg = lib.mkForce "transparent";
         selected.odd.bg = selected;
