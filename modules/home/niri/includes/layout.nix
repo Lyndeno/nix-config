@@ -4,7 +4,7 @@ with config.lib.stylix.colors.withHashtag;
   ''
     blur {
         passes 4
-        //offset 6
+        // offset 6
     }
 
     overview {
