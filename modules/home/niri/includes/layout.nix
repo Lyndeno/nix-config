@@ -89,11 +89,6 @@ with config.lib.stylix.colors.withHashtag;
             off
 
             width 4
-            active-color "#ffc87f"
-            inactive-color "#505050"
-
-            // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
-            // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
         }
 
         // You can enable drop shadows for windows.
