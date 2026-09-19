@@ -50,6 +50,27 @@
     };
     autoCmd = [
       {
+        # vim-floaterm's plugin/floaterm.vim links Floaterm/FloatermNC/FloatermBorder
+        # to Normal/NormalNC/NormalFloat with `hi default link`, which runs during
+        # plugin loading and clobbers a highlightOverride set earlier in init.lua.
+        # Reapply on FileType instead, since that only fires once the plugin (and
+        # its default links) are already loaded.
+        callback = config.lib.nixvim.mkRaw ''
+          function()
+            local floatermHighlights = {
+              Floaterm = {bg = "none", ctermbg = "none"},
+              FloatermNC = {bg = "none", ctermbg = "none"},
+              FloatermBorder = {bg = "none", ctermbg = "none"},
+            }
+            for name, val in pairs(floatermHighlights) do
+              vim.api.nvim_set_hl(0, name, val)
+            end
+          end
+        '';
+        pattern = ["floaterm"];
+        event = ["FileType"];
+      }
+      {
         #command = "setlocal textwidth=80";
         callback = config.lib.nixvim.mkRaw ''
           function()

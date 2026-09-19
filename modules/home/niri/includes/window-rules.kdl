@@ -1,21 +1,7 @@
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
-window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
-    match app-id="^org\\.wezfurlong\\.wezterm$"
-    default-column-width {
-
-    }
-}
-window-rule {
-    match app-id="^com\\.gabm\\.satty$"
-    open-floating true
-}
+// ---- window-rule ----
 // Open aerc HTML email previews in qutebrowser as floating.
 window-rule {
     match app-id="^qutebrowser-aerc$"
@@ -64,8 +50,6 @@ window-rule {
     match app-id="^org\\.gnome\\.World\\.Secrets$"
     match app-id="1password$"
     block-out-from "screen-capture"
- // Use this instead if you want them visible on third-party screenshot tools.
-    // block-out-from "screencast"
 }
 window-rule {
     // Match by "dropdown" app ID.
@@ -84,10 +68,6 @@ window-rule {
     default-column-width {
         proportion 0.8
     }
-    draw-border-with-background false
-    background-effect {
-        blur true
-    }
 }
 window-rule {
     match is-floating=true
@@ -95,28 +75,46 @@ window-rule {
         xray false
     }
 }
+// These apps draw a translucent sidebar, tab bar, or background (see
+// modules/home/wlroots/gtk.nix and modules/home/qutebrowser/default.nix);
+// blur what shows through them, and drop the opaque border backing so the
+// blur isn't covered up.
 window-rule {
+    match app-id="^hover$"
     match app-id="^Alacritty$"
+    match app-id="^org\\.gnome\\.Nautilus$"
+    match app-id="^org\\.gnome\\.Fractal$"
+    // Matches the aerc preview windows (app-id "qutebrowser-aerc") too.
+    match app-id="qutebrowser"
     draw-border-with-background false
     background-effect {
         blur true
     }
 }
+window-rule {
+    match app-id="^org\\.gnome\\.Nautilus$"
+    match app-id="^org\\.gnome\\.Fractal$"
+    match app-id="qutebrowser"
+    // Menus are separate surfaces, so niri can blur what is under them.
+    // The radius matches libadwaita's $popover_radius so the blur follows the
+    // menu's own rounded corners instead of squaring them off.
+    popups {
+        geometry-corner-radius 15
+        background-effect {
+            blur true
+        }
+    }
+}
+// Enable rounded corners for all windows.
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+// ---- layer-rule ----
 // Block out mako notifications from screencasts.
 layer-rule {
     match namespace="^notifications$"
     block-out-from "screencast"
-    background-effect {
-        blur true
-        xray false
-    }
-}
-layer-rule {
-    match namespace="^launcher$"
-    background-effect {
-        blur true
-        xray false
-    }
 }
 layer-rule {
     match namespace="^awww-daemon$"
@@ -136,6 +134,8 @@ layer-rule {
         }
     }
 }
+// Covers the launcher (Overlay layer) and mako notifications (Top layer)
+// too, so they don't need their own namespace-based rule.
 layer-rule {
     match layer="top"
     match layer="overlay"
@@ -150,10 +150,4 @@ layer-rule {
         blur false
         xray false
     }
-}
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
 }

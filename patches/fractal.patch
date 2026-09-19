@@ -1,0 +1,22 @@
+Add a style class to Fractal's window so user CSS can target it.
+
+GTK adds no app-identifying style class to windows, and libadwaita apps
+ignore GTK themes, so ~/.config/gtk-4.0/gtk.css is the only place to style
+them -- but it applies to every app at once. Nautilus tags its own window
+with .nautilus-window; Fractal tags nothing, so there is no way to scope
+rules (such as the translucent sidebar in modules/home/wlroots/gtk.nix) to
+it. Add the equivalent class here.
+
+--- a/src/window.blp
++++ b/src/window.blp
+@@ -8,6 +8,10 @@ template $Window: Adw.ApplicationWindow {
+   height-request: 294;
+   title: _("Fractal");
+ 
++  styles [
++    "fractal-window",
++  ]
++
+   content: Adw.ToastOverlay toast_overlay {
+     Gtk.Stack main_stack {
+       transition-type: crossfade;
