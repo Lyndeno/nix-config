@@ -61,7 +61,7 @@ in {
       ./includes/base.kdl
       ./includes/input.kdl
       ./includes/layout.nix
-      ./includes/window-rules.kdl
+      ./includes/window-rules.nix
       ./includes/keybinds.nix
     ];
 

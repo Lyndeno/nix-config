@@ -864,6 +864,27 @@
         "type": "github"
       }
     },
+    "niri": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781781064,
+        "narHash": "sha256-Ii/koEm/sRyg65qbAQWqEgboSEIhdH0EL4KglAc14p0=",
+        "owner": "YaLTeR",
+        "repo": "niri",
+        "rev": "49fc6117fd6c043adaa2ead316b82db5ed735d36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "YaLTeR",
+        "repo": "niri",
+        "rev": "49fc6117fd6c043adaa2ead316b82db5ed735d36",
+        "type": "github"
+      }
+    },
     "niri-autoselect-portal": {
       "inputs": {
         "nixpkgs": [
@@ -883,6 +904,27 @@
       "original": {
         "type": "git",
         "url": "https://codeberg.org/debugloop/niri-autoselect-portal.git"
+      }
+    },
+    "niri-glass": {
+      "inputs": {
+        "niri": "niri",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789607481,
+        "narHash": "sha256-SxODp3e8IY11enWvxwzKn9N6neO6jIxdOT5RIL0WIdw=",
+        "owner": "zaroutt",
+        "repo": "Niri-glass",
+        "rev": "72ee16331994b43a9460b713b828a218a023a857",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zaroutt",
+        "repo": "Niri-glass",
+        "type": "github"
       }
     },
     "nix-index-database": {
@@ -1081,6 +1123,7 @@
         "llm-agents": "llm-agents",
         "nfsm-flake": "nfsm-flake",
         "niri-autoselect-portal": "niri-autoselect-portal",
+        "niri-glass": "niri-glass",
         "nix-index-database": "nix-index-database",
         "nixarr": "nixarr",
         "nixos-hardware": "nixos-hardware",

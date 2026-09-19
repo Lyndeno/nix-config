@@ -153,6 +153,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # The overlay replaces source files in a pinned upstream niri revision
+    # (49fc611, niri 26.04), so that pin stays as the fork left it; only the
+    # nixpkgs it builds against follows ours.
+    niri-glass = {
+      url = "github:zaroutt/Niri-glass";
+      inputs.niri.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     niri-autoselect-portal = {
       url = "git+https://codeberg.org/debugloop/niri-autoselect-portal.git";
       inputs.nixpkgs.follows = "nixpkgs";
