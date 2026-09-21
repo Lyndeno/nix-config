@@ -145,6 +145,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `img-darken` | Writes a darkened copy of an image (wallpaper helper) |
 | `lock-screen` | Locks the screen (swaylock) with a blurred wallpaper, falling back to a plain lock |
 | `lock-screen-timeout` | Powers off monitors on idle, but only while the screen is locked |
+| `matugen-base16` | Base16 colour scheme (dark) generated from the wallpaper via matugen |
 | `qutebrowser-aerc` | Throwaway qutebrowser instance for opening links from aerc |
 | `screen-timeout` | Powers off all monitors via niri |
 | `screenshot-annotate` | Region screenshot with annotation (grim/slurp + satty) |

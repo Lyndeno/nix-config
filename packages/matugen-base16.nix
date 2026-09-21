@@ -52,7 +52,7 @@
 in
   pkgs.runCommand "matugen-base16-scheme" {
     nativeBuildInputs = [pkgs.matugen];
-    meta.description = "POC: base16 colour scheme (dark) generated from the wallpaper via matugen";
+    meta.description = "Base16 colour scheme (dark) generated from the wallpaper via matugen";
   } ''
     cp ${pkgs.wallpaper} wallpaper.jpg
 
