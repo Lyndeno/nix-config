@@ -102,7 +102,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `postgresql` | PostgreSQL database server |
 | `secureboot` | Secure Boot via lanzaboote |
 | `server` | Server hardening: watchdog, no suspend, headless smartd mail alerts |
-| `stylix` | System-wide Stylix theming (Gruvbox Dark Hard, Sedona wallpaper) |
+| `stylix` | System-wide Stylix theming (matugen scheme, Sedona wallpaper) |
 | `syncthing` | Syncthing file synchronisation |
 | `vikunja` | Vikunja task and to-do manager |
 | `virtualisation` | libvirt/QEMU virtual machines with virt-manager |
