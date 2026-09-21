@@ -12,8 +12,8 @@
     # matugen-base16 to build/substitute before evaluation could finish.
     # Regenerate after changing the wallpaper or packages/matugen-base16.nix:
     #   install -m 644 "$(nix build --no-link --print-out-paths .#matugen-base16)" \
-    #     modules/nixos/stylix/base16-matugen.yaml
-    base16Scheme = ./base16-matugen.yaml;
+    #     base16-matugen.yaml
+    base16Scheme = ../../../base16-matugen.yaml;
     targets = {
       plymouth.enable = false;
       nixos-icons.enable = false;
