@@ -10,6 +10,22 @@
   # Material's roles are spread deliberately around the colour wheel
   # (primary/secondary/tertiary/error), so the result has real variety
   # regardless of the source image's colour distribution.
+  #
+  # Deviates from the PR's dark-mode table in three slots (base07/0C/0D):
+  # theirs used `primary` for base07 and `surface_tint`/`primary_fixed` for
+  # base0C/0D, but `surface_tint` is *always* identical to `primary` by the
+  # Material spec, and `on_surface`/base05 was already `on_surface`'s
+  # neighbour tone — so base07 (bright/bold foreground, per Alacritty's
+  # target) came out byte-identical to base0B/base0D (ANSI green/blue).
+  # Anything highlighted in green or blue (e.g. aerc's selected-row style)
+  # became invisible against plain bold text. base07 now reuses `on_surface`
+  # (a neutral, like base05) and base0C/0D use `tertiary_container`/
+  # `primary_container` so every slot is a genuinely distinct hex value.
+  # (`secondary_container` was tried for base0D too, but Material's
+  # `*_container` roles are deliberately dark background fills in dark
+  # mode, not legible foreground tones — it rendered as a near-black brown
+  # wherever an app used it as syntax-highlighting text. `primary_container`
+  # keeps the same hue family at a readable brightness instead.)
   template = pkgs.writeText "matugen-base16.yaml.template" ''
     system: "base16"
     name: "matugen"
@@ -23,13 +39,13 @@
       base04: "{{colors.on_surface_variant.default.hex}}"
       base05: "{{colors.on_surface.default.hex}}"
       base06: "{{colors.secondary_fixed.default.hex}}"
-      base07: "{{colors.primary.default.hex}}"
+      base07: "{{colors.on_surface.default.hex}}"
       base08: "{{colors.error.default.hex}}"
       base09: "{{colors.tertiary.default.hex}}"
       base0A: "{{colors.secondary.default.hex}}"
       base0B: "{{colors.primary.default.hex}}"
-      base0C: "{{colors.primary_fixed.default.hex}}"
-      base0D: "{{colors.surface_tint.default.hex}}"
+      base0C: "{{colors.tertiary_container.default.hex}}"
+      base0D: "{{colors.primary_container.default.hex}}"
       base0E: "{{colors.tertiary_fixed.default.hex}}"
       base0F: "{{colors.on_error_container.default.hex}}"
   '';
