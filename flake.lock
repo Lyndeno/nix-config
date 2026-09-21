@@ -915,11 +915,11 @@
         "website-builder": []
       },
       "locked": {
-        "lastModified": 1789154873,
+        "lastModified": 1789298478,
         "narHash": "sha256-cFEWVux+agE4Ixoj8ybcBDY64urEh8eOOkXoOSXIaP8=",
         "owner": "rasmus-kirk",
         "repo": "nixarr",
-        "rev": "78bba5cb079921a144e60c8acf59acb1890af0ca",
+        "rev": "7e1dab87509bee3092a812012a5efa72aaf3963e",
         "type": "github"
       },
       "original": {
