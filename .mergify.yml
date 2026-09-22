@@ -20,6 +20,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-img-darken
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-lock-screen
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-lock-screen-timeout
+  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-matugen-base16
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-mergify
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-qutebrowser-aerc
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-readme
@@ -51,6 +52,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.git-hooks
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.gpu-coredump
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.hydra-spec
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.matugen-base16
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.mergify
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-morpheus
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.nixos-neo
@@ -69,6 +71,7 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-img-darken
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-lock-screen
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-lock-screen-timeout
+  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-matugen-base16
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-mergify
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-qutebrowser-aerc
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-readme
