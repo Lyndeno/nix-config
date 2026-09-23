@@ -71,8 +71,9 @@
           /* Privacy is an AModule, not an ALabel, so it doesn't get .module. */
           #privacy {
             padding: 0 5px;
-            background-color: @base08;
-            border-radius: 10px;
+            background-color: @base05;
+            color: @base00;
+            border-radius: 9999px;
           }
 
           #battery.warning:not(.charging),
