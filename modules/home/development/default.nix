@@ -30,13 +30,13 @@
       nix-fast-build
       dix
       git-filter-repo
-      gitui
       gh-dash
     ];
   };
 
   programs = {
     claude-code.enable = true;
+    gitui.enable = true;
     opencode = {
       enable = true;
       settings = {
