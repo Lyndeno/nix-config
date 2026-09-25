@@ -21,6 +21,8 @@
   ];
   networking = {
     useDHCP = false;
+    useNetworkd = true;
+    dhcpcd.enable = false;
     firewall = {
       interfaces = {
         "${config.services.tailscale.interfaceName}" = {
