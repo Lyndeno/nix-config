@@ -43,6 +43,7 @@
       failure-notify
       gpu-coredump
       borgmatic
+      wireless
     ]);
 
   services = {
