@@ -173,7 +173,7 @@
             hide-empty-text = true;
           };
 
-          "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
+          "custom/ts" = lib.mkIf tailscale.enable {
             exec = lib.getExe pkgs.wb-ts;
             interval = 3;
             return-type = "json";
