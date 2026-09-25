@@ -1,5 +1,9 @@
 # meta.description = "Laptop power management: suspend-then-hibernate, iwd, geolocated timezone"
-{
+{flake, ...}: _: {
+  imports = [
+    flake.nixosModules.wireless
+  ];
+
   systemd = {
     sleep.settings.Sleep = {
       HibernateDelaySec = "2h";
@@ -19,25 +23,4 @@
     automatic-timezoned.enable = true;
     geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
   };
-
-  programs.captive-browser = {
-    enable = true;
-    interface = "wlan0";
-  };
-
-  networking = {
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        General = {
-          AddressRandomization = "network";
-        };
-      };
-    };
-  };
-
-  #environment.systemPackages = with pkgs; [
-  # gnome-network-displays does not currently work with iwd
-  #  gnome-network-displays
-  #];
 }
