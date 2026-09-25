@@ -10,10 +10,7 @@
       inherit (osConfig.networking) hostName;
       inherit (osConfig.services) tailscale;
 
-      sensitivity =
-        if hostName == "neo"
-        then 18
-        else 10;
+      sensitivity = 10;
 
       framerate =
         if hostName == "morpheus"
