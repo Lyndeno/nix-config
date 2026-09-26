@@ -4,19 +4,15 @@
   config,
   osConfig,
   ...
-}: let
+} @ args: let
   cfg = config.programs.niri;
-
-  nixArgs = {
-    inherit pkgs lib config;
-  };
 
   resolveInclude = f: let
     basename = baseNameOf (toString f);
     imported = import f;
     content =
       if builtins.isFunction imported
-      then imported nixArgs
+      then imported args
       else imported;
   in
     if lib.hasSuffix ".nix" basename
