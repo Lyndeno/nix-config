@@ -5,16 +5,6 @@
   ...
 }: {
   home = {
-    file = {
-      ".cargo/config.toml" = {
-        text =
-          # toml
-          ''
-            [build]
-            target-dir = "${config.home.homeDirectory}/.cargo/target"
-          '';
-      };
-    };
     packages = with pkgs; [
       nixd
       rust-analyzer
@@ -37,6 +27,16 @@
   programs = {
     claude-code.enable = true;
     gitui.enable = true;
+    cargo = {
+      enable = true;
+      package = null; # Only manage config
+      cargoHome = ".cargo";
+      settings = {
+        build = {
+          target-dir = "${config.home.homeDirectory}/${config.programs.cargo.cargoHome}/target";
+        };
+      };
+    };
     opencode = {
       enable = true;
       settings = {
