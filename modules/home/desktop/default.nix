@@ -97,7 +97,7 @@
       # logseq depends on electron-39 which is EOL and marked insecure in nixpkgs
       #logseq
 
-      llm-agents.claude-desktop
+      claude-desktop
     ];
   };
   xdg = {
