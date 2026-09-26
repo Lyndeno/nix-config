@@ -9,7 +9,6 @@
 
   nixArgs = {
     inherit pkgs lib config;
-    vim-niri-nav = lib.getExe pkgs.vim-niri-nav;
   };
 
   resolveInclude = f: let

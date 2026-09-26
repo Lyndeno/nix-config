@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  vim-niri-nav,
   ...
 }: let
   workspaceIndices = lib.range 1 9;
@@ -13,6 +12,8 @@
     lib.concatMapStringsSep "\n      "
     (i: "Mod+Ctrl+${toString i} { move-column-to-workspace ${toString i}; }")
     workspaceIndices;
+
+  vnn = lib.getExe pkgs.vim-niri-nav;
 in
   # kdl
   ''
@@ -80,14 +81,14 @@ in
 
         Mod+Q { close-window; }
 
-        Mod+Left  hotkey-overlay-title="Focus window left"  { spawn "${vim-niri-nav}" "left"; }
-        Mod+Down  hotkey-overlay-title="Focus window below" { spawn "${vim-niri-nav}" "down"; }
-        Mod+Up    hotkey-overlay-title="Focus window up"    { spawn "${vim-niri-nav}" "up"; }
-        Mod+Right hotkey-overlay-title="Focus window right" { spawn "${vim-niri-nav}" "right"; }
-        Mod+H     hotkey-overlay-title="Focus window left"  { spawn "${vim-niri-nav}" "left"; }
-        Mod+J     hotkey-overlay-title="Focus window below" { spawn "${vim-niri-nav}" "down"; }
-        Mod+K     hotkey-overlay-title="Focus window up"    { spawn "${vim-niri-nav}" "up"; }
-        Mod+L     hotkey-overlay-title="Focus window right" { spawn "${vim-niri-nav}" "right"; }
+        Mod+Left  hotkey-overlay-title="Focus window left"  { spawn "${vnn}" "left"; }
+        Mod+Down  hotkey-overlay-title="Focus window below" { spawn "${vnn}" "down"; }
+        Mod+Up    hotkey-overlay-title="Focus window up"    { spawn "${vnn}" "up"; }
+        Mod+Right hotkey-overlay-title="Focus window right" { spawn "${vnn}" "right"; }
+        Mod+H     hotkey-overlay-title="Focus window left"  { spawn "${vnn}" "left"; }
+        Mod+J     hotkey-overlay-title="Focus window below" { spawn "${vnn}" "down"; }
+        Mod+K     hotkey-overlay-title="Focus window up"    { spawn "${vnn}" "up"; }
+        Mod+L     hotkey-overlay-title="Focus window right" { spawn "${vnn}" "right"; }
 
         Mod+Ctrl+Left  { move-column-left; }
         Mod+Ctrl+Down  { move-window-down; }
