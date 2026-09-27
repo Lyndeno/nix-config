@@ -7,5 +7,4 @@ in
     ppd.overlays.default
     agenix.overlays.default
     vim-niri-nav.overlays.default
-    llm-agents.overlays.shared-nixpkgs
   ])

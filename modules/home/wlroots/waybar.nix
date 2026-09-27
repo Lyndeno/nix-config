@@ -10,10 +10,7 @@
       inherit (osConfig.networking) hostName;
       inherit (osConfig.services) tailscale;
 
-      sensitivity =
-        if hostName == "neo"
-        then 18
-        else 10;
+      sensitivity = 10;
 
       framerate =
         if hostName == "morpheus"
@@ -176,7 +173,7 @@
             hide-empty-text = true;
           };
 
-          "custom/ts" = lib.mkIf (hostName == "neo" || hostName == "morpheus") {
+          "custom/ts" = lib.mkIf tailscale.enable {
             exec = lib.getExe pkgs.wb-ts;
             interval = 3;
             return-type = "json";

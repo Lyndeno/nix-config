@@ -106,6 +106,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 | `syncthing` | Syncthing file synchronisation |
 | `vikunja` | Vikunja task and to-do manager |
 | `virtualisation` | libvirt/QEMU virtual machines with virt-manager |
+| `wireless` | Userspace Wireless Support |
 | `xps-9560` | Dell XPS 15 9560 hardware support |
 | `zed` | ZFS Event Daemon notifications via Pushover |
 | `zfs` | ZFS support with periodic scrub and TRIM |
