@@ -22,7 +22,7 @@
     # We assume each host is accessable via hostname, in this case by Tailscale.
     # We specify the host key so our ssh agent does not have to keep looking and possibly
     # hitting the limit before finding the right key.
-    matchBlocks = let
+    settings = let
       keys = (import ../../../pubKeys.nix).lsanche;
       gitKeys = import ./gitKeys.nix;
       mkPubkeyFile = name: key: pkgs.writeText "${name}.pub" "${key}\n";
@@ -31,18 +31,18 @@
         keyName,
         key,
       }: {
-        inherit hostname;
-        port = 443;
-        user = "git";
-        identitiesOnly = true;
-        identityFile = "${mkPubkeyFile keyName key}";
+        HostName = hostname;
+        Port = 443;
+        User = "git";
+        IdentitiesOnly = true;
+        IdentityFile = "${mkPubkeyFile keyName key}";
       };
     in
       (builtins.mapAttrs (name: value: {
-          hostname = name;
-          identityFile = "${mkPubkeyFile "lsanche-${name}" value}";
-          identitiesOnly = true;
-          forwardAgent = true;
+          HostName = name;
+          IdentityFile = "${mkPubkeyFile "lsanche-${name}" value}";
+          IdentitiesOnly = true;
+          ForwardAgent = true;
         })
         keys)
       // {
