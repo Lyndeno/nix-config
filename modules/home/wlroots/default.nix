@@ -90,7 +90,14 @@
     };
     zathura = {
       enable = true;
-      options.selection-clipboard = "clipboard";
+      options = {
+        selection-clipboard = "clipboard";
+        recolor = true;
+        recolor-keephue = true;
+        recolor-reverse-video = true;
+        incremental-search = true;
+      };
+      mappings."<C-d>" = "recolor";
     };
     mpv = let
       inherit (osConfig.networking) hostName;
