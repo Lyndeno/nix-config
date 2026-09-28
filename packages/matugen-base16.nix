@@ -5,7 +5,9 @@
   # can end up monochrome. Mirrors nix-community/stylix#892 (stylix/palette.nix),
   # except base07/0C/0D avoid roles that are identical to others in dark mode
   # (`surface_tint` == `primary`) or too dark to use as foreground text
-  # (`*_container` roles).
+  # (`*_container` roles). base07 also avoids `on_surface` (already base05) in
+  # favour of `on_error_container`, the lightest remaining role, and base0F
+  # takes `inverse_primary` (freed up from base07) so every slot stays unique.
   template = pkgs.writeText "matugen-base16.yaml.template" ''
     system: "base16"
     name: "matugen"
@@ -19,7 +21,7 @@
       base04: "{{colors.on_surface_variant.default.hex}}"
       base05: "{{colors.on_surface.default.hex}}"
       base06: "{{colors.secondary_fixed.default.hex}}"
-      base07: "{{colors.on_surface.default.hex}}"
+      base07: "{{colors.on_error_container.default.hex}}"
       base08: "{{colors.error.default.hex}}"
       base09: "{{colors.tertiary.default.hex}}"
       base0A: "{{colors.secondary.default.hex}}"
@@ -27,7 +29,7 @@
       base0C: "{{colors.tertiary_container.default.hex}}"
       base0D: "{{colors.primary_container.default.hex}}"
       base0E: "{{colors.tertiary_fixed.default.hex}}"
-      base0F: "{{colors.on_error_container.default.hex}}"
+      base0F: "{{colors.inverse_primary.default.hex}}"
   '';
 in
   pkgs.runCommand "matugen-base16-scheme" {
