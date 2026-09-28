@@ -82,7 +82,10 @@
   ];
 
   programs = {
-    fuzzel.enable = true;
+    fuzzel = {
+      enable = true;
+      settings.border.width = 2;
+    };
     imv.enable = true;
     swaylock = {
       enable = true;
