@@ -23,9 +23,30 @@
     defaultEditor = true;
     highlight.LspInlayHint.link = "Comment";
     highlightOverride = {
+      # `stylix.targets.nixvim.transparentBackground` also sets Normal/NormalNC's
+      # bg here, via nvim_set_hl (a full replace, not a `:highlight`-style merge).
+      # Without an explicit fg, that wipes out the fg mini.base16 set moments
+      # earlier, leaving Normal (and derivatives, e.g. neo-tree's popup title
+      # bar) with no foreground at all: it falls back to the terminal's raw
+      # default fg, which can land on an equally light background and render
+      # invisible (e.g. the neo-tree "add file" prompt title).
+      Normal.fg = config.lib.stylix.colors.withHashtag.base05;
       NormalNC = {
+        fg = config.lib.stylix.colors.withHashtag.base05;
         bg = "none";
         ctermbg = "none";
+      };
+      # neo-tree's "NC" popup border style (used for its rename/add/filter
+      # prompts) derives its title-bar text color from Normal's *background*,
+      # inverted, on the assumption it's a real opaque color — but we make it
+      # transparent above, so that derivation yields no color at all and the
+      # title falls back to the same invisible-on-invisible look. Setting both
+      # fg and bg here directly (rather than leaving one to be derived) makes
+      # neo-tree's own highlight setup see an already-complete group and skip
+      # recomputing it.
+      NeoTreeTitleBar = {
+        fg = config.lib.stylix.colors.withHashtag.base00;
+        bg = config.lib.stylix.colors.withHashtag.base05;
       };
       WinSeparator = {
         bg = "none";
