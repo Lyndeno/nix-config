@@ -64,7 +64,7 @@ in {
       };
       # Temporary fix for video not working
       qt.args = [
-        "disable-features=AcceleratedVideoDecodeLinuxGL"
+        "enable-features=AcceleratedVideoDecodeLinuxGL"
         "enable-features=AcceleratedVideoEncoder"
       ];
     };
