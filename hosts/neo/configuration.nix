@@ -90,12 +90,33 @@
     # generic.nix's outer function, which has a catch-all `...` and silently drops
     # `configfile` (it's only a `let`-binding there, not a real parameter). Only
     # build.nix's function (what linuxManualConfig calls) actually takes it.
+    # Tuned for this CPU (Kaby Lake == Skylake ISA/scheduling as far as GCC's
+    # -march is concerned: AVX2/BMI/FMA, no AVX-512). Deliberately not
+    # `-march=native`/CONFIG_X86_NATIVE_CPU: nix.buildMachines below can
+    # offload this build to morpheus (a different, Zen3 CPU), where "native"
+    # would silently tune for the wrong machine. Flags go through the
+    # stdenv's `env` rather than `extraMakeFlags`, per
+    # https://discourse.nixos.org/t/enabling-march-and-mtune-for-kernel-builds/20395/5 —
+    # KCFLAGS/KCPPFLAGS values containing a space break under
+    # extraMakeFlags's shell-quoting.
     kernelPackages = let
       kernel = pkgs.linuxPackages.kernel;
     in
       pkgs.linuxPackagesFor (pkgs.linuxManualConfig {
         inherit (kernel) version modDirVersion src kernelPatches features;
         configfile = ./kernel.config;
+        stdenv =
+          pkgs.stdenvAdapters.addAttrsToDerivation {
+            # kbuild's own baseline CFLAGS already pass an explicit
+            # `-mtune=generic` ahead of ours; an explicit -mtune always wins
+            # over whatever -march would otherwise default to, so -march alone
+            # silently keeps generic scheduling. Confirmed via the built
+            # vmlinux's DW_AT_producer before adding -mtune here: it showed
+            # `-mtune=generic ... -march=skylake`, ISA-only, no Skylake tuning.
+            env.KCFLAGS = "-march=skylake -mtune=skylake";
+            env.KCPPFLAGS = "-march=skylake -mtune=skylake";
+          }
+          pkgs.stdenv;
       });
 
     # NixOS's `boot.initrd.includeDefaultModules` (on by default) and its LUKS
