@@ -16,7 +16,6 @@
     base16Scheme = ../../../base16-matugen.yaml;
     targets = {
       plymouth.enable = false;
-      nixos-icons.enable = false;
       console.enable = false;
     };
   };
