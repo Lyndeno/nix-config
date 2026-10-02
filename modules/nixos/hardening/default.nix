@@ -2,10 +2,12 @@
 {
   config,
   lib,
+  inputs,
   ...
 }: {
   imports = [
     ./option.nix
+    "${inputs.nix-system-services-hardened}/services/dbus.nix"
   ];
 
   systemd.services = {
@@ -64,5 +66,10 @@
       sandbox = 2;
       serviceConfig.SystemCallFilter = ["@system-service"];
     };
+
+    # Printing isn't universal, so this is guarded, unlike dbus-broker which is imported unconditionally above.
+    cups =
+      lib.mkIf config.services.printing.enable
+      (import "${inputs.nix-system-services-hardened}/services/cups.nix").systemd.services.cups;
   };
 }

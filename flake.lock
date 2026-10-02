@@ -905,6 +905,22 @@
         "type": "github"
       }
     },
+    "nix-system-services-hardened": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777325373,
+        "narHash": "sha256-rDdfH1D72QqJQoomuge83z/0QjDi58bCCtga1p3fo7I=",
+        "owner": "wallago",
+        "repo": "nix-system-services-hardened",
+        "rev": "c033fabdd479bb8748d23c0fcde5f44ba713523c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wallago",
+        "repo": "nix-system-services-hardened",
+        "type": "github"
+      }
+    },
     "nixarr": {
       "inputs": {
         "nixpkgs": [
@@ -1082,6 +1098,7 @@
         "nfsm-flake": "nfsm-flake",
         "niri-autoselect-portal": "niri-autoselect-portal",
         "nix-index-database": "nix-index-database",
+        "nix-system-services-hardened": "nix-system-services-hardened",
         "nixarr": "nixarr",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

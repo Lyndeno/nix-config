@@ -60,6 +60,11 @@
       flake = false;
     };
 
+    nix-system-services-hardened = {
+      url = "github:wallago/nix-system-services-hardened";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
