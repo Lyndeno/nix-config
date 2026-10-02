@@ -23,6 +23,7 @@
 
   systemd = {
     services.immich-stack = {
+      sandbox = 2;
       description = "Stacking Raw and JPG Photos in Immich";
       script = ''
         ${lib.getExe pkgs.immich-go} stack --server=http://localhost:${toString config.services.immich.port} --api-key="$IMMICH_API_KEY" --manage-raw-jpeg StackCoverJPG
@@ -39,28 +40,12 @@
         WorkingDirectory = "%S/immich-stack";
         Environment = "HOME=%S/immich-stack";
 
-        # This only needs to reach the local immich API over TCP.
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectClock = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
+        # sandbox=2 isolates the network namespace, but this needs real loopback TCP to the local immich API.
+        PrivateNetwork = false;
+        RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK"];
+
         ProtectProc = "invisible";
         ProcSubset = "pid";
-        RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK"];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        CapabilityBoundingSet = "";
-        SystemCallArchitectures = "native";
         SystemCallFilter = ["@system-service"];
         SystemCallErrorNumber = "EPERM";
       };
