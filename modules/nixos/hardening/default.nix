@@ -54,5 +54,15 @@
         UMask = "0077";
       };
     };
+
+    # D-Bus-only clients (geoclue/timedated), no network/device/capability needs: sandbox=2 fits with no tuning.
+    automatic-timezoned = lib.mkIf config.services.automatic-timezoned.enable {
+      sandbox = 2;
+      serviceConfig.SystemCallFilter = ["@system-service"];
+    };
+    automatic-timezoned-geoclue-agent = lib.mkIf config.services.automatic-timezoned.enable {
+      sandbox = 2;
+      serviceConfig.SystemCallFilter = ["@system-service"];
+    };
   };
 }
