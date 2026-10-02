@@ -88,7 +88,7 @@ Each host lives in `hosts/<name>/configuration.nix` and follows this pattern:
 
 ### Module Pattern
 
-Modules in `modules/nixos/` and `modules/home/` each have a `default.nix`. They receive standard NixOS args plus `inputs` and `flake`. Use `lib.mkDefault` for overrideable values and `lib.mkIf` for conditional logic.
+Modules in `modules/nixos/` and `modules/home/` each have a `default.nix`. They receive standard NixOS args plus `inputs` and `flake`. Use `lib.mkDefault` for overrideable values and `lib.mkIf` for conditional logic. Keep comments to a minimum — one line max.
 
 ### Key Modules
 
