@@ -45,5 +45,14 @@
         # PrivateUsers left at its default (false): it would make CAP_NET_ADMIN/CAP_NET_RAW ineffective against the host netns
       };
     };
+
+    # Upstream already hardens syncthing heavily; dataDir is a user's $HOME so ProtectHome is left off.
+    syncthing = lib.mkIf config.services.syncthing.enable {
+      serviceConfig = {
+        SystemCallFilter = ["@system-service"];
+        CapabilityBoundingSet = ["~CAP_SYSLOG"];
+        UMask = "0077";
+      };
+    };
   };
 }
