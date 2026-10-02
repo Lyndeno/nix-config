@@ -65,7 +65,7 @@ in {
                   ProtectClock = true; # Prevent setting the RTC
 
                   # Networking
-                  RestrictAddressFamilies = ""; # Example: "AF_UNIX AF_INET AF_INET6"
+                  RestrictAddressFamilies = ["AF_UNIX"]; # Only local sockets; PrivateNetwork handles the rest
                   PrivateNetwork = true; # Isolate the entire network
 
                   # Misc
