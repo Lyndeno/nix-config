@@ -44,6 +44,7 @@
       gpu-coredump
       borgmatic
       wireless
+      hardening
     ]);
 
   services = {
