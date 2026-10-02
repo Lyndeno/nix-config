@@ -1,5 +1,9 @@
 # meta.description = "Systemd unit hardening"
 {
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./option.nix
   ];
@@ -12,7 +16,10 @@
   #
   # Upstream's tailscaled systemd unit ships with no hardening at all, so
   # none of this overrides package defaults.
-  systemd.services.tailscaled.serviceConfig = {
+  #
+  # Guarded so this doesn't create a dangling override for a unit that isn't
+  # actually enabled on hosts importing this module without Tailscale.
+  systemd.services.tailscaled.serviceConfig = lib.mkIf config.services.tailscale.enable {
     # Filesystem: still fully confined, it only needs its state dir.
     ProtectSystem = "strict";
     ProtectHome = true;
