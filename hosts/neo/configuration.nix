@@ -20,6 +20,7 @@
     borgmatic
     ./borgbackup
     ./disko.nix
+    hardening
   ];
 
   # Do not change. See `man configuration.nix` — pins stateful defaults to NixOS version at install time.
