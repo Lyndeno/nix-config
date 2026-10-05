@@ -108,11 +108,11 @@
     "base16-schemes": {
       "flake": false,
       "locked": {
-        "lastModified": 1790150065,
-        "narHash": "sha256-pMnbUcpKwLRTJfyXeNC6goNJfz82dmJzKELokG0ajBc=",
+        "lastModified": 1790949534,
+        "narHash": "sha256-SBByWmr4c7vWogfErMvFoOJY7wpU50bXdXOXUOeGOSQ=",
         "owner": "tinted-theming",
         "repo": "schemes",
-        "rev": "50f6e3b93a8f62db9d839f8b79a709c1bbdaac53",
+        "rev": "c606872eb235a7a08391f4a038a2073faaf61a22",
         "type": "github"
       },
       "original": {
