@@ -779,11 +779,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1790240332,
-        "narHash": "sha256-22akoq0M2fK0NLqqTMf0WxS8KCKYYRGToEZPpKdxZ/I=",
+        "lastModified": 1790845041,
+        "narHash": "sha256-Q9X/otpEZjoKkV2FhSkp39fhsQKAovMxRxIiitzHdxA=",
         "owner": "Lyndeno",
         "repo": "ironfetch",
-        "rev": "3144bd2131936629e1988ecc8e32c8f2ef170d05",
+        "rev": "4a932947cf9c2099080210e4d7ed3dc3622f990d",
         "type": "github"
       },
       "original": {
