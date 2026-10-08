@@ -25,7 +25,7 @@
     services.immich-stack = {
       description = "Stacking Raw and JPG Photos in Immich";
       script = ''
-        ${lib.getExe pkgs.immich-go} stack --server=http://localhost:${toString config.services.immich.port} --api-key="$IMMICH_API_KEY" --manage-raw-jpeg StackCoverJPG
+        ${lib.getExe pkgs.unstable.immich-go} stack --server=http://localhost:${toString config.services.immich.port} --api-key="$IMMICH_API_KEY" --manage-raw-jpeg StackCoverJPG
       '';
       serviceConfig = {
         Type = "oneshot";
