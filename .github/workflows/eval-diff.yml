@@ -1,0 +1,79 @@
+name: Host eval diff
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: eval-diff-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  eval-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Evaluate every host on base and PR
+        run: |
+          git worktree add ../base "origin/${{ github.base_ref }}"
+
+          eval_hosts() {
+            local dir=$1 out=$2
+            : > "$out"
+            for h in $(nix eval --json "$dir#nixosConfigurations" --apply builtins.attrNames | jq -r '.[]'); do
+              # Evaluation only: the store path derives from the drv hash, nothing is built.
+              path=$(nix eval --raw "$dir#nixosConfigurations.$h.config.system.build.toplevel.outPath" || echo "eval-failed")
+              echo "$h $path" >> "$out"
+            done
+            sort -o "$out" "$out"
+          }
+
+          eval_hosts ../base "$RUNNER_TEMP/base.txt"
+          eval_hosts . "$RUNNER_TEMP/head.txt"
+
+      - name: Build comment
+        run: |
+          short() {
+            # /nix/store/<hash>-name -> first 8 chars of <hash>
+            case "$1" in
+              /nix/store/*) basename "$1" | cut -c1-8 ;;
+              *) echo "$1" ;;
+            esac
+          }
+
+          changed_rows=""
+          same_rows=""
+          while read -r host new; do
+            old=$(awk -v h="$host" '$1 == h {print $2}' "$RUNNER_TEMP/base.txt")
+            old=${old:-"(new host)"}
+            n=$(short "$new")
+            o=$(short "$old")
+            if [ "$old" != "$new" ]; then
+              changed_rows+="| **$host** | **Yes** | \`$o\` | \`$n\` |"$'\n'
+            else
+              same_rows+="| <sub>\$\\color{gray}{\\text{$host}}\$</sub> | <sub>\$\\color{gray}{\\text{No}}\$</sub> | <sub>\$\\color{gray}{\\text{$o}}\$</sub> | <sub>\$\\color{gray}{\\text{$n}}\$</sub> |"$'\n'
+            fi
+          done < "$RUNNER_TEMP/head.txt"
+
+          {
+            echo "### NixOS host evaluation diff"
+            echo
+            echo "Evaluated (not built) against \`${{ github.base_ref }}\`."
+            echo
+            echo "| Hostname | Changes | Previous Hash | Current Hash |"
+            echo "| --- | --- | --- | --- |"
+            printf '%s%s' "$changed_rows" "$same_rows"
+          } > comment.md
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: eval-diff
+          path: comment.md
