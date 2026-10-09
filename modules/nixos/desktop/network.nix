@@ -1,4 +1,21 @@
-{lib, ...}: {
+{lib, ...}: let
+  # Settings shared by the wired and wireless networks.
+  common = {
+    DHCP = "yes";
+    linkConfig.RequiredForOnline = lib.mkDefault false;
+    networkConfig = {
+      # Keep DHCP DNS recorded (captive-browser reads it) but never use it for general lookups.
+      DNSDefaultRoute = false;
+      # Rotating temporary addresses for outgoing connections.
+      IPv6PrivacyExtensions = true;
+      # Opaque per-network link-local address instead of one derived from the MAC (EUI-64).
+      IPv6LinkLocalAddressGenerationMode = "stable-privacy";
+    };
+    dhcpV4Config.UseDomains = true;
+    # Opaque stable global address instead of one derived from the MAC (EUI-64).
+    ipv6AcceptRAConfig.Token = "prefixstable";
+  };
+in {
   services.resolved.settings.Resolve = {
     DNSOverTLS = lib.mkDefault "yes";
     # Cloudflare 1.1.1.1 and Quad9 unfiltered (9.9.9.10). The #name is checked against the server certificate.
@@ -20,56 +37,31 @@
   systemd.network = {
     wait-online.enable = lib.mkDefault false;
     networks = {
-      "60-ethernet" = {
-        matchConfig.Type = "ether";
-        linkConfig.RequiredForOnline = lib.mkDefault false;
-        DHCP = "yes";
-        networkConfig = {
-          # Keep DHCP DNS recorded (captive-browser reads it) but never use it for general lookups.
-          DNSDefaultRoute = false;
-          # Rotating temporary addresses for outgoing connections.
-          IPv6PrivacyExtensions = true;
-          # Opaque per-network address instead of one derived from the MAC (EUI-64).
-          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
-        };
-        dhcpV4Config = {
-          RouteMetric = 100;
-          UseDomains = true;
-        };
-        ipv6AcceptRAConfig = {
-          RouteMetric = 100;
-          Token = "prefixstable";
-        };
-        routes = [
-          {
-            Gateway = "_dhcp4";
-            InitialCongestionWindow = 30;
-            InitialAdvertisedReceiveWindow = 30;
-          }
-        ];
-      };
-      "80-wifi" = {
-        matchConfig.Type = "wlan";
-        linkConfig.RequiredForOnline = lib.mkDefault false;
-        DHCP = "yes";
-        networkConfig = {
-          DNSDefaultRoute = false;
+      "60-ethernet" = lib.mkMerge [
+        common
+        {
+          matchConfig.Type = "ether";
+          dhcpV4Config.RouteMetric = 100;
+          ipv6AcceptRAConfig.RouteMetric = 100;
+          routes = [
+            {
+              Gateway = "_dhcp4";
+              InitialCongestionWindow = 30;
+              InitialAdvertisedReceiveWindow = 30;
+            }
+          ];
+        }
+      ];
+      "80-wifi" = lib.mkMerge [
+        common
+        {
+          matchConfig.Type = "wlan";
           # Keep addresses and routes across brief drops (AP roaming, resume).
-          IgnoreCarrierLoss = "3s";
-          # Rotating temporary addresses for outgoing connections.
-          IPv6PrivacyExtensions = true;
-          # Opaque per-network address instead of one derived from the MAC (EUI-64).
-          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
-        };
-        dhcpV4Config = {
-          RouteMetric = 600;
-          UseDomains = true;
-        };
-        ipv6AcceptRAConfig = {
-          RouteMetric = 600;
-          Token = "prefixstable";
-        };
-      };
+          networkConfig.IgnoreCarrierLoss = "3s";
+          dhcpV4Config.RouteMetric = 600;
+          ipv6AcceptRAConfig.RouteMetric = 600;
+        }
+      ];
     };
   };
 }
