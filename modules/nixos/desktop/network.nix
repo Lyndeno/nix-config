@@ -1,6 +1,6 @@
-{
+{lib, ...}: {
   systemd.network = {
-    wait-online.enable = false;
+    wait-online.enable = lib.mkDefault false;
     networks = {
       "05-virt" = {
         matchConfig.Name = "vnet*";
@@ -8,6 +8,7 @@
       };
       "10-ethernet" = {
         matchConfig.Type = "ether";
+        linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
         dhcpV4Config = {
           RouteMetric = 100;
@@ -26,6 +27,7 @@
       };
       "20-wifi" = {
         matchConfig.Type = "wlan";
+        linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
         dhcpV4Config = {
           RouteMetric = 600;

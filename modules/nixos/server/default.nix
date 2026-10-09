@@ -8,6 +8,7 @@
     inputs.self.nixosModules.msmtp
   ];
   systemd = {
+    network.wait-online.enable = true;
     settings.Manager = {
       RuntimeWatchdogSec = "60s";
     };

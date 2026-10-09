@@ -145,7 +145,13 @@
     };
   };
 
-  systemd.network.networks."10-ethernet".matchConfig.Name = "enp7s0";
+  systemd.network = {
+    networks."10-ethernet" = {
+      matchConfig.Name = "enp7s0";
+      linkConfig.RequiredForOnline = "routable";
+    };
+    wait-online.timeout = 30;
+  };
 
   # Do not change. See `man configuration.nix` — pins stateful defaults to NixOS version at install time.
   system.stateVersion = "23.05";
