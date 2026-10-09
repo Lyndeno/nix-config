@@ -59,7 +59,7 @@ jobs:
             if [ "$old" != "$new" ]; then
               changed_rows+="| **$host** | **Yes** | \`$o\` | \`$n\` |"$'\n'
             else
-              same_rows+="| <sub>\$\\color{gray}{\\text{$host}}\$</sub> | <sub>\$\\color{gray}{\\text{No}}\$</sub> | <sub>\$\\color{gray}{\\text{$o}}\$</sub> | <sub>\$\\color{gray}{\\text{$n}}\$</sub> |"$'\n'
+              same_rows+="| $host | No | \`$o\` | \`$n\` |"$'\n'
             fi
           done < "$RUNNER_TEMP/head.txt"
 
