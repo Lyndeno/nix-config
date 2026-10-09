@@ -28,14 +28,21 @@
         matchConfig.Type = "ether";
         linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
-        # Keep DHCP DNS recorded (captive-browser reads it) but never use it for general lookups.
-        networkConfig.DNSDefaultRoute = false;
+        networkConfig = {
+          # Keep DHCP DNS recorded (captive-browser reads it) but never use it for general lookups.
+          DNSDefaultRoute = false;
+          # Rotating temporary addresses for outgoing connections.
+          IPv6PrivacyExtensions = true;
+          # Opaque per-network address instead of one derived from the MAC (EUI-64).
+          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
+        };
         dhcpV4Config = {
           RouteMetric = 100;
           UseDomains = true;
         };
         ipv6AcceptRAConfig = {
           RouteMetric = 100;
+          Token = "prefixstable";
         };
         routes = [
           {
@@ -49,13 +56,22 @@
         matchConfig.Type = "wlan";
         linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
-        networkConfig.DNSDefaultRoute = false;
+        networkConfig = {
+          DNSDefaultRoute = false;
+          # Keep addresses and routes across brief drops (AP roaming, resume).
+          IgnoreCarrierLoss = "3s";
+          # Rotating temporary addresses for outgoing connections.
+          IPv6PrivacyExtensions = true;
+          # Opaque per-network address instead of one derived from the MAC (EUI-64).
+          IPv6LinkLocalAddressGenerationMode = "stable-privacy";
+        };
         dhcpV4Config = {
           RouteMetric = 600;
           UseDomains = true;
         };
         ipv6AcceptRAConfig = {
           RouteMetric = 600;
+          Token = "prefixstable";
         };
       };
     };
