@@ -20,10 +20,6 @@
   systemd.network = {
     wait-online.enable = lib.mkDefault false;
     networks = {
-      "05-virt" = {
-        matchConfig.Name = "vnet*";
-        linkConfig.Unmanaged = "yes";
-      };
       "10-ethernet" = {
         matchConfig.Type = "ether";
         linkConfig.RequiredForOnline = lib.mkDefault false;

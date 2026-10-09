@@ -9,6 +9,13 @@
     virt-manager
   ];
 
+  systemd.network.networks = {
+    "05-virt" = {
+      matchConfig.Name = "vnet*";
+      linkConfig.Unmanaged = "yes";
+    };
+  };
+
   virtualisation = {
     libvirtd = {
       enable = true;
