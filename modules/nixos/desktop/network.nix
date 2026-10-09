@@ -28,15 +28,14 @@
         matchConfig.Type = "ether";
         linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
+        # Keep DHCP DNS recorded (captive-browser reads it) but never use it for general lookups.
+        networkConfig.DNSDefaultRoute = false;
         dhcpV4Config = {
           RouteMetric = 100;
           UseDomains = true;
-          UseDNS = false;
         };
-        dhcpV6Config.UseDNS = false;
         ipv6AcceptRAConfig = {
           RouteMetric = 100;
-          UseDNS = false;
         };
         routes = [
           {
@@ -50,15 +49,13 @@
         matchConfig.Type = "wlan";
         linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
+        networkConfig.DNSDefaultRoute = false;
         dhcpV4Config = {
           RouteMetric = 600;
           UseDomains = true;
-          UseDNS = false;
         };
-        dhcpV6Config.UseDNS = false;
         ipv6AcceptRAConfig = {
           RouteMetric = 600;
-          UseDNS = false;
         };
       };
     };
