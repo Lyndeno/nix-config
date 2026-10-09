@@ -10,7 +10,7 @@
   ];
 
   systemd.network.networks = {
-    "05-virt" = {
+    "40-virt" = {
       matchConfig.Name = "vnet*";
       linkConfig.Unmanaged = "yes";
     };

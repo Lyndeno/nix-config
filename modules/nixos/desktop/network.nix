@@ -20,7 +20,7 @@
   systemd.network = {
     wait-online.enable = lib.mkDefault false;
     networks = {
-      "10-ethernet" = {
+      "60-ethernet" = {
         matchConfig.Type = "ether";
         linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";
@@ -48,7 +48,7 @@
           }
         ];
       };
-      "20-wifi" = {
+      "80-wifi" = {
         matchConfig.Type = "wlan";
         linkConfig.RequiredForOnline = lib.mkDefault false;
         DHCP = "yes";

@@ -146,7 +146,7 @@
   };
 
   systemd.network = {
-    networks."10-ethernet" = {
+    networks."60-ethernet" = {
       matchConfig.Name = "enp7s0";
       linkConfig.RequiredForOnline = "routable";
     };
