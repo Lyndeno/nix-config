@@ -147,7 +147,6 @@
 
   systemd.network = {
     networks."60-ethernet" = {
-      matchConfig.Name = "enp7s0";
       linkConfig.RequiredForOnline = "routable";
     };
     wait-online.timeout = 30;
