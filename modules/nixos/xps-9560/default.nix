@@ -6,26 +6,29 @@ in {
     intelModule
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
-  #specialisation = {
-  #  nvidia = {
-  #    configuration = {
-  #      imports = [
-  #        inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
-  #      ];
+  specialisation = {
+    nvidia = {
+      configuration = {
+        imports = [
+          inputs.nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
+        ];
 
-  #      disabledModules = [
-  #        intelModule
-  #      ];
-  #      hardware.nvidia = {
-  #        modesetting.enable = true;
-  #        open = false;
-  #        nvidiaSettings = false;
-  #      };
-  #      # For nh
-  #      environment.etc."specialisation".text = "nvidia";
-  #    };
-  #  };
-  #};
+        disabledModules = [
+          intelModule
+        ];
+        hardware.nvidia = {
+          modesetting.enable = true;
+          open = false;
+          nvidiaSettings = false;
+        };
+        # Make niri composite on the dGPU; the iGPU only scans out the panel.
+        # Bus ID matches hardware.nvidia.prime.nvidiaBusId (PCI:1:0:0).
+        home-manager.users.lsanche.programs.niri.includeFiles = [./niri-nvidia.kdl];
+        # For nh
+        environment.etc."specialisation".text = "nvidia";
+      };
+    };
+  };
 
   boot = {
     initrd = {
