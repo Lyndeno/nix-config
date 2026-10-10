@@ -1,5 +1,5 @@
 # meta.description = "Steam, Gamescope and gaming applications"
-{pkgs}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     gamescope
     prismlauncher
