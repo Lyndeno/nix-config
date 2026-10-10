@@ -18,6 +18,7 @@
     hydraCache
     modprobed-db
     borgmatic
+    gaming
     ./borgbackup
     ./disko.nix
   ];
