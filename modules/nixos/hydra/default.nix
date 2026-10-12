@@ -31,7 +31,7 @@ in {
       {
         hostName = "localhost";
         protocol = null;
-        systems = ["x86_64-linux" "aarch64-linux"];
+        systems = ["x86_64-linux" "aarch64-linux" "i686-linux"];
         supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark" "gccarch-znver3" "gccarch-skylake"];
         maxJobs = 32;
       }
