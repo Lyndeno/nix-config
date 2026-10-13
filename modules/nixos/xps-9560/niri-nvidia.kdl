@@ -1,0 +1,5 @@
+// Render everything on the NVIDIA dGPU (used by the `nvidia` specialisation).
+// The by-path symlink is stable across boots, unlike renderD128/renderD129.
+debug {
+    render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
+}

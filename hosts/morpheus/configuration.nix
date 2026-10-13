@@ -44,6 +44,7 @@
       gpu-coredump
       borgmatic
       wireless
+      gaming
     ]);
 
   services = {
