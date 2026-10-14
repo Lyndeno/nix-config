@@ -40,7 +40,10 @@ in {
       "60-ethernet" = lib.mkMerge [
         common
         {
-          matchConfig.Type = "ether";
+          matchConfig = {
+            Type = "ether";
+            Kind = "!*";
+          };
           dhcpV4Config.RouteMetric = 100;
           ipv6AcceptRAConfig.RouteMetric = 100;
           routes = [
