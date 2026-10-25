@@ -1,6 +1,12 @@
 # meta.description = "Attic binary cache server (atticd)"
-{config, ...}: {
+{config, ...}: let
+  storagePath = "/var/lib/attic-storage";
+in {
   age.secrets.attic-token.file = ../../../secrets/${config.networking.hostName}/attic_token.age;
+
+  # ReadWritePaths doesn't pull in a mount dependency; without this atticd could
+  # start against the empty mountpoint and write chunks to the root filesystem.
+  systemd.services.atticd.unitConfig.RequiresMountsFor = [storagePath];
 
   services = {
     atticd = {
@@ -12,7 +18,7 @@
         };
         storage = {
           type = "local";
-          path = "/data/bigpool/services/attic";
+          path = storagePath;
         };
         # ZFS handles compression for us
         compression.type = "none";

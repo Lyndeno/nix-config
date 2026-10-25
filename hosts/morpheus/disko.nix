@@ -96,6 +96,17 @@
             };
             mountpoint = "/var/lib/plex";
           };
+          # Attic chunks are 16-256 KiB; a 256K recordsize keeps each one in a
+          # single block.
+          "encrypt/services/attic" = {
+            type = "zfs_fs";
+            options = {
+              mountpoint = "legacy";
+              compression = "zstd";
+              recordsize = "256K";
+            };
+            mountpoint = "/var/lib/attic-storage";
+          };
         };
       };
     };
