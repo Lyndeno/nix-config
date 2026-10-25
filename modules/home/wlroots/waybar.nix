@@ -97,10 +97,10 @@
             "cpu"
             "memory"
             "network"
-            (lib.mkIf tailscale.enable "custom/cell")
+            #(lib.mkIf tailscale.enable "custom/cell")
             (lib.mkIf tailscale.enable "custom/ts")
             "battery"
-            (lib.mkIf tailscale.enable "custom/phone-battery")
+            #(lib.mkIf tailscale.enable "custom/phone-battery")
             "pulseaudio"
             "group/group-clock"
           ];
