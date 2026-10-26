@@ -265,11 +265,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788342924,
-        "narHash": "sha256-Sfyygt2dL88+160d014gaXMlWTGIL2HGxlIzLGsGPvE=",
+        "lastModified": 1791920352,
+        "narHash": "sha256-Zbd0CGR2Dh9USbYglGXQ09FJXxxKkD5w5vi99nlz1yE=",
         "owner": "numtide",
         "repo": "blueprint",
-        "rev": "8be75245e274a789b87cc4df542abbcd8c5e7f93",
+        "rev": "2bf123541bd5024046f32299c9f8a6cc6bdd8a9f",
         "type": "github"
       },
       "original": {
@@ -521,11 +521,11 @@
     },
     "crane_3": {
       "locked": {
-        "lastModified": 1791754810,
-        "narHash": "sha256-cN0Mgk+sQtCJcGWs9H4M0CnLRAuC4I8aCwiBTcBJs6E=",
+        "lastModified": 1792350552,
+        "narHash": "sha256-292lvpvxTGKryKxh3/3tcIVi85CwYGdl4oOi113Sob8=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "bd63bf1d0a0f6dcacd7549c714a671ee63b0db6a",
+        "rev": "e675a36b7377bebe41d548388a2501cbb16d380d",
         "type": "github"
       },
       "original": {
@@ -1046,11 +1046,11 @@
         "pre-commit-hooks-nix": []
       },
       "locked": {
-        "lastModified": 1792055581,
-        "narHash": "sha256-NQXeAn5MjmEJsrpy6w3mBj4YpGLKAnZ4n6vzaTH44Oc=",
+        "lastModified": 1792659752,
+        "narHash": "sha256-PSvXa3W1MNvKQehRKwtIaqmNbmxHGA72Dn1lkeU78UY=",
         "owner": "Lyndeno",
         "repo": "ppd-rs",
-        "rev": "d2da96f8855cc8eda26a56b8abdbbfba473c88ca",
+        "rev": "1bb33d396dba06d6da2826cac38a5749b68ee902",
         "type": "github"
       },
       "original": {
