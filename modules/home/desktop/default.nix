@@ -10,8 +10,13 @@
   programs.chromium = {
     enable = true;
     extensions = [
+      # 1Password
       {
         id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
+      }
+      # UBlock Origin Lite
+      {
+        id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
       }
     ];
   };
