@@ -27,6 +27,8 @@ with config.age.secrets; {
       "/var/lib/postgresql"
       # Re-downloadable LLM weights, gigabytes each.
       "/var/lib/llama-swap"
+      # Attic Cache
+      "/var/lib/attic-storage"
     ];
 
     # Dump the whole cluster via pg_dumpall (fail-safe: new databases are
