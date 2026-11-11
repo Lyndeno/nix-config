@@ -6,6 +6,7 @@
   imports = with flake.homeModules; [
     lsanche
     alacritty
+    chromium
     niri
     desktop
     development
