@@ -9,7 +9,13 @@
 
   programs.chromium = {
     enable = true;
+    # Dark pages by default, like qutebrowser's colors.webpage.darkmode:
+    # commandLineArgs = ["--enable-features=WebContentsForceDark"];
     extensions = [
+      # Open in mpv (needs the open-in-mpv binary and mpv:// handler below)
+      {
+        id = "ggijpepdpiehgbiknmfpfbhcalffjlbj";
+      }
       # 1Password
       {
         id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
@@ -103,10 +109,14 @@
       #logseq
 
       claude-desktop
+
+      open-in-mpv
     ];
   };
   xdg = {
     enable = true;
+    # open-in-mpv's extension hands links to the mpv:// scheme handler
+    mimeApps.defaultApplications."x-scheme-handler/mpv" = "open-in-mpv.desktop";
     userDirs = {
       enable = true;
       setSessionVariables = false;
