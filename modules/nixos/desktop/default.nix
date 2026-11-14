@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./audio.nix
+    ./chromium.nix
     ./network.nix
     ./stylix.nix
   ];

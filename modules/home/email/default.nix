@@ -22,8 +22,8 @@ in {
           "text/html" = "! html";
         };
         openers = {
-          "x-scheme-handler/http*" = "${lib.getExe pkgs.qutebrowser-aerc} {}";
-          "text/html" = "${lib.getExe pkgs.qutebrowser-aerc} {}";
+          "x-scheme-handler/http*" = "${lib.getExe config.programs.chromium.package} {}";
+          "text/html" = "${lib.getExe config.programs.chromium.package} {}";
         };
         ui = {
           index-columns = "flags:4,name<20%,labels<20%,subject,date>=";
