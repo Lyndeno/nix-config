@@ -11,6 +11,12 @@ in {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
     policies = {
+      # Hand mpv:// links to the system handler (open-in-mpv) without asking.
+      Handlers.schemes.mpv = {
+        action = "useSystemDefault";
+        ask = false;
+      };
+
       # Telemetry and studies
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
@@ -52,6 +58,8 @@ in {
         packages = with pkgs.firefox-addons; [
           ublock-origin
           onepassword-password-manager
+          # Open in mpv, the Firefox build of the open-in-mpv extension
+          iina-open-in-mpv
         ];
       };
       settings = {
@@ -76,6 +84,7 @@ in {
               "firefoxcolor_mozilla_com-browser-action"
               "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
               "ublock0_raymondhill_net-browser-action"
+              "_d66c8515-1e0d-408f-82ee-2682f2362726_-browser-action"
             ];
             nav-bar = [
               "sidebar-button"
@@ -108,6 +117,7 @@ in {
             "firefoxcolor_mozilla_com-browser-action"
             "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
             "ublock0_raymondhill_net-browser-action"
+            "_d66c8515-1e0d-408f-82ee-2682f2362726_-browser-action"
           ];
           dirtyAreaCache = [
             "nav-bar"
@@ -183,6 +193,11 @@ in {
   };
 
   home.sessionVariables.BROWSER = "firefox";
+
+  # The extension hands links to the mpv:// scheme, which this native helper
+  # handles by starting mpv.
+  home.packages = [pkgs.open-in-mpv];
+  xdg.mimeApps.defaultApplications."x-scheme-handler/mpv" = "open-in-mpv.desktop";
 
   stylix.targets.firefox = {
     profileNames = ["lsanche"];
