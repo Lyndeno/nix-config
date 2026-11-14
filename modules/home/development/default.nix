@@ -28,9 +28,14 @@
     claude-code = {
       enable = true;
       context = ./claude-code.md;
-      settings.attribution = {
-        commit = "";
-        pr = "";
+      settings = {
+        attribution = {
+          commit = "";
+          pr = "";
+        };
+        tui = "fullscreen";
+        showThinkingSummaries = true;
+        agentPushNotifEnabled = true;
       };
     };
     gitui.enable = true;
