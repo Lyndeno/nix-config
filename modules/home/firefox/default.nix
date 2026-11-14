@@ -1,6 +1,7 @@
 # meta.description = "Firefox browser with a declarative profile"
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -22,6 +23,54 @@
         # Extensions installed from the Nix store count as sideloaded and are
         # disabled until approved unless no scopes are auto-disabled.
         "extensions.autoDisableScopes" = 0;
+        # Tabs in the sidebar, like qutebrowser's tabs.position = "left".
+        "sidebar.revamp" = true;
+        "sidebar.verticalTabs" = true;
+      };
+
+      # Mirrors the qutebrowser and Chromium search engines; type the keyword
+      # then a space in the address bar. DuckDuckGo is the default.
+      search = {
+        force = true;
+        default = "ddg";
+        engines =
+          {
+            # Built in, so it only takes the keyword.
+            google.metaData.alias = "g";
+          }
+          // lib.mapAttrs (keyword: {
+            name,
+            url,
+          }: {
+            inherit name;
+            urls = [{template = url;}];
+            definedAliases = [keyword];
+          }) {
+            gh = {
+              name = "GitHub";
+              url = "https://github.com/search?q={searchTerms}";
+            };
+            np = {
+              name = "Nix Packages";
+              url = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
+            };
+            no = {
+              name = "NixOS Options";
+              url = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
+            };
+            nd = {
+              name = "NixOS Discourse";
+              url = "https://discourse.nixos.org/search?q={searchTerms}";
+            };
+            ng = {
+              name = "Noogle";
+              url = "https://noogle.dev/q/?term={searchTerms}";
+            };
+            yt = {
+              name = "YouTube";
+              url = "https://www.youtube.com/results?search_query={searchTerms}";
+            };
+          };
       };
     };
   };
