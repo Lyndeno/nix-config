@@ -8,6 +8,40 @@
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
+    policies = {
+      # Telemetry and studies
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+
+      # No Mozilla account sign-in or Sync
+      DisableFirefoxAccounts = true;
+
+      # 1Password handles logins and cards
+      PasswordManagerEnabled = false;
+      OfferToSaveLogins = false;
+      AutofillCreditCardEnabled = false;
+
+      # The sidebar chatbot; other AI features are left alone
+      AIControls.SidebarChatbot = {
+        Value = "blocked";
+        Locked = true;
+      };
+
+      # New tab page: just the search box and the weather
+      FirefoxHome = {
+        Search = true;
+        Weather = true;
+        TopSites = false;
+        SponsoredTopSites = false;
+        Highlights = false;
+        Stories = false;
+        SponsoredStories = false;
+        SponsoredPocket = false;
+        Pocket = false;
+        Snippets = false;
+        Widgets.Enabled = false;
+      };
+    };
     profiles.lsanche = {
       id = 0;
       isDefault = true;
@@ -23,9 +57,10 @@
         # Extensions installed from the Nix store count as sideloaded and are
         # disabled until approved unless no scopes are auto-disabled.
         "extensions.autoDisableScopes" = 0;
-        # Tabs in the sidebar, like qutebrowser's tabs.position = "left".
-        "sidebar.revamp" = true;
+        # Tabs in the sidebar, like qutebrowser's tabs.position = "left", but
+        # collapsed to icons until hovered.
         "sidebar.verticalTabs" = true;
+        "sidebar.visibility" = "expand-on-hover";
       };
 
       # Mirrors the qutebrowser and Chromium search engines; type the keyword
