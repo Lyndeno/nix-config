@@ -4,7 +4,6 @@
     extraOpts = {
       # Telemetry and reporting
       MetricsReportingEnabled = false;
-      SafeBrowsingExtendedReportingEnabled = false;
       UrlKeyedAnonymizedDataCollectionEnabled = false;
       FeedbackSurveysEnabled = false;
       UserFeedbackAllowed = false;
