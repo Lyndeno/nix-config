@@ -19,6 +19,9 @@
       };
       settings = {
         "widget.use-xdg-desktop-portal.file-picker" = 1;
+        # Extensions installed from the Nix store count as sideloaded and are
+        # disabled until approved unless no scopes are auto-disabled.
+        "extensions.autoDisableScopes" = 0;
       };
     };
   };
