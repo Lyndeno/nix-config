@@ -182,6 +182,8 @@ in {
     };
   };
 
+  home.sessionVariables.BROWSER = "firefox";
+
   stylix.targets.firefox = {
     profileNames = ["lsanche"];
     colorTheme.enable = true;

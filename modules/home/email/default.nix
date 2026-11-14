@@ -21,10 +21,6 @@ in {
           "message/rfc822" = "colorize";
           "text/html" = "! html";
         };
-        openers = {
-          "x-scheme-handler/http*" = "${lib.getExe config.programs.chromium.package} {}";
-          "text/html" = "${lib.getExe config.programs.chromium.package} {}";
-        };
         ui = {
           index-columns = "flags:4,name<20%,labels<20%,subject,date>=";
           "column-labels" = "{{map .Labels (exclude .Folder) | join \" \"}}";
