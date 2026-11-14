@@ -119,9 +119,10 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 |--------|---------|
 | `alacritty` | Alacritty terminal emulator |
 | `chromium` | Chromium extensions and open-in-mpv integration |
-| `desktop` | Desktop user apps (Chromium, Spotify) |
+| `desktop` | Desktop user apps (Chromium, Firefox, Spotify) |
 | `development` | Developer tooling and language servers |
 | `email` | aerc email client with Fastmail JMAP |
+| `firefox` | Firefox browser with a declarative profile |
 | `lsanche` | Base user config: Git and SSH keys |
 | `niri` | Niri compositor user config (keybinds, layout) |
 | `nixvim` | Neovim configured via nixvim (LSP, completion, plugins) |
