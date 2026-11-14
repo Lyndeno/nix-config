@@ -1,8 +1,8 @@
-# meta.description = "Desktop user apps (Firefox, Spotify, qutebrowser)"
+# meta.description = "Desktop user apps (Chromium, Spotify)"
 {flake, ...}: {pkgs, ...}: {
   imports = with flake.homeModules; [
+    chromium
     spotify
-    qutebrowser
   ];
 
   manual.html.enable = true;
@@ -58,7 +58,6 @@
 
   home = {
     sessionVariables = {
-      BROWSER = "qutebrowser";
       SSH_AUTH_SOCK = "\${SSH_AUTH_SOCK:-$HOME/.1password/agent.sock}";
       GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
     };

@@ -20,6 +20,8 @@
     ];
   };
 
+  home.sessionVariables.BROWSER = "chromium";
+
   home.packages = [pkgs.open-in-mpv];
 
   # open-in-mpv's extension hands links to the mpv:// scheme handler

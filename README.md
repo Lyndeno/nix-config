@@ -119,7 +119,7 @@ pubKeys.nix                       # SSH/Age public keys for hosts and users
 |--------|---------|
 | `alacritty` | Alacritty terminal emulator |
 | `chromium` | Chromium extensions and open-in-mpv integration |
-| `desktop` | Desktop user apps (Firefox, Spotify, qutebrowser) |
+| `desktop` | Desktop user apps (Chromium, Spotify) |
 | `development` | Developer tooling and language servers |
 | `email` | aerc email client with Fastmail JMAP |
 | `lsanche` | Base user config: Git and SSH keys |

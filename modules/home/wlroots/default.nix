@@ -54,7 +54,7 @@
     enable = true;
     defaultApplications =
       lib.genAttrs imageTypes (_: "imv.desktop")
-      // lib.genAttrs browserTypes (_: "org.qutebrowser.qutebrowser.desktop")
+      // lib.genAttrs browserTypes (_: "chromium-browser.desktop")
       // {
         "application/pdf" = "org.pwmt.zathura.desktop";
       };
