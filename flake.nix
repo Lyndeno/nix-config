@@ -73,6 +73,7 @@
       url = "github:danth/stylix/release-26.05";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
       };
     };
 
@@ -121,8 +122,8 @@
       };
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    nur = {
+      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
