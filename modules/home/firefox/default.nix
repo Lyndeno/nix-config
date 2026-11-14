@@ -59,6 +59,8 @@ in {
         # Extensions installed from the Nix store count as sideloaded and are
         # disabled until approved unless no scopes are auto-disabled.
         "extensions.autoDisableScopes" = 0;
+        # Always reopen the previous session, like qutebrowser's session.lazy_restore
+        "browser.startup.page" = 3;
         # Tabs in the sidebar, like qutebrowser's tabs.position = "left", but
         # collapsed to icons until hovered.
         "sidebar.verticalTabs" = true;
