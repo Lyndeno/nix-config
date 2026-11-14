@@ -110,6 +110,11 @@ in {
               url = "https://noogle.dev/q/?term={searchTerms}";
               icon = "https://noogle.dev/favicon.ico";
             };
+            cl = {
+              name = "Claude";
+              url = "https://claude.ai/new?q={searchTerms}";
+              icon = "https://claude.ai/favicon.ico";
+            };
             yt = {
               name = "YouTube";
               url = "https://www.youtube.com/results?search_query={searchTerms}";
