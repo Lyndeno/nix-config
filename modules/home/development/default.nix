@@ -27,6 +27,7 @@
   programs = {
     claude-code = {
       enable = true;
+      context = ./claude-code.md;
       settings.attribution = {
         commit = "";
         pr = "";
