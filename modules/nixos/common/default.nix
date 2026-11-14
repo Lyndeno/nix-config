@@ -78,6 +78,13 @@
     settings.Manager = {
       DefaultTimeoutStopSec = "10s";
     };
+
+    # libstdc++'s std::chrono (used by waybar's clock) only reads tzdata from
+    # /usr/share/zoneinfo, otherwise it falls back to an older copy embedded in
+    # the library, which misses recent rule changes (e.g. Alberta dropping DST).
+    tmpfiles.rules = [
+      "L+ /usr/share/zoneinfo - - - - /etc/zoneinfo"
+    ];
   };
 
   services = {
