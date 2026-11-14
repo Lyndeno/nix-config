@@ -4,7 +4,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  nixosIcon = "https://search.nixos.org/images/nixos-logomark-default-gradient-none.svg";
+in {
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";
@@ -76,34 +78,42 @@
           // lib.mapAttrs (keyword: {
             name,
             url,
+            icon,
           }: {
             inherit name;
             urls = [{template = url;}];
+            iconMapObj."16" = icon;
             definedAliases = [keyword];
           }) {
             gh = {
               name = "GitHub";
               url = "https://github.com/search?q={searchTerms}";
+              icon = "https://github.com/favicon.ico";
             };
             np = {
               name = "Nix Packages";
               url = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
+              icon = nixosIcon;
             };
             no = {
               name = "NixOS Options";
               url = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
+              icon = nixosIcon;
             };
             nd = {
               name = "NixOS Discourse";
               url = "https://discourse.nixos.org/search?q={searchTerms}";
+              icon = "https://discourse.nixos.org/uploads/default/optimized/3X/a/5/a5e0d7873e3d34aecf874c577c91a1c06490f436_2_32x32.svg";
             };
             ng = {
               name = "Noogle";
               url = "https://noogle.dev/q/?term={searchTerms}";
+              icon = "https://noogle.dev/favicon.ico";
             };
             yt = {
               name = "YouTube";
               url = "https://www.youtube.com/results?search_query={searchTerms}";
+              icon = "https://www.youtube.com/favicon.ico";
             };
           };
       };
