@@ -25,7 +25,14 @@
   };
 
   programs = {
-    claude-code.enable = true;
+    claude-code = {
+      enable = true;
+      context = ./claude-code.md;
+      settings.attribution = {
+        commit = "";
+        pr = "";
+      };
+    };
     gitui.enable = true;
     cargo = {
       enable = true;
