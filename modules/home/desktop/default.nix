@@ -1,24 +1,11 @@
-# meta.description = "Desktop user apps (Chromium, Spotify)"
+# meta.description = "Desktop user apps (Firefox, Spotify)"
 {flake, ...}: {pkgs, ...}: {
   imports = with flake.homeModules; [
-    chromium
+    firefox
     spotify
   ];
 
   manual.html.enable = true;
-
-  #programs.firefox = {
-  #  enable = true;
-  #  configPath = ".mozilla/firefox";
-  #  profiles.lsanche = {
-  #    id = 0;
-  #    isDefault = true;
-  #    extensions.force = true;
-  #    settings = {
-  #      "widget.use-xdg-desktop-portal.file-picker" = 1;
-  #    };
-  #  };
-  #};
 
   #programs.librewolf = {
   #  enable = true;
@@ -37,10 +24,6 @@
       swaylock = {
         useWallpaper = false;
         enable = true;
-      };
-      firefox = {
-        profileNames = ["lsanche"];
-        colorTheme.enable = true;
       };
       librewolf = {
         profileNames = ["lsanche"];
