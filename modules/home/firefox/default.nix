@@ -63,6 +63,61 @@ in {
         # collapsed to icons until hovered.
         "sidebar.verticalTabs" = true;
         "sidebar.visibility" = "expand-on-hover";
+        # Sidebar launcher icons, without synced tabs or the AI chatbot.
+        "sidebar.main.tools" = "opentabs,bookmarks,history,passwords";
+        # Toolbar layout. Copied from a live profile, minus the "all tabs"
+        # list button, with every extension under the extensions menu.
+        "browser.uiCustomization.state" = builtins.toJSON {
+          placements = {
+            widget-overflow-fixed-list = [];
+            unified-extensions-area = [
+              "firefoxcolor_mozilla_com-browser-action"
+              "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
+              "ublock0_raymondhill_net-browser-action"
+            ];
+            nav-bar = [
+              "sidebar-button"
+              "back-button"
+              "forward-button"
+              "stop-reload-button"
+              "customizableui-special-spring1"
+              "vertical-spacer"
+              "urlbar-container"
+              "customizableui-special-spring2"
+              "downloads-button"
+              "fxa-toolbar-menu-button"
+              "reset-pbm-toolbar-button"
+              "unified-extensions-button"
+              "new-tab-button"
+              "smartwindow-group-tabs-button"
+              "ai-window-toggle"
+            ];
+            toolbar-menubar = ["menubar-items"];
+            TabsToolbar = [];
+            vertical-tabs = ["tabbrowser-tabs"];
+            PersonalToolbar = ["import-button" "personal-bookmarks"];
+          };
+          seen = [
+            "reset-pbm-toolbar-button"
+            "smartwindow-group-tabs-button"
+            "ai-window-toggle"
+            "developer-button"
+            "screenshot-button"
+            "firefoxcolor_mozilla_com-browser-action"
+            "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
+            "ublock0_raymondhill_net-browser-action"
+          ];
+          dirtyAreaCache = [
+            "nav-bar"
+            "TabsToolbar"
+            "vertical-tabs"
+            "PersonalToolbar"
+            "toolbar-menubar"
+            "unified-extensions-area"
+          ];
+          currentVersion = 28;
+          newElementCount = 3;
+        };
       };
 
       # Mirrors the qutebrowser and Chromium search engines; type the keyword
