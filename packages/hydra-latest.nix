@@ -1,11 +1,43 @@
 {
   pkgs,
   pname,
+  inputs,
 }: let
   inherit (pkgs) lib;
+  pog = (inputs.pog.overlays.default pkgs pkgs).pog.pog;
+
+  meta.description = "Resolves the latest successful Hydra build for a host to its store path";
+  meta.platforms = lib.platforms.linux;
 in
-  pkgs.writeShellApplication {
+  (pog {
     name = pname;
+    description = "Resolves the latest successful Hydra build for a host to its store path";
+    version = "1.0.0";
+
+    # Prints "<build-id> <store-path>" on stdout (store paths never contain
+    # spaces, so callers can `read -r id path`). Exit 2 on any error.
+    arguments = ["host" "system"];
+
+    flags = [
+      {
+        name = "url";
+        description = "Hydra base URL";
+        default = "https://hydra.lyndeno.ca";
+        envVar = "HYDRA_URL";
+      }
+      {
+        name = "project";
+        description = "Hydra project";
+        default = "nix-config";
+        envVar = "HYDRA_PROJECT";
+      }
+      {
+        name = "jobset";
+        description = "Hydra jobset";
+        default = "master";
+        envVar = "HYDRA_JOBSET";
+      }
+    ];
 
     runtimeInputs = with pkgs; [
       coreutils
@@ -14,26 +46,13 @@ in
       nix
     ];
 
-    text = ''
-      # Resolve the latest successful Hydra build for a host to its store path.
-      # Prints "<build-id> <store-path>" on stdout (store paths never contain
-      # spaces, so callers can `read -r id path`).
-      #
-      #   hydra-latest [host] [system]
-      #
-      # host defaults to this machine, system to builtins.currentSystem.
-      # Exit 2 on any error (query failed, build unsuccessful, no output path).
-
-      HYDRA_URL="''${HYDRA_URL:-https://hydra.lyndeno.ca}"
-      HYDRA_PROJECT="''${HYDRA_PROJECT:-nix-config}"
-      HYDRA_JOBSET="''${HYDRA_JOBSET:-master}"
-
+    script = ''
       HOST="''${1:-$(uname -n)}"
       SYSTEM="''${2:-$(nix eval --raw --impure --expr builtins.currentSystem)}"
       JOB="''${SYSTEM}.nixos-''${HOST}"
 
       BUILD="$(curl -sfL -H "Accept: application/json" \
-        "''${HYDRA_URL}/job/''${HYDRA_PROJECT}/''${HYDRA_JOBSET}/''${JOB}/latest-finished")" || {
+        "''${url}/job/''${project}/''${jobset}/''${JOB}/latest-finished")" || {
         echo "error: could not query Hydra for ''${JOB}" >&2
         exit 2
       }
@@ -53,7 +72,5 @@ in
 
       printf '%s %s\n' "$BUILD_ID" "$STORE_PATH"
     '';
-
-    meta.description = "Resolves the latest successful Hydra build for a host to its store path";
-    meta.platforms = lib.platforms.linux;
-  }
+  })
+  .overrideAttrs (old: {meta = old.meta // meta;})
