@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }: let
@@ -67,6 +68,8 @@ in {
         # Extensions installed from the Nix store count as sideloaded and are
         # disabled until approved unless no scopes are auto-disabled.
         "extensions.autoDisableScopes" = 0;
+        # The HD 630 has no AV1 decode; make YouTube serve VP9, which it does
+        "media.av1.enabled" = lib.mkIf (osConfig.networking.hostName == "neo") false;
         # Always reopen the previous session, like qutebrowser's session.lazy_restore
         "browser.startup.page" = 3;
         # Tabs in the sidebar, like qutebrowser's tabs.position = "left", but
