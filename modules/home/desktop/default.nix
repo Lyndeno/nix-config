@@ -63,6 +63,7 @@
       #kicad
       #octaveFull
       #joplin-desktop
+      rustdesk-flutter
 
       hunspellDicts.en_CA
 
