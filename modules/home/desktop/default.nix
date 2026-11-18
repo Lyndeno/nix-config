@@ -49,6 +49,7 @@
       # Communication
       slack
       fractal
+      signal-desktop
 
       #wally-cli # for moonlander
       wl-clipboard
