@@ -51,6 +51,8 @@ in {
     };
   };
 
+  services.hardware.bolt.enable = true;
+
   boot = {
     initrd = {
       availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
