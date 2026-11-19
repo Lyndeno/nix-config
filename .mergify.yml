@@ -22,7 +22,6 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-lock-screen-timeout
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-matugen-base16
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-mergify
-  - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-qutebrowser-aerc
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-readme
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screen-timeout
   - check-success*=ci/hydra:nix-config:*:aarch64-linux.pkgs-screenshot-annotate
@@ -73,7 +72,6 @@ pull_request_rules:
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-lock-screen-timeout
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-matugen-base16
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-mergify
-  - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-qutebrowser-aerc
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-readme
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screen-timeout
   - check-success*=ci/hydra:nix-config:*:x86_64-linux.pkgs-screenshot-annotate
