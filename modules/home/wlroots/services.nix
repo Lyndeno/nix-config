@@ -33,6 +33,10 @@ in {
   ];
 
   services = {
+    batsignal = {
+      enable = true;
+      extraArgs = ["-p" "-i" "-c" "15" "-w" "30" "-f" "99"];
+    };
     cliphist = {
       enable = true;
       allowImages = true;
