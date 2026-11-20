@@ -16,7 +16,7 @@
 
   boot = {
     kernelModules = ["kvm-amd" "jc42" "nct6775" "sg"];
-    kernelParams = ["amdgpu.sg_display=0"];
+    kernelParams = ["amdgpu.sg_display=0" "amdgpu.runpm=0"];
     initrd = {
       availableKernelModules = ["nvme" "mpt3sas" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
     };
