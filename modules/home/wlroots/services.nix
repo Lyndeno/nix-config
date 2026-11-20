@@ -142,10 +142,10 @@ in {
               {
                 criteria = main_screen;
                 scale = 1.25;
-                position = "384,0";
+                position = "384,576";
               }
               {
-                mode = "2560x1440@99.946";
+                mode = "2560x1440@144.000";
                 criteria = lg_gaming;
                 scale = 1.0;
                 position = "1920,0";
@@ -160,10 +160,10 @@ in {
               {
                 criteria = main_screen;
                 scale = 1.25;
-                position = "384,0";
+                position = "384,576";
               }
               {
-                mode = "2560x1440@74.971";
+                mode = "2560x1440@144.000";
                 criteria = lg_gaming;
                 scale = 1.0;
                 position = "1920,0";
@@ -171,7 +171,7 @@ in {
               {
                 criteria = small_dell;
                 scale = 1.00;
-                position = "4480,150";
+                position = "4480,176";
               }
             ];
           };
