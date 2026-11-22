@@ -2,7 +2,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     gamescope
-    prismlauncher
+    (prismlauncher.override {jdks = [jdk25];})
     dolphin-emu
   ];
 
