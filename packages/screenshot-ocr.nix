@@ -11,7 +11,7 @@ in
       coreutils
       grim
       slurp
-      tesseract
+      (tesseract.override {enableLanguages = ["eng"];})
       wl-clipboard
     ];
 
