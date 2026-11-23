@@ -80,5 +80,7 @@
     binfmt.emulatedSystems = ["aarch64-linux"];
   };
 
+  services.speechd.enable = false;
+
   networking.hostName = "neo";
 }

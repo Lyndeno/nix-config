@@ -12,8 +12,6 @@
       clang-tools
       bear
       lldb
-      clippy
-      rustfmt
       nix-output-monitor
       nixpkgs-review
       caligula
