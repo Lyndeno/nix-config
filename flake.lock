@@ -829,11 +829,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1794472533,
-        "narHash": "sha256-aKkRxFADs64cvI0T2Vt/eXE0or9w1XWrnTIKZVCWS/c=",
+        "lastModified": 1795078326,
+        "narHash": "sha256-qE4oWzzEbsQ+p08QaebAAvQrKKIURnX83IhGS94quFw=",
         "owner": "Lyndeno",
         "repo": "ironfetch",
-        "rev": "374215c7f2127a3b9d02cc6b74d106a266d5d19a",
+        "rev": "7fc05207427754ef04f00a062373e5aacf253ac6",
         "type": "github"
       },
       "original": {
@@ -1592,11 +1592,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1792709690,
+        "lastModified": 1794427683,
         "narHash": "sha256-o7ey9gEilsxaifqJWnBDlYSKbNWYQYtKwDyXeZU2kaU=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "bd4888409339808dbaa94e2358c2c4df74b8e657",
+        "rev": "cd489559845d81f673a12885576016c65cbe9363",
         "type": "github"
       },
       "original": {
